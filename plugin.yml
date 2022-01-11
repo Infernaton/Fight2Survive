@@ -1,0 +1,7 @@
+name: FightToSurvive
+main: me.bukkit.Infernaton.FightToSurvive
+version: 1.0
+commands:
+  hello:
+    description: It replies
+    usage: /<command>
