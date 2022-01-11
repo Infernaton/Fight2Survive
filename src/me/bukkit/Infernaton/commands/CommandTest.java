@@ -10,14 +10,13 @@ public class CommandTest implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-        if(cmd.getName().equalsIgnoreCase("hello") && sender instanceof Player){
+        if(sender instanceof Player){
 
             Player player = (Player)sender;
             player.sendMessage("Hello, "+ player.getName());
 
             return true;
         }
-
         return false;
     }
 }
