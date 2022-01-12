@@ -13,8 +13,6 @@ import java.util.List;
 public class FightToSurvive extends JavaPlugin {
 
     private GState state;
-    private List<Player> redPlayers = new ArrayList<>();
-    private List<Player> bluePlayers = new ArrayList<>();
     private final Location spawn = new Location(Bukkit.getWorld("Arene"), 0.5, 57, 1.5, 0f, 0f);
 
     public void setState(GState state){
@@ -24,15 +22,18 @@ public class FightToSurvive extends JavaPlugin {
         return this.state == state;
     }
 
-    public List<Player> getRedPlayers(){
-        return redPlayers;
-    }
-    public List<Player> getBluePlayers(){
-        return bluePlayers;
-    }
-
     public Location getSpawnCoordinate(){
         return spawn;
+    }
+
+    public Team getRedTeam(){
+        return Team.getTeamByName("Red");
+    }
+    public Team getBlueTeam(){
+        return Team.getTeamByName("Blue");
+    }
+    public Team getSpectators(){
+        return Team.getTeamByName("Spectators");
     }
 
     @Override
@@ -40,6 +41,10 @@ public class FightToSurvive extends JavaPlugin {
         setState(GState.WAITING);
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new PlayerListeners(this), this);
+
+        Team red = new Team("Red"); //, ChatColor.RED
+        Team blue = new Team("Blue"); //, ChatColor.BLUE
+        Team spectators = new Team("Spectators"); //, ChatColor.GRAY
     }
 
     @Override

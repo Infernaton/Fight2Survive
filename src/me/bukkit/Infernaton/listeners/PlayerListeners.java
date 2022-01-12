@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class PlayerListeners implements Listener {
 
@@ -59,13 +60,33 @@ public class PlayerListeners implements Listener {
     @EventHandler
     public void onClick(InventoryClickEvent event){
         ItemStack current = event.getCurrentItem();
-        if (current == null) return;
+
+        if (current.getType() == Material.AIR || current == null) return;
+        else
+            System.out.println(current);
 
         Inventory inv = event.getInventory();
         Player player = (Player) event.getWhoClicked();
 
         if (inv.getName().equalsIgnoreCase("§7Equipe")){
             event.setCancelled(true);
+            ItemMeta currentMeta = current.getItemMeta();
+            switch (currentMeta.getDisplayName()){
+                case "§1Equipe Bleu":
+                    main.getBlueTeam().add(player);
+                    player.sendMessage(Team.getTeam(player).getTeamName());
+                    break;
+                case "§4Equipe Rouge":
+                    main.getRedTeam().add(player);
+                    player.sendMessage(Team.getTeam(player).getTeamName());
+                    break;
+                case "§7Spectateur":
+                    main.getSpectators().add(player);
+                    player.sendMessage(Team.getTeam(player).getTeamName());
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
