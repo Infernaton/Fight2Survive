@@ -24,4 +24,7 @@ public class HandleItem {
     public static ItemStack redWool(){
         return new ItemBuilder(Material.WOOL, 1, (byte)14).setName("§4Equipe Rouge").toItemStack();
     }
+    public static ItemStack spectatorWool(){
+        return new ItemBuilder(Material.WOOL, 1, (byte)7).setName("§7Spectateur").toItemStack();
+    }
 }

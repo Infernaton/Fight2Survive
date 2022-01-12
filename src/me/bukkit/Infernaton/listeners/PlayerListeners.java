@@ -27,7 +27,11 @@ public class PlayerListeners implements Listener {
     public void onJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
 
-        if ( ((!main.getRedPlayers().contains(player) || !main.getBluePlayers().contains(player)) && !main.isState(GState.WAITING)) || main.isState(GState.WAITING)){
+        if (!Team.hasTeam(player)){
+            player.sendMessage("Hello " + Team.hasTeam(player));
+            main.getSpectators().add(player);
+        }
+        if (main.isState(GState.WAITING)){
             HandlePlayerState.resetPlayerState(player);
             player.teleport(main.getSpawnCoordinate());
         }
@@ -44,9 +48,9 @@ public class PlayerListeners implements Listener {
         if(item.getType()== Material.COMPASS && item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§aNavigation")){
             Inventory inv = Bukkit.createInventory(null, 27, "§7Equipe");
 
-
             inv.setItem(11, HandleItem.blueWool());
             inv.setItem(15, HandleItem.redWool());
+            inv.setItem(22, HandleItem.spectatorWool());
 
             player.openInventory(inv);
         }

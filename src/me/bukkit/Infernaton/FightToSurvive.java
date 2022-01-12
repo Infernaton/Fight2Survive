@@ -37,8 +37,6 @@ public class FightToSurvive extends JavaPlugin {
 
     @Override
     public void onEnable(){
-        //getCommand("hello").setExecutor(new CommandTest());
-
         setState(GState.WAITING);
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new PlayerListeners(this), this);
