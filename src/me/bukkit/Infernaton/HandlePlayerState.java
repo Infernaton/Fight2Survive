@@ -7,6 +7,8 @@ import org.bukkit.potion.PotionEffectType;
 
 public class HandlePlayerState {
 
+    private static ConstantHandler constH = new ConstantHandler();
+
     /**
      * Reset the actual status of the player on the server
      * @param player the actual player
@@ -19,6 +21,10 @@ public class HandlePlayerState {
         givePotionEffect(player, PotionEffectType.SATURATION);
         givePotionEffect(player, PotionEffectType.DAMAGE_RESISTANCE);
         HandleItem.giveItemInInventory(player, HandleItem.magicCompass(),4);
+    }
+    public static void setPlayer(Player player){
+        resetPlayerState(player);
+        player.teleport(constH.getSpawnCoordinate());
     }
 
     public static void givePotionEffect(Player player, PotionEffectType potion){

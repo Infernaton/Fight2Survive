@@ -2,7 +2,7 @@ package me.bukkit.Infernaton.listeners;
 
 import me.bukkit.Infernaton.*;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,7 +11,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -29,11 +28,13 @@ public class PlayerListeners implements Listener {
         Player player = event.getPlayer();
 
         if (!Team.hasTeam(player)){
-            main.getSpectators().add(player);
+            main.constH().getSpectators().add(player);
         }
-        if (main.isState(GState.WAITING)){
+        boolean isCurrentlyIG = !main.constH().isState(GState.WAITING) &&
+                !Team.getTeam(player).getTeamName().equalsIgnoreCase("Spectator");
+        if (!isCurrentlyIG && player.getGameMode() != GameMode.CREATIVE){
             HandlePlayerState.resetPlayerState(player);
-            player.teleport(main.getSpawnCoordinate());
+            player.teleport(main.constH().getSpawnCoordinate());
         }
     }
 
@@ -70,13 +71,13 @@ public class PlayerListeners implements Listener {
             ItemMeta currentMeta = current.getItemMeta();
             switch (currentMeta.getDisplayName()){
                 case "§1Equipe Bleu":
-                    main.getBlueTeam().add(player);
+                    main.constH().getBlueTeam().add(player);
                     break;
                 case "§4Equipe Rouge":
-                    main.getRedTeam().add(player);
+                    main.constH().getRedTeam().add(player);
                     break;
                 case "§7Spectateur":
-                    main.getSpectators().add(player);
+                    main.constH().getSpectators().add(player);
                     break;
                 default:
                     break;

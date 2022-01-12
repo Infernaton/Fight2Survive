@@ -14,7 +14,7 @@ public class Team{
 
     private static HashMap<Player, Team> playerTeams = new HashMap<>();
 
-    private Scoreboard scb = FightToSurvive.getScoreboard();
+    private Scoreboard scb = new ConstantHandler().getScoreboard();
 
     private final String teamName;
 
