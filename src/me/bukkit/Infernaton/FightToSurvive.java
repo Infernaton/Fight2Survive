@@ -1,6 +1,5 @@
 package me.bukkit.Infernaton;
 
-import me.bukkit.Infernaton.commands.CommandTest;
 import me.bukkit.Infernaton.listeners.PlayerListeners;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

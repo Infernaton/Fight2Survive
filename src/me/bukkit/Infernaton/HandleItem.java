@@ -1,6 +1,5 @@
 package me.bukkit.Infernaton;
 
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -11,8 +10,9 @@ public class HandleItem {
      * Give the compass that help the player to move around or start a game
      * @param player to give that compass
      */
-    public static void giveItem(Player player, ItemStack item, int slot){
+    public static void giveItemInInventory(Player player, ItemStack item, int slot){
         player.getInventory().setItem(slot, item);
+        player.updateInventory();
     }
 
     public static ItemStack magicCompass(){
