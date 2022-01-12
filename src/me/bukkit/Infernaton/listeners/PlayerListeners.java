@@ -29,7 +29,6 @@ public class PlayerListeners implements Listener {
         Player player = event.getPlayer();
 
         if (!Team.hasTeam(player)){
-            player.sendMessage("Hello " + Team.hasTeam(player));
             main.getSpectators().add(player);
         }
         if (main.isState(GState.WAITING)){
@@ -61,9 +60,7 @@ public class PlayerListeners implements Listener {
     public void onClick(InventoryClickEvent event){
         ItemStack current = event.getCurrentItem();
 
-        if (current.getType() == Material.AIR || current == null) return;
-        else
-            System.out.println(current);
+        if (current == null || current.getType() == Material.AIR) return;
 
         Inventory inv = event.getInventory();
         Player player = (Player) event.getWhoClicked();
@@ -74,15 +71,12 @@ public class PlayerListeners implements Listener {
             switch (currentMeta.getDisplayName()){
                 case "§1Equipe Bleu":
                     main.getBlueTeam().add(player);
-                    player.sendMessage(Team.getTeam(player).getTeamName());
                     break;
                 case "§4Equipe Rouge":
                     main.getRedTeam().add(player);
-                    player.sendMessage(Team.getTeam(player).getTeamName());
                     break;
                 case "§7Spectateur":
                     main.getSpectators().add(player);
-                    player.sendMessage(Team.getTeam(player).getTeamName());
                     break;
                 default:
                     break;

@@ -2,10 +2,12 @@ package me.bukkit.Infernaton;
 
 import me.bukkit.Infernaton.listeners.PlayerListeners;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,7 @@ public class FightToSurvive extends JavaPlugin {
 
     private GState state;
     private final Location spawn = new Location(Bukkit.getWorld("Arene"), 0.5, 57, 1.5, 0f, 0f);
+    private static Scoreboard scoreboard;
 
     public void setState(GState state){
         this.state = state;
@@ -24,6 +27,10 @@ public class FightToSurvive extends JavaPlugin {
 
     public Location getSpawnCoordinate(){
         return spawn;
+    }
+
+    public static Scoreboard getScoreboard(){
+        return scoreboard;
     }
 
     public Team getRedTeam(){
@@ -42,9 +49,11 @@ public class FightToSurvive extends JavaPlugin {
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new PlayerListeners(this), this);
 
-        Team red = new Team("Red"); //, ChatColor.RED
-        Team blue = new Team("Blue"); //, ChatColor.BLUE
-        Team spectators = new Team("Spectators"); //, ChatColor.GRAY
+        scoreboard = getServer().getScoreboardManager().getMainScoreboard();
+
+        new Team("Red").setTeamColor(ChatColor.RED);
+        new Team("Blue").setTeamColor(ChatColor.BLUE);
+        new Team("Spectators").setTeamColor(ChatColor.GRAY);
     }
 
     @Override
