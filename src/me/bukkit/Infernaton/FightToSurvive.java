@@ -26,7 +26,9 @@ public class FightToSurvive extends JavaPlugin {
         pm.registerEvents(new PlayerListeners(this), this);
         pm.registerEvents(new TradeMenuListener(),this);
 
-        getCommand("setPlayer").setExecutor(new DebugCommand());
+        getCommand("setPlayer").setExecutor(new DebugCommand(this));
+        getCommand("start").setExecutor(new DebugCommand(this));
+        getCommand("cancelStart").setExecutor(new DebugCommand(this));
         getCommand("mob").setExecutor(new SpawnVillager());
         getCommand("trade").setExecutor(new SpawnVillager());
 
