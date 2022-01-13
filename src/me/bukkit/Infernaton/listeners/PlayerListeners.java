@@ -2,10 +2,8 @@ package me.bukkit.Infernaton.listeners;
 
 import me.bukkit.Infernaton.*;
 import me.bukkit.Infernaton.builder.Team;
-import me.bukkit.Infernaton.handler.HandleItem;
 import me.bukkit.Infernaton.handler.HandlePlayerState;
 import me.bukkit.Infernaton.handler.InterfaceHandler;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -33,11 +31,17 @@ public class PlayerListeners implements Listener {
     public void onJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
 
+        //If it's the first time he join, the player don't have a team yet, so we forced him to join one
         if (!Team.hasTeam(player)){
             main.constH().getSpectators().add(player);
         }
+
+        //We test if the player is currently in game when he join,
+        // if the game crashed client side, it would be a shame if he can't rejoin the party
         boolean isCurrentlyIG = !main.constH().isState(GState.WAITING) &&
                 !Team.getTeam(player).getTeamName().equalsIgnoreCase("Spectator");
+
+        //And, if the player is in creative, we don't need to reset is position
         if (!isCurrentlyIG && player.getGameMode() != GameMode.CREATIVE){
             HandlePlayerState.resetPlayerState(player);
             player.teleport(main.constH().getSpawnCoordinate());
@@ -52,6 +56,7 @@ public class PlayerListeners implements Listener {
         Player player = event.getPlayer();
         Action action = event.getAction();
 
+        //If the player clicked on a specified Compass, which is given we he spawn
         if(item.getType()== Material.COMPASS && item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§aNavigation")){
             player.openInventory(IH.selectTeam());
         }
@@ -67,6 +72,7 @@ public class PlayerListeners implements Listener {
         Inventory inv = event.getInventory();
         Player player = (Player) event.getWhoClicked();
 
+        //Action on the inventory of the compass, given when joining the server
         if (inv.getName().equalsIgnoreCase("§7Equipe")){
             event.setCancelled(true);
             ItemMeta currentMeta = current.getItemMeta();

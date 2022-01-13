@@ -22,11 +22,14 @@ public class FightToSurvive extends JavaPlugin {
     public void onEnable(){
         constH.setState(GState.WAITING);
         PluginManager pm = getServer().getPluginManager();
+
         pm.registerEvents(new PlayerListeners(this), this);
         pm.registerEvents(new TradeMenuListener(),this);
+
         getCommand("setPlayer").setExecutor(new DebugCommand());
         getCommand("mob").setExecutor(new SpawnVillager());
         getCommand("trade").setExecutor(new SpawnVillager());
+
         constH.setScoreboard(getServer().getScoreboardManager().getMainScoreboard());
 
         new Team("Red", constH.getScoreboard()).setTeamColor(ChatColor.RED);
