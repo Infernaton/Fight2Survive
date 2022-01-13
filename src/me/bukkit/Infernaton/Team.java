@@ -14,12 +14,12 @@ public class Team{
 
     private static HashMap<Player, Team> playerTeams = new HashMap<>();
 
-    private Scoreboard scb = new ConstantHandler().getScoreboard();
-
+    private Scoreboard scb;
     private final String teamName;
 
-    public Team(String teamName){
+    public Team(String teamName, Scoreboard scb){
         this.teamName = teamName;
+        this.scb = scb;
         allTeams.add(this);
         if (scb.getTeam(teamName) == null) {
             scb.registerNewTeam(teamName);

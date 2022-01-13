@@ -23,9 +23,9 @@ public class FightToSurvive extends JavaPlugin {
 
         constH.setScoreboard(getServer().getScoreboardManager().getMainScoreboard());
 
-        new Team("Red").setTeamColor(ChatColor.RED);
-        new Team("Blue").setTeamColor(ChatColor.BLUE);
-        new Team("Spectators").setTeamColor(ChatColor.GRAY);
+        new Team("Red", constH.getScoreboard()).setTeamColor(ChatColor.RED);
+        new Team("Blue", constH.getScoreboard()).setTeamColor(ChatColor.BLUE);
+        new Team("Spectators", constH.getScoreboard()).setTeamColor(ChatColor.GRAY);
     }
 
     @Override

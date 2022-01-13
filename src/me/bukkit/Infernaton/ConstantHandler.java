@@ -22,7 +22,7 @@ public class ConstantHandler {
     }
 
     public Scoreboard getScoreboard(){
-        return scoreboard;
+        return this.scoreboard;
     }
     public void setScoreboard(Scoreboard scoreboard){
         this.scoreboard = scoreboard;

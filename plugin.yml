@@ -5,3 +5,7 @@ commands:
   hello:
     description: It replies
     usage: /<command>
+  setPlayer:
+    description: To play the game
+    usage: /<command> <player>
+    permission: test.use
