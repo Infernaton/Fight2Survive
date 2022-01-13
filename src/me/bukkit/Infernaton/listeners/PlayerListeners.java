@@ -4,6 +4,7 @@ import me.bukkit.Infernaton.*;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.HandleItem;
 import me.bukkit.Infernaton.handler.HandlePlayerState;
+import me.bukkit.Infernaton.handler.InterfaceHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -21,6 +22,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class PlayerListeners implements Listener {
 
     private FightToSurvive main;
+
+    private InterfaceHandler IH = new InterfaceHandler();
 
     public PlayerListeners(FightToSurvive main) {
         this.main = main;
@@ -50,13 +53,7 @@ public class PlayerListeners implements Listener {
         Action action = event.getAction();
 
         if(item.getType()== Material.COMPASS && item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§aNavigation")){
-            Inventory inv = Bukkit.createInventory(null, 27, "§7Equipe");
-
-            inv.setItem(11, HandleItem.blueWool());
-            inv.setItem(15, HandleItem.redWool());
-            inv.setItem(22, HandleItem.spectatorWool());
-
-            player.openInventory(inv);
+            player.openInventory(IH.selectTeam());
         }
     }
 
@@ -64,6 +61,7 @@ public class PlayerListeners implements Listener {
     public void onClick(InventoryClickEvent event){
         ItemStack current = event.getCurrentItem();
 
+        //If the player click outside the inventory or in a slot where there's nothing, we don't need the function to be executed
         if (current == null || current.getType() == Material.AIR) return;
 
         Inventory inv = event.getInventory();
