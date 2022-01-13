@@ -1,5 +1,6 @@
-package me.bukkit.Infernaton;
+package me.bukkit.Infernaton.handler;
 
+import me.bukkit.Infernaton.builder.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

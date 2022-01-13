@@ -1,5 +1,7 @@
-package me.bukkit.Infernaton;
+package me.bukkit.Infernaton.handler;
 
+import me.bukkit.Infernaton.GState;
+import me.bukkit.Infernaton.builder.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.scoreboard.Scoreboard;

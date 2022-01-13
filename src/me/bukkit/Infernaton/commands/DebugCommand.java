@@ -1,7 +1,6 @@
 package me.bukkit.Infernaton.commands;
 
-import me.bukkit.Infernaton.HandlePlayerState;
-import net.minecraft.server.v1_8_R3.PlayerList;
+import me.bukkit.Infernaton.handler.HandlePlayerState;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

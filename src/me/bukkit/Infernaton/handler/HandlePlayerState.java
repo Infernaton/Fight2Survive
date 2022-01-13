@@ -1,4 +1,4 @@
-package me.bukkit.Infernaton;
+package me.bukkit.Infernaton.handler;
 
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;

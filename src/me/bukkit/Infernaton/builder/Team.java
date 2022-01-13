@@ -1,4 +1,4 @@
-package me.bukkit.Infernaton;
+package me.bukkit.Infernaton.builder;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
