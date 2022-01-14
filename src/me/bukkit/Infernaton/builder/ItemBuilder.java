@@ -1,4 +1,4 @@
-package me.bukkit.Infernaton;
+package me.bukkit.Infernaton.builder;
 
 import java.util.ArrayList;
 import java.util.Arrays;

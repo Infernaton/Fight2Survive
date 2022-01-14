@@ -1,48 +1,85 @@
 package me.bukkit.Infernaton;
 
 import me.bukkit.Infernaton.listeners.DoorListeners;
+import me.bukkit.Infernaton.builder.Team;
+import me.bukkit.Infernaton.commands.DebugCommand;
+import me.bukkit.Infernaton.commands.SpawnVillager;
+import me.bukkit.Infernaton.handler.ChatHandler;
+import me.bukkit.Infernaton.handler.ConstantHandler;
+import me.bukkit.Infernaton.handler.HandleItem;
+import me.bukkit.Infernaton.handler.HandlePlayerState;
+import me.bukkit.Infernaton.listeners.BlockListener;
 import me.bukkit.Infernaton.listeners.PlayerListeners;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
+import me.bukkit.Infernaton.listeners.TradeMenuListener;
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FightToSurvive extends JavaPlugin {
 
-    private GState state;
-    private List<Player> redPlayers = new ArrayList<>();
-    private List<Player> bluePlayers = new ArrayList<>();
-    private final Location spawn = new Location(Bukkit.getWorld("Arene"), 0.5, 57, 1.5, 0f, 0f);
+    private ConstantHandler constH;
+    private HandlePlayerState HP = new HandlePlayerState(this);
+    private HandleItem HI = new HandleItem(this);
 
-    public void setState(GState state){
-        this.state = state;
-    }
-    public boolean isState(GState state){
-        return this.state == state;
-    }
+    public ConstantHandler constH(){ return constH; }
+    public HandlePlayerState HP() { return HP; }
+    public HandleItem HI() { return HI; }
 
-    public List<Player> getRedPlayers(){
-        return redPlayers;
-    }
-    public List<Player> getBluePlayers(){
-        return bluePlayers;
+    public void enableCommand(String[] commandsName, CommandExecutor executor){
+        for(String command: commandsName){
+            getCommand(command).setExecutor(executor);
+        }
     }
 
-    public Location getSpawnCoordinate(){
-        return spawn;
+    public void start(){
+        ChatHandler.broadcast("§eStart the Game!");
+        List<Player> redPlayers = constH.getRedTeam().getPlayers();
+        List<Player> bluePlayers = constH.getBlueTeam().getPlayers();
+
+        for(Player player: redPlayers){
+            player.teleport(constH.getRedBase());
+        }
+
+        for(Player player: bluePlayers){
+            player.teleport(constH.getBlueBase());
+        }
+    }
+
+    public void cancel(){
+
+    }
+
+    public void finish(){
+
     }
 
     @Override
     public void onEnable(){
         saveDefaultConfig();
-        setState(GState.WAITING);
+        this.constH = new ConstantHandler(this);
+
+        constH.setState(GState.WAITING);
         PluginManager pm = getServer().getPluginManager();
+
         pm.registerEvents(new PlayerListeners(this), this);
         getServer().getPluginManager().registerEvents(new DoorListeners(this), this);
+        pm.registerEvents(new TradeMenuListener(),this);
+        pm.registerEvents(new BlockListener(this), this);
+
+        String[] debugCommand = {"setPlayer", "start", "cancelStart"};
+        enableCommand(debugCommand, new DebugCommand(this));
+
+        String[] spawnCommand = {"mob_villager", "trade"};
+        enableCommand(spawnCommand, new SpawnVillager());
+        constH.setScoreboard(getServer().getScoreboardManager().getMainScoreboard());
+
+        new Team("Red", constH.getScoreboard()).setTeamColor(ChatColor.RED);
+        new Team("Blue", constH.getScoreboard()).setTeamColor(ChatColor.BLUE);
+        new Team("Spectators", constH.getScoreboard()).setTeamColor(ChatColor.GRAY);
     }
 
     @Override

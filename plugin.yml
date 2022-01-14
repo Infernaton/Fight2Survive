@@ -1,10 +1,20 @@
 name: FightToSurvive
 main: me.bukkit.Infernaton.FightToSurvive
-version: 1.0
+version: 1.5
 commands:
-  hello:
-    description: It replies
+  start:
+    description: start the game
+    usage: /start
+  cancelStart:
+    description: to cancel when the game is about to start
+    usage: /cancelStart
+  setPlayer:
+    description: Debug when a player is in the wrong gamemode
+    usage: /setPlayer <player>
+    permission: test.use
+  trade:
+    description: open trade
     usage: /<command>
-  reset:
-    description: It reset the game
+  mob_villager:
+    description: spawn villager with wood tools trade
     usage: /<command>
