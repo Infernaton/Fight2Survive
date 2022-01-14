@@ -7,6 +7,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Team{
 
@@ -23,6 +24,12 @@ public class Team{
         allTeams.add(this);
         if (scb.getTeam(teamName) == null) {
             scb.registerNewTeam(teamName);
+        }
+    }
+
+    public void setTeamColor(ChatColor color){
+        if (scb.getTeam(this.teamName) != null) {
+            scb.getTeam(this.teamName).setPrefix(color.toString());
         }
     }
 
@@ -58,9 +65,20 @@ public class Team{
     public static List<Team> getAllTeams(){
         return allTeams;
     }
-    public void setTeamColor(ChatColor color){
-        if (scb.getTeam(this.teamName) != null) {
-            scb.getTeam(this.teamName).setPrefix(color.toString());
+
+    /**
+     * Get all players in this team
+     * @return the list
+     */
+    public List<Player> getPlayers(){
+        List<Player> allPlayers = new ArrayList<>();
+
+        for (Map.Entry<Player, Team> entry : playerTeams.entrySet()){
+            if (entry.getValue() == this){
+                allPlayers.add(entry.getKey());
+            }
         }
+
+        return allPlayers;
     }
 }

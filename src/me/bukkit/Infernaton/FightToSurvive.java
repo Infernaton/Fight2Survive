@@ -7,6 +7,7 @@ import me.bukkit.Infernaton.handler.ConstantHandler;
 import me.bukkit.Infernaton.listeners.PlayerListeners;
 import me.bukkit.Infernaton.listeners.TradeMenuListener;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,15 +19,25 @@ public class FightToSurvive extends JavaPlugin {
         return constH;
     }
 
+    public void enableCommand(String[] commandsName, CommandExecutor executor){
+        for(String command: commandsName){
+            getCommand(command).setExecutor(executor);
+        }
+    }
+
     @Override
     public void onEnable(){
         constH.setState(GState.WAITING);
         PluginManager pm = getServer().getPluginManager();
+
         pm.registerEvents(new PlayerListeners(this), this);
         pm.registerEvents(new TradeMenuListener(),this);
-        getCommand("setPlayer").setExecutor(new DebugCommand());
-        getCommand("mob_villager").setExecutor(new SpawnVillager());
-        getCommand("trade").setExecutor(new SpawnVillager());
+
+        String[] debugCommand = {"setPlayer", "start", "cancelStart"};
+        enableCommand(debugCommand, new DebugCommand(this));
+
+        String[] spawnCommand = {"mob_villager", "trade"};
+        enableCommand(spawnCommand, new SpawnVillager());
         constH.setScoreboard(getServer().getScoreboardManager().getMainScoreboard());
 
         new Team("Red", constH.getScoreboard()).setTeamColor(ChatColor.RED);

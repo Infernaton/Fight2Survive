@@ -6,6 +6,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.scoreboard.Scoreboard;
 
+/**
+ * Class which regroup each variable we need in our project
+ */
 public class ConstantHandler {
 
     private GState state;

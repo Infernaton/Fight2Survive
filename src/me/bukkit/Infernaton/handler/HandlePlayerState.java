@@ -18,6 +18,7 @@ public class HandlePlayerState {
         player.setFoodLevel(20);
         player.setHealth(20);
         player.getInventory().clear();
+        constH.getSpectators().add(player);
         givePotionEffect(player, PotionEffectType.SATURATION);
         givePotionEffect(player, PotionEffectType.DAMAGE_RESISTANCE);
         HandleItem.giveItemInInventory(player, HandleItem.magicCompass(),4);
