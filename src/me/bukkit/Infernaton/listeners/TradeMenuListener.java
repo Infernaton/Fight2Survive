@@ -23,29 +23,38 @@ public class TradeMenuListener implements Listener {
         if (event.getRightClicked() instanceof Villager){
         if (e.getName().equals("Lumber_Jack")){
             event.setCancelled(true);
-            OpenMenuTrade trade = new OpenMenuTrade("shop");
-            trade.addTrade(new ItemStack(Material.COBBLESTONE, 10),new ItemStack(Material.WOOL, 30));
-            trade.addTrade(new ItemStack(Material.STICK, 2),new ItemStack(Material.WOOD, 3), new ItemStack(Material.WOOD_AXE, 1));
-            trade.addTrade(new ItemStack(Material.STICK, 2),new ItemStack(Material.WOOD, 3), new ItemStack(Material.WOOD_PICKAXE, 1));
-            trade.openTrade(p);
 
             ItemStack POTION_HEALING = new ItemStack(Material.POTION);
             PotionMeta meta_heal = (PotionMeta) POTION_HEALING.getItemMeta();
             meta_heal.addCustomEffect(new PotionEffect(PotionEffectType.HEAL, 1, 0), true);
             POTION_HEALING.setItemMeta(meta_heal);
-            p.getInventory().addItem(POTION_HEALING);
 
             ItemStack POTION_INVISIBILITY = new ItemStack(Material.POTION);
             PotionMeta meta_invisible = (PotionMeta) POTION_INVISIBILITY.getItemMeta();
             meta_invisible.addCustomEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 400, 0), false);
             POTION_INVISIBILITY.setItemMeta(meta_invisible);
-            p.getInventory().addItem(POTION_INVISIBILITY);
 
             ItemStack POTION_SPEED = new ItemStack(Material.POTION);
             PotionMeta meta_speed = (PotionMeta) POTION_SPEED.getItemMeta();
             meta_speed.addCustomEffect(new PotionEffect(PotionEffectType.SPEED, 400, 0), false);
             POTION_SPEED.setItemMeta(meta_speed);
-            p.getInventory().addItem(POTION_SPEED);
+
+            OpenMenuTrade trade = new OpenMenuTrade("shop");
+            trade.addTrade(new ItemStack(Material.LOG, 6), new ItemStack(Material.WOOD_PICKAXE, 1));
+            trade.addTrade(new ItemStack(Material.LOG, 4),new ItemStack(Material.COBBLESTONE, 4), new ItemStack(Material.STONE_AXE, 1));
+            trade.addTrade(new ItemStack(Material.LOG, 6),new ItemStack(Material.COBBLESTONE, 8), new ItemStack(Material.STONE_PICKAXE, 1));
+            trade.addTrade(new ItemStack(Material.LOG,10),new ItemStack(Material.COBBLESTONE, 10), new ItemStack(Material.PAPER,1));
+            trade.addTrade(new ItemStack(Material.GOLD_INGOT, 5), (POTION_HEALING));
+            trade.addTrade(new ItemStack(Material.GOLD_INGOT, 5), (POTION_INVISIBILITY));
+            trade.addTrade(new ItemStack(Material.GOLD_INGOT, 5), (POTION_SPEED));
+            trade.addTrade(new ItemStack(Material.GOLD_INGOT, 5), new ItemStack(Material.GOLDEN_APPLE, 1));
+            trade.openTrade(p);
+
+
+
+
+
+
         }
 
         if (e.getName().equals("Black_Smith")){
