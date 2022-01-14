@@ -1,0 +1,13 @@
+coordinates:
+  teamRed:
+    x: -50.5
+    y: 57.0
+    z: 59.5
+  teamBlue:
+    x: 53.5
+    y: 57.0
+    z: 59.5
+  lobby:
+    x: 0.5
+    y: 57.0
+    z: 1.5

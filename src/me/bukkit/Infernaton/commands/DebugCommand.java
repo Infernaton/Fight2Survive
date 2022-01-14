@@ -28,13 +28,13 @@ public class DebugCommand implements CommandExecutor {
                 ChatHandler.sendCorrectUsage(sender, "Usage: /setPlayer <username>");
             }
             else if (args.length == 1){
-                try {
-                    Player targetPlayer = Bukkit.getPlayerExact(args[0]);
-                    System.out.println(targetPlayer);
-                    HandlePlayerState.setPlayer(targetPlayer);
-                    ChatHandler.sendMessage(sender, "§r" +args[0] + " §fis ready to play !");
-                }catch (NullPointerException e){
+                Player targetPlayer = Bukkit.getPlayerExact(args[0]);
+                System.out.println(targetPlayer);
+                if(targetPlayer == null){
                     ChatHandler.sendError(sender, "Player not found");
+                }else{
+                    main.HP().setPlayer(targetPlayer);
+                    ChatHandler.sendMessage(sender, "§r" +args[0] + " §fis ready to play !");
                 }
             }
             else {
@@ -53,6 +53,14 @@ public class DebugCommand implements CommandExecutor {
                 }
                 //Compare if there the same numbers of players in each team
                 else if (redPlayers.size() == bluePlayers.size() && redPlayers.size() != 0) {
+                    //Clear all players that attend to play
+                    for(Player player: main.constH().getBlueTeam().getPlayers()){
+                        main.HP().clear(player);
+                    }
+                    for (Player player : main.constH().getRedTeam().getPlayers()){
+                        main.HP().clear(player);
+                    }
+
                     main.constH().setState(GState.STARTING);
                     ChatHandler.broadcast("Initialize the countdown...");
                     CountDown.newCountDown(main, 10L);
