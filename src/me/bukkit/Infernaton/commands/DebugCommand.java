@@ -2,7 +2,7 @@ package me.bukkit.Infernaton.commands;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
-import me.bukkit.Infernaton.builder.CountDownBuilder;
+import me.bukkit.Infernaton.builder.CountDown;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.HandlePlayerState;
 import org.bukkit.Bukkit;
@@ -52,10 +52,10 @@ public class DebugCommand implements CommandExecutor {
                     ChatHandler.sendError(sender, "CountDown already launch .");
                 }
                 //Compare if there the same numbers of players in each team
-                else if (redPlayers.size() == bluePlayers.size() /*&& redPlayers.size() != 0*/) {
+                else if (redPlayers.size() == bluePlayers.size() && redPlayers.size() != 0) {
                     main.constH().setState(GState.STARTING);
-                    CountDownBuilder.newCountDown(main, 10L, "§eStart the Game!");
-                    System.out.println();
+                    ChatHandler.broadcast("Initialize the countdown...");
+                    CountDown.newCountDown(main, 10L);
                 } else {
                     ChatHandler.sendError(sender, "Not enough players.");
                 }
@@ -68,11 +68,11 @@ public class DebugCommand implements CommandExecutor {
         else if (cmd.getName().equalsIgnoreCase("cancelStart")){
             if(main.constH().isState(GState.STARTING)){
                 main.constH().setState(GState.WAITING);
-                CountDownBuilder.stopAllCountdown(main);
+                CountDown.stopAllCountdown(main);
                 ChatHandler.broadcast("§3Launch canceled.");
             }
             else{
-                ChatHandler.sendError(sender, "Any countdown are set right now.");
+                ChatHandler.sendError(sender, "Any countdown aren't set right now.");
             }
             return true;
         }
