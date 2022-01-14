@@ -1,0 +1,26 @@
+[{
+  "name": "Lumber_Jack",
+  "location_X":-45.5500,
+  "location_Y":56,
+  "location_Z":51.500,
+  "name_visible": "true"
+},{
+  "name": "Black_Smith",
+  "location_X":-48.500,
+  "location_Y":56,
+  "location_Z":51.500,
+  "name_visible": "true"
+},{
+    "name": "Lumber_Jack",
+    "location_X":55.5500,
+    "location_Y":56,
+    "location_Z":51.500,
+    "name_visible": "true"
+  },{
+  "name": "Black_Smith",
+  "location_X":59.500,
+  "location_Y":56,
+  "location_Z":51.500,
+  "name_visible": "true"
+}
+]

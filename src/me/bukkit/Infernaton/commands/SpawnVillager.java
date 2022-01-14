@@ -2,6 +2,7 @@ package me.bukkit.Infernaton.commands;
 
 
 import me.bukkit.Infernaton.OpenMenuTrade;
+import me.bukkit.Infernaton.handler.MOB;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -17,28 +18,14 @@ public class SpawnVillager implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
 
-        if (cmd.getName().equalsIgnoreCase("mob_wood") && sender instanceof Player) {
+        if (cmd.getName().equalsIgnoreCase("mob_villager") && sender instanceof Player) {
             Player player = (Player) sender;
-            Location location = new Location(player.getWorld(), 85.500, 56, 175.500);
-            Villager lumberjack = (Villager) location.getWorld().spawnEntity(location, EntityType.VILLAGER);
-            lumberjack.setCustomName("Lumber_Jack");
-            lumberjack.setCustomNameVisible(true);
-            return true;
-        }
-        if (cmd.getName().equalsIgnoreCase("mob_iron") && sender instanceof Player) {
-            Player player = (Player) sender;
-            Location location = new Location(player.getWorld(), 85.926, 56, 177.561);
-            Villager black_smith = (Villager) location.getWorld().spawnEntity(location, EntityType.VILLAGER);
-            black_smith.setCustomName("Black_Smith");
-            black_smith.setCustomNameVisible(true);
-            return true;
-        }
-        if (cmd.getName().equalsIgnoreCase("mob_potion") && sender instanceof Player) {
-            Player player = (Player) sender;
-            Location location = new Location(player.getWorld(), 85.926, 56, 179.561);
-            Villager black_smith = (Villager) location.getWorld().spawnEntity(location, EntityType.VILLAGER);
-            black_smith.setCustomName("Wizardo_Carlos");
-            black_smith.setCustomNameVisible(true);
+            Location location1 = new Location(player.getWorld(), -48.500, 56, 50);
+            MOB.createVillager(location1,"Lumber_Jack");
+            Location location2 = new Location(player.getWorld(), -47.500, 56, 50);
+            MOB.createVillager(location2,"Black_Smith");
+            Location location3 = new Location(player.getWorld(), -46.500, 56, 50);
+            MOB.createVillager(location3,"Wizardo_Carlos");
             return true;
         }
         if (cmd.getName().equalsIgnoreCase("trade") && sender instanceof Player) {

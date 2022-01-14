@@ -12,12 +12,6 @@ commands:
   trade:
     description: open trade
     usage: /<command>
-  mob_wood:
+  mob_villager:
     description: spawn villager with wood tools trade
-    usage: /<command>
-  mob_iron:
-    description: spawn villager with iron tools trade
-    usage: /<command>
-  mob_potion:
-    description: spawn villager with potion trade
     usage: /<command>
