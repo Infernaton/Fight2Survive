@@ -24,7 +24,7 @@ public class PlayerListeners implements Listener {
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event){
+     public void onJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
 
         if ( ((!main.getRedPlayers().contains(player) || !main.getBluePlayers().contains(player)) && !main.isState(GState.WAITING)) || main.isState(GState.WAITING)){

@@ -5,3 +5,6 @@ commands:
   hello:
     description: It replies
     usage: /<command>
+  reset:
+    description: It reset the game
+    usage: /<command>
