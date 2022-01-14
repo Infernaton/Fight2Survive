@@ -1,21 +1,17 @@
 package me.bukkit.Infernaton.builder;
 
 import me.bukkit.Infernaton.FightToSurvive;
-import me.bukkit.Infernaton.Game;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import org.bukkit.Bukkit;
 
 public class CountDown implements Runnable {
 
+    private FightToSurvive main;
     private long time;
     private int id;
 
-    public CountDown(long departTime){
-        this.time = departTime;
-    }
-
     public static void newCountDown(FightToSurvive main, long time){
-        CountDown countDown = new CountDown(time);
+        CountDown countDown = new CountDown(time, main);
         int countDownId = Bukkit.getScheduler().scheduleSyncRepeatingTask(main, countDown, time, 20L);
         countDown.setId(countDownId);
     }
@@ -27,6 +23,11 @@ public class CountDown implements Runnable {
         Bukkit.getScheduler().cancelTasks(main);
     }
 
+    public CountDown(long departTime, FightToSurvive main){
+        this.time = departTime;
+        this.main = main;
+    }
+
     public void setId(int id){
         this.id = id;
     }
@@ -36,7 +37,7 @@ public class CountDown implements Runnable {
 
         if (time == 0){
             stopCountdown(id);
-            Game.start();
+            main.start();
         }
         else if(time % 10 == 0 || time <= 5){
             ChatHandler.toAllPlayer(time + " seconds left !");

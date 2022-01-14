@@ -17,7 +17,6 @@ public class SpawnVillager implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-
         if (cmd.getName().equalsIgnoreCase("mob_villager") && sender instanceof Player) {
             Player player = (Player) sender;
             Location location1 = new Location(player.getWorld(), -48.500, 56, 50);
@@ -39,8 +38,5 @@ public class SpawnVillager implements CommandExecutor {
         }
 
         return false;
-
-
     }
-
 }

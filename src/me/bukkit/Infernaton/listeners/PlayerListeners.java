@@ -21,10 +21,11 @@ public class PlayerListeners implements Listener {
 
     private FightToSurvive main;
 
-    private InterfaceHandler IH = new InterfaceHandler();
+    private InterfaceHandler IH;
 
     public PlayerListeners(FightToSurvive main) {
         this.main = main;
+        this.IH = new InterfaceHandler(main);
     }
 
     @EventHandler
@@ -43,7 +44,7 @@ public class PlayerListeners implements Listener {
 
         //And, if the player is in creative, we don't need to reset is position
         if (!isCurrentlyIG && player.getGameMode() != GameMode.CREATIVE){
-            HandlePlayerState.resetPlayerState(player);
+            main.HP().resetPlayerState(player);
             player.teleport(main.constH().getSpawnCoordinate());
         }
     }
