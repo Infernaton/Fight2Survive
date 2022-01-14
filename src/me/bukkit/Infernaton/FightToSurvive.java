@@ -7,6 +7,7 @@ import me.bukkit.Infernaton.handler.ConstantHandler;
 import me.bukkit.Infernaton.listeners.PlayerListeners;
 import me.bukkit.Infernaton.listeners.TradeMenuListener;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,6 +19,12 @@ public class FightToSurvive extends JavaPlugin {
         return constH;
     }
 
+    public void enableCommand(String[] commandsName, CommandExecutor executor){
+        for(String command: commandsName){
+            getCommand(command).setExecutor(executor);
+        }
+    }
+
     @Override
     public void onEnable(){
         constH.setState(GState.WAITING);
@@ -26,11 +33,11 @@ public class FightToSurvive extends JavaPlugin {
         pm.registerEvents(new PlayerListeners(this), this);
         pm.registerEvents(new TradeMenuListener(),this);
 
-        getCommand("setPlayer").setExecutor(new DebugCommand(this));
-        getCommand("start").setExecutor(new DebugCommand(this));
-        getCommand("cancelStart").setExecutor(new DebugCommand(this));
-        getCommand("mob").setExecutor(new SpawnVillager());
-        getCommand("trade").setExecutor(new SpawnVillager());
+        String[] debugCommand = {"setPlayer", "start", "cancelStart"};
+        enableCommand(debugCommand, new DebugCommand(this));
+
+        String[] spawnCommand = {"mob", "trade"};
+        enableCommand(spawnCommand, new SpawnVillager());
 
         constH.setScoreboard(getServer().getScoreboardManager().getMainScoreboard());
 
