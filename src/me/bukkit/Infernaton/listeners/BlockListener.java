@@ -18,8 +18,6 @@ public class BlockListener implements Listener {
     @EventHandler
     public void blockBreak(BlockBreakEvent event){
         Block block = event.getBlock();
-
-        Clock clock = new Clock(10, block);
-
+        Clock.newCountDown(main, 10, block);
     }
 }
