@@ -4,6 +4,7 @@ import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.commands.DebugCommand;
 import me.bukkit.Infernaton.commands.SpawnVillager;
 import me.bukkit.Infernaton.handler.ConstantHandler;
+import me.bukkit.Infernaton.listeners.BlockListener;
 import me.bukkit.Infernaton.listeners.PlayerListeners;
 import me.bukkit.Infernaton.listeners.TradeMenuListener;
 import org.bukkit.ChatColor;
@@ -32,6 +33,7 @@ public class FightToSurvive extends JavaPlugin {
 
         pm.registerEvents(new PlayerListeners(this), this);
         pm.registerEvents(new TradeMenuListener(),this);
+        pm.registerEvents(new BlockListener(this), this);
 
         String[] debugCommand = {"setPlayer", "start", "cancelStart"};
         enableCommand(debugCommand, new DebugCommand(this));
