@@ -11,3 +11,15 @@ coordinates:
     x: 0.5
     y: 57.0
     z: 1.5
+
+  doorCoord:
+    # default red stone door location
+    constant:
+      xCoord: 8
+      yCoord: 57
+      zCoord: 25
+    copies:
+      1:
+        xCoord: 26
+        yCoord: 57
+        zCoord: 25
