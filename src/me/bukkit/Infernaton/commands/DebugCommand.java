@@ -62,7 +62,7 @@ public class DebugCommand implements CommandExecutor {
                     }
 
                     main.constH().setState(GState.STARTING);
-                    ChatHandler.broadcast("Initialize the countdown...");
+                    ChatHandler.sendInfoMessage(sender, "Initialize the countdown...");
                     CountDown.newCountDown(main, 10L);
                 } else {
                     ChatHandler.sendError(sender, "Not enough players.");
@@ -88,20 +88,26 @@ public class DebugCommand implements CommandExecutor {
 
         else if (cmd.getName().equalsIgnoreCase("reset")){
             if (main.constH().isState(GState.PLAYING)){
-                ChatHandler.sendMessageListPlayer(main.constH().getAllTeamsPlayer(), "Canceling the game");
-                List<Player> redPlayers = main.constH().getRedTeam().getPlayers();
-                List<Player> bluePlayers = main.constH().getBlueTeam().getPlayers();
+                List<Player> players = main.constH().getAllTeamsPlayer();
+                ChatHandler.sendMessageListPlayer(players, "Canceling the game");
 
-                for (Player player: redPlayers) {
-                    main.HP().setPlayer(player);
-                }
-                for (Player player: bluePlayers) {
+                for (Player player: players) {
                     main.HP().setPlayer(player);
                 }
                 main.constH().setState(GState.WAITING);
             }
             else {
                 ChatHandler.sendError(sender, "Any game is playing right now.");
+            }
+            return true;
+        }
+
+        else if (cmd.getName().equalsIgnoreCase("forceFinal")){
+            if(main.constH().isState(GState.PLAYING)){
+                ChatHandler.sendInfoMessage(sender, "Open All Doors");
+            }
+            else {
+                ChatHandler.sendError(sender, "Can't perform this command while any game is started");
             }
             return true;
         }

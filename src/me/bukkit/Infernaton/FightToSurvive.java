@@ -42,7 +42,7 @@ public class FightToSurvive extends JavaPlugin {
     }
 
     public void start(){
-        ChatHandler.broadcast("§eStart the Game!");
+        ChatHandler.sendMessageListPlayer(constH().getAllTeamsPlayer(), "§eStart the Game!");
         List<Player> redPlayers = constH.getRedTeam().getPlayers();
         List<Player> bluePlayers = constH.getBlueTeam().getPlayers();
         net.minecraft.server.v1_8_R3.ItemStack WOOD_AXE = CraftItemStack.asNMSCopy(new ItemStack(Material.WOOD_AXE, 1));
@@ -86,7 +86,7 @@ public class FightToSurvive extends JavaPlugin {
         pm.registerEvents(new TradeMenuListener(),this);
         pm.registerEvents(new BlockListener(this), this);
 
-        String[] debugCommand = {"setPlayer", "start", "cancelStart", "reset"};
+        String[] debugCommand = {"setPlayer", "start", "cancelStart", "reset", "forceFinal"};
         enableCommand(debugCommand, new DebugCommand(this));
 
         String[] spawnCommand = {"mob_villager"};

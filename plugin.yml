@@ -11,6 +11,9 @@ commands:
   reset:
     description: to reset a started game
     usage: /reset
+  forceFinal:
+    description: In game, force the final Phase to begin
+    usage: /forceFinal
   setPlayer:
     description: Debug when a player is in the wrong gamemode
     usage: /setPlayer <player>
