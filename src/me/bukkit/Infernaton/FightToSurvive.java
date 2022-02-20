@@ -12,8 +12,10 @@ import me.bukkit.Infernaton.listeners.BlockListener;
 import me.bukkit.Infernaton.listeners.PlayerListeners;
 import me.bukkit.Infernaton.listeners.TradeMenuListener;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -42,10 +44,12 @@ public class FightToSurvive extends JavaPlugin {
 
         for(Player player: redPlayers){
             player.teleport(constH.getRedBase());
+            player.getInventory().addItem(new ItemStack(Material.STONE_AXE));
         }
 
         for(Player player: bluePlayers){
             player.teleport(constH.getBlueBase());
+            player.getInventory().addItem(new ItemStack(Material.STONE_AXE));
         }
     }
 
