@@ -5,10 +5,15 @@ import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 
+import javax.security.auth.login.Configuration;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class which regroup each variable we need in our project
@@ -50,6 +55,19 @@ public class ConstantHandler {
     }
     public Location getDoorConstantCoord(){
         return this.constantDoor;
+    }
+    public List<Location> getAllCopiesDoors() {
+        List<Location> locations = new ArrayList<>();
+        String path = "coordinates.doorCoord.copies";
+        for (String key : main.getConfig().getConfigurationSection(path).getKeys(false)) {
+            Location door = new Location(Bukkit.getWorld("Arene"),
+                    main.getConfig().getDouble(path + "." + key + ".x"),
+                    main.getConfig().getDouble(path + "." + key + ".y"),
+                    main.getConfig().getDouble(path + "." + key + ".z")
+            );
+            locations.add(door);
+        }
+        return locations;
     }
 
     public Scoreboard getScoreboard(){

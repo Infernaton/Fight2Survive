@@ -4,6 +4,7 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.CountDown;
 import me.bukkit.Infernaton.handler.ChatHandler;
+import me.bukkit.Infernaton.handler.FinalPhaseHandler;
 import me.bukkit.Infernaton.handler.HandlePlayerState;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -54,10 +55,8 @@ public class DebugCommand implements CommandExecutor {
                 //Compare if there the same numbers of players in each team
                 else if (redPlayers.size() == bluePlayers.size() && redPlayers.size() != 0) {
                     //Clear all players that attend to play
-                    for(Player player: main.constH().getBlueTeam().getPlayers()){
-                        main.HP().clear(player);
-                    }
-                    for (Player player : main.constH().getRedTeam().getPlayers()){
+                    redPlayers.addAll(bluePlayers); //All players in one variable
+                    for(Player player: redPlayers){
                         main.HP().clear(player);
                     }
 
@@ -103,8 +102,8 @@ public class DebugCommand implements CommandExecutor {
         }
 
         else if (cmd.getName().equalsIgnoreCase("forceFinal")){
-            if(main.constH().isState(GState.PLAYING)){
-                ChatHandler.sendInfoMessage(sender, "Open All Doors");
+            if(main.constH().isState(GState.PLAYING) || main.constH().isState(GState.WAITING)){
+                new FinalPhaseHandler(main).on();
             }
             else {
                 ChatHandler.sendError(sender, "Can't perform this command while any game is started");
