@@ -45,27 +45,22 @@ public class FightToSurvive extends JavaPlugin {
         ChatHandler.broadcast("§eStart the Game!");
         List<Player> redPlayers = constH.getRedTeam().getPlayers();
         List<Player> bluePlayers = constH.getBlueTeam().getPlayers();
-
+        net.minecraft.server.v1_8_R3.ItemStack WOOD_AXE = CraftItemStack.asNMSCopy(new ItemStack(Material.WOOD_AXE, 1));
+        NBTTagList idsTag1 = new NBTTagList();
+        idsTag1.add(new NBTTagString("minecraft:log"));
+        NBTTagCompound tag1 = WOOD_AXE.hasTag() ? WOOD_AXE.getTag() : new NBTTagCompound();
+        tag1.set("CanDestroy", idsTag1);
+        WOOD_AXE.setTag(tag1);
         for(Player player: redPlayers){
             player.teleport(constH.getRedBase());
-            net.minecraft.server.v1_8_R3.ItemStack WOOD_AXE = CraftItemStack.asNMSCopy(new ItemStack(Material.WOOD_AXE, 1));
-            NBTTagList idsTag1 = new NBTTagList();
-            idsTag1.add(new NBTTagString("minecraft:log"));
-            NBTTagCompound tag1 = WOOD_AXE.hasTag() ? WOOD_AXE.getTag() : new NBTTagCompound();
-            tag1.set("CanDestroy", idsTag1);
-            WOOD_AXE.setTag(tag1);
             player.getInventory().addItem(CraftItemStack.asBukkitCopy(WOOD_AXE));
+            player.getActivePotionEffects().clear();
         }
 
         for(Player player: bluePlayers){
             player.teleport(constH.getBlueBase());
-            net.minecraft.server.v1_8_R3.ItemStack WOOD_AXE = CraftItemStack.asNMSCopy(new ItemStack(Material.WOOD_AXE, 1));
-            NBTTagList idsTag1 = new NBTTagList();
-            idsTag1.add(new NBTTagString("minecraft:log"));
-            NBTTagCompound tag1 = WOOD_AXE.hasTag() ? WOOD_AXE.getTag() : new NBTTagCompound();
-            tag1.set("CanDestroy", idsTag1);
-            WOOD_AXE.setTag(tag1);
             player.getInventory().addItem(CraftItemStack.asBukkitCopy(WOOD_AXE));
+            player.getActivePotionEffects().clear();
         }
     }
 

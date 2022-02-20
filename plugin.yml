@@ -12,9 +12,6 @@ commands:
     description: Debug when a player is in the wrong gamemode
     usage: /setPlayer <player>
     permission: test.use
-  trade:
-    description: open trade
-    usage: /<command>
   mob_villager:
     description: spawn villager with wood tools trade
     usage: /<command>

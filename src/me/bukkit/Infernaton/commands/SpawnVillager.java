@@ -21,23 +21,19 @@ public class SpawnVillager implements CommandExecutor {
         if (cmd.getName().equalsIgnoreCase("mob_villager") && sender instanceof Player) {
             Player player = (Player) sender;
             Location location1 = new Location(player.getWorld(), -48.500, 56, 50);
+            Location location2 = new Location(player.getWorld(), 54.500, 56, 50);
             MOB.createVillager(location1,"Lumber_Jack");
-            Location location2 = new Location(player.getWorld(), -47.500, 56, 50);
-            MOB.createVillager(location2,"Black_Smith");
-            Location location3 = new Location(player.getWorld(), -46.500, 56, 50);
-            MOB.createVillager(location3,"Wizardo_Carlos");
+            MOB.createVillager(location2,"Lumber_Jack");
+            Location location3 = new Location(player.getWorld(), -47.500, 56, 50);
+            Location location4 = new Location(player.getWorld(), 55.500, 56, 50);
+            MOB.createVillager(location3,"Black_Smith");
+            MOB.createVillager(location4,"Black_Smith");
+            Location location5 = new Location(player.getWorld(), -46.500, 56, 50);
+            Location location6 = new Location(player.getWorld(), 56.500, 56, 50);
+            MOB.createVillager(location5,"Wizardo_Carlos");
+            MOB.createVillager(location6,"Wizardo_Carlos");
             return true;
         }
-        if (cmd.getName().equalsIgnoreCase("trade") && sender instanceof Player) {
-            Player p = (Player) sender;
-            if (args.length == 0) {
-                OpenMenuTrade trade = new OpenMenuTrade("shop");
-                trade.addTrade(new ItemStack(Material.COBBLESTONE, 10), new ItemStack(Material.WOOL, 30));
-                trade.addTrade(new ItemStack(Material.STICK, 2), new ItemStack(Material.WOOD, 3), new ItemStack(Material.WOOD_AXE, 1));
-                trade.openTrade(p);
-            }
-        }
-
         return false;
     }
 }
