@@ -21,10 +21,12 @@ public class ConstantHandler {
     private Location blueBase;
     private Location redBase;
     private Scoreboard scoreboard;
+    private Location constantDoor;
 
     public ConstantHandler(FightToSurvive main){
         this.main = main;
         this.spawn = new Location(Bukkit.getWorld("Arene"), main.getConfig().getDouble("coordinates.lobby.x"),  main.getConfig().getDouble("coordinates.lobby.y"),  main.getConfig().getDouble("coordinates.lobby.z"), 0f, 0f);
+        this.constantDoor = new Location(Bukkit.getWorld("Arene"), main.getConfig().getDouble("coordinates.doorCoord.constant.x"),  main.getConfig().getDouble("coordinates.doorCoord.constant.y"),  main.getConfig().getDouble("coordinates.doorCoord.constant.z"), 0f, 0f);
         this.redBase = new Location(Bukkit.getWorld("Arene"), main.getConfig().getDouble("coordinates.teamRed.x"),  main.getConfig().getDouble("coordinates.teamRed.y"),  main.getConfig().getDouble("coordinates.teamRed.z"), 0f, 0f);
         this.blueBase = new Location(Bukkit.getWorld("Arene"), main.getConfig().getDouble("coordinates.teamBlue.x"),  main.getConfig().getDouble("coordinates.teamBlue.y"),  main.getConfig().getDouble("coordinates.teamBlue.z"), 0f, 0f);
         System.out.println(spawn);
@@ -45,6 +47,9 @@ public class ConstantHandler {
     }
     public Location getBlueBase(){
         return blueBase;
+    }
+    public Location getDoorConstantCoord(){
+        return this.constantDoor;
     }
 
     public Scoreboard getScoreboard(){
