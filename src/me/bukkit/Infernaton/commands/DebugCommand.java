@@ -86,6 +86,26 @@ public class DebugCommand implements CommandExecutor {
             return true;
         }
 
+        else if (cmd.getName().equalsIgnoreCase("reset")){
+            if (main.constH().isState(GState.PLAYING)){
+                ChatHandler.broadcast("§3Canceling the game.");
+                List<Player> redPlayers = main.constH().getRedTeam().getPlayers();
+                List<Player> bluePlayers = main.constH().getBlueTeam().getPlayers();
+
+                for (Player player: redPlayers) {
+                    main.HP().setPlayer(player);
+                }
+                for (Player player: bluePlayers) {
+                    main.HP().setPlayer(player);
+                }
+                main.constH().setState(GState.WAITING);
+            }
+            else {
+                ChatHandler.sendError(sender, "Any game is playing right now.");
+            }
+            return true;
+        }
+
         return false;
     }
 }

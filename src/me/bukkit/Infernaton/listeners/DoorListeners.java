@@ -37,7 +37,6 @@ public class DoorListeners implements Listener {
         Action action = event.getAction();
         Block block = event.getClickedBlock();
         ItemStack it = event.getItem();
-        Location location = event.getClickedBlock().getLocation();
         /**
          * Checking if the player use a material which is in the keys List
          * Checking if that interacted block is a redstone
@@ -46,6 +45,7 @@ public class DoorListeners implements Listener {
          */
         for (Material material : keys) {
             if (it != null && it.getType() == material) {
+                Location location = event.getClickedBlock().getLocation();
                 if (block != null && block.getType() == Material.REDSTONE_BLOCK) {
                     player.sendMessage("La porte est ouverte");
 

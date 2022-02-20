@@ -8,6 +8,9 @@ commands:
   cancelStart:
     description: to cancel when the game is about to start
     usage: /cancelStart
+  reset:
+    description: to reset a started game
+    usage: /reset
   setPlayer:
     description: Debug when a player is in the wrong gamemode
     usage: /setPlayer <player>

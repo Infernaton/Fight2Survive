@@ -62,6 +62,7 @@ public class FightToSurvive extends JavaPlugin {
             player.getInventory().addItem(CraftItemStack.asBukkitCopy(WOOD_AXE));
             player.getActivePotionEffects().clear();
         }
+        constH().setState(GState.PLAYING);
     }
 
     public void cancel(){
@@ -85,10 +86,10 @@ public class FightToSurvive extends JavaPlugin {
         pm.registerEvents(new TradeMenuListener(),this);
         pm.registerEvents(new BlockListener(this), this);
 
-        String[] debugCommand = {"setPlayer", "start", "cancelStart"};
+        String[] debugCommand = {"setPlayer", "start", "cancelStart", "reset"};
         enableCommand(debugCommand, new DebugCommand(this));
 
-        String[] spawnCommand = {"mob_villager", "trade"};
+        String[] spawnCommand = {"mob_villager"};
         enableCommand(spawnCommand, new SpawnVillager());
         constH.setScoreboard(getServer().getScoreboardManager().getMainScoreboard());
 
