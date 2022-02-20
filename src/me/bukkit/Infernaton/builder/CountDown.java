@@ -40,7 +40,7 @@ public class CountDown implements Runnable {
             main.start();
         }
         else if(time % 10 == 0 || time <= 5){
-            ChatHandler.toAllPlayer(time + " seconds left !");
+            ChatHandler.sendMessageListPlayer(main.constH().getAllTeamsPlayer(),time + " seconds left !");
         }
         time--;
     }

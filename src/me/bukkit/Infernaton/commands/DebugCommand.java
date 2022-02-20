@@ -78,7 +78,7 @@ public class DebugCommand implements CommandExecutor {
             if(main.constH().isState(GState.STARTING)){
                 main.constH().setState(GState.WAITING);
                 CountDown.stopAllCountdown(main);
-                ChatHandler.broadcast("§3Launch canceled.");
+                ChatHandler.sendMessageListPlayer(main.constH().getAllTeamsPlayer(),"Launch canceled.");
             }
             else{
                 ChatHandler.sendError(sender, "Any countdown aren't set right now.");
@@ -88,7 +88,7 @@ public class DebugCommand implements CommandExecutor {
 
         else if (cmd.getName().equalsIgnoreCase("reset")){
             if (main.constH().isState(GState.PLAYING)){
-                ChatHandler.broadcast("§3Canceling the game.");
+                ChatHandler.sendMessageListPlayer(main.constH().getAllTeamsPlayer(), "Canceling the game");
                 List<Player> redPlayers = main.constH().getRedTeam().getPlayers();
                 List<Player> bluePlayers = main.constH().getBlueTeam().getPlayers();
 

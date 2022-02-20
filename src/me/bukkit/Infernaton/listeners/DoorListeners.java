@@ -1,6 +1,7 @@
 package me.bukkit.Infernaton.listeners;
 
 import me.bukkit.Infernaton.FightToSurvive;
+import me.bukkit.Infernaton.handler.ChatHandler;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -47,7 +48,7 @@ public class DoorListeners implements Listener {
             if (it != null && it.getType() == material) {
                 Location location = event.getClickedBlock().getLocation();
                 if (block != null && block.getType() == Material.REDSTONE_BLOCK) {
-                    player.sendMessage("La porte est ouverte");
+                    ChatHandler.sendMessage(player, "La porte s'ouvre...");
 
                     for (double x = -1; x <= 1; x++) {
                         for (double y = -1; y <= 1; y++) {

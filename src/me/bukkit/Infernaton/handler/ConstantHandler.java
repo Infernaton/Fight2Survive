@@ -5,7 +5,10 @@ import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
+
+import java.util.List;
 
 /**
  * Class which regroup each variable we need in our project
@@ -57,6 +60,13 @@ public class ConstantHandler {
     public Team getBlueTeam(){
         return Team.getTeamByName("Blue");
     }
+
+    public List<Player> getAllTeamsPlayer(){
+        List<Player> allPlayers = this.getBlueTeam().getPlayers();
+        allPlayers.addAll(this.getRedTeam().getPlayers());
+        return allPlayers;
+    }
+
     public Team getSpectators(){
         return Team.getTeamByName("Spectators");
     }
