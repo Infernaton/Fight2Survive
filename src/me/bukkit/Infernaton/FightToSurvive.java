@@ -1,6 +1,5 @@
 package me.bukkit.Infernaton;
 
-import me.bukkit.Infernaton.listeners.DoorListeners;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.commands.DebugCommand;
 import me.bukkit.Infernaton.commands.SpawnVillager;
@@ -9,11 +8,18 @@ import me.bukkit.Infernaton.handler.ConstantHandler;
 import me.bukkit.Infernaton.handler.HandleItem;
 import me.bukkit.Infernaton.handler.HandlePlayerState;
 import me.bukkit.Infernaton.listeners.BlockListener;
+import me.bukkit.Infernaton.listeners.DoorListeners;
 import me.bukkit.Infernaton.listeners.PlayerListeners;
 import me.bukkit.Infernaton.listeners.TradeMenuListener;
+import net.minecraft.server.v1_8_R3.NBTTagCompound;
+import net.minecraft.server.v1_8_R3.NBTTagList;
+import net.minecraft.server.v1_8_R3.NBTTagString;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -42,10 +48,24 @@ public class FightToSurvive extends JavaPlugin {
 
         for(Player player: redPlayers){
             player.teleport(constH.getRedBase());
+            net.minecraft.server.v1_8_R3.ItemStack WOOD_AXE = CraftItemStack.asNMSCopy(new ItemStack(Material.WOOD_AXE, 1));
+            NBTTagList idsTag1 = new NBTTagList();
+            idsTag1.add(new NBTTagString("minecraft:log"));
+            NBTTagCompound tag1 = WOOD_AXE.hasTag() ? WOOD_AXE.getTag() : new NBTTagCompound();
+            tag1.set("CanDestroy", idsTag1);
+            WOOD_AXE.setTag(tag1);
+            player.getInventory().addItem(CraftItemStack.asBukkitCopy(WOOD_AXE));
         }
 
         for(Player player: bluePlayers){
             player.teleport(constH.getBlueBase());
+            net.minecraft.server.v1_8_R3.ItemStack WOOD_AXE = CraftItemStack.asNMSCopy(new ItemStack(Material.WOOD_AXE, 1));
+            NBTTagList idsTag1 = new NBTTagList();
+            idsTag1.add(new NBTTagString("minecraft:log"));
+            NBTTagCompound tag1 = WOOD_AXE.hasTag() ? WOOD_AXE.getTag() : new NBTTagCompound();
+            tag1.set("CanDestroy", idsTag1);
+            WOOD_AXE.setTag(tag1);
+            player.getInventory().addItem(CraftItemStack.asBukkitCopy(WOOD_AXE));
         }
     }
 

@@ -69,6 +69,7 @@ public class DebugCommand implements CommandExecutor {
                 }
             }else {
                 ChatHandler.sendError(sender, "Party already started !");
+
             }
             return true;
         }
