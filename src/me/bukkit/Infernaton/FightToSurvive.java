@@ -3,6 +3,7 @@ package me.bukkit.Infernaton;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.commands.DebugCommand;
 import me.bukkit.Infernaton.commands.SpawnVillager;
+import me.bukkit.Infernaton.commands.Manage_time;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.ConstantHandler;
 import me.bukkit.Infernaton.handler.HandleItem;
@@ -22,6 +23,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
 
 import java.util.List;
 
@@ -51,17 +53,21 @@ public class FightToSurvive extends JavaPlugin {
         NBTTagCompound tag1 = WOOD_AXE.hasTag() ? WOOD_AXE.getTag() : new NBTTagCompound();
         tag1.set("CanDestroy", idsTag1);
         WOOD_AXE.setTag(tag1);
+
         for(Player player: redPlayers){
             player.teleport(constH.getRedBase());
             player.getInventory().addItem(CraftItemStack.asBukkitCopy(WOOD_AXE));
-            player.getActivePotionEffects().clear();
+            for (PotionEffect effect : player.getActivePotionEffects())
+                player.removePotionEffect(effect.getType());
         }
 
         for(Player player: bluePlayers){
             player.teleport(constH.getBlueBase());
             player.getInventory().addItem(CraftItemStack.asBukkitCopy(WOOD_AXE));
-            player.getActivePotionEffects().clear();
+            for (PotionEffect effect : player.getActivePotionEffects())
+                player.removePotionEffect(effect.getType());
         }
+
         constH().setState(GState.PLAYING);
     }
 
@@ -88,6 +94,9 @@ public class FightToSurvive extends JavaPlugin {
 
         String[] debugCommand = {"setPlayer", "start", "cancelStart", "reset"};
         enableCommand(debugCommand, new DebugCommand(this));
+
+        String[] manage_time = {"manage_time"};
+        enableCommand(manage_time, new Manage_time());
 
         String[] spawnCommand = {"mob_villager"};
         enableCommand(spawnCommand, new SpawnVillager());
