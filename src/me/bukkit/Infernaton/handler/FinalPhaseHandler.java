@@ -4,6 +4,7 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -21,6 +22,9 @@ public class FinalPhaseHandler {
         List<Location> allCopies = main.constH().getAllCopiesDoors();
         for (Location copy : allCopies) {
             System.out.println(copy);
+            if (copy.getBlock().getType() != Material.AIR){
+                //Suppression des portes
+            }
         }
     }
 }
