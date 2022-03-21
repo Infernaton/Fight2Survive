@@ -21,6 +21,17 @@ commands:
   mob_villager:
     description: spawn villager with wood tools trade
     usage: /<command>
+  manage_time:
+    description: manage time switch
+    usage: /<command>
   getDoor:
     description: set a door at location
     usage: /getDoor
+  getDoors:
+    description: set all doors at location
+    usage: /getDoors
+  deleteDoors:
+    description: delete all doors at location
+    usage: /deleteDoors
+
+

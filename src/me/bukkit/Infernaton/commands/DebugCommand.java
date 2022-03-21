@@ -3,9 +3,10 @@ package me.bukkit.Infernaton.commands;
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.CountDown;
+import me.bukkit.Infernaton.builder.DayNightCycle;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.FinalPhaseHandler;
-import me.bukkit.Infernaton.handler.HandlePlayerState;
+import me.bukkit.Infernaton.listeners.DoorListeners;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -18,34 +19,30 @@ public class DebugCommand implements CommandExecutor {
 
     private FightToSurvive main;
 
-    public DebugCommand(FightToSurvive main){
+    public DebugCommand(FightToSurvive main) {
         this.main = main;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (cmd.getName().equalsIgnoreCase("setPlayer")){
-            if (args.length == 0){
+        if (cmd.getName().equalsIgnoreCase("setPlayer")) {
+            if (args.length == 0) {
                 ChatHandler.sendCorrectUsage(sender, "Usage: /setPlayer <username>");
-            }
-            else if (args.length == 1){
+            } else if (args.length == 1) {
                 Player targetPlayer = Bukkit.getPlayerExact(args[0]);
                 System.out.println(targetPlayer);
-                if(targetPlayer == null){
+                if (targetPlayer == null) {
                     ChatHandler.sendError(sender, "Player not found");
-                }else{
+                } else {
                     main.HP().setPlayer(targetPlayer);
-                    ChatHandler.sendMessage(sender, "§r" +args[0] + " §fis ready to play !");
+                    ChatHandler.sendMessage(sender, "§r" + args[0] + " §fis ready to play !");
                 }
-            }
-            else {
+            } else {
                 ChatHandler.sendError(sender, "Too many argument");
             }
             return true;
-        }
-
-        else if (cmd.getName().equalsIgnoreCase("start")){
-            if (main.constH().isState(GState.WAITING)){
+        } else if (cmd.getName().equalsIgnoreCase("start")) {
+            if (main.constH().isState(GState.WAITING)) {
                 List<Player> redPlayers = main.constH().getRedTeam().getPlayers();
                 List<Player> bluePlayers = main.constH().getBlueTeam().getPlayers();
 
@@ -66,20 +63,17 @@ public class DebugCommand implements CommandExecutor {
                 } else {
                     ChatHandler.sendError(sender, "Not enough players.");
                 }
-            }else {
+            } else {
                 ChatHandler.sendError(sender, "Party already started !");
 
             }
             return true;
-        }
-
-        else if (cmd.getName().equalsIgnoreCase("cancelStart")){
-            if(main.constH().isState(GState.STARTING)){
+        } else if (cmd.getName().equalsIgnoreCase("cancelStart")) {
+            if (main.constH().isState(GState.STARTING)) {
                 main.constH().setState(GState.WAITING);
                 CountDown.stopAllCountdown(main);
-                ChatHandler.sendMessageListPlayer(main.constH().getAllTeamsPlayer(),"Launch canceled.");
-            }
-            else{
+                ChatHandler.sendMessageListPlayer(main.constH().getAllTeamsPlayer(), "Launch canceled.");
+            } else {
                 ChatHandler.sendError(sender, "Any countdown aren't set right now.");
             }
             return true;
@@ -94,9 +88,29 @@ public class DebugCommand implements CommandExecutor {
                     main.HP().setPlayer(player);
                 }
                 main.constH().setState(GState.WAITING);
-            }
-            else {
+            } else {
                 ChatHandler.sendError(sender, "Any game is playing right now.");
+            }
+            return true;
+        } else if (cmd.getName().equalsIgnoreCase("manage_time") && sender instanceof Player) {
+            final Player player = (Player) sender;
+            DayNightCycle day = new DayNightCycle(main);
+        } else if (cmd.getName().equalsIgnoreCase("getDoors")) {
+            ChatHandler.sendInfoMessage(sender, "reset des portes...");
+            if (main.constH().isState(GState.WAITING)) {
+                DoorListeners setDoors = new DoorListeners(this.main);
+                setDoors.setAllDoors();
+            } else {
+                ChatHandler.sendError(sender, "Can't perform this command while the game is pending");
+            }
+            return true;
+        } else if (cmd.getName().equalsIgnoreCase("deleteDoors")) {
+            ChatHandler.sendInfoMessage(sender, "delete des portes..");
+            if (main.constH().isState(GState.WAITING)) {
+                DoorListeners setDoors = new DoorListeners(this.main);
+                setDoors.deleteAllDoors();
+            } else {
+                ChatHandler.sendError(sender, "Can't perform this command while the game is pending");
             }
             return true;
         }
