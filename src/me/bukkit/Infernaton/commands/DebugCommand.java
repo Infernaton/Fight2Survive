@@ -3,6 +3,7 @@ package me.bukkit.Infernaton.commands;
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.CountDown;
+import me.bukkit.Infernaton.builder.DayNightCycle;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.HandlePlayerState;
 import org.bukkit.Bukkit;
@@ -104,6 +105,10 @@ public class DebugCommand implements CommandExecutor {
                 ChatHandler.sendError(sender, "Any game is playing right now.");
             }
             return true;
+        }
+        else if (cmd.getName().equalsIgnoreCase("manage_time") && sender instanceof Player) {
+            final Player player = (Player) sender;
+            DayNightCycle day = new DayNightCycle(main);
         }
 
         return false;

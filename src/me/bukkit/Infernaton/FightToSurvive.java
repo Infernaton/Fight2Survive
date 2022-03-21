@@ -3,7 +3,6 @@ package me.bukkit.Infernaton;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.commands.DebugCommand;
 import me.bukkit.Infernaton.commands.SpawnVillager;
-import me.bukkit.Infernaton.commands.Manage_time;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.ConstantHandler;
 import me.bukkit.Infernaton.handler.HandleItem;
@@ -92,11 +91,8 @@ public class FightToSurvive extends JavaPlugin {
         pm.registerEvents(new TradeMenuListener(),this);
         pm.registerEvents(new BlockListener(this), this);
 
-        String[] debugCommand = {"setPlayer", "start", "cancelStart", "reset"};
+        String[] debugCommand = {"setPlayer", "start", "cancelStart", "reset","manage_time"};
         enableCommand(debugCommand, new DebugCommand(this));
-
-        String[] manage_time = {"manage_time"};
-        enableCommand(manage_time, new Manage_time());
 
         String[] spawnCommand = {"mob_villager"};
         enableCommand(spawnCommand, new SpawnVillager());
