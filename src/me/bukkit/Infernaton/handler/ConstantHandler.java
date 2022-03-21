@@ -38,7 +38,9 @@ public class ConstantHandler {
     public boolean isState(GState state){
         return this.state == state;
     }
-
+    public GState getState(){
+        return this.state;
+    }
     public Location getSpawnCoordinate(){
         return spawn;
     }
