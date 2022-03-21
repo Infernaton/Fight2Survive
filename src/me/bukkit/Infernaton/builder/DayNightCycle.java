@@ -2,6 +2,8 @@ package me.bukkit.Infernaton.builder;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
+import me.bukkit.Infernaton.GStateDayNight;
+import me.bukkit.Infernaton.handler.ChatHandler;
 import org.bukkit.Bukkit;
 
 import java.util.concurrent.Executors;
@@ -36,12 +38,12 @@ public class DayNightCycle implements Runnable{
         if (countdownStarter == 0 && dayOrNight) {
             countdownStarter = countdownStarter + 120;
             dayOrNight = false;
-            System.out.print("Night Time");
+            ChatHandler.broadcast("Night Time");
             Bukkit.getWorld("Arene").setTime(13000);
         }else if(countdownStarter == 0 && !dayOrNight) {
             countdownStarter = countdownStarter + 120;
             dayOrNight = true;
-            System.out.print("Day Time");
+            ChatHandler.broadcast("Day Time");
             Bukkit.getWorld("Arene").setTime(1000);
         }
     }
