@@ -27,7 +27,7 @@ public class DayNightCycle implements Runnable{
 
         System.out.print(countdownStarter);
         countdownStarter--;
-        if (main.constH().isState(GState.PLAYING)){
+        if (!main.constH().isState(GState.PLAYING)){
             System.out.print("Timer Over!");
             scheduler.shutdown();
             Bukkit.getWorld("Arene").setTime(1000);
