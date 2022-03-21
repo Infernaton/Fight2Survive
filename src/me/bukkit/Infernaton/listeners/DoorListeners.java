@@ -42,7 +42,7 @@ public class DoorListeners implements Listener {
         ItemStack it = event.getItem();
         for (Material material : keys) {
             if (it != null && it.getType() == material) {
-                Location location = event.getClickedBlock().getLocation();
+                Location location = block.getLocation();
                 if (block != null && block.getType() == Material.REDSTONE_BLOCK) {
                     ChatHandler.sendMessage(player, "La porte s'ouvre...");
                     for (double x = -1; x <= 1; x++) {
@@ -63,7 +63,6 @@ public class DoorListeners implements Listener {
      *  Clonning mainDoor blocks type with the mainDoor location
      *  to the copiesDoors list.
      */
-    @EventHandler
     public void setAllDoors() {
         Location mainDoor = main.constH().getDoorConstantCoord();
         List<Location> copiesDoorsList = main.constH().getAllCopiesDoors();
@@ -83,7 +82,6 @@ public class DoorListeners implements Listener {
      * Loop all blocks with the copiesDoors list locations
      * Change blocks type to AIR block
      */
-    @EventHandler
     public void deleteAllDoors() {
         List<Location> copiesDoorsList = main.constH().getAllCopiesDoors();
         for (Location copiesDoors : copiesDoorsList) {
