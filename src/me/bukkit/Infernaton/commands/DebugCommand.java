@@ -5,7 +5,7 @@ import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.CountDown;
 import me.bukkit.Infernaton.builder.DayNightCycle;
 import me.bukkit.Infernaton.handler.ChatHandler;
-import me.bukkit.Infernaton.handler.HandlePlayerState;
+import me.bukkit.Infernaton.listeners.DoorListeners;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -109,6 +109,22 @@ public class DebugCommand implements CommandExecutor {
         else if (cmd.getName().equalsIgnoreCase("manage_time") && sender instanceof Player) {
             final Player player = (Player) sender;
             DayNightCycle day = new DayNightCycle(main);
+        }
+        else if(cmd.getName().equalsIgnoreCase("getDoors")){
+           ChatHandler.sendInfoMessage(sender, "reset des portes...");
+            if ( main.constH().isState(GState.PLAYING)) {
+                DoorListeners setDoors = new DoorListeners(this.main);
+                setDoors.setAllDoors();
+            }
+            return true;
+        }
+        else if(cmd.getName().equalsIgnoreCase("deleteDoors")){
+            ChatHandler.sendInfoMessage(sender, "delete des portes..");
+            if ( main.constH().isState(GState.PLAYING)) {
+            DoorListeners setDoors = new DoorListeners(this.main);
+            setDoors.deleteAllDoors();
+            }
+            return true;
         }
 
         return false;
