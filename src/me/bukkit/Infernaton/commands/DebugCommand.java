@@ -17,10 +17,12 @@ import java.util.List;
 
 public class DebugCommand implements CommandExecutor {
 
-    private FightToSurvive main;
+    private final FightToSurvive main;
+    private final DoorListeners setDoors;
 
     public DebugCommand(FightToSurvive main) {
         this.main = main;
+        setDoors = new DoorListeners(this.main);
     }
 
     @Override
@@ -41,7 +43,9 @@ public class DebugCommand implements CommandExecutor {
                 ChatHandler.sendError(sender, "Too many argument");
             }
             return true;
-        } else if (cmd.getName().equalsIgnoreCase("start")) {
+        }
+
+        else if (cmd.getName().equalsIgnoreCase("start")) {
             if (main.constH().isState(GState.WAITING)) {
                 List<Player> redPlayers = main.constH().getRedTeam().getPlayers();
                 List<Player> bluePlayers = main.constH().getBlueTeam().getPlayers();
@@ -56,10 +60,11 @@ public class DebugCommand implements CommandExecutor {
                     for(Player player: redPlayers){
                         main.HP().clear(player);
                     }
-
                     main.constH().setState(GState.STARTING);
+
                     ChatHandler.sendInfoMessage(sender, "Initialize the countdown...");
                     CountDown.newCountDown(main, 10L);
+                    setDoors.setAllDoors();
                 } else {
                     ChatHandler.sendError(sender, "Not enough players.");
                 }
@@ -68,7 +73,9 @@ public class DebugCommand implements CommandExecutor {
 
             }
             return true;
-        } else if (cmd.getName().equalsIgnoreCase("cancelStart")) {
+        }
+
+        else if (cmd.getName().equalsIgnoreCase("cancelStart")) {
             if (main.constH().isState(GState.STARTING)) {
                 main.constH().setState(GState.WAITING);
                 CountDown.stopAllCountdown(main);
@@ -88,29 +95,36 @@ public class DebugCommand implements CommandExecutor {
                     main.HP().setPlayer(player);
                 }
                 main.constH().setState(GState.WAITING);
+                setDoors.setAllDoors();
             } else {
                 ChatHandler.sendError(sender, "Any game is playing right now.");
             }
             return true;
-        } else if (cmd.getName().equalsIgnoreCase("manage_time") && sender instanceof Player) {
+        }
+
+        else if (cmd.getName().equalsIgnoreCase("manage_time")) {
             final Player player = (Player) sender;
             DayNightCycle day = new DayNightCycle(main);
-        } else if (cmd.getName().equalsIgnoreCase("getDoors")) {
-            ChatHandler.sendInfoMessage(sender, "reset des portes...");
+        }
+
+        else if (cmd.getName().equalsIgnoreCase("getDoors")) {
             if (main.constH().isState(GState.WAITING)) {
-                DoorListeners setDoors = new DoorListeners(this.main);
+                ChatHandler.sendInfoMessage(sender, "Reset all doors...");
+
                 setDoors.setAllDoors();
             } else {
-                ChatHandler.sendError(sender, "Can't perform this command while the game is pending");
+                ChatHandler.sendError(sender, "Can't perform this command while the game is pending.");
             }
             return true;
-        } else if (cmd.getName().equalsIgnoreCase("deleteDoors")) {
-            ChatHandler.sendInfoMessage(sender, "delete des portes..");
+        }
+
+        else if (cmd.getName().equalsIgnoreCase("deleteDoors")) {
             if (main.constH().isState(GState.WAITING)) {
+                ChatHandler.sendInfoMessage(sender, "Deleting all doors...");
                 DoorListeners setDoors = new DoorListeners(this.main);
                 setDoors.deleteAllDoors();
             } else {
-                ChatHandler.sendError(sender, "Can't perform this command while the game is pending");
+                ChatHandler.sendError(sender, "Can't perform this command while the game is pending.");
             }
             return true;
         }

@@ -44,6 +44,7 @@ public class FightToSurvive extends JavaPlugin {
 
     public void start(){
         ChatHandler.sendMessageListPlayer(constH().getAllTeamsPlayer(), "§eStart the Game!");
+
         List<Player> redPlayers = constH.getRedTeam().getPlayers();
         List<Player> bluePlayers = constH.getBlueTeam().getPlayers();
         net.minecraft.server.v1_8_R3.ItemStack WOOD_AXE = CraftItemStack.asNMSCopy(new ItemStack(Material.WOOD_AXE, 1));
@@ -87,7 +88,7 @@ public class FightToSurvive extends JavaPlugin {
         PluginManager pm = getServer().getPluginManager();
 
         pm.registerEvents(new PlayerListeners(this), this);
-        getServer().getPluginManager().registerEvents(new DoorListeners(this), this);
+        pm.registerEvents(new DoorListeners(this), this);
         pm.registerEvents(new TradeMenuListener(),this);
         pm.registerEvents(new BlockListener(this), this);
 
