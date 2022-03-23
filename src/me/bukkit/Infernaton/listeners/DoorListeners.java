@@ -33,7 +33,7 @@ public class DoorListeners implements Listener {
     /**
      * Can interact to selected block with selected item
      * Loop all door blocks and change blocks type to AIR block
-     * @param event
+     * @param event PlayerInteractEvent
      */
     @EventHandler
     public void onInteractKeys(PlayerInteractEvent event) {

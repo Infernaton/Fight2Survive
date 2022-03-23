@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class HandleItem {
 
-    private FightToSurvive main;
+    private final FightToSurvive main;
 
     public HandleItem(FightToSurvive main){
         this.main = main;
@@ -77,6 +77,6 @@ public class HandleItem {
         return transformPickaxe(new ItemStack(Material.WOOD_PICKAXE),1);
     }
     public ItemStack stonePickaxe(){
-        return transformPickaxe(new ItemStack(Material.WOOD_PICKAXE),2);
+        return transformPickaxe(new ItemStack(Material.STONE_PICKAXE),2);
     }
 }
