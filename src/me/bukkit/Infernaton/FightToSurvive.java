@@ -88,7 +88,7 @@ public class FightToSurvive extends JavaPlugin {
 
         pm.registerEvents(new PlayerListeners(this), this);
         pm.registerEvents(new DoorListeners(this), this);
-        pm.registerEvents(new TradeMenuListener(),this);
+        pm.registerEvents(new TradeMenuListener(this),this);
         pm.registerEvents(new BlockListener(this), this);
 
         String[] debugCommand = {"mob_villager", "setPlayer", "start", "cancelStart", "reset", "forceFinal" , "manage_time", "getDoors", "deleteDoors"};
