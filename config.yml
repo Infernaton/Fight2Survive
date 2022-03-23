@@ -1,19 +1,31 @@
 coordinates:
   teamRed:
-    x: -50.5
-    y: 57.0
-    z: 59.5
+    spawnpoint:
+      x: -50.5
+      y: 57.0
+      z: 59.5
+    pnjCoord:
+      1:
+        x: -48.5
+        y: 56.0
+        z: 50.0
   teamBlue:
-    x: 53.5
-    y: 57.0
-    z: 59.5
+    spawnpoint:
+      x: 53.5
+      y: 57.0
+      z: 59.5
+    pnjCoord:
+      1:
+        x: 55.5
+        y: 56.0
+        z: 50.0
   lobby:
     x: 0.5
     y: 57.0
     z: 1.5
 
   doorCoord:
-    # default redStone door location
+    # default door location
     constant:
       x: 8.0
       y: 57.0

@@ -46,7 +46,6 @@ public class CustomRecipeHandler {
     }
 
     private void commonToolRecipeMaterial(ItemStack it, Material material, String[] shape){
-        ChatHandler.broadcast(it.toString());
         ShapedRecipe recipe = new ShapedRecipe(it);
         removeRecipeByMateriel(it.getType());
 

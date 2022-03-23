@@ -94,15 +94,6 @@ public class PlayerListeners implements Listener {
         }
     }
 
-    @EventHandler
-    public void onCraft(CraftItemEvent event){
-        ItemStack item = event.getCurrentItem();
-        Player player = (Player) event.getView().getPlayer();
-        ChatHandler.toAllPlayer(item.toString());
-        if (item.getType() == Material.WOOD_AXE){
-        }
-    }
-
     /*
       Prevent the player from placing boat
       Because of would that permit player to bypass Door

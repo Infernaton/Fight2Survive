@@ -39,9 +39,6 @@ public class TradeMenuListener implements Listener {
 
                 OpenMenuTrade trade = new OpenMenuTrade("shop");
 
-                trade.addTrade(new ItemStack(Material.LOG, 6), (main.HI().woodPickaxe()));
-                trade.addTrade(new ItemStack(Material.LOG, 4),new ItemStack(Material.COBBLESTONE, 4), (main.HI().stoneAxe()));
-                trade.addTrade(new ItemStack(Material.LOG, 6),new ItemStack(Material.COBBLESTONE, 8), (main.HI().stonePickaxe()));
                 trade.addTrade(new ItemStack(Material.LOG,10),new ItemStack(Material.COBBLESTONE, 10), new ItemStack(Material.PAPER,1));
 
                 trade.openTrade(p);
