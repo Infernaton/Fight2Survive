@@ -13,6 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -57,10 +58,14 @@ public class TradeMenuListener implements Listener {
             tag3.set("CanDestroy", idsTag3);
             STONE_PICKAXE.setTag(tag3);
             trade.addTrade(new ItemStack(Material.LOG, 6),new ItemStack(Material.COBBLESTONE, 8), (CraftItemStack.asBukkitCopy(STONE_PICKAXE)));
-            trade.addTrade(new ItemStack(Material.LOG,10),new ItemStack(Material.COBBLESTONE, 10), new ItemStack(Material.PAPER,1));
             trade.addTrade(new ItemStack(Material.GOLD_INGOT, 5), new ItemStack(Material.GOLDEN_APPLE, 1));
 
 
+            ItemStack PAPER_KEY = new ItemStack(Material.PAPER);
+            ItemMeta papermeta = PAPER_KEY.getItemMeta();
+            papermeta.setDisplayName("Key");
+            PAPER_KEY.setItemMeta(papermeta);
+            trade.addTrade(new ItemStack(Material.LOG,15),new ItemStack(Material.COBBLESTONE, 15),(PAPER_KEY));
             trade.openTrade(p);
         }
         if (e.getName().equals("Black_Smith")){

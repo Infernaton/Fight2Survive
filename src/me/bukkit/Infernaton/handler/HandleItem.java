@@ -35,4 +35,8 @@ public class HandleItem {
     public ItemStack spectatorWool(){
         return new ItemBuilder(Material.WOOL, 1, (byte)7).setName("§7Spectateur").toItemStack();
     }
+
+    public ItemStack paperKey(){
+        return new ItemBuilder(Material.PAPER, 1, (byte)1).setName("KEY").toItemStack();
+    }
 }
