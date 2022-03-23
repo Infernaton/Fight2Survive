@@ -63,7 +63,7 @@ public class TradeMenuListener implements Listener {
 
             ItemStack PAPER_KEY = new ItemStack(Material.PAPER);
             ItemMeta papermeta = PAPER_KEY.getItemMeta();
-            papermeta.setDisplayName("Key");
+            papermeta.setDisplayName("KEY");
             PAPER_KEY.setItemMeta(papermeta);
             trade.addTrade(new ItemStack(Material.LOG,15),new ItemStack(Material.COBBLESTONE, 15),(PAPER_KEY));
             trade.openTrade(p);
