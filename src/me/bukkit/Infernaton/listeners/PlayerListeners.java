@@ -92,4 +92,17 @@ public class PlayerListeners implements Listener {
             }
         }
     }
+
+    /*
+      Prevent the player from placing boat
+      Because of would that permit player to bypass Door
+     */
+    @EventHandler
+    public void onBoatPlace(PlayerInteractEvent event) {
+        if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            if (event.getPlayer().getItemInHand().getType() == Material.BOAT) {
+                event.setCancelled(true);
+            }
+        }
+    }
 }

@@ -2,7 +2,6 @@ package me.bukkit.Infernaton;
 
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.commands.DebugCommand;
-import me.bukkit.Infernaton.commands.SpawnVillager;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.ConstantHandler;
 import me.bukkit.Infernaton.handler.HandleItem;
@@ -92,11 +91,9 @@ public class FightToSurvive extends JavaPlugin {
         pm.registerEvents(new TradeMenuListener(),this);
         pm.registerEvents(new BlockListener(this), this);
 
-        String[] debugCommand = {"setPlayer", "start", "cancelStart", "reset", "forceFinal" , "manage_time", "getDoors", "deleteDoors"};
+        String[] debugCommand = {"mob_villager", "setPlayer", "start", "cancelStart", "reset", "forceFinal" , "manage_time", "getDoors", "deleteDoors"};
         enableCommand(debugCommand, new DebugCommand(this));
 
-        String[] spawnCommand = {"mob_villager"};
-        enableCommand(spawnCommand, new SpawnVillager());
         constH.setScoreboard(getServer().getScoreboardManager().getMainScoreboard());
 
         new Team("Red", constH.getScoreboard()).setTeamColor(ChatColor.RED);

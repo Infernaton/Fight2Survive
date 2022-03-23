@@ -6,14 +6,18 @@ import me.bukkit.Infernaton.builder.CountDown;
 import me.bukkit.Infernaton.builder.DayNightCycle;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.FinalPhaseHandler;
+import me.bukkit.Infernaton.handler.MOB;
 import me.bukkit.Infernaton.listeners.DoorListeners;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+
+import static me.bukkit.Infernaton.handler.ConstantHandler.worldName;
 
 public class DebugCommand implements CommandExecutor {
 
@@ -42,6 +46,14 @@ public class DebugCommand implements CommandExecutor {
             } else {
                 ChatHandler.sendError(sender, "Too many argument");
             }
+            return true;
+        }
+
+        else if (cmd.getName().equalsIgnoreCase("mob_villager")) {
+            Location location1 = new Location(Bukkit.getWorld(worldName), -48.500, 56, 48);
+            Location location2 = new Location(Bukkit.getWorld(worldName), 55.500, 56, 48);
+            MOB.createVillager(location1,"Lumber_Jack");
+            MOB.createVillager(location2,"Lumber_Jack");
             return true;
         }
 
