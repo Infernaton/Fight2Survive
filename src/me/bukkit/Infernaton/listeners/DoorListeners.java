@@ -40,9 +40,6 @@ public class DoorListeners implements Listener {
         Block block = event.getClickedBlock();
         ItemStack it = event.getItem();
         for (ItemStack itemStack : keys) {
-            System.out.println(it);
-            System.out.println(itemStack);
-            System.out.println(it == itemStack);
             if (it != null && it == itemStack && block != null && block.getType() == Material.REDSTONE_BLOCK) {                Location location = block.getLocation();
                 ChatHandler.sendMessage(player, "La porte s'ouvre...");
                 for (double x = -1; x <= 1; x++) {

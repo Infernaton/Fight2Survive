@@ -1,6 +1,7 @@
 package me.bukkit.Infernaton;
 
 import me.bukkit.Infernaton.builder.CountDown;
+import me.bukkit.Infernaton.builder.DayNightCycle;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.commands.DebugCommand;
 import me.bukkit.Infernaton.handler.*;
@@ -81,35 +82,46 @@ public class FightToSurvive extends JavaPlugin {
 
     public void start(){
         ChatHandler.sendMessageListPlayer(constH().getAllTeamsPlayer(), "§eStart the Game!");
+        new DayNightCycle(this);
 
-        List<Player> redPlayers = constH.getRedTeam().getPlayers();
-        List<Player> bluePlayers = constH.getBlueTeam().getPlayers();
-        net.minecraft.server.v1_8_R3.ItemStack WOOD_AXE = CraftItemStack.asNMSCopy(new ItemStack(Material.WOOD_AXE, 1));
-        NBTTagList idsTag1 = new NBTTagList();
-        idsTag1.add(new NBTTagString("minecraft:log"));
-        NBTTagCompound tag1 = WOOD_AXE.hasTag() ? WOOD_AXE.getTag() : new NBTTagCompound();
-        tag1.set("CanDestroy", idsTag1);
-        WOOD_AXE.setTag(tag1);
+//       List<Player> redPlayers = constH.getRedTeam().getPlayers();
+//       List<Player> bluePlayers = constH.getBlueTeam().getPlayers();
 
+        List<Player> allPlayers = constH.getAllTeamsPlayer();
+        for (Player player: allPlayers) {
+            player.teleport(constH.getBaseLocation(Team.getTeam(player)));
+            player.getInventory().addItem(HI.woodAxe());
+            for (PotionEffect effect : player.getActivePotionEffects())
+                player.removePotionEffect(effect.getType());
+        }
+        /*
         for(Player player: redPlayers){
             player.teleport(constH.getRedBase());
-            player.getInventory().addItem(CraftItemStack.asBukkitCopy(WOOD_AXE));
+            player.getInventory().addItem(HI.woodAxe());
             for (PotionEffect effect : player.getActivePotionEffects())
                 player.removePotionEffect(effect.getType());
         }
 
         for(Player player: bluePlayers){
             player.teleport(constH.getBlueBase());
-            player.getInventory().addItem(CraftItemStack.asBukkitCopy(WOOD_AXE));
+            player.getInventory().addItem(HI.woodAxe());
             for (PotionEffect effect : player.getActivePotionEffects())
                 player.removePotionEffect(effect.getType());
         }
+        */
 
         constH().setState(GState.PLAYING);
     }
 
     public void cancel(){
+        List<Player> players = constH.getAllTeamsPlayer();
+        ChatHandler.sendMessageListPlayer(players, "Canceling the game");
 
+        for (Player player: players) {
+            HP.setPlayer(player);
+        }
+        constH.setState(GState.WAITING);
+        constH.setAllDoors();
     }
 
     public void finish(){

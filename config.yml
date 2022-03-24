@@ -8,7 +8,7 @@ coordinates:
       1:
         x: -48.5
         y: 56.0
-        z: 50.0
+        z: 51.5
   teamBlue:
     spawnpoint:
       x: 53.5
@@ -18,7 +18,7 @@ coordinates:
       1:
         x: 55.5
         y: 56.0
-        z: 50.0
+        z: 51.5
   lobby:
     x: 0.5
     y: 57.0

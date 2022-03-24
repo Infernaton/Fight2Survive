@@ -76,6 +76,10 @@ public class HandleItem {
         return CraftItemStack.asBukkitCopy(PICK);
     }
 
+    public ItemStack woodAxe(){
+        return transformAxe(new ItemStack(Material.WOOD_AXE));
+    }
+
     public ItemStack stoneAxe(){
         return transformAxe(new ItemStack(Material.STONE_AXE));
     }

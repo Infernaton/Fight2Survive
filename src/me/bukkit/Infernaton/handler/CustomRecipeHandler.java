@@ -20,6 +20,7 @@ public class CustomRecipeHandler {
     private void definedCustomTools(){
         woodPickaxe();
         stonePickaxe();
+        woodAxe();
         stoneAxe();
     }
 
@@ -41,6 +42,9 @@ public class CustomRecipeHandler {
         pickaxeShape(main.HI().stonePickaxe(), Material.COBBLESTONE);
     }
 
+    private void woodAxe(){
+        axeShape(main.HI().woodAxe(), Material.WOOD);
+    }
     private void stoneAxe(){
         axeShape(main.HI().stoneAxe(), Material.COBBLESTONE);
     }
