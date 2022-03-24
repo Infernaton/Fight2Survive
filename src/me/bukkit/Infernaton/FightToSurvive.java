@@ -27,10 +27,20 @@ public class FightToSurvive extends JavaPlugin {
     private ConstantHandler constH;
     private final HandlePlayerState HP = new HandlePlayerState(this);
     private final HandleItem HI = new HandleItem(this);
+    private FinalPhaseHandler finalPhase;
 
-    public ConstantHandler constH(){ return constH; }
-    public HandlePlayerState HP() { return HP; }
-    public HandleItem HI() { return HI; }
+    public ConstantHandler constH(){
+        return constH;
+    }
+    public HandlePlayerState HP() {
+        return HP;
+    }
+    public HandleItem HI() {
+        return HI;
+    }
+    public FinalPhaseHandler FP() {
+        return finalPhase;
+    }
 
     public void enableCommand(String[] commandsName, CommandExecutor executor){
         for(String command: commandsName){
@@ -79,10 +89,11 @@ public class FightToSurvive extends JavaPlugin {
     public void onEnable(){
         saveDefaultConfig();
         this.constH = new ConstantHandler(this);
+        this.finalPhase = new FinalPhaseHandler(this);
 
         constH.setState(GState.WAITING);
-        PluginManager pm = getServer().getPluginManager();
 
+        PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new PlayerListeners(this), this);
         pm.registerEvents(new DoorListeners(this), this);
         pm.registerEvents(new TradeMenuListener(this),this);

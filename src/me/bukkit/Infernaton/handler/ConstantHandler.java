@@ -70,6 +70,7 @@ public class ConstantHandler {
     public GState getState(){
         return this.state;
     }
+
     public Location getSpawnCoordinate(){
         return spawn;
     }
@@ -79,6 +80,7 @@ public class ConstantHandler {
     public Location getBlueBase(){
         return blueBase;
     }
+
     public Location getDoorConstantCoord(){
         return this.constantDoor;
     }
@@ -104,5 +106,16 @@ public class ConstantHandler {
 
     public Team getSpectators(){
         return Team.getTeamByName("Spectators");
+    }
+
+    public Location getBaseLocation(Team team) {
+        switch (team.getTeamName()){
+            case "Red":
+                return getRedBase();
+            case "Blue":
+                return getBlueBase();
+            default:
+                return getSpawnCoordinate();
+        }
     }
 }

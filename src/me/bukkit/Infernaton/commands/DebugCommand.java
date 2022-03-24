@@ -144,7 +144,7 @@ public class DebugCommand implements CommandExecutor {
 
         else if (cmd.getName().equalsIgnoreCase("forceFinal")){
             if(main.constH().isState(GState.PLAYING) || main.constH().isState(GState.WAITING)){
-                new FinalPhaseHandler(main).on();
+                main.FP().on();
             }
             else {
                 ChatHandler.sendError(sender, "Can't perform this command while any game is started");

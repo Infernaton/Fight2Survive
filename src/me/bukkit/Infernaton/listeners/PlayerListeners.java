@@ -16,6 +16,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -102,7 +103,26 @@ public class PlayerListeners implements Listener {
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event){
-        
+        Player player = (Player) event.getEntity();
+        if (main.FP().isActive() && main.constH().isState(GState.PLAYING)){
+            Team team = Team.getTeam(player);
+            main.constH().getSpectators().add(player);
+            if (team.getPlayers().isEmpty()){
+                ChatHandler.toAllPlayer("Partie Terminée !");
+            }
+        }
+    }
+
+    @EventHandler
+    public void onRespawn(PlayerRespawnEvent event){
+        if (main.constH().isState(GState.PLAYING)){
+            Player player = event.getPlayer();
+            Team team = Team.getTeam(player);
+            if (team != null) event.setRespawnLocation(main.constH().getBaseLocation(team));
+            else event.setRespawnLocation(main.constH().getSpawnCoordinate());
+        }else {
+            event.setRespawnLocation(main.constH().getSpawnCoordinate());
+        }
     }
     /*
       Prevent the player from placing boat

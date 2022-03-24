@@ -13,7 +13,7 @@ import java.util.List;
 
 public class FinalPhaseHandler {
 
-    private FightToSurvive main;
+    private final FightToSurvive main;
     private boolean active;
 
     public FinalPhaseHandler(FightToSurvive main){
@@ -24,14 +24,14 @@ public class FinalPhaseHandler {
     public void off(){
         this.active = false;
     }
-    public boolean getActive(){
+    public boolean isActive(){
         return active;
     }
 
     public void on(){
         active = true;
         ChatHandler.toAllPlayer("A team has open their last door. Starting the final Phase...");
-        DoorListeners setDoors = new DoorListeners(this.main);
+        DoorListeners setDoors = new DoorListeners(main);
         setDoors.deleteAllDoors();
     }
 }
