@@ -29,8 +29,6 @@ public class DoorListeners implements Listener {
         keys.add(main.HI().paperKey());
     }
 
-
-
     /**
      * Can interact to selected block with selected item
      * Loop all door blocks and change blocks type to AIR block
@@ -44,16 +42,14 @@ public class DoorListeners implements Listener {
         for (ItemStack itemStack : keys) {
             System.out.println(itemStack.getItemMeta().getDisplayName());
             System.out.println(it.getItemMeta().getDisplayName());
-            if (it != null && it.getItemMeta().getDisplayName() == itemStack.getItemMeta().getDisplayName() && block != null) {
+            if (it != null && it.getItemMeta().getDisplayName() == itemStack.getItemMeta().getDisplayName() && block != null && block.getType() == Material.REDSTONE_BLOCK) {
                 Location location = block.getLocation();
-                if (block != null && block.getType() == Material.REDSTONE_BLOCK) {
-                    ChatHandler.sendMessage(player, "La porte s'ouvre...");
-                    for (double x = -1; x <= 1; x++) {
-                        for (double y = -1; y <= 1; y++) {
-                            for (double z = -1; z <= 1; z++) {
-                                Block bc = new Location(player.getWorld(), location.getBlockX() + x, location.getBlockY() + y, location.getBlockZ() + z).getBlock();
-                                bc.setType(Material.AIR);
-                            }
+                ChatHandler.sendMessage(player, "La porte s'ouvre...");
+                for (double x = -1; x <= 1; x++) {
+                    for (double y = -1; y <= 1; y++) {
+                        for (double z = -1; z <= 1; z++) {
+                            Block bc = new Location(player.getWorld(), location.getBlockX() + x, location.getBlockY() + y, location.getBlockZ() + z).getBlock();
+                            bc.setType(Material.AIR);
                         }
                     }
                 }
