@@ -1,5 +1,6 @@
 package me.bukkit.Infernaton;
 
+import me.bukkit.Infernaton.builder.CountDown;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.commands.DebugCommand;
 import me.bukkit.Infernaton.handler.*;
@@ -10,9 +11,11 @@ import me.bukkit.Infernaton.listeners.TradeMenuListener;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.NBTTagList;
 import net.minecraft.server.v1_8_R3.NBTTagString;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -46,6 +49,34 @@ public class FightToSurvive extends JavaPlugin {
         for(String command: commandsName){
             getCommand(command).setExecutor(executor);
         }
+    }
+
+    public void onStarting(Player sender){
+        if (constH.isState(GState.WAITING)) {
+            List<Player> redPlayers = constH.getRedTeam().getPlayers();
+            List<Player> bluePlayers = constH.getBlueTeam().getPlayers();
+
+            if (Bukkit.getScheduler().getPendingTasks().size() > 0) {
+                ChatHandler.sendError(sender, "CountDown already launch .");
+            } //CountDown started
+            //Compare if there the same numbers of players in each team
+            else if (redPlayers.size() == bluePlayers.size() && redPlayers.size() != 0) {
+                //Clear all players that attend to play
+                redPlayers.addAll(bluePlayers); //All players in one variable
+                for(Player player: redPlayers){
+                    HP.clear(player);
+                }
+                constH.setState(GState.STARTING);
+
+                ChatHandler.sendInfoMessage(sender, "Initialize the countdown...");
+                CountDown.newCountDown(this, 10L);
+                constH.setAllDoors();
+            } else {
+                ChatHandler.sendError(sender, "Not enough players.");
+            } //Not enough player
+        } else {
+            ChatHandler.sendError(sender, "Party already started !");
+        } //Party already launched
     }
 
     public void start(){

@@ -35,7 +35,8 @@ public class DebugCommand implements CommandExecutor {
         if (cmd.getName().equalsIgnoreCase("setPlayer")) {
             if (args.length == 0) {
                 ChatHandler.sendCorrectUsage(sender, "Usage: /setPlayer <username>");
-            } else if (args.length == 1) {
+            }
+            else if (args.length == 1) {
                 Player targetPlayer = Bukkit.getPlayerExact(args[0]);
                 System.out.println(targetPlayer);
                 if (targetPlayer == null) {
@@ -44,7 +45,8 @@ public class DebugCommand implements CommandExecutor {
                     main.HP().setPlayer(targetPlayer);
                     ChatHandler.sendMessage(sender, "§r" + args[0] + " §fis ready to play !");
                 }
-            } else {
+            }
+            else {
                 ChatHandler.sendError(sender, "Too many argument");
             }
             return true;
@@ -59,32 +61,8 @@ public class DebugCommand implements CommandExecutor {
         }
 
         else if (cmd.getName().equalsIgnoreCase("start")) {
-            if (main.constH().isState(GState.WAITING)) {
-                List<Player> redPlayers = main.constH().getRedTeam().getPlayers();
-                List<Player> bluePlayers = main.constH().getBlueTeam().getPlayers();
-
-                if (Bukkit.getScheduler().getPendingTasks().size() > 0) {
-                    ChatHandler.sendError(sender, "CountDown already launch .");
-                }
-                //Compare if there the same numbers of players in each team
-                else if (redPlayers.size() == bluePlayers.size() && redPlayers.size() != 0) {
-                    //Clear all players that attend to play
-                    redPlayers.addAll(bluePlayers); //All players in one variable
-                    for(Player player: redPlayers){
-                        main.HP().clear(player);
-                    }
-                    main.constH().setState(GState.STARTING);
-
-                    ChatHandler.sendInfoMessage(sender, "Initialize the countdown...");
-                    CountDown.newCountDown(main, 10L);
-                    setDoors.setAllDoors();
-                } else {
-                    ChatHandler.sendError(sender, "Not enough players.");
-                }
-            } else {
-                ChatHandler.sendError(sender, "Party already started !");
-
-            }
+            if (sender instanceof Player) main.onStarting((Player) sender);
+            else ChatHandler.sendError(sender, "No Starting from the console");
             return true;
         }
 
@@ -108,7 +86,7 @@ public class DebugCommand implements CommandExecutor {
                     main.HP().setPlayer(player);
                 }
                 main.constH().setState(GState.WAITING);
-                setDoors.setAllDoors();
+                main.constH().setAllDoors();
             } else {
                 ChatHandler.sendError(sender, "Any game is playing right now.");
             }
@@ -116,7 +94,6 @@ public class DebugCommand implements CommandExecutor {
         }
 
         else if (cmd.getName().equalsIgnoreCase("manage_time")) {
-            final Player player = (Player) sender;
             DayNightCycle day = new DayNightCycle(main);
         }
 
@@ -124,7 +101,7 @@ public class DebugCommand implements CommandExecutor {
             if (main.constH().isState(GState.WAITING)) {
                 ChatHandler.sendInfoMessage(sender, "Reset all doors...");
 
-                setDoors.setAllDoors();
+                main.constH().setAllDoors();
             } else {
                 ChatHandler.sendError(sender, "Can't perform this command while the game is pending.");
             }
@@ -135,7 +112,7 @@ public class DebugCommand implements CommandExecutor {
             if (main.constH().isState(GState.WAITING)) {
                 ChatHandler.sendInfoMessage(sender, "Deleting all doors...");
                 DoorListeners setDoors = new DoorListeners(this.main);
-                setDoors.deleteAllDoors();
+                main.constH().deleteAllDoors();
             } else {
                 ChatHandler.sendError(sender, "Can't perform this command while the game is pending.");
             }
