@@ -10,10 +10,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -21,7 +23,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class PlayerListeners implements Listener {
 
     private FightToSurvive main;
-
     private InterfaceHandler IH;
 
     public PlayerListeners(FightToSurvive main) {
@@ -94,6 +95,15 @@ public class PlayerListeners implements Listener {
         }
     }
 
+    @EventHandler
+    public void onQuit(PlayerQuitEvent event){
+
+    }
+
+    @EventHandler
+    public void onDeath(PlayerDeathEvent event){
+        
+    }
     /*
       Prevent the player from placing boat
       Because of would that permit player to bypass Door
