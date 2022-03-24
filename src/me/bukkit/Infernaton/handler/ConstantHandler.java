@@ -2,13 +2,17 @@ package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
+import me.bukkit.Infernaton.GStateDayNight;
 import me.bukkit.Infernaton.builder.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Class which regroup each variable we need in our project
@@ -31,6 +35,21 @@ public class ConstantHandler {
         this.redBase = new Location(Bukkit.getWorld(worldName), main.getConfig().getDouble("coordinates.teamRed.x"),  main.getConfig().getDouble("coordinates.teamRed.y"),  main.getConfig().getDouble("coordinates.teamRed.z"), 0f, 0f);
         this.blueBase = new Location(Bukkit.getWorld(worldName), main.getConfig().getDouble("coordinates.teamBlue.x"),  main.getConfig().getDouble("coordinates.teamBlue.y"),  main.getConfig().getDouble("coordinates.teamBlue.z"), 0f, 0f);
         System.out.println(spawn);
+    }
+    public List<Block> sphereAround(Location location, int radius) {
+        List<Block> sphere = new ArrayList<>();
+        Block center = location.getBlock();
+        for(int x = -radius; x <= radius; x++) {
+            for(int y = -radius; y <= radius; y++) {
+                for(int z = -radius; z <= radius; z++) {
+                    Block b = center.getRelative(x, y, z);
+                    if(center.getLocation().distance(b.getLocation()) <= radius) {
+                        sphere.add(b);
+                    }
+                }
+            }
+        }
+        return sphere;
     }
 
     public List<Location> getAllCopiesDoors() {
@@ -90,5 +109,9 @@ public class ConstantHandler {
 
     public Team getSpectators(){
         return Team.getTeamByName("Spectators");
+    }
+
+    public boolean isState(GStateDayNight night) {
+        return false;
     }
 }

@@ -20,7 +20,7 @@ public class BlockListener implements Listener {
     @EventHandler
     public void blockBreak(BlockBreakEvent event){
         Player player = event.getPlayer();
-        if (player.getGameMode() != GameMode.CREATIVE){
+        if (player.getGameMode() == GameMode.ADVENTURE){
             Block block = event.getBlock();
             Clock.newCountDown(main, 10, block);
         }

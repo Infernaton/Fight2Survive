@@ -2,11 +2,12 @@ package me.bukkit.Infernaton.commands;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
+import me.bukkit.Infernaton.GStateDayNight;
 import me.bukkit.Infernaton.builder.CountDown;
 import me.bukkit.Infernaton.builder.DayNightCycle;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.FinalPhaseHandler;
-import me.bukkit.Infernaton.handler.MOB;
+import me.bukkit.Infernaton.handler.mobsHandler;
 import me.bukkit.Infernaton.listeners.DoorListeners;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -52,8 +53,8 @@ public class DebugCommand implements CommandExecutor {
         else if (cmd.getName().equalsIgnoreCase("mob_villager")) {
             Location location1 = new Location(Bukkit.getWorld(worldName), -48.500, 56, 48);
             Location location2 = new Location(Bukkit.getWorld(worldName), 55.500, 56, 48);
-            MOB.createVillager(location1,"Lumber_Jack");
-            MOB.createVillager(location2,"Lumber_Jack");
+            mobsHandler.createVillager(location1,"Lumber_Jack");
+            mobsHandler.createVillager(location2,"Lumber_Jack");
             return true;
         }
 
@@ -150,6 +151,12 @@ public class DebugCommand implements CommandExecutor {
             }
             return true;
         }
+        /*
+        else if (cmd.getName().equalsIgnoreCase("mob_zombie")){
+            if(main.constH().isState(GState.PLAYING) && main.constH().isState(GStateDayNight.NIGHT)){
+
+            }
+        }*/
 
         return false;
     }
