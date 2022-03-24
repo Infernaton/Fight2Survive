@@ -42,7 +42,7 @@ public class HandleItem {
 
 
     public ItemStack paperKey(){
-        return new ItemBuilder(Material.PAPER).setName("KEY").toItemStack();
+        return new ItemBuilder(Material.PAPER).setName("§9KEY").toItemStack();
 }
 
     public ItemStack transformAxe(ItemStack axe){
