@@ -14,6 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -32,7 +33,6 @@ public class TradeMenuListener implements Listener {
         Entity e = event.getRightClicked();
 
         if (event.getRightClicked() instanceof Villager){
-
             event.setCancelled(true);
 
             if (e.getName().equals("Lumber_Jack")){

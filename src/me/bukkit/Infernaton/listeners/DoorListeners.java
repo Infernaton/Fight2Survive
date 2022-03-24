@@ -2,6 +2,7 @@ package me.bukkit.Infernaton.listeners;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.handler.ChatHandler;
+import me.bukkit.Infernaton.handler.HandleItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -12,6 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,15 +22,14 @@ import static me.bukkit.Infernaton.handler.ConstantHandler.worldName;
 public class DoorListeners implements Listener {
 
     final FightToSurvive main;
+    public List<ItemStack> keys = new ArrayList<>();
 
     public DoorListeners(FightToSurvive main) {
         this.main = main;
+        keys.add(main.HI().paperKey());
     }
 
-    public List<Material> keys = Arrays.asList(
-            Material.DIAMOND_SWORD,
-            Material.GOLD_SWORD
-    );
+
 
     /**
      * Can interact to selected block with selected item
@@ -40,8 +41,10 @@ public class DoorListeners implements Listener {
         Player player = event.getPlayer();
         Block block = event.getClickedBlock();
         ItemStack it = event.getItem();
-        for (Material material : keys) {
-            if (it != null && it.getType() == material && block != null) {
+        for (ItemStack itemStack : keys) {
+            System.out.println(itemStack.getItemMeta().getDisplayName());
+            System.out.println(it.getItemMeta().getDisplayName());
+            if (it != null && it.getItemMeta().getDisplayName() == itemStack.getItemMeta().getDisplayName() && block != null) {
                 Location location = block.getLocation();
                 if (block != null && block.getType() == Material.REDSTONE_BLOCK) {
                     ChatHandler.sendMessage(player, "La porte s'ouvre...");

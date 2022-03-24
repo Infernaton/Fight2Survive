@@ -39,6 +39,12 @@ public class HandleItem {
     public ItemStack spectatorWool(){
         return new ItemBuilder(Material.WOOL, 1, (byte)7).setName("§7Spectateur").toItemStack();
     }
+
+
+    public ItemStack paperKey(){
+        return new ItemBuilder(Material.PAPER, 1, (byte)1).setName("KEY").toItemStack();
+}
+
     public ItemStack transformAxe(ItemStack axe){
         net.minecraft.server.v1_8_R3.ItemStack AXE = CraftItemStack.asNMSCopy(axe);
         NBTTagList idsTag2 = new NBTTagList();
