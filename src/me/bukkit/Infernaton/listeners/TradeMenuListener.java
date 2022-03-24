@@ -39,7 +39,7 @@ public class TradeMenuListener implements Listener {
 
                 OpenMenuTrade trade = new OpenMenuTrade("shop");
 
-                trade.addTrade(new ItemStack(Material.LOG,10),new ItemStack(Material.COBBLESTONE, 10), new ItemStack(Material.PAPER,1));
+                trade.addTrade(new ItemStack(Material.LOG,10),new ItemStack(Material.COBBLESTONE, 10), main.HI().paperKey());
 
                 trade.openTrade(p);
             }
