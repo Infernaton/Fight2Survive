@@ -23,7 +23,7 @@ public class ChatHandler {
 
     public static void sendMessageListPlayer(List<Player> players, String msg){
         for (Player player : players) {
-            sendInfoMessage(player, starter() + msg);
+            sendInfoMessage(player, msg);
         }
     }
 

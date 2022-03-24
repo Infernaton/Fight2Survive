@@ -2,10 +2,7 @@ package me.bukkit.Infernaton;
 
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.commands.DebugCommand;
-import me.bukkit.Infernaton.handler.ChatHandler;
-import me.bukkit.Infernaton.handler.ConstantHandler;
-import me.bukkit.Infernaton.handler.HandleItem;
-import me.bukkit.Infernaton.handler.HandlePlayerState;
+import me.bukkit.Infernaton.handler.*;
 import me.bukkit.Infernaton.listeners.BlockListener;
 import me.bukkit.Infernaton.listeners.DoorListeners;
 import me.bukkit.Infernaton.listeners.PlayerListeners;
@@ -28,8 +25,8 @@ import java.util.List;
 public class FightToSurvive extends JavaPlugin {
 
     private ConstantHandler constH;
-    private HandlePlayerState HP = new HandlePlayerState(this);
-    private HandleItem HI = new HandleItem(this);
+    private final HandlePlayerState HP = new HandlePlayerState(this);
+    private final HandleItem HI = new HandleItem(this);
 
     public ConstantHandler constH(){ return constH; }
     public HandlePlayerState HP() { return HP; }
@@ -88,7 +85,7 @@ public class FightToSurvive extends JavaPlugin {
 
         pm.registerEvents(new PlayerListeners(this), this);
         pm.registerEvents(new DoorListeners(this), this);
-        pm.registerEvents(new TradeMenuListener(),this);
+        pm.registerEvents(new TradeMenuListener(this),this);
         pm.registerEvents(new BlockListener(this), this);
 
         String[] debugCommand = {"mob_villager", "setPlayer", "start", "cancelStart", "reset", "forceFinal" , "manage_time", "getDoors", "deleteDoors"};
@@ -99,6 +96,8 @@ public class FightToSurvive extends JavaPlugin {
         new Team("Red", constH.getScoreboard()).setTeamColor(ChatColor.RED);
         new Team("Blue", constH.getScoreboard()).setTeamColor(ChatColor.BLUE);
         new Team("Spectators", constH.getScoreboard()).setTeamColor(ChatColor.GRAY);
+
+        new CustomRecipeHandler(this);
     }
 
     @Override

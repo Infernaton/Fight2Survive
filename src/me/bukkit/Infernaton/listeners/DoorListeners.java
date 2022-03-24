@@ -34,7 +34,7 @@ public class DoorListeners implements Listener {
     /**
      * Can interact to selected block with selected item
      * Loop all door blocks and change blocks type to AIR block
-     * @param event
+     * @param event PlayerInteractEvent
      */
     @EventHandler
     public void onInteractKeys(PlayerInteractEvent event) {
@@ -63,7 +63,7 @@ public class DoorListeners implements Listener {
 
     /**
      * Loop all blocks with the copiesDoors list and mainDoor locations
-     *  Clonning mainDoor blocks type with the mainDoor location
+     *  Cloning mainDoor blocks type with the mainDoor location
      *  to the copiesDoors list.
      */
     public void setAllDoors() {

@@ -30,5 +30,3 @@ commands:
   deleteDoors:
     description: delete all doors at location
     usage: /deleteDoors
-
-
