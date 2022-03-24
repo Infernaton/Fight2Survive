@@ -13,14 +13,25 @@ import java.util.List;
 
 public class FinalPhaseHandler {
 
-    private FightToSurvive main;
+    private final FightToSurvive main;
+    private boolean active;
 
     public FinalPhaseHandler(FightToSurvive main){
         this.main = main;
+        this.active = false;
     }
+
+    public void off(){
+        this.active = false;
+    }
+    public boolean isActive(){
+        return active;
+    }
+
     public void on(){
+        active = true;
         ChatHandler.toAllPlayer("A team has open their last door. Starting the final Phase...");
-        DoorListeners setDoors = new DoorListeners(this.main);
-        setDoors.deleteAllDoors();
+        DoorListeners setDoors = new DoorListeners(main);
+        main.constH().deleteAllDoors();
     }
 }
