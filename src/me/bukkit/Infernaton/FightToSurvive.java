@@ -9,22 +9,21 @@ import me.bukkit.Infernaton.listeners.BlockListener;
 import me.bukkit.Infernaton.listeners.DoorListeners;
 import me.bukkit.Infernaton.listeners.PlayerListeners;
 import me.bukkit.Infernaton.listeners.TradeMenuListener;
-import net.minecraft.server.v1_8_R3.NBTTagCompound;
-import net.minecraft.server.v1_8_R3.NBTTagList;
-import net.minecraft.server.v1_8_R3.NBTTagString;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class FightToSurvive extends JavaPlugin {
 
@@ -84,9 +83,6 @@ public class FightToSurvive extends JavaPlugin {
         ChatHandler.sendMessageListPlayer(constH().getAllTeamsPlayer(), "§eStart the Game!");
         new DayNightCycle(this);
 
-//       List<Player> redPlayers = constH.getRedTeam().getPlayers();
-//       List<Player> bluePlayers = constH.getBlueTeam().getPlayers();
-
         List<Player> allPlayers = constH.getAllTeamsPlayer();
         for (Player player: allPlayers) {
             player.teleport(constH.getBaseLocation(Team.getTeam(player)));
@@ -94,28 +90,12 @@ public class FightToSurvive extends JavaPlugin {
             for (PotionEffect effect : player.getActivePotionEffects())
                 player.removePotionEffect(effect.getType());
         }
-        /*
-        for(Player player: redPlayers){
-            player.teleport(constH.getRedBase());
-            player.getInventory().addItem(HI.woodAxe());
-            for (PotionEffect effect : player.getActivePotionEffects())
-                player.removePotionEffect(effect.getType());
-        }
-
-        for(Player player: bluePlayers){
-            player.teleport(constH.getBlueBase());
-            player.getInventory().addItem(HI.woodAxe());
-            for (PotionEffect effect : player.getActivePotionEffects())
-                player.removePotionEffect(effect.getType());
-        }
-        */
 
         constH().setState(GState.PLAYING);
     }
 
     public void cancel(){
-        List<Player> players = constH.getAllTeamsPlayer();
-        ChatHandler.sendMessageListPlayer(players, "Canceling the game");
+        List<Player> players = constH.getAllPlayers();
 
         for (Player player: players) {
             HP.setPlayer(player);
@@ -125,7 +105,15 @@ public class FightToSurvive extends JavaPlugin {
     }
 
     public void finish(){
+        constH.setState(GState.FINISH);
 
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                ChatHandler.toAllPlayer("Téléportation des joueurs...");
+                FightToSurvive.this.cancel();
+            }
+        }.runTaskLater(this, 5*20);
     }
 
     @Override
@@ -142,7 +130,7 @@ public class FightToSurvive extends JavaPlugin {
         pm.registerEvents(new TradeMenuListener(this),this);
         pm.registerEvents(new BlockListener(this), this);
 
-        String[] debugCommand = {"mob_villager", "setPlayer", "start", "cancelStart", "reset", "forceFinal" , "manage_time", "getDoors", "deleteDoors"};
+        String[] debugCommand = {"mob_villager", "setPlayer", "start", "cancelStart", "reset", "forceFinal", "getDoors", "deleteDoors", "endgame"};
         enableCommand(debugCommand, new DebugCommand(this));
 
         constH.setScoreboard(getServer().getScoreboardManager().getMainScoreboard());

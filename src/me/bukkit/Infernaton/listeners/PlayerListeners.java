@@ -32,7 +32,7 @@ public class PlayerListeners implements Listener {
     }
 
     @EventHandler
-     public void onJoin(PlayerJoinEvent event){
+    public void onJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
 
         //If it's the first time he join, the player don't have a team yet, so we forced him to join one
@@ -108,7 +108,7 @@ public class PlayerListeners implements Listener {
             Team team = Team.getTeam(player);
             main.constH().getSpectators().add(player);
             if (team.getPlayers().isEmpty()){
-                ChatHandler.toAllPlayer("Partie Terminée !");
+                main.finish();
             }
         }
     }

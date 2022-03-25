@@ -79,15 +79,12 @@ public class DebugCommand implements CommandExecutor {
 
         else if (cmd.getName().equalsIgnoreCase("reset")){
             if (main.constH().isState(GState.PLAYING)){
+                ChatHandler.sendMessageListPlayer(main.constH().getAllTeamsPlayer(), "Canceling the game");
                 main.cancel();
             } else {
                 ChatHandler.sendError(sender, "Any game is playing right now.");
             }
             return true;
-        }
-
-        else if (cmd.getName().equalsIgnoreCase("manage_time")) {
-            new DayNightCycle(main);
         }
 
         else if (cmd.getName().equalsIgnoreCase("getDoors")) {
@@ -119,6 +116,10 @@ public class DebugCommand implements CommandExecutor {
             else {
                 ChatHandler.sendError(sender, "Can't perform this command while any game is started");
             }
+            return true;
+        }
+        else if (cmd.getName().equalsIgnoreCase("endgame")){
+            main.finish();
             return true;
         }
 
