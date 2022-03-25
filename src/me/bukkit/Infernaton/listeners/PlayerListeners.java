@@ -49,8 +49,7 @@ public class PlayerListeners implements Listener {
         // if the game crashed client side, it would be a shame if he can't rejoin the party
         boolean isCurrentlyIG = !main.constH().isState(GState.WAITING) &&
                 !Team.getTeam(player).getTeamName().equalsIgnoreCase("Spectators");
-       ChatHandler.broadcast(isCurrentlyIG + "");
-        ChatHandler.broadcast(Team.getTeam(player).getTeamName() + "");
+
         //And, if the player is in creative, we don't need to reset is position
         if (!isCurrentlyIG && player.getGameMode() != GameMode.CREATIVE){
             main.HP().resetPlayerState(player);
@@ -103,15 +102,15 @@ public class PlayerListeners implements Listener {
     }
 
         @EventHandler
-        public void onQuit(PlayerQuitEvent event){
+        public void onQuit(final PlayerQuitEvent event){
             final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
             final Runnable runnable = new Runnable() {
                 int countdownStarter = 10;
 
+                @Override
                 public void run() {
-
-                    Player player = (Player) event.getPlayer();
+                    Player player = event.getPlayer();
                     if(main.constH().isState(GState.PLAYING)){
                         countdownStarter--;
                         if(countdownStarter == 0){
