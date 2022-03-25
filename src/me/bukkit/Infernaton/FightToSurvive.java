@@ -106,7 +106,6 @@ public class FightToSurvive extends JavaPlugin {
 
     public void finish(){
         constH.setState(GState.FINISH);
-
         new BukkitRunnable() {
             @Override
             public void run() {
