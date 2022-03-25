@@ -38,16 +38,12 @@ public class MobsHandler {
         setAI(villager, false);
     }
     public static void createZombie(Location location, String name){
-        Zombie zombie = (Zombie) location.getWorld().spawnEntity(location, EntityType.ZOMBIE);
-        zombie.setCustomName(name);
-        zombie.setCustomNameVisible(true);
-        ChatHandler.broadcast(zombie.toString());
+        Entity zombie = location.getWorld().spawnEntity(location, EntityType.ZOMBIE);
     }
-    public void createMob() {
 
+    public void createMob() {
         List<Player> playerList = main.constH().getAllTeamsPlayer();
-        for (Player player : playerList
-        ) {
+        for (Player player : playerList) {
             Location playerLocation = player.getLocation();
             List<Block> test = main.constH().sphereAround(playerLocation, 6);
 
@@ -55,14 +51,14 @@ public class MobsHandler {
             Block newBlock;
             do {
                 int randomNum = ThreadLocalRandom.current().nextInt(0, test.size());
-                ChatHandler.sendInfoMessage(player, randomNum + "");
+                //ChatHandler.sendInfoMessage(player, randomNum + "");
                 newBlock = test.get(randomNum);
                 blockBelow = newBlock.getRelative(0, -1, 0);
-
             } while (newBlock.getType() != Material.AIR || !blockKeys.contains(blockBelow.getType()));
-            ChatHandler.sendMessage(player, newBlock.getType().toString() + blockBelow.getType().toString());
-            ChatHandler.sendMessage(player, String.valueOf(newBlock.getLocation()));
-            MobsHandler.createZombie(newBlock.getLocation(), "Zombie");
+
+            //ChatHandler.sendMessage(player, newBlock.getType().toString() + " " + blockBelow.getType().toString());
+            //ChatHandler.sendMessage(player, newBlock.getLocation().toString());
+            createZombie(newBlock.getLocation(), "Zombie");
         }
     }
 }

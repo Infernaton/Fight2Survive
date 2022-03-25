@@ -84,7 +84,7 @@ public class DebugCommand implements CommandExecutor {
         }
 
         else if (cmd.getName().equalsIgnoreCase("manage_time")) {
-            new DayNightCycle(main);
+            DayNightCycle.newCountDown(main);
         }
 
         else if (cmd.getName().equalsIgnoreCase("getDoors")) {

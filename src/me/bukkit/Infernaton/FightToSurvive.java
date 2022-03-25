@@ -31,6 +31,8 @@ import org.bukkit.potion.PotionEffect;
 
 import java.util.List;
 
+import static me.bukkit.Infernaton.handler.ConstantHandler.worldName;
+
 public class FightToSurvive extends JavaPlugin {
 
     private ConstantHandler constH;
@@ -89,11 +91,7 @@ public class FightToSurvive extends JavaPlugin {
 
     public void start(){
         ChatHandler.sendMessageListPlayer(constH().getAllTeamsPlayer(), "§eStart the Game!");
-        new DayNightCycle(this);
-
-//       List<Player> redPlayers = constH.getRedTeam().getPlayers();
-//       List<Player> bluePlayers = constH.getBlueTeam().getPlayers();
-
+        DayNightCycle.newCountDown(this);
         List<Player> allPlayers = constH.getAllTeamsPlayer();
         for (Player player: allPlayers) {
             player.teleport(constH.getBaseLocation(Team.getTeam(player)));
@@ -101,26 +99,12 @@ public class FightToSurvive extends JavaPlugin {
             for (PotionEffect effect : player.getActivePotionEffects())
                 player.removePotionEffect(effect.getType());
         }
-        /*
-        for(Player player: redPlayers){
-            player.teleport(constH.getRedBase());
-            player.getInventory().addItem(HI.woodAxe());
-            for (PotionEffect effect : player.getActivePotionEffects())
-                player.removePotionEffect(effect.getType());
-        }
-
-        for(Player player: bluePlayers){
-            player.teleport(constH.getBlueBase());
-            player.getInventory().addItem(HI.woodAxe());
-            for (PotionEffect effect : player.getActivePotionEffects())
-                player.removePotionEffect(effect.getType());
-        }
-        */
 
         constH().setState(GState.PLAYING);
     }
 
     public void cancel(){
+        Bukkit.getWorld(worldName).setTime(1000);
         List<Player> players = constH.getAllTeamsPlayer();
         ChatHandler.sendMessageListPlayer(players, "Canceling the game");
 
