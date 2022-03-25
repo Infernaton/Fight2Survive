@@ -12,7 +12,6 @@ import org.bukkit.block.Block;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import java.util.ArrayList;
@@ -124,6 +123,12 @@ public class ConstantHandler {
     public List<Player> getAllTeamsPlayer(){
         List<Player> allPlayers = this.getBlueTeam().getPlayers();
         allPlayers.addAll(this.getRedTeam().getPlayers());
+        return allPlayers;
+    }
+    public List<Player> getAllPlayers(){
+        List<Player> allPlayers = this.getBlueTeam().getPlayers();
+        allPlayers.addAll(this.getRedTeam().getPlayers());
+        allPlayers.addAll(this.getSpectators().getPlayers());
         return allPlayers;
     }
 

@@ -4,6 +4,7 @@ import me.bukkit.Infernaton.*;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.InterfaceHandler;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -11,7 +12,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -20,6 +20,11 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class PlayerListeners implements Listener {
 
@@ -32,7 +37,7 @@ public class PlayerListeners implements Listener {
     }
 
     @EventHandler
-     public void onJoin(PlayerJoinEvent event){
+    public void onJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
 
         //If it's the first time he join, the player don't have a team yet, so we forced him to join one
@@ -43,7 +48,7 @@ public class PlayerListeners implements Listener {
         //We test if the player is currently in game when he join,
         // if the game crashed client side, it would be a shame if he can't rejoin the party
         boolean isCurrentlyIG = !main.constH().isState(GState.WAITING) &&
-                !Team.getTeam(player).getTeamName().equalsIgnoreCase("Spectator");
+                !Team.getTeam(player).getTeamName().equalsIgnoreCase("Spectators");
 
         //And, if the player is in creative, we don't need to reset is position
         if (!isCurrentlyIG && player.getGameMode() != GameMode.CREATIVE){
@@ -96,10 +101,39 @@ public class PlayerListeners implements Listener {
         }
     }
 
-    @EventHandler
-    public void onQuit(PlayerQuitEvent event){
+        @EventHandler
+        public void onQuit(final PlayerQuitEvent event){
+            final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-    }
+            final Runnable runnable = new Runnable() {
+                int countdownStarter = 10;
+
+                @Override
+                public void run() {
+                    Player player = event.getPlayer();
+                    if(main.constH().isState(GState.PLAYING)){
+                        countdownStarter--;
+                        if(countdownStarter == 0){
+                            scheduler.shutdown();
+                            Team team = Team.getTeam(player);
+                            main.constH().getSpectators().add(player);
+
+                            if (team.getPlayers().isEmpty()){
+                                ChatHandler.toAllPlayer("Not enough player remaining, resetting the game");
+                              main.finish();
+                            }
+                        }
+                    }
+
+                }
+            };
+            scheduler.scheduleAtFixedRate(runnable, 0, 1, SECONDS);
+
+        }
+
+
+
+
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event){
@@ -108,7 +142,8 @@ public class PlayerListeners implements Listener {
             Team team = Team.getTeam(player);
             main.constH().getSpectators().add(player);
             if (team.getPlayers().isEmpty()){
-                ChatHandler.toAllPlayer("Partie Terminée !");
+                ChatHandler.toAllPlayer("Partie Terminée");
+                main.finish();
             }
         }
     }

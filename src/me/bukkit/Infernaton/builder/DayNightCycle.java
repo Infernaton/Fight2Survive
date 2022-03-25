@@ -4,16 +4,11 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import org.bukkit.Bukkit;
-import org.bukkit.block.Block;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-
-import static java.util.concurrent.TimeUnit.SECONDS;
+import static me.bukkit.Infernaton.handler.ConstantHandler.worldName;
 
 public class DayNightCycle implements Runnable{
-
-    private FightToSurvive main;
+    private final FightToSurvive main;
     private final int initTime = 120;
     int countdownStarter = initTime;
     boolean dayOrNight = true;
@@ -47,7 +42,7 @@ public class DayNightCycle implements Runnable{
         if (!main.constH().isState(GState.PLAYING)){
             System.out.print("Timer Over!");
             stopCountdown(id);
-            Bukkit.getWorld("Arene").setTime(1000);
+            Bukkit.getWorld(worldName).setTime(1000);
         }
 
         if (countdownStarter == 0) {
@@ -55,11 +50,11 @@ public class DayNightCycle implements Runnable{
             dayOrNight = !dayOrNight;
             if (dayOrNight){
                 ChatHandler.broadcast("Day Time");
-                Bukkit.getWorld("Arene").setTime(1000);
+                Bukkit.getWorld(worldName).setTime(1000);
             }
             else{
                 ChatHandler.broadcast("Night Time");
-                Bukkit.getWorld("Arene").setTime(16000);
+                Bukkit.getWorld(worldName).setTime(16000);
                 main.MobsHandler().createMob();
             }
         }
