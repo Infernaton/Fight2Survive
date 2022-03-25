@@ -2,7 +2,6 @@ package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
-import me.bukkit.Infernaton.GStateDayNight;
 import me.bukkit.Infernaton.builder.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -10,14 +9,11 @@ import org.bukkit.Location;
 import org.bukkit.block.Block;
 
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Class which regroup each variable we need in our project
