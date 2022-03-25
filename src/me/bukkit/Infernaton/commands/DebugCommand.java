@@ -2,13 +2,11 @@ package me.bukkit.Infernaton.commands;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
-import me.bukkit.Infernaton.GStateDayNight;
 import me.bukkit.Infernaton.builder.CountDown;
 import me.bukkit.Infernaton.builder.DayNightCycle;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
-import me.bukkit.Infernaton.handler.FinalPhaseHandler;
-import me.bukkit.Infernaton.handler.mobsHandler;
+import me.bukkit.Infernaton.handler.MobsHandler;
 import me.bukkit.Infernaton.listeners.DoorListeners;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -16,10 +14,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.util.List;
-
-import static me.bukkit.Infernaton.handler.ConstantHandler.worldName;
 
 public class DebugCommand implements CommandExecutor {
 
@@ -54,17 +48,11 @@ public class DebugCommand implements CommandExecutor {
         }
 
         else if (cmd.getName().equalsIgnoreCase("mob_villager")) {
-            Location location1 = new Location(Bukkit.getWorld(worldName), -48.500, 56, 48);
-            Location location2 = new Location(Bukkit.getWorld(worldName), 55.500, 56, 48);
-            if(location1 != null) mobsHandler.createVillager(location1,"Lumber_Jack");
-            if(location2 != null) mobsHandler.createVillager(location2,"Lumber_Jack");
-
-/*
             Location location1 = main.constH().getCurrentCoordPnj(Team.getTeamByName("Red"), 0);//new Location(Bukkit.getWorld(worldName), -48.500, 56, 50);
             Location location2 = main.constH().getCurrentCoordPnj(Team.getTeamByName("Blue"), 0);//new Location(Bukkit.getWorld(worldName), 55.500, 56, 50);
-            if(location1 != null) MOB.createVillager(location1,"Lumber_Jack");
-            if(location2 != null) MOB.createVillager(location2,"Lumber_Jack");
-*/
+            if(location1 != null) MobsHandler.createVillager(location1,"Lumber_Jack");
+            if(location2 != null) MobsHandler.createVillager(location2,"Lumber_Jack");
+
 
             return true;
         }

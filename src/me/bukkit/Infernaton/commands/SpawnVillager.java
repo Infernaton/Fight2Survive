@@ -1,6 +1,6 @@
 package me.bukkit.Infernaton.commands;
 
-import me.bukkit.Infernaton.handler.mobsHandler;
+import me.bukkit.Infernaton.handler.MobsHandler;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,8 +17,8 @@ public class SpawnVillager implements CommandExecutor {
             Player player = (Player) sender;
             Location location1 = new Location(player.getWorld(), -48.500, 56, 50);
             Location location2 = new Location(player.getWorld(), 55.500, 56, 50);
-            mobsHandler.createVillager(location1,"Lumber_Jack");
-            mobsHandler.createVillager(location2,"Lumber_Jack");
+            MobsHandler.createVillager(location1,"Lumber_Jack");
+            MobsHandler.createVillager(location2,"Lumber_Jack");
             /**Location location3 = new Location(player.getWorld(), -47.500, 56, 50);
             Location location4 = new Location(player.getWorld(), 55.500, 56, 50);
             MOB.createVillager(location3,"Black_Smith");

@@ -37,6 +37,7 @@ public class FightToSurvive extends JavaPlugin {
     private final HandlePlayerState HP = new HandlePlayerState(this);
     private final HandleItem HI = new HandleItem(this);
     private FinalPhaseHandler finalPhase;
+    private MobsHandler mobsHandler = new MobsHandler(this);
 
     public ConstantHandler constH(){
         return constH;
@@ -50,6 +51,7 @@ public class FightToSurvive extends JavaPlugin {
     public FinalPhaseHandler FP() {
         return finalPhase;
     }
+    public MobsHandler MobsHandler() {return mobsHandler; }
 
     public void enableCommand(String[] commandsName, CommandExecutor executor){
         for(String command: commandsName){
