@@ -13,7 +13,9 @@ import static me.bukkit.Infernaton.handler.ConstantHandler.worldName;
 
 public class DayNightCycle implements Runnable{
     private final FightToSurvive main;
-    int countdownStarter = 120;
+    private final int initTime = 120;
+
+    int countdownStarter = initTime;
     boolean dayOrNight = true;
     ScheduledExecutorService scheduler;
 
@@ -35,12 +37,12 @@ public class DayNightCycle implements Runnable{
         }
 
         if (countdownStarter == 0 && dayOrNight) {
-            countdownStarter = countdownStarter + 120;
+            countdownStarter = countdownStarter + initTime;
             dayOrNight = false;
             ChatHandler.broadcast("Night Time");
             Bukkit.getWorld(worldName).setTime(13000);
         }else if(countdownStarter == 0) {
-            countdownStarter = countdownStarter + 120;
+            countdownStarter = countdownStarter + initTime;
             dayOrNight = true;
             ChatHandler.broadcast("Day Time");
             Bukkit.getWorld(worldName).setTime(1000);
