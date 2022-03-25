@@ -104,7 +104,7 @@ public class FightToSurvive extends JavaPlugin {
 
     public void cancel(){
         Bukkit.getWorld(worldName).setTime(1000);
-        List<Player> players = constH.getAllTeamsPlayer();
+        List<Player> players = constH.getAllPlayers();
         ChatHandler.sendMessageListPlayer(players, "Canceling the game");
 
         for (Player player: players) {
