@@ -4,6 +4,9 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import org.bukkit.Bukkit;
 
+/**
+ * The clock right before the game start
+ */
 public class CountDown implements Runnable {
 
     private FightToSurvive main;
@@ -23,12 +26,12 @@ public class CountDown implements Runnable {
         Bukkit.getScheduler().cancelTasks(main);
     }
 
-    public CountDown(long departTime, FightToSurvive main){
+    private CountDown(long departTime, FightToSurvive main){
         this.time = departTime;
         this.main = main;
     }
 
-    public void setId(int id){
+    private void setId(int id){
         this.id = id;
     }
 

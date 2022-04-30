@@ -1,7 +1,7 @@
 package me.bukkit.Infernaton.listeners;
 
 import me.bukkit.Infernaton.FightToSurvive;
-import me.bukkit.Infernaton.builder.Clock;
+import me.bukkit.Infernaton.builder.BreakBlockClock;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -19,6 +19,10 @@ public class BlockListener implements Listener {
         this.main = main;
     }
 
+    /**
+     * To prevent the player in game, from breaking certain block that has the same name but not the same metadata
+     * @param event
+     */
     @EventHandler
     public void blockBreak(BlockBreakEvent event){
         Player player = event.getPlayer();
@@ -31,7 +35,7 @@ public class BlockListener implements Listener {
                     return;
                 }
             }
-            Clock.newCountDown(main, 10, block);
+            BreakBlockClock.newCountDown(main, 10, block);
         }
     }
 }

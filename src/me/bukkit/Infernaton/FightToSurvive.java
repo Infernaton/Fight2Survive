@@ -18,17 +18,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
-
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 import static me.bukkit.Infernaton.handler.ConstantHandler.worldName;
 
@@ -57,6 +53,12 @@ public class FightToSurvive extends JavaPlugin {
     public void enableCommand(String[] commandsName, CommandExecutor executor){
         for(String command: commandsName){
             getCommand(command).setExecutor(executor);
+        }
+    }
+    private void registerEvent(Listener[] listeners){
+        PluginManager pm = getServer().getPluginManager();
+        for (Listener listener: listeners){
+            pm.registerEvents(listener, this);
         }
     }
 
@@ -133,17 +135,23 @@ public class FightToSurvive extends JavaPlugin {
 
         constH.setState(GState.WAITING);
 
-        PluginManager pm = getServer().getPluginManager();
-        pm.registerEvents(new PlayerListeners(this), this);
-        pm.registerEvents(new DoorListeners(this), this);
-        pm.registerEvents(new TradeMenuListener(this),this);
-        pm.registerEvents(new BlockListener(this), this);
+        //#region set all listeners
+        Listener[] listeners = {
+                new PlayerListeners(this),
+                new DoorListeners(this),
+                new TradeMenuListener(this),
+                new BlockListener(this)
+        };
+        registerEvent(listeners);
+        //#endregion
 
+        //#region command declaration
         String[] debugCommand = {"mob_villager", "setPlayer", "start", "cancelStart", "reset", "forceFinal", "getDoors", "deleteDoors", "endgame"};
         enableCommand(debugCommand, new DebugCommand(this));
 
         String[] debugMob = {"mob_zombie"};
         enableCommand(debugMob, new SpawnMobs(this));
+        //#endregion
 
         constH.setScoreboard(getServer().getScoreboardManager().getMainScoreboard());
 

@@ -5,7 +5,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 
-public class Clock implements Runnable {
+
+/**
+ * A clock to define which is called right after a player break a block,
+ * when the clock stop, the game replace the breaking block
+ */
+public class BreakBlockClock implements Runnable {
 
     private Block block;
     private Material blockType;
@@ -13,22 +18,22 @@ public class Clock implements Runnable {
     private int id;
 
     public static void newCountDown(FightToSurvive main, long time, Block block){
-        Clock clock = new Clock(time, block);
+        BreakBlockClock clock = new BreakBlockClock(time, block);
         int countDownId = Bukkit.getScheduler().scheduleSyncRepeatingTask(main, clock, time, 20L);
         clock.setId(countDownId);
-    }
-
-    public void setId(int id){
-        this.id = id;
     }
     public static void stopCountdown(int clockId){
         Bukkit.getScheduler().cancelTask(clockId);
     }
 
-    public Clock(long startTime, Block block){
+    private BreakBlockClock(long startTime, Block block){
         this.startTime = startTime;
         this.block = block;
         this.blockType = block.getType();
+    }
+
+    private void setId(int id){
+        this.id = id;
     }
 
     @Override

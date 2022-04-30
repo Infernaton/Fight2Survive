@@ -20,6 +20,7 @@ public class MobsHandler {
         this.main  = fightToSurvive;
     }
 
+    //List of block type where a monster can spawn
     public List<Material> blockKeys = Arrays.asList(
             Material.GRASS,
             Material.DIRT,
@@ -27,6 +28,7 @@ public class MobsHandler {
             Material.SOUL_SAND,
             Material.COBBLESTONE
     );
+
     public static void setAI(LivingEntity entity, boolean hasAi) {
         EntityLiving handle = ((CraftLivingEntity) entity).getHandle();
         handle.getDataWatcher().watch(15, (byte) (hasAi ? 0 : 1));
@@ -41,7 +43,7 @@ public class MobsHandler {
         Entity zombie = location.getWorld().spawnEntity(location, EntityType.ZOMBIE);
     }
 
-    public void createMob() {
+    public void generateMobWave() {
         List<Player> playerList = main.constH().getAllTeamsPlayer();
         for (Player player : playerList) {
             Location playerLocation = player.getLocation();

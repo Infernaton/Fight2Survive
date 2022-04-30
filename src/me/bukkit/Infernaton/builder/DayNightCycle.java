@@ -55,7 +55,7 @@ public class DayNightCycle implements Runnable{
             else{
                 ChatHandler.broadcast("Night Time");
                 Bukkit.getWorld(worldName).setTime(16000);
-                main.MobsHandler().createMob();
+                main.MobsHandler().generateMobWave();
             }
         }
     }

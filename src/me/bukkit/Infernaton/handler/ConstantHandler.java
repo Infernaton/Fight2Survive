@@ -35,8 +35,10 @@ public class ConstantHandler {
         this.constantDoor = new Location(Bukkit.getWorld(worldName), main.getConfig().getDouble("coordinates.doorCoord.constant.x"),  main.getConfig().getDouble("coordinates.doorCoord.constant.y"),  main.getConfig().getDouble("coordinates.doorCoord.constant.z"), 0f, 0f);
         this.redBase = new Location(Bukkit.getWorld(worldName), main.getConfig().getDouble("coordinates.teamRed.spawnpoint.x"),  main.getConfig().getDouble("coordinates.teamRed.spawnpoint.y"),  main.getConfig().getDouble("coordinates.teamRed.spawnpoint.z"), 0f, 0f);
         this.blueBase = new Location(Bukkit.getWorld(worldName), main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.x"),  main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.y"),  main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.z"), 0f, 0f);
-        System.out.println(spawn);
+        //System.out.println(spawn);
     }
+
+    //Get all block around target location (mostly use around players) by radius
     public List<Block> sphereAround(Location location, int radius) {
         List<Block> sphere = new ArrayList<>();
         Block center = location.getBlock();
@@ -66,7 +68,7 @@ public class ConstantHandler {
         }
         return locations;
     }
-    public Location getCurrentCoordPnj(Team currentTeam,int currentIndex){
+    public Location getCurrentCoordPnj(Team currentTeam, int currentIndex){
         String path = "coordinates.team"+currentTeam.getTeamName()+".pnjCoord."+ (currentIndex+1);
         ChatHandler.broadcast(path);
         ConfigurationSection configurationSection = main.getConfig().getConfigurationSection(path);
@@ -115,6 +117,9 @@ public class ConstantHandler {
     public Team getBlueTeam(){
         return Team.getTeamByName("Blue");
     }
+    public Team getSpectators(){
+        return Team.getTeamByName("Spectators");
+    }
 
     public List<Player> getAllTeamsPlayer(){
         List<Player> allPlayers = this.getBlueTeam().getPlayers();
@@ -126,10 +131,6 @@ public class ConstantHandler {
         allPlayers.addAll(this.getRedTeam().getPlayers());
         allPlayers.addAll(this.getSpectators().getPlayers());
         return allPlayers;
-    }
-
-    public Team getSpectators(){
-        return Team.getTeamByName("Spectators");
     }
 
     public Location getBaseLocation(Team team) {

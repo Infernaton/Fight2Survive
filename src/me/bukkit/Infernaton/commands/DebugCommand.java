@@ -3,11 +3,9 @@ package me.bukkit.Infernaton.commands;
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.CountDown;
-import me.bukkit.Infernaton.builder.DayNightCycle;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.MobsHandler;
-import me.bukkit.Infernaton.listeners.DoorListeners;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -18,18 +16,22 @@ import org.bukkit.entity.Player;
 public class DebugCommand implements CommandExecutor {
 
     private final FightToSurvive main;
-    private final DoorListeners setDoors;
 
     public DebugCommand(FightToSurvive main) {
         this.main = main;
-        setDoors = new DoorListeners(this.main);
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+
+        /*
+            On debug, make target player like he is waiting to play the game
+         */
         if (cmd.getName().equalsIgnoreCase("setPlayer")) {
             if (args.length == 0) {
-                ChatHandler.sendCorrectUsage(sender, "Usage: /setPlayer <username>");
+                Player player = (Player) sender;
+                main.HP().setPlayer(player);
+                ChatHandler.sendMessage(sender, "§rYou §fare ready to play !");
             }
             else if (args.length == 1) {
                 Player targetPlayer = Bukkit.getPlayerExact(args[0]);
@@ -43,16 +45,19 @@ public class DebugCommand implements CommandExecutor {
             }
             else {
                 ChatHandler.sendError(sender, "Too many argument");
+                ChatHandler.sendCorrectUsage(sender, "Usage: /setPlayer <username>");
             }
             return true;
         }
 
+        /*
+            Spawn manually the merchant
+         */
         else if (cmd.getName().equalsIgnoreCase("mob_villager")) {
             Location location1 = main.constH().getCurrentCoordPnj(Team.getTeamByName("Red"), 0);//new Location(Bukkit.getWorld(worldName), -48.500, 56, 50);
             Location location2 = main.constH().getCurrentCoordPnj(Team.getTeamByName("Blue"), 0);//new Location(Bukkit.getWorld(worldName), 55.500, 56, 50);
             if(location1 != null) MobsHandler.createVillager(location1,"Lumber_Jack");
             if(location2 != null) MobsHandler.createVillager(location2,"Lumber_Jack");
-
 
             return true;
         }
@@ -63,6 +68,9 @@ public class DebugCommand implements CommandExecutor {
             return true;
         }
 
+        /*
+            Just after the starting command, and before the game actually start, we can cancel that countdown
+         */
         else if (cmd.getName().equalsIgnoreCase("cancelStart")) {
             if (main.constH().isState(GState.STARTING)) {
                 main.constH().setState(GState.WAITING);
@@ -97,7 +105,6 @@ public class DebugCommand implements CommandExecutor {
         else if (cmd.getName().equalsIgnoreCase("deleteDoors")) {
             if (main.constH().isState(GState.WAITING)) {
                 ChatHandler.sendInfoMessage(sender, "Deleting all doors...");
-                DoorListeners setDoors = new DoorListeners(this.main);
                 main.constH().deleteAllDoors();
             } else {
                 ChatHandler.sendError(sender, "Can't perform this command while the game is pending.");
