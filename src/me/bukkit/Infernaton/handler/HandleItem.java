@@ -26,6 +26,9 @@ public class HandleItem {
         player.getInventory().setItem(slot, item);
         player.updateInventory();
     }
+    public void removeItemHand(Player player){
+        player.setItemInHand(new ItemStack(Material.AIR));
+    }
 
     public ItemStack magicCompass(){
         return new ItemBuilder(Material.COMPASS).setName("§aNavigation").toItemStack();
@@ -39,7 +42,6 @@ public class HandleItem {
     public ItemStack spectatorWool(){
         return new ItemBuilder(Material.WOOL, 1, (byte)7).setName("§7Spectateur").toItemStack();
     }
-
 
     public ItemStack paperKey(){
         return new ItemBuilder(Material.PAPER).setName("§9KEY").toItemStack();
