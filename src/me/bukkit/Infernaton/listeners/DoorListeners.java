@@ -44,7 +44,7 @@ public class DoorListeners implements Listener {
                 }
             }
             ChatHandler.sendMessage(player, "La porte s'ouvre...");
-            main.FP().on();
+            main.FP().asking(location, main.constH().getAllCopiesDoors());
         }
     }
 }

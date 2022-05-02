@@ -36,13 +36,16 @@ public class DayNightCycle implements Runnable{
     @Override
     public void run() {
 
-        System.out.print(countdownStarter);
         countdownStarter--;
 
         if (!main.constH().isState(GState.PLAYING)){
             System.out.print("Timer Over!");
             stopCountdown(id);
             Bukkit.getWorld(worldName).setTime(1000);
+        }
+
+        if (countdownStarter % 10 == 0){
+            System.out.print(countdownStarter);
         }
 
         if (countdownStarter == 0) {
