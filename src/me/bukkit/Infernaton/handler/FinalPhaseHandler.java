@@ -28,9 +28,13 @@ public class FinalPhaseHandler {
         main.constH().deleteAllDoors();
     }
     public void asking(Location currentDoor, List<Location> listDoors){
-        System.out.print("Derniere porte ? " + listDoors.get(listDoors.size()- 1) + " == " + currentDoor+ " = ");
-        System.out.println(listDoors.get(listDoors.size()- 1) == currentDoor);
-        if (listDoors.get(listDoors.size()- 1) == currentDoor){
+
+        boolean isRed = listDoors.indexOf(currentDoor) % 2 == 0;
+
+        Location lastDoor = listDoors.get(listDoors.size()- 1 - (isRed ? 1 : 0));
+        System.out.print("Derniere porte ? " + lastDoor.hashCode() + " == " + currentDoor.hashCode() + " = ");
+        System.out.println(lastDoor.hashCode() == currentDoor.hashCode());
+        if (lastDoor.hashCode() == currentDoor.hashCode()){
             on();
         }
     }
