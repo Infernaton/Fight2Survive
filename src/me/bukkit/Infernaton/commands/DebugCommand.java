@@ -5,6 +5,7 @@ import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.CountDown;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
+import me.bukkit.Infernaton.handler.HandleItem;
 import me.bukkit.Infernaton.handler.MobsHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -61,36 +62,6 @@ public class DebugCommand implements CommandExecutor {
 
             return true;
         }
-
-        else if (cmd.getName().equalsIgnoreCase("start")) {
-            if (sender instanceof Player) main.onStarting((Player) sender);
-            else ChatHandler.sendError(sender, "No Starting from the console");
-            return true;
-        }
-
-        /*
-            Just after the starting command, and before the game actually start, we can cancel that countdown
-         */
-        else if (cmd.getName().equalsIgnoreCase("cancelStart")) {
-            if (main.constH().isState(GState.STARTING)) {
-                main.constH().setState(GState.WAITING);
-                CountDown.stopAllCountdown(main);
-                ChatHandler.sendMessageListPlayer(main.constH().getAllTeamsPlayer(), "Launch canceled.");
-            } else {
-                ChatHandler.sendError(sender, "Any countdown aren't set right now.");
-            }
-            return true;
-        }
-
-        else if (cmd.getName().equalsIgnoreCase("reset")){
-            if (main.constH().isState(GState.PLAYING)){
-                ChatHandler.sendMessageListPlayer(main.constH().getAllTeamsPlayer(), "Canceling the game");
-                main.cancel();
-            } else {
-                ChatHandler.sendError(sender, "Any game is playing right now.");
-            }
-            return true;
-        }
         else if (cmd.getName().equalsIgnoreCase("getDoors")) {
             if (main.constH().isState(GState.WAITING)) {
                 ChatHandler.sendInfoMessage(sender, "Reset all doors...");
@@ -112,17 +83,10 @@ public class DebugCommand implements CommandExecutor {
             return true;
         }
 
-        else if (cmd.getName().equalsIgnoreCase("forceFinal")){
-            if(main.constH().isState(GState.PLAYING) || main.constH().isState(GState.WAITING)){
-                main.FP().on();
-            }
-            else {
-                ChatHandler.sendError(sender, "Can't perform this command while any game is started");
-            }
-            return true;
-        }
-        else if (cmd.getName().equalsIgnoreCase("endgame")){
-            main.finish();
+
+        else if (cmd.getName().equalsIgnoreCase("getKey")){
+            ChatHandler.sendMessage(sender, "Tiens frère la clé");
+            main.HI().giveItemInInventory((Player) sender, main.HI().paperKey(), 1);
             return true;
         }
 

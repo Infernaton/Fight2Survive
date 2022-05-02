@@ -4,6 +4,7 @@ import me.bukkit.Infernaton.builder.CountDown;
 import me.bukkit.Infernaton.builder.DayNightCycle;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.commands.DebugCommand;
+import me.bukkit.Infernaton.commands.PartyCommand;
 import me.bukkit.Infernaton.commands.SpawnMobs;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.ConstantHandler;
@@ -146,8 +147,11 @@ public class FightToSurvive extends JavaPlugin {
         //#endregion
 
         //#region command declaration
-        String[] debugCommand = {"mob_villager", "setPlayer", "start", "cancelStart", "reset", "forceFinal", "getDoors", "deleteDoors", "endgame"};
+        String[] debugCommand = {"mob_villager", "setPlayer", "getDoors", "deleteDoors", "getKey"};
         enableCommand(debugCommand, new DebugCommand(this));
+
+        String[] partyCommand = {"start", "cancelStart", "reset", "forceFinal", "endgame"};
+        enableCommand(partyCommand, new PartyCommand(this));
 
         String[] debugMob = {"mob_zombie"};
         enableCommand(debugMob, new SpawnMobs(this));

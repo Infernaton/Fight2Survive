@@ -33,3 +33,6 @@ commands:
   mob_zombie:
     description: Spawn a zombie near to the player
     usage: /<command>
+  getKey:
+    description: get a key to open a door
+    usage: /<command>
