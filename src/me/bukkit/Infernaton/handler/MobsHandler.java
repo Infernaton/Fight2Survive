@@ -41,6 +41,7 @@ public class MobsHandler {
     }
     public static void createZombie(Location location, String name){
         Entity zombie = location.getWorld().spawnEntity(location, EntityType.ZOMBIE);
+        Entity spider = location.getWorld().spawnEntity(location, EntityType.SPIDER);
     }
 
     public void generateMobWave() {
