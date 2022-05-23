@@ -88,6 +88,9 @@ public class HandleItem {
     public ItemStack stoneAxe(){
         return transformAxe(new ItemStack(Material.STONE_AXE));
     }
+    public ItemStack goldAxe(){
+        return transformAxe(new ItemBuilder(Material.GOLD_AXE).setInfinityDurability().toItemStack());
+    }
     public ItemStack ironAxe(){
         return transformAxe(new ItemStack(Material.IRON_AXE));
     }
@@ -101,10 +104,23 @@ public class HandleItem {
     public ItemStack stonePickaxe(){
         return transformPickaxe(new ItemStack(Material.STONE_PICKAXE),2);
     }
+    public ItemStack goldPickaxe(){
+        return transformPickaxe(new ItemBuilder(Material.GOLD_AXE).setInfinityDurability().toItemStack(),2);
+    }
     public ItemStack ironPickaxe(){
         return transformPickaxe(new ItemStack(Material.IRON_PICKAXE),3);
     }
     public ItemStack diamondPickaxe(){
         return transformPickaxe(new ItemStack(Material.DIAMOND_PICKAXE),4);
+    }
+
+    public ItemStack goldSword(){
+        return new ItemBuilder(Material.GOLD_SWORD).setInfinityDurability().toItemStack();
+    }
+    public ItemStack goldShovel(){
+        return new ItemBuilder(Material.GOLD_SPADE).setInfinityDurability().toItemStack();
+    }
+    public ItemStack goldHoe(){
+        return new ItemBuilder(Material.GOLD_HOE).setInfinityDurability().toItemStack();
     }
 }
