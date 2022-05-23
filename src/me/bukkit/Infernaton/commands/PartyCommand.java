@@ -4,10 +4,13 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.CountDown;
 import me.bukkit.Infernaton.handler.ChatHandler;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import static me.bukkit.Infernaton.handler.ConstantHandler.worldName;
 
 public class PartyCommand implements CommandExecutor {
 
@@ -42,6 +45,7 @@ public class PartyCommand implements CommandExecutor {
         else if (cmd.getName().equalsIgnoreCase("reset")){
             if (main.constH().isState(GState.PLAYING)){
                 ChatHandler.sendMessageListPlayer(main.constH().getAllTeamsPlayer(), "Canceling the game");
+                Bukkit.getWorld(worldName).setTime(1000);
                 main.cancel();
             } else {
                 ChatHandler.sendError(sender, "Any game is playing right now.");

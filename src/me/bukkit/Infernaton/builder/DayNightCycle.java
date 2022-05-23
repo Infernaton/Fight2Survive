@@ -9,7 +9,7 @@ import static me.bukkit.Infernaton.handler.ConstantHandler.worldName;
 
 public class DayNightCycle implements Runnable{
     private final FightToSurvive main;
-    private final int initTime = 120;
+    private final int initTime = 10;
     int countdownStarter = initTime;
     boolean dayOrNight = true;
 
