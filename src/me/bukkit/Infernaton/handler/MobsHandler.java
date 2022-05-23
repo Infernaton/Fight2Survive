@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MobsHandler {
-
+    public static int round = 1;
+    public static int level = 1;
 
     final private FightToSurvive main;
     public MobsHandler(FightToSurvive fightToSurvive) {
@@ -41,10 +42,25 @@ public class MobsHandler {
     }
     public static void createZombie(Location location, String name){
         Entity zombie = location.getWorld().spawnEntity(location, EntityType.ZOMBIE);
+    }
+
+    public static void createSpider(Location location, String name){
         Entity spider = location.getWorld().spawnEntity(location, EntityType.SPIDER);
     }
 
     public void generateMobWave() {
+
+        for (int i = 0; i < round; i++) {
+            generateOneMob();
+        }
+        level++;
+        int result = level % 3;
+        if(result == 0){
+            round++;
+        }
+    }
+
+    public void generateOneMob() {
         List<Player> playerList = main.constH().getAllTeamsPlayer();
         for (Player player : playerList) {
             Location playerLocation = player.getLocation();
@@ -62,6 +78,7 @@ public class MobsHandler {
             //ChatHandler.sendMessage(player, newBlock.getType().toString() + " " + blockBelow.getType().toString());
             //ChatHandler.sendMessage(player, newBlock.getLocation().toString());
             createZombie(newBlock.getLocation(), "Zombie");
+            createSpider(newBlock.getLocation(), "Spider");
         }
     }
 }
