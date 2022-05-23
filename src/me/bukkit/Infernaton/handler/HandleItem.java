@@ -89,7 +89,7 @@ public class HandleItem {
         return transformAxe(new ItemStack(Material.STONE_AXE));
     }
     public ItemStack goldAxe(){
-        return transformAxe(new ItemBuilder(Material.GOLD_AXE).setInfinityDurability().toItemStack());
+        return new ItemBuilder(transformAxe(new ItemStack(Material.GOLD_AXE))).setInfinityDurability().toItemStack();
     }
     public ItemStack ironAxe(){
         return transformAxe(new ItemStack(Material.IRON_AXE));
@@ -105,7 +105,7 @@ public class HandleItem {
         return transformPickaxe(new ItemStack(Material.STONE_PICKAXE),2);
     }
     public ItemStack goldPickaxe(){
-        return transformPickaxe(new ItemBuilder(Material.GOLD_AXE).setInfinityDurability().toItemStack(),2);
+        return new ItemBuilder(transformPickaxe(new ItemStack(Material.GOLD_PICKAXE),2)).setInfinityDurability().toItemStack();
     }
     public ItemStack ironPickaxe(){
         return transformPickaxe(new ItemStack(Material.IRON_PICKAXE),3);
