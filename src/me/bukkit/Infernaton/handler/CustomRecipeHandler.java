@@ -20,8 +20,13 @@ public class CustomRecipeHandler {
     private void definedCustomTools(){
         woodPickaxe();
         stonePickaxe();
+        ironPickaxe();
+        diamondPickaxe();
+
         woodAxe();
         stoneAxe();
+        ironAxe();
+        diamondAxe();
     }
 
     private void removeRecipeByMateriel(Material item) {
@@ -41,12 +46,24 @@ public class CustomRecipeHandler {
     private void stonePickaxe(){
         pickaxeShape(main.HI().stonePickaxe(), Material.COBBLESTONE);
     }
+    private void ironPickaxe(){
+        pickaxeShape(main.HI().ironPickaxe(), Material.IRON_INGOT);
+    }
+    private void diamondPickaxe(){
+        pickaxeShape(main.HI().diamondPickaxe(), Material.DIAMOND);
+    }
 
     private void woodAxe(){
         axeShape(main.HI().woodAxe(), Material.WOOD);
     }
     private void stoneAxe(){
         axeShape(main.HI().stoneAxe(), Material.COBBLESTONE);
+    }
+    private void ironAxe(){
+        axeShape(main.HI().ironAxe(), Material.IRON_INGOT);
+    }
+    private void diamondAxe(){
+        axeShape(main.HI().ironAxe(), Material.DIAMOND);
     }
 
     private void commonToolRecipeMaterial(ItemStack it, Material material, String[] shape){
@@ -55,21 +72,21 @@ public class CustomRecipeHandler {
 
         recipe.shape(shape[0], shape[1], shape[2]);
 
-        recipe.setIngredient('W', material);
+        recipe.setIngredient('M', material);
         recipe.setIngredient('S', Material.STICK);
         main.getServer().addRecipe(recipe);
     }
 
     private void pickaxeShape(ItemStack pickaxe, Material mainMaterial){
-        String[] shape = {"WWW", " S ", " S "};
+        String[] shape = {"MMM", " S ", " S "};
         commonToolRecipeMaterial(pickaxe, mainMaterial, shape);
     }
 
     private void axeShape(ItemStack axe, Material mainMaterial){
-        String[] shape = {"WW ", "WS ", " S "};
+        String[] shape = {"MM ", "MS ", " S "};
         commonToolRecipeMaterial(axe, mainMaterial, shape);
 
-        String[] shape2 = {" WW", " SW", " S "};
+        String[] shape2 = {" MM", " SM", " S "};
         commonToolRecipeMaterial(axe, mainMaterial, shape2);
     }
 }
