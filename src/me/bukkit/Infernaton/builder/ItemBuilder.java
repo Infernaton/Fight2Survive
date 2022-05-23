@@ -130,7 +130,10 @@ public class ItemBuilder {
      * Sets infinity durability on the item by setting the durability to Short.MAX_VALUE.
      */
     public ItemBuilder setInfinityDurability(){
-        is.setDurability(Short.MAX_VALUE);
+        ItemMeta im = is.getItemMeta();
+        im.spigot().setUnbreakable(true);
+        is.setItemMeta(im);
+        //is.setDurability(Short.MAX_VALUE);
         return this;
     }
     /**

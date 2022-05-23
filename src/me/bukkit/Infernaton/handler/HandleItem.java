@@ -64,9 +64,13 @@ public class HandleItem {
         switch (level){
             case 5:
             case 4:
+                idsTag.add(new NBTTagString("minecraft:lapis_ore"));
             case 3:
+                idsTag.add(new NBTTagString("minecraft:diamond_ore"));
+                idsTag.add(new NBTTagString("minecraft:gold_ore"));
             case 2:
                 idsTag.add(new NBTTagString("minecraft:iron_ore"));
+                idsTag.add(new NBTTagString("minecraft:coal_ore"));
             case 1:
                 idsTag.add(new NBTTagString("minecraft:cobblestone"));
                 break;
@@ -81,14 +85,42 @@ public class HandleItem {
     public ItemStack woodAxe(){
         return transformAxe(new ItemStack(Material.WOOD_AXE));
     }
-
     public ItemStack stoneAxe(){
         return transformAxe(new ItemStack(Material.STONE_AXE));
     }
+    public ItemStack goldAxe(){
+        return new ItemBuilder(transformAxe(new ItemStack(Material.GOLD_AXE))).setInfinityDurability().toItemStack();
+    }
+    public ItemStack ironAxe(){
+        return transformAxe(new ItemStack(Material.IRON_AXE));
+    }
+    public ItemStack diamondAxe(){
+        return transformAxe(new ItemStack(Material.DIAMOND_AXE));
+    }
+
     public ItemStack woodPickaxe(){
         return transformPickaxe(new ItemStack(Material.WOOD_PICKAXE),1);
     }
     public ItemStack stonePickaxe(){
         return transformPickaxe(new ItemStack(Material.STONE_PICKAXE),2);
+    }
+    public ItemStack goldPickaxe(){
+        return new ItemBuilder(transformPickaxe(new ItemStack(Material.GOLD_PICKAXE),2)).setInfinityDurability().toItemStack();
+    }
+    public ItemStack ironPickaxe(){
+        return transformPickaxe(new ItemStack(Material.IRON_PICKAXE),3);
+    }
+    public ItemStack diamondPickaxe(){
+        return transformPickaxe(new ItemStack(Material.DIAMOND_PICKAXE),4);
+    }
+
+    public ItemStack goldSword(){
+        return new ItemBuilder(Material.GOLD_SWORD).setInfinityDurability().toItemStack();
+    }
+    public ItemStack goldShovel(){
+        return new ItemBuilder(Material.GOLD_SPADE).setInfinityDurability().toItemStack();
+    }
+    public ItemStack goldHoe(){
+        return new ItemBuilder(Material.GOLD_HOE).setInfinityDurability().toItemStack();
     }
 }
