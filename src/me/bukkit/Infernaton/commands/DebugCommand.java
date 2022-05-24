@@ -96,6 +96,12 @@ public class DebugCommand implements CommandExecutor {
             return true;
         }
 
+        else if (cmd.getName().equalsIgnoreCase("killPnj")){
+            ChatHandler.sendMessage(sender, "Kill pnj");
+            main.constH().killPnj();
+            return true;
+        }
+
         return false;
     }
 }

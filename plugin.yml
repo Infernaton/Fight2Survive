@@ -39,3 +39,6 @@ commands:
   setAllVillagers:
     description: spawn all villager
     usage: /<command>
+  killPnj:
+    description: kill pnj
+    usage: /<command>

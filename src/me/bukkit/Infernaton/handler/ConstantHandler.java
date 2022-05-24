@@ -14,6 +14,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Villager;
 import org.bukkit.material.Directional;
 import org.bukkit.scoreboard.Scoreboard;
 import java.util.ArrayList;
@@ -48,19 +49,19 @@ public class ConstantHandler {
     public Map<String, Location> getAllPnj() {
         Map<String, Location> pc = new HashMap<String, Location>();
         World w = Bukkit.getWorld(worldName);
-        pc.put("Zone R 1", new Location(w, -48.5, 56.0, 51.5));
-        pc.put("Zone R 2", new Location(w, -117.0, 56.0, 134.0, 50.0F, 0f));
-        pc.put("Zone R 3", new Location(w, -157.0, 56.0, 104.0));
-        pc.put("Zone R 4", new Location(w, -103.0, 56.0, 161.0));
-        pc.put("Zone R 5", new Location(w, -41.0, 56.0, 181.0));
-        pc.put("Zone R 6", new Location(w, -49.0, 44.0, 239.0));
+        pc.put("Lumber Jack", new Location(w, -48.5, 56.0, 51.5));
+        pc.put("Didier", new Location(w, -117.0, 56.0, 134.0, 50.0F, 0f));
+        pc.put("Jean-Pierre Fanguin", new Location(w, -157.0, 56.0, 104.0));
+        pc.put("Rodrigues de pomero", new Location(w, -103.0, 56.0, 161.0));
+        pc.put("Baruk le diamantiare", new Location(w, -41.0, 56.0, 181.0));
+        pc.put("Fabala l'enchanteur", new Location(w, -49.0, 44.0, 239.0));
 
-        pc.put("Zone B 1", new Location(w, 55.5, 56.0, 51.5));
-        pc.put("Zone B 2", new Location(w, 118.0, 56.0, 134.0));
-        pc.put("Zone B 3", new Location(w, 158.0, 56.0, 136.0));
-        pc.put("Zone B 4", new Location(w, 104.0, 56.0, 161.0));
-        pc.put("Zone B 5", new Location(w, 42.0, 56.0, 181.0));
-        pc.put("Zone B 6", new Location(w, 54.0, 44.0, 239.0));
+        pc.put("Lumber Jack", new Location(w, 55.5, 56.0, 51.5));
+        pc.put("Didier", new Location(w, 118.0, 56.0, 134.0));
+        pc.put("Jean-Pierre Fanguin", new Location(w, 158.0, 56.0, 136.0));
+        pc.put("Rodrigues de pomero", new Location(w, 104.0, 56.0, 161.0));
+        pc.put("Baruk le diamantiare", new Location(w, 42.0, 56.0, 181.0));
+        pc.put("Fabala l'enchanteur", new Location(w, 54.0, 44.0, 239.0));
 
         return pc;
     }
@@ -72,6 +73,14 @@ public class ConstantHandler {
             loc.setYaw(loc.getYaw());
             MobsHandler.createVillager(loc, me.getKey());
             ChatHandler.broadcast(me.getValue().getYaw() + " "+ me.getKey());
+        }
+    }
+
+    public void killPnj(){
+        for (Entity e : Bukkit.getWorld(worldName).getEntities()) {
+            if (e instanceof Villager) {
+                e.remove();
+            }
         }
     }
 

@@ -147,7 +147,7 @@ public class FightToSurvive extends JavaPlugin {
         //#endregion
 
         //#region command declaration
-        String[] debugCommand = {"mob_villager", "setPlayer", "getDoors", "deleteDoors", "getKey", "setAllVillagers"};
+        String[] debugCommand = {"mob_villager", "setPlayer", "getDoors", "deleteDoors", "getKey", "setAllVillagers", "killPnj"};
         enableCommand(debugCommand, new DebugCommand(this));
 
         String[] partyCommand = {"start", "cancelStart", "reset", "forceFinal", "endgame"};
