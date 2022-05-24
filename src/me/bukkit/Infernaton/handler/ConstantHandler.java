@@ -46,33 +46,37 @@ public class ConstantHandler {
         //System.out.println(spawn);
     }
 
-    public Map<String, Location> getAllPnj() {
-        Map<String, Location> pc = new HashMap<String, Location>();
-        World w = Bukkit.getWorld(worldName);
-        pc.put("Lumber Jack", new Location(w, -48.5, 56.0, 51.5));
-        pc.put("Didier", new Location(w, -117.0, 56.0, 134.0, 50.0F, 0f));
-        pc.put("Jean-Pierre Fanguin", new Location(w, -157.0, 56.0, 104.0));
-        pc.put("Rodrigues de pomero", new Location(w, -103.0, 56.0, 161.0));
-        pc.put("Baruk le diamantiare", new Location(w, -41.0, 56.0, 181.0));
-        pc.put("Fabala l'enchanteur", new Location(w, -49.0, 44.0, 239.0));
+    public String[] pnjName(){
+        return new String[]{
+                "Lumber Jack", "Didier", "Jean-Pierre Fanguin", "Rodrigues de pomero", "Baruk le diamantaire", "Fabala l'enchanteur", //Team Blue
+                "Lumber Jack", "Didier", "Jean-Pierre Fanguin", "Rodrigues de pomero", "Baruk le diamantaire", "Fabala l'enchanteur"  //Team Red
+        };
+    }
 
-        pc.put("Lumber Jack", new Location(w, 55.5, 56.0, 51.5));
-        pc.put("Didier", new Location(w, 118.0, 56.0, 134.0));
-        pc.put("Jean-Pierre Fanguin", new Location(w, 158.0, 56.0, 136.0));
-        pc.put("Rodrigues de pomero", new Location(w, 104.0, 56.0, 161.0));
-        pc.put("Baruk le diamantiare", new Location(w, 42.0, 56.0, 181.0));
-        pc.put("Fabala l'enchanteur", new Location(w, 54.0, 44.0, 239.0));
+    public List<Location> getAllPnj() {
+        List<Location> pc = new ArrayList<>();
+        World w = Bukkit.getWorld(worldName);
+        pc.add(new Location(w, -48.5, 56.0, 51.5));
+        pc.add(new Location(w, -117.0, 56.0, 134.0));
+        pc.add(new Location(w, -157.0, 56.0, 104.0));
+        pc.add(new Location(w, -103.0, 56.0, 161.0));
+        pc.add(new Location(w, -41.0, 56.0, 181.0));
+        pc.add(new Location(w, -49.0, 44.0, 239.0));
+
+        pc.add(new Location(w, 55.5, 56.0, 51.5));
+        pc.add(new Location(w, 118.0, 56.0, 134.0));
+        pc.add(new Location(w, 158.0, 56.0, 136.0));
+        pc.add(new Location(w, 104.0, 56.0, 161.0));
+        pc.add(new Location(w, 42.0, 56.0, 181.0));
+        pc.add(new Location(w, 54.0, 44.0, 239.0));
 
         return pc;
     }
 
     public void setAllPnj() {
-        Map<String, Location> copiesPnjList = main.constH().getAllPnj();
-        for (Map.Entry<String, Location> me : copiesPnjList.entrySet()) {
-            Location loc = me.getValue();
-            loc.setYaw(loc.getYaw());
-            MobsHandler.createVillager(loc, me.getKey());
-            ChatHandler.broadcast(me.getValue().getYaw() + " "+ me.getKey());
+        List<Location> copiesPnjList = main.constH().getAllPnj();
+        for (int i=0; i<copiesPnjList.size(); i++){
+            MobsHandler.createVillager(copiesPnjList.get(i), pnjName()[i]);
         }
     }
 

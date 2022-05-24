@@ -13,7 +13,6 @@ public class OpenMenuTrade{
     private final MerchantRecipeList recipe = new MerchantRecipeList();
     public OpenMenuTrade(String name){
         this.invName = name;
-
     }
 
     public OpenMenuTrade addTrade(ItemStack one, ItemStack two){
@@ -56,7 +55,6 @@ public class OpenMenuTrade{
             public IChatBaseComponent getScoreboardDisplayName() {
                 return IChatBaseComponent.ChatSerializer.a(invName);
             }
-
         });
     }
 }

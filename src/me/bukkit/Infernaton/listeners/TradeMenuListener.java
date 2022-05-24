@@ -28,45 +28,36 @@ public class TradeMenuListener implements Listener {
         Player p = event.getPlayer();
         Entity e = event.getRightClicked();
 
-        if (event.getRightClicked() instanceof Villager){
+        if (e instanceof Villager){
             event.setCancelled(true);
-            switch ((String) e.getName()){
+            switch (e.getName()){
                 case "Lumber Jack":
                     trade = IH.tradeKey(new ItemStack(Material.LOG,10),new ItemStack(Material.COBBLESTONE, 10));
-                    trade.openTrade(p);
                     break;
-
                 case "Didier":
                     trade = IH.tradeKey(new ItemStack(Material.COAL_BLOCK,3));
-                    trade.openTrade(p);
                     break;
-
                 case "Jean-Pierre Fanguin":
                     trade = IH.tradeKey(new ItemStack(Material.IRON_BLOCK,4));
-                    trade.openTrade(p);
                     break;
-
                 case "Rodrigues de pomero":
                     trade = IH.tradeKey(new ItemStack(Material.GOLD_NUGGET,50));
-                    trade.openTrade(p);
                     break;
-
-                /**case "André de pomero":
+                /*case "André de pomero":
                     trade = IH.tradeKey(new ItemStack(Material.,));
                     trade.openTrade(p);
                     break;*/
-
                 case "Baruk le diamantiare":
                     trade = IH.tradeKey(new ItemStack(Material.DIAMOND,6),new ItemStack(Material.COAL, 12));
-                    trade.openTrade(p);
                     break;
-
                 case "Fabala l'enchanteur":
                     trade = IH.tradeKey(new ItemStack(Material.LAPIS_BLOCK,6),new ItemStack(Material.GOLD_SWORD, 1));
-                    trade.openTrade(p);
+                    break;
+                default:
+                    trade = new OpenMenuTrade("DEFAULT").addTrade(new ItemStack(Material.AIR), new ItemStack(Material.AIR));
                     break;
             }
-
+            trade.openTrade(p);
         }
     }
 }
