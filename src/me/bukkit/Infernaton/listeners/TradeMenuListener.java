@@ -40,14 +40,14 @@ public class TradeMenuListener implements Listener {
                 case "Jean-Pierre Fanguin":
                     trade = IH.tradeKey(new ItemStack(Material.IRON_BLOCK,4));
                     break;
-                case "Rodrigues de pomero":
+                case "Rodrigues de Pomero":
                     trade = IH.tradeKey(new ItemStack(Material.GOLD_NUGGET,50));
                     break;
-                /*case "André de pomero":
+                /*case "André de Pomero":
                     trade = IH.tradeKey(new ItemStack(Material.,));
                     trade.openTrade(p);
                     break;*/
-                case "Baruk le diamantiare":
+                case "Baruk, le diamantiare":
                     trade = IH.tradeKey(new ItemStack(Material.DIAMOND,6),new ItemStack(Material.COAL, 12));
                     break;
                 case "Fabala l'enchanteur":

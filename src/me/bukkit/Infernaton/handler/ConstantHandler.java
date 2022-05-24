@@ -48,8 +48,8 @@ public class ConstantHandler {
 
     public String[] pnjName(){
         return new String[]{
-                "Lumber Jack", "Didier", "Jean-Pierre Fanguin", "Rodrigues de pomero", "Baruk le diamantaire", "Fabala l'enchanteur", //Team Blue
-                "Lumber Jack", "Didier", "Jean-Pierre Fanguin", "Rodrigues de pomero", "Baruk le diamantaire", "Fabala l'enchanteur"  //Team Red
+                "Lumber Jack", "Didier", "Jean-Pierre Fanguin", "Rodrigues de Pomero", "Baruk, le diamantaire", "Fabala l'enchanteur", //Team Blue
+                "Lumber Jack", "Didier", "Jean-Pierre Fanguin", "Rodrigues de Pomero", "Baruk, le diamantaire", "Fabala l'enchanteur"  //Team Red
         };
     }
 
@@ -118,18 +118,6 @@ public class ConstantHandler {
             locations.add(door);
         }
         return locations;
-    }
-    public Location getCurrentCoordPnj(Team currentTeam, int currentIndex){
-        String path = "coordinates.team"+currentTeam.getTeamName()+".pnjCoord."+ (currentIndex+1);
-        ChatHandler.broadcast(path);
-        ConfigurationSection configurationSection = main.getConfig().getConfigurationSection(path);
-        if (configurationSection == null) return null;
-
-        return new Location(Bukkit.getWorld(worldName),
-                main.getConfig().getDouble(path + ".x"),
-                main.getConfig().getDouble(path + ".y"),
-                main.getConfig().getDouble(path + ".z")
-        );
     }
 
     public void setState(GState state){

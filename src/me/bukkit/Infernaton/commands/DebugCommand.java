@@ -51,17 +51,6 @@ public class DebugCommand implements CommandExecutor {
             return true;
         }
 
-        /*
-            Spawn manually the merchant
-         */
-        else if (cmd.getName().equalsIgnoreCase("mob_villager")) {
-            Location location1 = main.constH().getCurrentCoordPnj(Team.getTeamByName("Red"), 0);//new Location(Bukkit.getWorld(worldName), -48.500, 56, 50);
-            Location location2 = main.constH().getCurrentCoordPnj(Team.getTeamByName("Blue"), 0);//new Location(Bukkit.getWorld(worldName), 55.500, 56, 50);
-            if(location1 != null) MobsHandler.createVillager(location1,"Lumber_Jack");
-            if(location2 != null) MobsHandler.createVillager(location2,"Lumber_Jack");
-
-            return true;
-        }
         else if (cmd.getName().equalsIgnoreCase("getDoors")) {
             if (main.constH().isState(GState.WAITING)) {
                 ChatHandler.sendInfoMessage(sender, "Reset all doors...");
@@ -85,19 +74,19 @@ public class DebugCommand implements CommandExecutor {
 
 
         else if (cmd.getName().equalsIgnoreCase("getKey")){
-            ChatHandler.sendMessage(sender, "Tiens frère la clé");
+            ChatHandler.sendMessage(sender, "Giving the Key !");
             main.HI().giveItemInInventory((Player) sender, main.HI().paperKey(), 1);
             return true;
         }
 
-        else if (cmd.getName().equalsIgnoreCase("setAllVillagers")){
-            ChatHandler.sendMessage(sender, "spawn pnj");
+        else if (cmd.getName().equalsIgnoreCase("setVillagers")){
+            ChatHandler.sendInfoMessage(sender, "Spawning all Villagers...");
             main.constH().setAllPnj();
             return true;
         }
 
         else if (cmd.getName().equalsIgnoreCase("killPnj")){
-            ChatHandler.sendMessage(sender, "Kill pnj");
+            ChatHandler.sendInfoMessage(sender, "Killing all Villagers...");
             main.constH().killPnj();
             return true;
         }
