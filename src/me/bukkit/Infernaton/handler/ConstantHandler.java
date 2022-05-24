@@ -6,14 +6,20 @@ import me.bukkit.Infernaton.builder.Team;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
+import org.bukkit.World;
 import org.bukkit.block.Block;
 
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.material.Directional;
 import org.bukkit.scoreboard.Scoreboard;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class which regroup each variable we need in our project
@@ -29,6 +35,7 @@ public class ConstantHandler {
     private Scoreboard scoreboard;
     final static public String worldName = "Arene";
 
+
     public ConstantHandler(FightToSurvive main){
         this.main = main;
         this.spawn = new Location(Bukkit.getWorld(worldName), main.getConfig().getDouble("coordinates.lobby.x"),  main.getConfig().getDouble("coordinates.lobby.y"),  main.getConfig().getDouble("coordinates.lobby.z"), 0f, 0f);
@@ -37,6 +44,37 @@ public class ConstantHandler {
         this.blueBase = new Location(Bukkit.getWorld(worldName), main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.x"),  main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.y"),  main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.z"), 0f, 0f);
         //System.out.println(spawn);
     }
+
+    public Map<String, Location> getAllPnj() {
+        Map<String, Location> pc = new HashMap<String, Location>();
+        World w = Bukkit.getWorld(worldName);
+        pc.put("Zone R 1", new Location(w, -48.5, 56.0, 51.5));
+        pc.put("Zone R 2", new Location(w, -117.0, 56.0, 134.0, 50.0F, 0f));
+        pc.put("Zone R 3", new Location(w, -157.0, 56.0, 104.0));
+        pc.put("Zone R 4", new Location(w, -103.0, 56.0, 161.0));
+        pc.put("Zone R 5", new Location(w, -41.0, 56.0, 181.0));
+        pc.put("Zone R 6", new Location(w, -49.0, 44.0, 239.0));
+
+        pc.put("Zone B 1", new Location(w, 55.5, 56.0, 51.5));
+        pc.put("Zone B 2", new Location(w, 118.0, 56.0, 134.0));
+        pc.put("Zone B 3", new Location(w, 158.0, 56.0, 136.0));
+        pc.put("Zone B 4", new Location(w, 104.0, 56.0, 161.0));
+        pc.put("Zone B 5", new Location(w, 42.0, 56.0, 181.0));
+        pc.put("Zone B 6", new Location(w, 54.0, 44.0, 239.0));
+
+        return pc;
+    }
+
+    public void setAllPnj() {
+        Map<String, Location> copiesPnjList = main.constH().getAllPnj();
+        for (Map.Entry<String, Location> me : copiesPnjList.entrySet()) {
+            Location loc = me.getValue();
+            loc.setYaw(loc.getYaw());
+            MobsHandler.createVillager(loc, me.getKey());
+            ChatHandler.broadcast(me.getValue().getYaw() + " "+ me.getKey());
+        }
+    }
+
 
     //Get all block around target location (mostly use around players) by radius
     public List<Block> sphereAround(Location location, int radius) {

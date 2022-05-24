@@ -90,6 +90,12 @@ public class DebugCommand implements CommandExecutor {
             return true;
         }
 
+        else if (cmd.getName().equalsIgnoreCase("setAllVillagers")){
+            ChatHandler.sendMessage(sender, "spawn pnj");
+            main.constH().setAllPnj();
+            return true;
+        }
+
         return false;
     }
 }
