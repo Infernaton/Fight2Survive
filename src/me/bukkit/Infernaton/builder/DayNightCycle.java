@@ -9,7 +9,7 @@ import static me.bukkit.Infernaton.handler.ConstantHandler.worldName;
 
 public class DayNightCycle implements Runnable{
     private final FightToSurvive main;
-    private final int initTime = 5;
+    private final int initTime = 120;
     int countdownStarter = initTime;
     boolean dayOrNight = true;
 
@@ -48,6 +48,14 @@ public class DayNightCycle implements Runnable{
             System.out.print(countdownStarter);
         }
 
+        if (countdownStarter == 5) {
+            if (dayOrNight){
+                ChatHandler.broadcast("The sun is rising, a little rest for you");
+            }
+            else{
+                ChatHandler.broadcast("The moon appears soon, be careful of monster");
+            }
+        }
         if (countdownStarter == 0) {
             countdownStarter = initTime;
             dayOrNight = !dayOrNight;

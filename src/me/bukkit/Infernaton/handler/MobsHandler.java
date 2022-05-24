@@ -82,7 +82,7 @@ public class MobsHandler {
             //ChatHandler.sendMessage(player, newBlock.getLocation().toString());
             createZombie(newBlock.getLocation(), "Zombie");
             createSpider(newBlock.getLocation(), "Spider");
-            if(round == 2){
+            if(round == 5){
                 ChatHandler.broadcast("azrazearfdsgb");
                 createSkeleton(newBlock.getLocation(), "Skeleton");
             }
