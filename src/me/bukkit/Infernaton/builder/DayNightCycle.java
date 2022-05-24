@@ -50,10 +50,10 @@ public class DayNightCycle implements Runnable{
 
         if (countdownStarter == 5) {
             if (dayOrNight){
-                ChatHandler.broadcast("The sun is rising, a little rest for you");
+                ChatHandler.broadcast("The moon appears soon, be careful of monster");
             }
             else{
-                ChatHandler.broadcast("The moon appears soon, be careful of monster");
+                ChatHandler.broadcast("The sun is rising, a little rest for you");
             }
         }
         if (countdownStarter == 0) {
