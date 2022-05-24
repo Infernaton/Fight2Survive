@@ -1,11 +1,11 @@
 package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
-import net.minecraft.server.v1_8_R3.EntityLiving;
+import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
 import org.bukkit.entity.*;
 
 import java.util.Arrays;
@@ -30,23 +30,27 @@ public class MobsHandler {
             Material.COBBLESTONE
     );
 
-    public static void setAI(LivingEntity entity, boolean hasAi) {
-        EntityLiving handle = ((CraftLivingEntity) entity).getHandle();
-        handle.getDataWatcher().watch(15, (byte) (hasAi ? 0 : 1));
+    public static void setNoAI(Entity entity) {
+        net.minecraft.server.v1_8_R3.Entity nmsVil = ((CraftEntity) entity).getHandle();
+        NBTTagCompound comp = new NBTTagCompound();
+        nmsVil.c(comp);
+        comp.setByte("NoAI", (byte) 1);
+        nmsVil.f(comp);
+        nmsVil.b(true);
     }
-    public static void createVillager(Location location, String name){
+    public void createVillager(Location location, String name){
         Villager villager = (Villager) location.getWorld().spawnEntity(location, EntityType.VILLAGER);
         villager.setCustomName(name);
         villager.setCustomNameVisible(true);
-        setAI(villager, false);
+        setNoAI(villager);
     }
-    public static void createZombie(Location location, String name){
+    public void createZombie(Location location, String name){
         Entity zombie = location.getWorld().spawnEntity(location, EntityType.ZOMBIE);
     }
-     public static void createSpider(Location location, String name){
+     public void createSpider(Location location, String name){
         Entity spider = location.getWorld().spawnEntity(location, EntityType.SPIDER);
     }
-    public static void createSkeleton(Location location, String name){
+    public void createSkeleton(Location location, String name){
         Entity skeleton = location.getWorld().spawnEntity(location, EntityType.SKELETON);
     }
     public void generateMobWave() {
