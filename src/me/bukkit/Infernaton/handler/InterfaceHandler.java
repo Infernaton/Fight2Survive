@@ -1,8 +1,11 @@
 package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
+import me.bukkit.Infernaton.builder.OpenMenuTrade;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 public class InterfaceHandler {
 
@@ -10,6 +13,15 @@ public class InterfaceHandler {
 
     public InterfaceHandler(FightToSurvive main){
         this.main = main;
+    }
+
+    public OpenMenuTrade tradeKey(ItemStack trade){
+        return tradeKey(trade, new ItemStack(Material.AIR));
+    }
+    public OpenMenuTrade tradeKey(ItemStack first, ItemStack second){
+        OpenMenuTrade trade = new OpenMenuTrade("Key Shop");
+        trade.addTrade(first, second, main.HI().paperKey());
+        return trade;
     }
 
     public Inventory selectTeam(){

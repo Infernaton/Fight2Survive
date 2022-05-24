@@ -1,4 +1,4 @@
-package me.bukkit.Infernaton;
+package me.bukkit.Infernaton.builder;
 
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
