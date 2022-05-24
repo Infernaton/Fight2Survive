@@ -44,8 +44,11 @@ public class MobsHandler {
         Entity zombie = location.getWorld().spawnEntity(location, EntityType.ZOMBIE);
     }
 
-    public static void createSpider(Location location, String name){
+     public static void createSpider(Location location, String name){
         Entity spider = location.getWorld().spawnEntity(location, EntityType.SPIDER);
+    }
+    public static void createSkeleton(Location location, String name){
+        Entity skeleton = location.getWorld().spawnEntity(location, EntityType.SKELETON);
     }
 
     public void generateMobWave() {
@@ -79,6 +82,10 @@ public class MobsHandler {
             //ChatHandler.sendMessage(player, newBlock.getLocation().toString());
             createZombie(newBlock.getLocation(), "Zombie");
             createSpider(newBlock.getLocation(), "Spider");
+            if(round == 5){
+                createSkeleton(newBlock.getLocation(), "Skeleton");
+            }
+
         }
     }
 }
