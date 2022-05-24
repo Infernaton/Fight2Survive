@@ -50,4 +50,8 @@ public class ChatHandler {
     public static void sendInfoMessage(CommandSender sender, String msg){
         sender.sendMessage(starter() + "§3" + msg);
     }
+
+    public static void sendCantWhilePlaying(CommandSender sender){
+        ChatHandler.sendError(sender, "Can't perform this command while the game is pending.");
+    }
 }

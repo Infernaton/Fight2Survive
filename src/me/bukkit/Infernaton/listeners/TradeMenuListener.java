@@ -16,7 +16,7 @@ public class TradeMenuListener implements Listener {
 
     private FightToSurvive main;
     private InterfaceHandler IH;
-    private OpenMenuTrade trade;
+    private OpenMenuTrade trade = new OpenMenuTrade("DEFAULT").addTrade(new ItemStack(Material.AIR), new ItemStack(Material.AIR));;
 
     public TradeMenuListener(FightToSurvive main) {
         this.main = main;
@@ -43,18 +43,14 @@ public class TradeMenuListener implements Listener {
                 case "Rodrigues de Pomero":
                     trade = IH.tradeKey(new ItemStack(Material.GOLD_NUGGET,50));
                     break;
-                /*case "André de Pomero":
-                    trade = IH.tradeKey(new ItemStack(Material.,));
-                    trade.openTrade(p);
-                    break;*/
-                case "Baruk, le diamantiare":
+                case "André de Pomero":
+                    //trade = IH.tradeKey(new ItemStack(Material.,));
+                    break;
+                case "Baruk, le diamantaire":
                     trade = IH.tradeKey(new ItemStack(Material.DIAMOND,6),new ItemStack(Material.COAL, 12));
                     break;
                 case "Fabala l'enchanteur":
-                    trade = IH.tradeKey(new ItemStack(Material.LAPIS_BLOCK,6),new ItemStack(Material.GOLD_SWORD, 1));
-                    break;
-                default:
-                    trade = new OpenMenuTrade("DEFAULT").addTrade(new ItemStack(Material.AIR), new ItemStack(Material.AIR));
+                    trade = IH.tradeKey(new ItemStack(Material.LAPIS_BLOCK,6), main.HI().goldSword());
                     break;
             }
             trade.openTrade(p);

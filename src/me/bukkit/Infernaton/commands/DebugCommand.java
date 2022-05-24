@@ -57,7 +57,7 @@ public class DebugCommand implements CommandExecutor {
 
                 main.constH().setAllDoors();
             } else {
-                ChatHandler.sendError(sender, "Can't perform this command while the game is pending.");
+                ChatHandler.sendCantWhilePlaying(sender);
             }
             return true;
         }
@@ -67,21 +67,25 @@ public class DebugCommand implements CommandExecutor {
                 ChatHandler.sendInfoMessage(sender, "Deleting all doors...");
                 main.constH().deleteAllDoors();
             } else {
-                ChatHandler.sendError(sender, "Can't perform this command while the game is pending.");
+                ChatHandler.sendCantWhilePlaying(sender);
             }
             return true;
         }
 
 
         else if (cmd.getName().equalsIgnoreCase("getKey")){
-            ChatHandler.sendMessage(sender, "Giving the Key !");
+            ChatHandler.sendInfoMessage(sender, "Giving the Key !");
             main.HI().giveItemInInventory((Player) sender, main.HI().paperKey(), 1);
             return true;
         }
 
         else if (cmd.getName().equalsIgnoreCase("setVillagers")){
-            ChatHandler.sendInfoMessage(sender, "Spawning all Villagers...");
-            main.constH().setAllPnj();
+            if (main.constH().isState(GState.WAITING)) {
+                ChatHandler.sendInfoMessage(sender, "Spawning all Villagers...");
+                main.constH().setAllPnj();
+            } else {
+                ChatHandler.sendCantWhilePlaying(sender);
+            }
             return true;
         }
 

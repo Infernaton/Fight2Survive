@@ -102,7 +102,8 @@ public class FightToSurvive extends JavaPlugin {
                 player.removePotionEffect(effect.getType());
         }
 
-        constH().setState(GState.PLAYING);
+        constH.setAllPnj();
+        constH.setState(GState.PLAYING);
     }
 
     public void cancel(){
@@ -115,6 +116,7 @@ public class FightToSurvive extends JavaPlugin {
         }
         constH.setState(GState.WAITING);
         constH.setAllDoors();
+        constH.killPnj();
     }
 
     public void finish(){
