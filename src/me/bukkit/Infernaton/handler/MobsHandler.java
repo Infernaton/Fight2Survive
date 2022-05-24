@@ -43,14 +43,12 @@ public class MobsHandler {
     public static void createZombie(Location location, String name){
         Entity zombie = location.getWorld().spawnEntity(location, EntityType.ZOMBIE);
     }
-
      public static void createSpider(Location location, String name){
         Entity spider = location.getWorld().spawnEntity(location, EntityType.SPIDER);
     }
     public static void createSkeleton(Location location, String name){
         Entity skeleton = location.getWorld().spawnEntity(location, EntityType.SKELETON);
     }
-
     public void generateMobWave() {
 
         for (int i = 0; i < round; i++) {
@@ -86,7 +84,6 @@ public class MobsHandler {
                 ChatHandler.broadcast("azrazearfdsgb");
                 createSkeleton(newBlock.getLocation(), "Skeleton");
             }
-
         }
     }
 }
