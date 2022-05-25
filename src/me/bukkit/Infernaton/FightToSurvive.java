@@ -106,8 +106,8 @@ public class FightToSurvive extends JavaPlugin {
         constH.setState(GState.WAITING);
         CountDown.stopAllCountdown(this);
         ChatHandler.sendMessageListPlayer(constH.getAllTeamsPlayer(), "Launch canceled.");
-
     }
+
     public void cancel(){
         Bukkit.getWorld(worldName).setTime(1000);
         List<Player> players = constH.getAllPlayers();
