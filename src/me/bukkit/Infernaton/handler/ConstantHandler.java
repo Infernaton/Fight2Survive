@@ -2,7 +2,9 @@ package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
+import me.bukkit.Infernaton.builder.OpenMenuTrade;
 import me.bukkit.Infernaton.builder.Team;
+import net.minecraft.server.v1_8_R3.MerchantRecipe;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
@@ -13,10 +15,13 @@ import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class which regroup each variable we need in our project
@@ -27,9 +32,13 @@ public class ConstantHandler {
     private final FightToSurvive main;
     private Scoreboard scoreboard;
     final static public String worldName = "Arene";
+    private InterfaceHandler IH;
+    private Map<String, MerchantRecipe> allTrade;
 
     public ConstantHandler(FightToSurvive main){
         this.main = main;
+        this.IH = new InterfaceHandler(main);
+        this.allTrade = setAllTrade(); //To not update each time we clicked on a PNJ
     }
 
     public String[] pnjName(){
@@ -59,6 +68,22 @@ public class ConstantHandler {
         pc.add(new Location(w, 54.5, 44.0, 239.5, 120f, 0f)); //6e zone (lapis)
 
         return pc;
+    }
+
+    public Map<String, MerchantRecipe> setAllTrade(){
+        Map<String, MerchantRecipe> trade = new HashMap<>();
+        trade.put("Bob", main.MR().tradingKey(new ItemStack(Material.LOG,10), new ItemStack(Material.COBBLESTONE, 10)));
+        trade.put("Didier", main.MR().tradingKey(new ItemStack(Material.COAL_BLOCK,3)));
+        trade.put("André de Pomero", main.MR().defaultTrade());
+        trade.put("Rodrigues de Pomero", main.MR().tradingKey(new ItemStack(Material.GOLD_NUGGET,50)));
+        trade.put("Jean-Pierre Fanguin", main.MR().tradingKey(new ItemStack(Material.IRON_BLOCK,4)));
+        trade.put("Baruk, le diamantaire", main.MR().tradingKey(new ItemStack(Material.DIAMOND,6),new ItemStack(Material.COAL, 12)));
+        trade.put("Fabala l'enchanteur", main.MR().tradingKey(new ItemStack(Material.LAPIS_BLOCK,6), main.HI().goldSword()));
+
+        return trade;
+    }
+    public MerchantRecipe getTrade(String pnjName){
+        return allTrade.get(pnjName);
     }
 
     //Get all block around target location (mostly use around players) by radius

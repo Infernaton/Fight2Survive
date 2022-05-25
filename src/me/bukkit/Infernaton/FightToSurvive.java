@@ -36,7 +36,8 @@ public class FightToSurvive extends JavaPlugin {
     private final HandleItem HI = new HandleItem(this);
     private FinalPhaseHandler finalPhase;
     private final MobsHandler mobsHandler = new MobsHandler(this);
-    private DoorHandler doorHandler = new DoorHandler(this);
+    private final DoorHandler doorHandler = new DoorHandler(this);
+    private final HandleMerchantRecipe handleMR = new HandleMerchantRecipe(this);
 
     public ConstantHandler constH(){
         return constH;
@@ -55,6 +56,9 @@ public class FightToSurvive extends JavaPlugin {
     }
     public DoorHandler DH() {
         return doorHandler;
+    }
+    public HandleMerchantRecipe MR() {
+        return handleMR;
     }
 
     public void enableCommand(String[] commandsName, CommandExecutor executor){

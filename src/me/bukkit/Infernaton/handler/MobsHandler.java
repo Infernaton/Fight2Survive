@@ -1,12 +1,15 @@
 package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
+import me.bukkit.Infernaton.builder.CustomVillager;
+import net.minecraft.server.v1_8_R3.MerchantRecipe;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.*;
 
 import java.util.Arrays;
@@ -46,7 +49,10 @@ public class MobsHandler {
         villager.setCustomName(name);
         villager.setCustomNameVisible(true);
         setNoAI(villager);
+
+        new CustomVillager(main, villager).addRecipe(main.constH().getTrade(name)).finish();
     }
+
     public void createZombie(Location location, String name){
         Entity zombie = location.getWorld().spawnEntity(location, EntityType.ZOMBIE);
     }
@@ -61,7 +67,7 @@ public class MobsHandler {
     public void setAllPnj() {
         List<Location> copiesPnjList = main.constH().getAllPnjLocation();
         for (int i=0; i<copiesPnjList.size(); i++){
-            main.MH().createVillager(copiesPnjList.get(i), main.constH().pnjName()[i]);
+            createVillager(copiesPnjList.get(i), main.constH().pnjName()[i]);
         }
     }
 

@@ -19,7 +19,10 @@ public class InterfaceHandler {
         return tradeKey(trade, new ItemStack(Material.AIR));
     }
     public OpenMenuTrade tradeKey(ItemStack first, ItemStack second){
-        return new OpenMenuTrade("Key").addTrade(first, second, main.HI().paperKey());
+        return new OpenMenuTrade("Key").addTradeKey(first, second, main.HI().paperKey());
+    }
+    public OpenMenuTrade defaultTrade(){
+        return new OpenMenuTrade("DEFAULT").addTrade(new ItemStack(Material.AIR), new ItemStack(Material.AIR));
     }
 
     public Inventory selectTeam(){

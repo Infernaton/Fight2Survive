@@ -8,9 +8,9 @@ import org.bukkit.inventory.ItemStack;
 
 public class OpenMenuTrade{
 
-
-    private final String invName;
+    private String invName;
     private final MerchantRecipeList recipe = new MerchantRecipeList();
+
     public OpenMenuTrade(String name){
         this.invName = name;
     }
@@ -21,6 +21,10 @@ public class OpenMenuTrade{
     }
     public OpenMenuTrade addTrade(ItemStack one, ItemStack two, ItemStack three){
         recipe.add(new MerchantRecipe(CraftItemStack.asNMSCopy(one),CraftItemStack.asNMSCopy(two),CraftItemStack.asNMSCopy(three)));
+        return this;
+    }
+    public OpenMenuTrade addTradeKey(ItemStack it1, ItemStack it2, ItemStack key){
+        recipe.add(new MerchantRecipe(CraftItemStack.asNMSCopy(it1),CraftItemStack.asNMSCopy(it2),CraftItemStack.asNMSCopy(key), 0, 1));
         return this;
     }
     public void openTrade(Player player){

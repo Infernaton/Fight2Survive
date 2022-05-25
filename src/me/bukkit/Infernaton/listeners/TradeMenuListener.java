@@ -4,7 +4,10 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.builder.OpenMenuTrade;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.InterfaceHandler;
+import net.minecraft.server.v1_8_R3.EntityHuman;
+import net.minecraft.server.v1_8_R3.EntityVillager;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftVillager;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
@@ -20,11 +23,10 @@ public class TradeMenuListener implements Listener {
 
     private FightToSurvive main;
     private InterfaceHandler IH;
-    private OpenMenuTrade trade;
+    private OpenMenuTrade currentTrade;
 
     public TradeMenuListener(FightToSurvive main) {
         this.main = main;
-        this.IH = new InterfaceHandler(main);
     }
 
     @EventHandler
@@ -33,34 +35,19 @@ public class TradeMenuListener implements Listener {
         Entity e = event.getRightClicked();
 
         if (e instanceof Villager && !e.getName().equals("Villager")){
-            event.setCancelled(true);
-            switch (e.getName()){
-                case "Bob":
-                    trade = IH.tradeKey(new ItemStack(Material.LOG,10),new ItemStack(Material.COBBLESTONE, 10));
-                    break;
-                case "Didier":
-                    trade = IH.tradeKey(new ItemStack(Material.COAL_BLOCK,3));
-                    break;
-                case "Jean-Pierre Fanguin":
-                    trade = IH.tradeKey(new ItemStack(Material.IRON_BLOCK,4));
-                    break;
-                case "Rodrigues de Pomero":
-                    trade = IH.tradeKey(new ItemStack(Material.GOLD_NUGGET,50));
-                    break;
-                case "Baruk, le diamantaire":
-                    trade = IH.tradeKey(new ItemStack(Material.DIAMOND,6),new ItemStack(Material.COAL, 12));
-                    break;
-                case "Fabala l'enchanteur":
-                    trade = IH.tradeKey(new ItemStack(Material.LAPIS_BLOCK,6), main.HI().goldSword());
-                    break;
-                case "André de Pomero":
-                    //trade = IH.tradeKey(new ItemStack(Material.,));
-                    //break;
-                default:
-                    trade = new OpenMenuTrade("DEFAULT").addTrade(new ItemStack(Material.AIR), new ItemStack(Material.AIR));
-                    break;
-            }
-            trade.openTrade(p);
+            ((EntityVillager) e).a_((EntityHuman) p);
+            //event.setCancelled(true);
+            //currentTrade = main.constH().getTrade(e.getName());
+            //currentTrade.openTrade(p);
+        }
+    }
+    @EventHandler
+    public void onCloseInventory(InventoryCloseEvent event){
+        Player p = (Player) event.getPlayer();
+        Inventory inv = event.getInventory();
+        if (inv.getType().name().equals("MERCHANT")){
+            MerchantInventory merch = (MerchantInventory) inv;
+            //ChatHandler.broadcast(merch.getName() + "");
         }
     }
 }
