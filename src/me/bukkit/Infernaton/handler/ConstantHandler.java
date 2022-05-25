@@ -25,21 +25,11 @@ public class ConstantHandler {
 
     private GState state;
     private final FightToSurvive main;
-    private final Location spawn;
-    private final Location blueBase;
-    private final Location redBase;
-    private final Location constantDoor;
     private Scoreboard scoreboard;
     final static public String worldName = "Arene";
 
-
     public ConstantHandler(FightToSurvive main){
         this.main = main;
-        this.spawn = new Location(Bukkit.getWorld(worldName), main.getConfig().getDouble("coordinates.lobby.x"),  main.getConfig().getDouble("coordinates.lobby.y"),  main.getConfig().getDouble("coordinates.lobby.z"), 0f, 0f);
-        this.constantDoor = new Location(Bukkit.getWorld(worldName), main.getConfig().getDouble("coordinates.doorCoord.constant.x"),  main.getConfig().getDouble("coordinates.doorCoord.constant.y"),  main.getConfig().getDouble("coordinates.doorCoord.constant.z"), 0f, 0f);
-        this.redBase = new Location(Bukkit.getWorld(worldName), main.getConfig().getDouble("coordinates.teamRed.spawnpoint.x"),  main.getConfig().getDouble("coordinates.teamRed.spawnpoint.y"),  main.getConfig().getDouble("coordinates.teamRed.spawnpoint.z"), 0f, 0f);
-        this.blueBase = new Location(Bukkit.getWorld(worldName), main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.x"),  main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.y"),  main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.z"), 0f, 0f);
-        //System.out.println(spawn);
     }
 
     public String[] pnjName(){
@@ -112,24 +102,40 @@ public class ConstantHandler {
         return this.state;
     }
 
-    public Location getSpawnCoordinate(){
-        return spawn;
-    }
-    public Location getRedBase(){
-        return redBase;
-    }
-    public Location getBlueBase(){
-        return blueBase;
-    }
-
     public Location getDoorConstantCoord(){
-        return this.constantDoor;
+        return new Location(Bukkit.getWorld(worldName),
+                main.getConfig().getDouble("coordinates.doorCoord.constant.x"),
+                main.getConfig().getDouble("coordinates.doorCoord.constant.y"),
+                main.getConfig().getDouble("coordinates.doorCoord.constant.z")
+        );
     }
     public Scoreboard getScoreboard(){
         return this.scoreboard;
     }
     public void setScoreboard(Scoreboard scoreboard){
         this.scoreboard = scoreboard;
+    }
+
+    public Location getSpawnCoordinate(){
+        return new Location(Bukkit.getWorld(worldName),
+                main.getConfig().getDouble("coordinates.lobby.x"),
+                main.getConfig().getDouble("coordinates.lobby.y"),
+                main.getConfig().getDouble("coordinates.lobby.z")
+        );
+    }
+    public Location getRedBase(){
+        return new Location(Bukkit.getWorld(worldName),
+                main.getConfig().getDouble("coordinates.teamRed.spawnpoint.x"),
+                main.getConfig().getDouble("coordinates.teamRed.spawnpoint.y"),
+                main.getConfig().getDouble("coordinates.teamRed.spawnpoint.z")
+        );
+    }
+    public Location getBlueBase(){
+        return new Location(Bukkit.getWorld(worldName),
+                main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.x"),
+                main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.y"),
+                main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.z")
+        );
     }
 
     public Team getRedTeam(){
