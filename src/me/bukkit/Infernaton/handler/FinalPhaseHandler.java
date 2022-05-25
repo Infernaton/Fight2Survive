@@ -25,7 +25,7 @@ public class FinalPhaseHandler {
     public void on(){
         active = true;
         ChatHandler.toAllPlayer("A team has open their last door. Starting the final Phase...");
-        main.constH().deleteAllDoors();
+        main.DH().deleteAllDoors();
     }
     public void asking(Location currentDoor, List<Location> listDoors){
 

@@ -2,13 +2,8 @@ package me.bukkit.Infernaton.commands;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
-import me.bukkit.Infernaton.builder.CountDown;
-import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
-import me.bukkit.Infernaton.handler.HandleItem;
-import me.bukkit.Infernaton.handler.MobsHandler;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -55,7 +50,7 @@ public class DebugCommand implements CommandExecutor {
             if (main.constH().isState(GState.WAITING)) {
                 ChatHandler.sendInfoMessage(sender, "Reset all doors...");
 
-                main.constH().setAllDoors();
+                main.DH().setAllDoors();
             } else {
                 ChatHandler.sendCantWhilePlaying(sender);
             }
@@ -65,7 +60,7 @@ public class DebugCommand implements CommandExecutor {
         else if (cmd.getName().equalsIgnoreCase("deleteDoors")) {
             if (main.constH().isState(GState.WAITING)) {
                 ChatHandler.sendInfoMessage(sender, "Deleting all doors...");
-                main.constH().deleteAllDoors();
+                main.DH().deleteAllDoors();
             } else {
                 ChatHandler.sendCantWhilePlaying(sender);
             }
@@ -82,7 +77,7 @@ public class DebugCommand implements CommandExecutor {
         else if (cmd.getName().equalsIgnoreCase("setVillagers")){
             if (main.constH().isState(GState.WAITING)) {
                 ChatHandler.sendInfoMessage(sender, "Spawning all Villagers...");
-                main.constH().setAllPnj();
+                main.MH().setAllPnj();
             } else {
                 ChatHandler.sendCantWhilePlaying(sender);
             }
@@ -91,7 +86,7 @@ public class DebugCommand implements CommandExecutor {
 
         else if (cmd.getName().equalsIgnoreCase("killPnj")){
             ChatHandler.sendInfoMessage(sender, "Killing all Villagers...");
-            main.constH().killPnj();
+            main.MH().killPnj();
             return true;
         }
 

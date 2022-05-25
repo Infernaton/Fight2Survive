@@ -17,7 +17,7 @@ public class SpawnMobs implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (command.getName().equalsIgnoreCase("mob_zombie") && commandSender instanceof Player) {
-            main.MobsHandler().generateMobWave();
+            main.MH().generateMobWave();
             return true;
         }
         return false;

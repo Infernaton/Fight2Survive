@@ -2,6 +2,7 @@ package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -11,6 +12,8 @@ import org.bukkit.entity.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+
+import static me.bukkit.Infernaton.handler.ConstantHandler.worldName;
 
 public class MobsHandler {
     public static int round = 1;
@@ -52,6 +55,22 @@ public class MobsHandler {
     }
     public void createSkeleton(Location location, String name){
         Entity skeleton = location.getWorld().spawnEntity(location, EntityType.SKELETON);
+    }
+
+
+    public void setAllPnj() {
+        List<Location> copiesPnjList = main.constH().getAllPnjLocation();
+        for (int i=0; i<copiesPnjList.size(); i++){
+            main.MH().createVillager(copiesPnjList.get(i), main.constH().pnjName()[i]);
+        }
+    }
+
+    public void killPnj(){
+        for (Entity e : Bukkit.getWorld(worldName).getEntities()) {
+            if (e instanceof Villager) {
+                e.remove();
+            }
+        }
     }
     public void generateMobWave() {
 

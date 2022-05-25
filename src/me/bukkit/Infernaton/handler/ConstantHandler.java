@@ -44,12 +44,12 @@ public class ConstantHandler {
 
     public String[] pnjName(){
         return new String[]{
-                "Lumber Jack", "Didier", "Rodrigues de Pomero", "André de Pomero", "Jean-Pierre Fanguin", "Baruk, le diamantaire", "Fabala l'enchanteur", //Team Blue
-                "Lumber Jack", "Didier", "Rodrigues de Pomero", "André de Pomero", "Jean-Pierre Fanguin", "Baruk, le diamantaire", "Fabala l'enchanteur"  //Team Red
+                "Bob", "Didier", "Rodrigues de Pomero", "André de Pomero", "Jean-Pierre Fanguin", "Baruk, le diamantaire", "Fabala l'enchanteur", //Team Blue
+                "Bob", "Didier", "Rodrigues de Pomero", "André de Pomero", "Jean-Pierre Fanguin", "Baruk, le diamantaire", "Fabala l'enchanteur"  //Team Red
         };
     }
 
-    public List<Location> getAllPnj() {
+    public List<Location> getAllPnjLocation() {
         List<Location> pc = new ArrayList<>();
         World w = Bukkit.getWorld(worldName);
         pc.add(new Location(w, -48.5, 56.0, 51.5)); //1er zone (bois)
@@ -70,22 +70,6 @@ public class ConstantHandler {
 
         return pc;
     }
-
-    public void setAllPnj() {
-        List<Location> copiesPnjList = main.constH().getAllPnj();
-        for (int i=0; i<copiesPnjList.size(); i++){
-            main.MobsHandler().createVillager(copiesPnjList.get(i), pnjName()[i]);
-        }
-    }
-
-    public void killPnj(){
-        for (Entity e : Bukkit.getWorld(worldName).getEntities()) {
-            if (e instanceof Villager) {
-                e.remove();
-            }
-        }
-    }
-
 
     //Get all block around target location (mostly use around players) by radius
     public List<Block> sphereAround(Location location, int radius) {
@@ -178,44 +162,6 @@ public class ConstantHandler {
                 return getBlueBase();
             default:
                 return getSpawnCoordinate();
-        }
-    }
-
-    /**
-     * Loop all blocks with the copiesDoors list and mainDoor locations
-     *  Cloning mainDoor blocks type with the mainDoor location
-     *  to the copiesDoors list.
-     */
-    public void setAllDoors() {
-        Location mainDoor = main.constH().getDoorConstantCoord();
-        List<Location> copiesDoorsList = main.constH().getAllCopiesDoors();
-        for (Location copiesDoors : copiesDoorsList) {
-            for (double x = -1; x <= 1; x++) {
-                for (double y = -1; y <= 1; y++) {
-                    for (double z = -1; z <= 1; z++) {
-                        Block mainBlock = new Location(Bukkit.getWorld(worldName), mainDoor.getBlockX() + x, mainDoor.getBlockY() + y, mainDoor.getBlockZ() + z).getBlock();
-                        Block copiesBlock = new Location(Bukkit.getWorld(worldName), copiesDoors.getBlockX() + x, copiesDoors.getBlockY() + y, copiesDoors.getBlockZ() + z).getBlock();
-                        copiesBlock.setType(mainBlock.getType());
-                    }
-                }
-            }
-        }
-    }
-    /**
-     * Loop all blocks with the copiesDoors list locations
-     * Change blocks type to AIR block
-     */
-    public void deleteAllDoors() {
-        List<Location> copiesDoorsList = main.constH().getAllCopiesDoors();
-        for (Location copiesDoors : copiesDoorsList) {
-            for (double x = -1; x <= 1; x++) {
-                for (double y = -1; y <= 1; y++) {
-                    for (double z = -1; z <= 1; z++) {
-                        Block copiesBlock = new Location(Bukkit.getWorld(worldName), copiesDoors.getBlockX() + x, copiesDoors.getBlockY() + y, copiesDoors.getBlockZ() + z).getBlock();
-                        copiesBlock.setType(Material.AIR);
-                    }
-                }
-            }
         }
     }
 }
