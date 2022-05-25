@@ -75,9 +75,6 @@ public class FightToSurvive extends JavaPlugin {
             else if (redPlayers.size() == bluePlayers.size() && redPlayers.size() != 0) {
                 //Clear all players that attend to play
                 redPlayers.addAll(bluePlayers); //All players in one variable
-                for(Player player: redPlayers){
-                    HP.clear(player);
-                }
                 constH.setState(GState.STARTING);
 
                 ChatHandler.sendInfoMessage(sender, "Initialize the countdown...");
@@ -96,15 +93,21 @@ public class FightToSurvive extends JavaPlugin {
         DayNightCycle.newCountDown(this);
         List<Player> allPlayers = constH.getAllTeamsPlayer();
         for (Player player: allPlayers) {
+            HP.clear(player);
             player.teleport(constH.getBaseLocation(Team.getTeam(player)));
             player.getInventory().addItem(HI.woodAxe());
             for (PotionEffect effect : player.getActivePotionEffects())
                 player.removePotionEffect(effect.getType());
         }
-
         constH().setState(GState.PLAYING);
     }
 
+    public void cancelStart() {
+        constH.setState(GState.WAITING);
+        CountDown.stopAllCountdown(this);
+        ChatHandler.sendMessageListPlayer(constH.getAllTeamsPlayer(), "Launch canceled.");
+
+    }
     public void cancel(){
         Bukkit.getWorld(worldName).setTime(1000);
         List<Player> players = constH.getAllPlayers();
