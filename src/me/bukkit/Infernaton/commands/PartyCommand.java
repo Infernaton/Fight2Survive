@@ -4,6 +4,7 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.CountDown;
 import me.bukkit.Infernaton.handler.ChatHandler;
+import me.bukkit.Infernaton.handler.InterfaceHandler;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -12,9 +13,11 @@ import org.bukkit.entity.Player;
 public class PartyCommand implements CommandExecutor {
 
     private final FightToSurvive main;
+    private InterfaceHandler IH;
 
     public PartyCommand(FightToSurvive main) {
         this.main = main;
+        this.IH = new InterfaceHandler(main);
     }
 
     @Override
@@ -31,9 +34,7 @@ public class PartyCommand implements CommandExecutor {
          */
         else if (cmd.getName().equalsIgnoreCase("cancelStart")) {
             if (main.constH().isState(GState.STARTING)) {
-                main.constH().setState(GState.WAITING);
-                CountDown.stopAllCountdown(main);
-                ChatHandler.sendMessageListPlayer(main.constH().getAllTeamsPlayer(), "Launch canceled.");
+                main.cancelStart();
             } else {
                 ChatHandler.sendError(sender, "Any countdown aren't set right now.");
             }

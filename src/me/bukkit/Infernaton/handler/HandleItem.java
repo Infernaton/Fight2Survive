@@ -43,6 +43,22 @@ public class HandleItem {
         return new ItemBuilder(Material.WOOL, 1, (byte)7).setName("§7Spectateur").toItemStack();
     }
 
+    public ItemStack gameStartWool(){
+        return new ItemBuilder(Material.WOOL, 1, (byte)5).setName("§2StartGame").toItemStack();
+    }
+
+    public ItemStack gameCancelWool(){
+        return new ItemBuilder(Material.WOOL, 1, (byte)14).setName("§4CancelGame").toItemStack();
+    }
+
+    public ItemStack optionsWool(){
+        return new ItemBuilder(Material.WOOL, 1, (byte)8).setName("§fOptions").toItemStack();
+    }
+
+    public ItemStack returnWool(){
+        return new ItemBuilder(Material.WOOL, 1, (byte)8).setName("§fRetour").toItemStack();
+    }
+
     public ItemStack paperKey(){
         return new ItemBuilder(Material.PAPER).setName("§9KEY").toItemStack();
 }
