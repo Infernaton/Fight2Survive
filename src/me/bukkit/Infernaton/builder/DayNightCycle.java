@@ -48,6 +48,14 @@ public class DayNightCycle implements Runnable{
             System.out.print(countdownStarter);
         }
 
+        if (countdownStarter == 5) {
+            if (dayOrNight){
+                ChatHandler.broadcast("The moon appears soon, be careful of monster");
+            }
+            else{
+                ChatHandler.broadcast("The sun is rising, a little rest for you");
+            }
+        }
         if (countdownStarter == 0) {
             countdownStarter = initTime;
             dayOrNight = !dayOrNight;
