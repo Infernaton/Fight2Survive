@@ -73,28 +73,32 @@ public class FightToSurvive extends JavaPlugin {
     }
 
     public void onStarting(Player sender){
-        if (constH.isState(GState.WAITING)) {
-            List<Player> redPlayers = constH.getRedTeam().getPlayers();
-            List<Player> bluePlayers = constH.getBlueTeam().getPlayers();
+        if (sender.isOp()){
+            if (constH.isState(GState.WAITING)) {
+                List<Player> redPlayers = constH.getRedTeam().getPlayers();
+                List<Player> bluePlayers = constH.getBlueTeam().getPlayers();
 
-            if (Bukkit.getScheduler().getPendingTasks().size() > 0) {
-                ChatHandler.sendError(sender, "CountDown already launch .");
-            } //CountDown started
-            //Compare if there the same numbers of players in each team
-            else if (redPlayers.size() == bluePlayers.size() && redPlayers.size() != 0) {
-                //Clear all players that attend to play
-                redPlayers.addAll(bluePlayers); //All players in one variable
-                constH.setState(GState.STARTING);
+                if (Bukkit.getScheduler().getPendingTasks().size() > 0) {
+                    ChatHandler.sendError(sender, "CountDown already launch .");
+                } //CountDown started
+                //Compare if there the same numbers of players in each team
+                else if (redPlayers.size() == bluePlayers.size() && redPlayers.size() != 0) {
+                    //Clear all players that attend to play
+                    redPlayers.addAll(bluePlayers); //All players in one variable
+                    constH.setState(GState.STARTING);
 
-                ChatHandler.sendInfoMessage(sender, "Initialize the countdown...");
-                CountDown.newCountDown(this, 10L);
-                doorHandler.setAllDoors();
+                    ChatHandler.sendInfoMessage(sender, "Initialize the countdown...");
+                    CountDown.newCountDown(this, 10L);
+                    doorHandler.setAllDoors();
+                } else {
+                    ChatHandler.sendError(sender, "Not enough players.");
+                } //Not enough player
             } else {
-                ChatHandler.sendError(sender, "Not enough players.");
-            } //Not enough player
-        } else {
-            ChatHandler.sendError(sender, "Party already started !");
-        } //Party already launched
+                ChatHandler.sendError(sender, "Party already started !");
+            } //Party already launched
+        }else {
+            ChatHandler.sendError(sender, "You need to be an operator to do this action.");
+        } //Need OP
     }
 
     public void start(){
