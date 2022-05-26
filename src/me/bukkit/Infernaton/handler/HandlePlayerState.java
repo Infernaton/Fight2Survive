@@ -2,7 +2,9 @@ package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -57,5 +59,9 @@ public class HandlePlayerState {
     public void removeAllPotionEffect(Player player){
         for (PotionEffect effect : player.getActivePotionEffects())
             player.removePotionEffect(effect.getType());
+    }
+
+    public void giveStarterPack(Player player){
+        player.getInventory().addItem(main.HI().woodAxe(), new ItemStack(Material.COOKED_BEEF, 10));
     }
 }

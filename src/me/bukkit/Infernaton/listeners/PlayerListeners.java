@@ -133,84 +133,84 @@ public class PlayerListeners implements Listener {
         }
     }
 
-        /**
-         * If a player quit the server, the event will trigger
-         * in case a player quit when a party is running, we will, after some time, force him to retire from the game
-         * If the player rejoin the server before the countdown stop, he will still be part of the game
-         * @param event
-         */
-        @EventHandler
-        public void onQuit ( final PlayerQuitEvent event){
-            if (main.constH().isState(GState.PLAYING)) {
-                final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    /**
+     * If a player quit the server, the event will trigger
+     * in case a player quit when a party is running, we will, after some time, force him to retire from the game
+     * If the player rejoin the server before the countdown stop, he will still be part of the game
+     * @param event
+     */
+    @EventHandler
+    public void onQuit ( final PlayerQuitEvent event){
+        if (main.constH().isState(GState.PLAYING)) {
+            final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-                final Runnable runnable = new Runnable() {
-                    int countdownStarter = 10;
+            final Runnable runnable = new Runnable() {
+                int countdownStarter = 10;
 
-                    @Override
-                    public void run() {
-                        Player player = event.getPlayer();
+                @Override
+                public void run() {
+                    Player player = event.getPlayer();
 
-                        countdownStarter--;
-                        if (countdownStarter == 0) {
-                            scheduler.shutdown();
+                    countdownStarter--;
+                    if (countdownStarter == 0) {
+                        scheduler.shutdown();
 
-                            //test if the players is really offline before kicking him of the current party
-                            if (!Bukkit.getOnlinePlayers().contains(player) && main.constH().isState(GState.PLAYING)) {
-                                Team team = Team.getTeam(player);
-                                main.constH().getSpectators().add(player);
+                        //test if the players is really offline before kicking him of the current party
+                        if (!Bukkit.getOnlinePlayers().contains(player) && main.constH().isState(GState.PLAYING)) {
+                            Team team = Team.getTeam(player);
+                            main.constH().getSpectators().add(player);
 
-                                if (team.getPlayers().isEmpty()) {
-                                    ChatHandler.toAllPlayer("Not enough player remaining, resetting the game");
-                                    main.finish();
-                                }
+                            if (team.getPlayers().isEmpty()) {
+                                ChatHandler.toAllPlayer("Not enough player remaining, resetting the game");
+                                main.finish();
                             }
                         }
                     }
-                };
-                scheduler.scheduleAtFixedRate(runnable, 0, 1, SECONDS);
-            }
-        }
-
-        @EventHandler
-        public void onDeath (PlayerDeathEvent event){
-            Player player = event.getEntity();
-
-            //Check if the game was entering the Final Phase (FP)
-            if (main.FP().isActive() && main.constH().isState(GState.PLAYING)) {
-                Team team = Team.getTeam(player);
-                main.constH().getSpectators().add(player);
-                if (team.getPlayers().isEmpty()) {
-                    ChatHandler.toAllPlayer("Partie Terminée");
-                    main.finish();
                 }
-            }
+            };
+            scheduler.scheduleAtFixedRate(runnable, 0, 1, SECONDS);
         }
+    }
 
-        @EventHandler
-        public void onRespawn (PlayerRespawnEvent event){
-            Player player = event.getPlayer();
+    @EventHandler
+    public void onDeath (PlayerDeathEvent event){
+        Player player = event.getEntity();
+
+        //Check if the game was entering the Final Phase (FP)
+        if (main.FP().isActive() && main.constH().isState(GState.PLAYING)) {
             Team team = Team.getTeam(player);
-
-            //Check if the player is in a team to respawn him to the right place
-            if (main.constH().isState(GState.PLAYING) && team != null) {
-                event.setRespawnLocation(main.constH().getBaseLocation(team));
-            } else {
-                event.setRespawnLocation(main.constH().getSpawnCoordinate());
-            }
-        }
-
-        /**
-         * Prevent the player from placing boat when clicking on a block
-         * Because of that, player can bypass Door
-         * @param event
-         */
-        @EventHandler
-        public void onBoatPlace (PlayerInteractEvent event){
-            if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                if (event.getPlayer().getItemInHand().getType() == Material.BOAT) {
-                    event.setCancelled(true);
-                }
+            main.constH().getSpectators().add(player);
+            if (team.getPlayers().isEmpty()) {
+                ChatHandler.toAllPlayer("Partie Terminée");
+                main.finish();
             }
         }
     }
+
+    @EventHandler
+    public void onRespawn (PlayerRespawnEvent event){
+        Player player = event.getPlayer();
+        Team team = Team.getTeam(player);
+
+        //Check if the player is in a team to respawn him to the right place
+        if (main.constH().isState(GState.PLAYING) && team != null) {
+            event.setRespawnLocation(main.constH().getBaseLocation(team));
+        } else {
+            event.setRespawnLocation(main.constH().getSpawnCoordinate());
+        }
+    }
+
+    /**
+     * Prevent the player from placing boat when clicking on a block
+     * Because of that, player can bypass Door
+     * @param event
+     */
+    @EventHandler
+    public void onBoatPlace (PlayerInteractEvent event){
+        if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            if (event.getPlayer().getItemInHand().getType() == Material.BOAT) {
+                event.setCancelled(true);
+            }
+        }
+    }
+}

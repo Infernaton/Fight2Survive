@@ -18,11 +18,12 @@ public class BlockHandler {
     public void resetContainers(){
         for (Block b : containers) {
             MaterialData md =  b.getState().getData();
+            byte blockByte = b.getData();
             Material temp = b.getType();
             b.setType(Material.AIR);
             b.setType(temp);
+            b.setData(blockByte);
             b.getState().setData(md);
-            b.getState().update();
         }
         containers = new ArrayList<>();
     }

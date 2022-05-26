@@ -13,6 +13,7 @@ import me.bukkit.Infernaton.handler.HandlePlayerState;
 import me.bukkit.Infernaton.handler.*;
 import me.bukkit.Infernaton.listeners.BlockListener;
 import me.bukkit.Infernaton.listeners.DoorListeners;
+import me.bukkit.Infernaton.listeners.EntityListeners;
 import me.bukkit.Infernaton.listeners.PlayerListeners;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -112,7 +113,7 @@ public class FightToSurvive extends JavaPlugin {
         for (Player player: allPlayers) {
             HP.clear(player);
             player.teleport(constH.getBaseLocation(Team.getTeam(player)));
-            player.getInventory().addItem(HI.woodAxe());
+            HP.giveStarterPack(player);
             for (PotionEffect effect : player.getActivePotionEffects())
                 player.removePotionEffect(effect.getType());
         }
@@ -164,7 +165,8 @@ public class FightToSurvive extends JavaPlugin {
         Listener[] listeners = {
                 new PlayerListeners(this),
                 new DoorListeners(this),
-                new BlockListener(this)
+                new BlockListener(this),
+                new EntityListeners()
         };
         registerEvent(listeners);
         //#endregion

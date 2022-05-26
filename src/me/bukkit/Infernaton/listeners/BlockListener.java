@@ -48,6 +48,7 @@ public class BlockListener implements Listener {
     @EventHandler
     public void onBlockClicked(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+        Block b = event.getClickedBlock();
 
         List<Material> containers = Arrays.asList(
                 Material.CHEST,
@@ -55,8 +56,7 @@ public class BlockListener implements Listener {
                 Material.FURNACE
         );
 
-        if (player.getGameMode() == GameMode.ADVENTURE && main.constH().isState(GState.PLAYING)) {
-            Block b = event.getClickedBlock();
+        if (player.getGameMode() == GameMode.ADVENTURE && main.constH().isState(GState.PLAYING) && b != null) {
             if (containers.contains(b.getType())){
                 main.BH().addContainers(b);
             }
