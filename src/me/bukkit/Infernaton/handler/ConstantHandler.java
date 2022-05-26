@@ -11,14 +11,12 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 
 import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.Scoreboard;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Class which regroup each variable we need in our project
@@ -35,7 +33,7 @@ public class ConstantHandler {
     public ConstantHandler(FightToSurvive main){
         this.main = main;
         this.IH = new InterfaceHandler(main);
-        this.allTrade = setAllTrade(); //To not update each time we clicked on a PNJ
+        this.allTrade = getAllTrade(); //To not update each time we clicked on a PNJ
     }
 
     public String[] pnjName(){
@@ -43,6 +41,38 @@ public class ConstantHandler {
                 "Bob", "Didier", "Rodrigues de Pomero", "André de Pomero", "Jean-Pierre Fanguin", "Baruk, le diamantaire", "Fabala l'enchanteur", //Team Blue
                 "Bob", "Didier", "Rodrigues de Pomero", "André de Pomero", "Jean-Pierre Fanguin", "Baruk, le diamantaire", "Fabala l'enchanteur"  //Team Red
         };
+    }
+
+    //List of block type where a monster can spawn
+    public List<Material> spawnableBlocks(){
+        return Arrays.asList(
+                Material.GRASS,
+                Material.DIRT,
+                Material.STONE,
+                Material.SOUL_SAND,
+                Material.COBBLESTONE
+        );
+    }
+    public List<EntityType> spawnedMobs(){
+        return Arrays.asList(
+                EntityType.ZOMBIE,
+                EntityType.SPIDER,
+                EntityType.SKELETON,
+                EntityType.VILLAGER,
+                EntityType.EXPERIENCE_ORB,
+                EntityType.DROPPED_ITEM
+        );
+    }
+
+    public Map<Material, Integer> coolDownBlock(){
+        Map<Material, Integer> cd = new HashMap<>();
+        cd.put(Material.LOG, 10);
+        cd.put(Material.COBBLESTONE, 10);
+        cd.put(Material.COAL_ORE, 10);
+        cd.put(Material.IRON_ORE, 20);
+        cd.put(Material.DIAMOND_ORE, 45);
+        cd.put(Material.LAPIS_ORE, 25);
+        return cd;
     }
 
     public List<Location> getAllPnjLocation() {
@@ -67,7 +97,7 @@ public class ConstantHandler {
         return pc;
     }
 
-    public Map<String, MerchantRecipe> setAllTrade(){
+    public Map<String, MerchantRecipe> getAllTrade(){
         Map<String, MerchantRecipe> trade = new HashMap<>();
         trade.put("Bob", main.MR().tradingKey(new ItemStack(Material.LOG,10), new ItemStack(Material.COBBLESTONE, 10)));
         trade.put("Didier", main.MR().tradingKey(new ItemStack(Material.COAL_BLOCK,3)));
