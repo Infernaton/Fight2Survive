@@ -2,7 +2,6 @@ package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
-import me.bukkit.Infernaton.builder.OpenMenuTrade;
 import me.bukkit.Infernaton.builder.Team;
 import net.minecraft.server.v1_8_R3.MerchantRecipe;
 import org.bukkit.Bukkit;
@@ -12,9 +11,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Villager;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.Scoreboard;
 
