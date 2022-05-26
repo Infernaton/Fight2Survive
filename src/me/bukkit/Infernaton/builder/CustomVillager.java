@@ -1,15 +1,11 @@
 package me.bukkit.Infernaton.builder;
 
-import java.lang.reflect.Field;
-
 import me.bukkit.Infernaton.FightToSurvive;
-import net.minecraft.server.v1_8_R3.EntityVillager;
-import net.minecraft.server.v1_8_R3.MerchantRecipe;
-import net.minecraft.server.v1_8_R3.MerchantRecipeList;
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftVillager;
 import org.bukkit.entity.Villager;
 
-public class CustomVillager {
+public class CustomVillager{
     private EntityVillager ev;
     private MerchantRecipeList list = new MerchantRecipeList();
 
@@ -18,12 +14,15 @@ public class CustomVillager {
     }
 
     public CustomVillager addRecipe(MerchantRecipe recipe) {
-        ev.a(recipe);
+        list.add(recipe);
         return this;
     }
 
-    public boolean finish() {
-        ev.o(true);
-        return true;
+    public void finish() {
+        NBTTagCompound nbt = new NBTTagCompound();
+        nbt.set("Offers", list.a());
+        nbt.setByte("NoAI", (byte) 1);
+
+        ev.a(nbt);
     }
 }

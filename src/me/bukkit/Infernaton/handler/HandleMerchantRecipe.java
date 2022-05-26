@@ -14,17 +14,21 @@ public class HandleMerchantRecipe {
         this.main = context;
     }
 
+    public MerchantRecipe withBukkitItem(ItemStack item1, ItemStack item2, ItemStack out, int uses, int maxUses){
+        return new MerchantRecipe(CraftItemStack.asNMSCopy(item1), CraftItemStack.asNMSCopy(item2), CraftItemStack.asNMSCopy(out), uses, maxUses);
+    }
+
     public MerchantRecipe withBukkitItem(ItemStack item1, ItemStack item2, ItemStack out){
         return new MerchantRecipe(CraftItemStack.asNMSCopy(item1), CraftItemStack.asNMSCopy(item2), CraftItemStack.asNMSCopy(out));
     }
 
     public MerchantRecipe tradingKey(ItemStack item1, ItemStack item2){
-        return withBukkitItem(item1, item2, main.HI().paperKey());
+        return withBukkitItem(item1, item2, main.HI().paperKey(), 0, 1);
     }
     public MerchantRecipe tradingKey(ItemStack item1){
-        return withBukkitItem(item1, new ItemStack(Material.AIR), main.HI().paperKey());
+        return withBukkitItem(item1, new ItemStack(Material.AIR), main.HI().paperKey(), 0, 1);
     }
     public MerchantRecipe defaultTrade(){
-        return withBukkitItem(new ItemStack(Material.AIR), new ItemStack(Material.AIR), main.HI().paperKey());
+        return withBukkitItem(new ItemStack(Material.DIRT), new ItemStack(Material.AIR), new ItemStack(Material.DIRT));
     }
 }

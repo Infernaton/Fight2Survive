@@ -14,7 +14,6 @@ import me.bukkit.Infernaton.handler.*;
 import me.bukkit.Infernaton.listeners.BlockListener;
 import me.bukkit.Infernaton.listeners.DoorListeners;
 import me.bukkit.Infernaton.listeners.PlayerListeners;
-import me.bukkit.Infernaton.listeners.TradeMenuListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
@@ -152,7 +151,6 @@ public class FightToSurvive extends JavaPlugin {
         Listener[] listeners = {
                 new PlayerListeners(this),
                 new DoorListeners(this),
-                new TradeMenuListener(this),
                 new BlockListener(this)
         };
         registerEvent(listeners);

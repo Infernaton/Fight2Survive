@@ -2,14 +2,12 @@ package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.builder.CustomVillager;
-import net.minecraft.server.v1_8_R3.MerchantRecipe;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.*;
 
 import java.util.Arrays;
@@ -48,7 +46,6 @@ public class MobsHandler {
         Villager villager = (Villager) location.getWorld().spawnEntity(location, EntityType.VILLAGER);
         villager.setCustomName(name);
         villager.setCustomNameVisible(true);
-        setNoAI(villager);
 
         new CustomVillager(main, villager).addRecipe(main.constH().getTrade(name)).finish();
     }
