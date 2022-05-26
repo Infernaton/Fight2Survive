@@ -31,6 +31,7 @@ import static me.bukkit.Infernaton.handler.ConstantHandler.worldName;
 
 public class FightToSurvive extends JavaPlugin {
 
+    //#region HANDLER
     private ConstantHandler constH;
     private final HandlePlayerState HP = new HandlePlayerState(this);
     private final HandleItem HI = new HandleItem(this);
@@ -39,6 +40,7 @@ public class FightToSurvive extends JavaPlugin {
     private final DoorHandler doorHandler = new DoorHandler(this);
     private final HandleMerchantRecipe handleMR = new HandleMerchantRecipe(this);
     private final BlockHandler BH = new BlockHandler();
+    private final StringHandler stringH = new StringHandler(this);
 
     public ConstantHandler constH(){
         return constH;
@@ -64,6 +66,10 @@ public class FightToSurvive extends JavaPlugin {
     public BlockHandler BH(){
         return BH;
     }
+    public StringHandler stringH(){
+        return stringH;
+    }
+    //#endregion
 
     public void enableCommand(String[] commandsName, CommandExecutor executor){
         for(String command: commandsName){
@@ -84,7 +90,7 @@ public class FightToSurvive extends JavaPlugin {
                 List<Player> bluePlayers = constH.getBlueTeam().getPlayers();
 
                 if (Bukkit.getScheduler().getPendingTasks().size() > 0) {
-                    ChatHandler.sendError(sender, "CountDown already launch .");
+                    ChatHandler.sendError(sender, stringH.countDownStarted());
                 } //CountDown started
                 //Compare if there the same numbers of players in each team
                 else if (redPlayers.size() == bluePlayers.size() && redPlayers.size() != 0) {
@@ -92,22 +98,22 @@ public class FightToSurvive extends JavaPlugin {
                     redPlayers.addAll(bluePlayers); //All players in one variable
                     constH.setState(GState.STARTING);
 
-                    ChatHandler.sendInfoMessage(sender, "Initialize the countdown...");
+                    ChatHandler.sendInfoMessage(sender, stringH.launch());
                     CountDown.newCountDown(this, 10L);
                     doorHandler.setAllDoors();
                 } else {
-                    ChatHandler.sendError(sender, "Not enough players.");
+                    ChatHandler.sendError(sender, stringH.needPlayers());
                 } //Not enough player
             } else {
-                ChatHandler.sendError(sender, "Party already started !");
+                ChatHandler.sendError(sender, stringH.alreadyLaunched());
             } //Party already launched
         }else {
-            ChatHandler.sendError(sender, "You need to be an operator to do this action.");
+            ChatHandler.sendError(sender, stringH.needOp());
         } //Need OP
     }
 
     public void start(){
-        ChatHandler.sendMessageListPlayer(constH().getAllTeamsPlayer(), "§eStart the Game!");
+        ChatHandler.sendMessageListPlayer(constH().getAllTeamsPlayer(), stringH.start());
         DayNightCycle.newCountDown(this);
         List<Player> allPlayers = constH.getAllTeamsPlayer();
         for (Player player: allPlayers) {
@@ -125,13 +131,13 @@ public class FightToSurvive extends JavaPlugin {
     public void cancelStart() {
         constH.setState(GState.WAITING);
         CountDown.stopAllCountdown(this);
-        ChatHandler.sendMessageListPlayer(constH.getAllTeamsPlayer(), "Launch canceled.");
+        ChatHandler.sendMessageListPlayer(constH.getAllTeamsPlayer(), stringH.cancelStart());
     }
 
     public void cancel(){
         Bukkit.getWorld(worldName).setTime(1000);
         List<Player> players = constH.getAllPlayers();
-        ChatHandler.sendMessageListPlayer(players, "Canceling the game");
+        ChatHandler.sendMessageListPlayer(players, stringH.cancel());
 
         for (Player player: players) {
             HP.setPlayer(player);
@@ -143,11 +149,12 @@ public class FightToSurvive extends JavaPlugin {
     }
 
     public void finish(){
+        ChatHandler.toAllPlayer(stringH.end());
         constH.setState(GState.FINISH);
         new BukkitRunnable() {
             @Override
             public void run() {
-                ChatHandler.toAllPlayer("Téléportation des joueurs...");
+                ChatHandler.toAllPlayer(stringH.teleport());
                 FightToSurvive.this.cancel();
             }
         }.runTaskLater(this, 5*20);
@@ -184,9 +191,9 @@ public class FightToSurvive extends JavaPlugin {
 
         constH.setScoreboard(getServer().getScoreboardManager().getMainScoreboard());
 
-        new Team("Red", constH.getScoreboard()).setTeamColor(ChatColor.RED);
-        new Team("Blue", constH.getScoreboard()).setTeamColor(ChatColor.BLUE);
-        new Team("Spectators", constH.getScoreboard()).setTeamColor(ChatColor.GRAY);
+        new Team(stringH.redTeamName(), constH.getScoreboard()).setTeamColor(ChatColor.RED);
+        new Team(stringH.blueTeamName(), constH.getScoreboard()).setTeamColor(ChatColor.BLUE);
+        new Team(stringH.spectatorName(), constH.getScoreboard()).setTeamColor(ChatColor.GRAY);
 
         new CustomRecipeHandler(this);
     }

@@ -1,3 +1,65 @@
+string:
+  pnjName:
+    wood: "Bob"
+    coal: "Didier"
+    gold1: "Rodrigues de Pomero"
+    gold2: "André de Pomero"
+    iron: "Jean-Pierre Fanguin"
+    diam: "Baruk, le diamantaire"
+    lapis: "Fabala l'enchanteur"
+  clickInventory:
+    launchGame: "§2StartGame"
+    red: "§4Equipe Red"
+    blue: "§1Equipe Bleu"
+    spectator: "§7Spectateur"
+    option: "§fOptions"
+    return: "§fRetour"
+  inventoryName:
+    team: "§7Equipe"
+    cancelStart: "§7CancelStart"
+    options: "§7Options"
+  sentence:
+    secondLeft: "<x> seconds left !"
+    needOp: "You need to be an operator to do this action."
+    start: "§eStart the Game!"
+    cancel: "Canceling the game"
+    end: "Partie Terminée"
+    teleport: "Téléportation des joueurs..."
+    avoidBreaking: "Can't break this block"
+    opDoors: "La porte s'ouvre..."
+    checkStart:
+      launched: "Initialize the countdown..."
+      countdownStarted: "CountDown already launch."
+      needPlayers: "Not enough players."
+      alreadyLaunched: "Party already started !"
+      cancelStart: "Launch canceled."
+      noCountdown: "Any countdown aren't set right now."
+      noGame: "Any game is playing right now."
+      quitingReset: "Not enough player remaining, resetting the game"
+    timescales:
+      nearNight: "The moon appears soon, be careful of monster"
+      nearDay: "The sun is rising, a little rest for you"
+      night: "Night Time"
+      day: "Day Time"
+    debug:
+      setPlayer: "§r<player> §f<be> ready to play"
+      getDoors: "Resetting all doors..."
+      delDoors: "Deleting all doors..."
+      setVill: "Spawning all villagers..."
+      killVill: "Killing all villagers..."
+      giveKey: "Giving the Key !"
+      notPlayer: "Player not found"
+      tooManyArgument: "Too many argument."
+      correctUsage: "Usage: /<command> <args>"
+      cantWhilePlaying: "Can't perform this command while the game is pending."
+      cantFromConsole: "Can't perform this action from the console"
+  team:
+    red: "Red"
+    blue: "Blue"
+    spec: "Spectators"
+  worldName: "Arene"
+  navCompass: "§aNavigation"
+  keyItem: "§9KEY"
 coordinates:
   lobby:
     x: 0.5

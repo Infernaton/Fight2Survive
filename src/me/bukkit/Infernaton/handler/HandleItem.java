@@ -63,6 +63,7 @@ public class HandleItem {
         return new ItemBuilder(Material.PAPER).setName("§9KEY").toItemStack();
 }
 
+    //#region TOOLS
     public ItemStack transformAxe(ItemStack axe){
         net.minecraft.server.v1_8_R3.ItemStack AXE = CraftItemStack.asNMSCopy(axe);
         NBTTagList idsTag2 = new NBTTagList();
@@ -139,4 +140,5 @@ public class HandleItem {
     public ItemStack goldHoe(){
         return new ItemBuilder(Material.GOLD_HOE).setInfinityDurability().toItemStack();
     }
+    //#endregion
 }

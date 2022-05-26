@@ -48,7 +48,7 @@ public class PlayerListeners implements Listener {
         //We test if the player is currently in game when he join,
         // if the game crashed client side, it would be a shame if he can't rejoin the party
         boolean isCurrentlyIG = !main.constH().isState(GState.WAITING) &&
-                !Team.getTeam(player).getTeamName().equalsIgnoreCase("Spectators");
+                !Team.getTeam(player).getTeamName().equalsIgnoreCase(main.stringH().spectatorName());
 
         //And, if the player is in creative, we don't need to reset is position
         if (!isCurrentlyIG && player.getGameMode() != GameMode.CREATIVE) {
@@ -63,10 +63,10 @@ public class PlayerListeners implements Listener {
         if (item == null) return;
 
         Player player = event.getPlayer();
-        Action action = event.getAction();
 
         //If the player clicked on a specified Compass, which is given when he spawn
-        if (item.getType() == Material.COMPASS && item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§aNavigation")) {
+        if (item.getType() == Material.COMPASS && item.hasItemMeta() && item.getItemMeta().hasDisplayName()
+                && item.getItemMeta().getDisplayName().equalsIgnoreCase(main.stringH().compassName())) {
             if (main.constH().isState(GState.STARTING)) {
                 player.openInventory(IH.cancelStart());
             } else {
@@ -86,7 +86,7 @@ public class PlayerListeners implements Listener {
         Player player = (Player) event.getWhoClicked();
 
         //Action on the inventory of the compass, given when joining the server
-        if (inv.getName().equalsIgnoreCase("§7Equipe")) {
+        if (inv.getName().equalsIgnoreCase(main.stringH().teamInventory())) {
             event.setCancelled(true);
             ItemMeta currentMeta = current.getItemMeta();
             switch (currentMeta.getDisplayName()) {
@@ -181,7 +181,6 @@ public class PlayerListeners implements Listener {
             Team team = Team.getTeam(player);
             main.constH().getSpectators().add(player);
             if (team.getPlayers().isEmpty()) {
-                ChatHandler.toAllPlayer("Partie Terminée");
                 main.finish();
             }
         }
