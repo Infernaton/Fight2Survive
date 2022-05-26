@@ -28,12 +28,10 @@ public class ConstantHandler {
     private Scoreboard scoreboard;
     final static public String worldName = "Arene";
     private InterfaceHandler IH;
-    private Map<String, MerchantRecipe> allTrade;
 
     public ConstantHandler(FightToSurvive main){
         this.main = main;
         this.IH = new InterfaceHandler(main);
-        this.allTrade = getAllTrade(); //To not update each time we clicked on a PNJ
     }
 
     public String[] pnjName(){
@@ -50,7 +48,9 @@ public class ConstantHandler {
                 Material.DIRT,
                 Material.STONE,
                 Material.SOUL_SAND,
-                Material.COBBLESTONE
+                Material.COBBLESTONE,
+                Material.HARD_CLAY,
+                Material.STAINED_CLAY
         );
     }
     public List<EntityType> spawnedMobs(){
@@ -110,7 +110,7 @@ public class ConstantHandler {
         return trade;
     }
     public MerchantRecipe getTrade(String pnjName){
-        return allTrade.get(pnjName);
+        return getAllTrade().get(pnjName);
     }
 
     //Get all block around target location (mostly use around players) by radius

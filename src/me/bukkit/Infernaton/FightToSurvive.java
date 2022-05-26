@@ -117,9 +117,14 @@ public class FightToSurvive extends JavaPlugin {
             for (PotionEffect effect : player.getActivePotionEffects())
                 player.removePotionEffect(effect.getType());
         }
-
-        MH().setAllPnj();
         constH.setState(GState.PLAYING);
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                mobsHandler.setAllPnj();
+            }
+        }.runTaskLater(this, 10);
     }
 
     public void cancelStart() {
