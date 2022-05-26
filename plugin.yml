@@ -36,3 +36,9 @@ commands:
   getKey:
     description: get a key to open a door
     usage: /<command>
+  setVillagers:
+    description: spawn all villager
+    usage: /<command>
+  killPnj:
+    description: kill pnj
+    usage: /<command>

@@ -14,7 +14,6 @@ import me.bukkit.Infernaton.handler.*;
 import me.bukkit.Infernaton.listeners.BlockListener;
 import me.bukkit.Infernaton.listeners.DoorListeners;
 import me.bukkit.Infernaton.listeners.PlayerListeners;
-import me.bukkit.Infernaton.listeners.TradeMenuListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
@@ -35,7 +34,9 @@ public class FightToSurvive extends JavaPlugin {
     private final HandlePlayerState HP = new HandlePlayerState(this);
     private final HandleItem HI = new HandleItem(this);
     private FinalPhaseHandler finalPhase;
-    private MobsHandler mobsHandler = new MobsHandler(this);
+    private final MobsHandler mobsHandler = new MobsHandler(this);
+    private final DoorHandler doorHandler = new DoorHandler(this);
+    private final HandleMerchantRecipe handleMR = new HandleMerchantRecipe(this);
 
     public ConstantHandler constH(){
         return constH;
@@ -49,7 +50,15 @@ public class FightToSurvive extends JavaPlugin {
     public FinalPhaseHandler FP() {
         return finalPhase;
     }
-    public MobsHandler MobsHandler() {return mobsHandler; }
+    public MobsHandler MH() {
+        return mobsHandler;
+    }
+    public DoorHandler DH() {
+        return doorHandler;
+    }
+    public HandleMerchantRecipe MR() {
+        return handleMR;
+    }
 
     public void enableCommand(String[] commandsName, CommandExecutor executor){
         for(String command: commandsName){
@@ -79,7 +88,7 @@ public class FightToSurvive extends JavaPlugin {
 
                 ChatHandler.sendInfoMessage(sender, "Initialize the countdown...");
                 CountDown.newCountDown(this, 10L);
-                constH.setAllDoors();
+                doorHandler.setAllDoors();
             } else {
                 ChatHandler.sendError(sender, "Not enough players.");
             } //Not enough player
@@ -99,7 +108,9 @@ public class FightToSurvive extends JavaPlugin {
             for (PotionEffect effect : player.getActivePotionEffects())
                 player.removePotionEffect(effect.getType());
         }
-        constH().setState(GState.PLAYING);
+
+        MH().setAllPnj();
+        constH.setState(GState.PLAYING);
     }
 
     public void cancelStart() {
@@ -117,7 +128,8 @@ public class FightToSurvive extends JavaPlugin {
             HP.setPlayer(player);
         }
         constH.setState(GState.WAITING);
-        constH.setAllDoors();
+        doorHandler.setAllDoors();
+        MH().killPnj();
     }
 
     public void finish(){
@@ -143,14 +155,13 @@ public class FightToSurvive extends JavaPlugin {
         Listener[] listeners = {
                 new PlayerListeners(this),
                 new DoorListeners(this),
-                new TradeMenuListener(this),
                 new BlockListener(this)
         };
         registerEvent(listeners);
         //#endregion
 
         //#region command declaration
-        String[] debugCommand = {"mob_villager", "setPlayer", "getDoors", "deleteDoors", "getKey"};
+        String[] debugCommand = {"mob_villager", "setPlayer", "getDoors", "deleteDoors", "getKey", "setVillagers", "killPnj"};
         enableCommand(debugCommand, new DebugCommand(this));
 
         String[] partyCommand = {"start", "cancelStart", "reset", "forceFinal", "endgame"};

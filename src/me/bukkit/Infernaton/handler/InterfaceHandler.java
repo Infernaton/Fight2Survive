@@ -1,7 +1,6 @@
 package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
-import me.bukkit.Infernaton.GState;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 

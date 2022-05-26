@@ -57,7 +57,7 @@ public class PartyCommand implements CommandExecutor {
                 main.FP().on();
             }
             else {
-                ChatHandler.sendError(sender, "Can't perform this command while any game is started");
+                ChatHandler.sendCantWhilePlaying(sender);
             }
             return true;
         }

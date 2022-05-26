@@ -2,18 +2,26 @@ package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
+import me.bukkit.Infernaton.builder.OpenMenuTrade;
 import me.bukkit.Infernaton.builder.Team;
+import net.minecraft.server.v1_8_R3.MerchantRecipe;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
+import org.bukkit.World;
 import org.bukkit.block.Block;
 
 import org.bukkit.Material;
-import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Villager;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.Scoreboard;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class which regroup each variable we need in our project
@@ -22,20 +30,60 @@ public class ConstantHandler {
 
     private GState state;
     private final FightToSurvive main;
-    private final Location spawn;
-    private final Location blueBase;
-    private final Location redBase;
-    private final Location constantDoor;
     private Scoreboard scoreboard;
     final static public String worldName = "Arene";
+    private InterfaceHandler IH;
+    private Map<String, MerchantRecipe> allTrade;
 
     public ConstantHandler(FightToSurvive main){
         this.main = main;
-        this.spawn = new Location(Bukkit.getWorld(worldName), main.getConfig().getDouble("coordinates.lobby.x"),  main.getConfig().getDouble("coordinates.lobby.y"),  main.getConfig().getDouble("coordinates.lobby.z"), 0f, 0f);
-        this.constantDoor = new Location(Bukkit.getWorld(worldName), main.getConfig().getDouble("coordinates.doorCoord.constant.x"),  main.getConfig().getDouble("coordinates.doorCoord.constant.y"),  main.getConfig().getDouble("coordinates.doorCoord.constant.z"), 0f, 0f);
-        this.redBase = new Location(Bukkit.getWorld(worldName), main.getConfig().getDouble("coordinates.teamRed.spawnpoint.x"),  main.getConfig().getDouble("coordinates.teamRed.spawnpoint.y"),  main.getConfig().getDouble("coordinates.teamRed.spawnpoint.z"), 0f, 0f);
-        this.blueBase = new Location(Bukkit.getWorld(worldName), main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.x"),  main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.y"),  main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.z"), 0f, 0f);
-        //System.out.println(spawn);
+        this.IH = new InterfaceHandler(main);
+        this.allTrade = setAllTrade(); //To not update each time we clicked on a PNJ
+    }
+
+    public String[] pnjName(){
+        return new String[]{
+                "Bob", "Didier", "Rodrigues de Pomero", "André de Pomero", "Jean-Pierre Fanguin", "Baruk, le diamantaire", "Fabala l'enchanteur", //Team Blue
+                "Bob", "Didier", "Rodrigues de Pomero", "André de Pomero", "Jean-Pierre Fanguin", "Baruk, le diamantaire", "Fabala l'enchanteur"  //Team Red
+        };
+    }
+
+    public List<Location> getAllPnjLocation() {
+        List<Location> pc = new ArrayList<>();
+        World w = Bukkit.getWorld(worldName);
+        pc.add(new Location(w, -48.5, 56.0, 51.5)); //1er zone (bois)
+        pc.add(new Location(w, -117.0, 56.0, 134.0, -135f, 0f)); //2e zone (charbon)
+        pc.add(new Location(w, -157.0, 56.0, 104.0, 0f, 0f)); //3e zone (or)
+        pc.add(new Location(w, -159.5, 56.0, 105.5)); //Constant PNJ (or)
+        pc.add(new Location(w, -103.0, 56.0, 161.0, 180f, 0f)); //4e zone (fer)
+        pc.add(new Location(w, -41.0, 56.0, 181.0, 60f, 0f)); //5e zone (diamant)
+        pc.add(new Location(w, -49.5, 44.0, 239.5, 120f, 0f)); //6e zone (lapis)
+
+        pc.add(new Location(w, 55.5, 56.0, 51.5)); //1er zone (bois)
+        pc.add(new Location(w, 118.0, 56.0, 134.0, 135f,0f)); //2e zone (charbon)
+        pc.add(new Location(w, 158.0, 56.0, 136.0, -180f, 0f)); //3e zone (or)
+        pc.add(new Location(w, 161.5, 56.0, 134.5)); //Constant PNJ (or)
+        pc.add(new Location(w, 104.0, 56.0, 161.0, 180f, 0f)); //4e zone (fer)
+        pc.add(new Location(w, 42.0, 56.0, 181.0, -60f, 0f)); //5e zone (diamant)
+        pc.add(new Location(w, 54.5, 44.0, 239.5, 120f, 0f)); //6e zone (lapis)
+
+        return pc;
+    }
+
+    public Map<String, MerchantRecipe> setAllTrade(){
+        Map<String, MerchantRecipe> trade = new HashMap<>();
+        trade.put("Bob", main.MR().tradingKey(new ItemStack(Material.LOG,10), new ItemStack(Material.COBBLESTONE, 10)));
+        trade.put("Didier", main.MR().tradingKey(new ItemStack(Material.COAL_BLOCK,3)));
+        trade.put("André de Pomero", main.MR().defaultTrade());
+        trade.put("Rodrigues de Pomero", main.MR().tradingKey(new ItemStack(Material.GOLD_NUGGET,50)));
+        trade.put("Jean-Pierre Fanguin", main.MR().tradingKey(new ItemStack(Material.IRON_BLOCK,4)));
+        trade.put("Baruk, le diamantaire", main.MR().tradingKey(new ItemStack(Material.DIAMOND,6),new ItemStack(Material.COAL, 12)));
+        trade.put("Fabala l'enchanteur", main.MR().tradingKey(new ItemStack(Material.LAPIS_BLOCK,6), main.HI().goldSword()));
+
+        return trade;
+    }
+    public MerchantRecipe getTrade(String pnjName){
+        return allTrade.get(pnjName);
     }
 
     //Get all block around target location (mostly use around players) by radius
@@ -68,18 +116,6 @@ public class ConstantHandler {
         }
         return locations;
     }
-    public Location getCurrentCoordPnj(Team currentTeam, int currentIndex){
-        String path = "coordinates.team"+currentTeam.getTeamName()+".pnjCoord."+ (currentIndex+1);
-        ChatHandler.broadcast(path);
-        ConfigurationSection configurationSection = main.getConfig().getConfigurationSection(path);
-        if (configurationSection == null) return null;
-
-        return new Location(Bukkit.getWorld(worldName),
-                main.getConfig().getDouble(path + ".x"),
-                main.getConfig().getDouble(path + ".y"),
-                main.getConfig().getDouble(path + ".z")
-        );
-    }
 
     public void setState(GState state){
         this.state = state;
@@ -91,24 +127,40 @@ public class ConstantHandler {
         return this.state;
     }
 
-    public Location getSpawnCoordinate(){
-        return spawn;
-    }
-    public Location getRedBase(){
-        return redBase;
-    }
-    public Location getBlueBase(){
-        return blueBase;
-    }
-
     public Location getDoorConstantCoord(){
-        return this.constantDoor;
+        return new Location(Bukkit.getWorld(worldName),
+                main.getConfig().getDouble("coordinates.doorCoord.constant.x"),
+                main.getConfig().getDouble("coordinates.doorCoord.constant.y"),
+                main.getConfig().getDouble("coordinates.doorCoord.constant.z")
+        );
     }
     public Scoreboard getScoreboard(){
         return this.scoreboard;
     }
     public void setScoreboard(Scoreboard scoreboard){
         this.scoreboard = scoreboard;
+    }
+
+    public Location getSpawnCoordinate(){
+        return new Location(Bukkit.getWorld(worldName),
+                main.getConfig().getDouble("coordinates.lobby.x"),
+                main.getConfig().getDouble("coordinates.lobby.y"),
+                main.getConfig().getDouble("coordinates.lobby.z")
+        );
+    }
+    public Location getRedBase(){
+        return new Location(Bukkit.getWorld(worldName),
+                main.getConfig().getDouble("coordinates.teamRed.spawnpoint.x"),
+                main.getConfig().getDouble("coordinates.teamRed.spawnpoint.y"),
+                main.getConfig().getDouble("coordinates.teamRed.spawnpoint.z")
+        );
+    }
+    public Location getBlueBase(){
+        return new Location(Bukkit.getWorld(worldName),
+                main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.x"),
+                main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.y"),
+                main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.z")
+        );
     }
 
     public Team getRedTeam(){
@@ -141,44 +193,6 @@ public class ConstantHandler {
                 return getBlueBase();
             default:
                 return getSpawnCoordinate();
-        }
-    }
-
-    /**
-     * Loop all blocks with the copiesDoors list and mainDoor locations
-     *  Cloning mainDoor blocks type with the mainDoor location
-     *  to the copiesDoors list.
-     */
-    public void setAllDoors() {
-        Location mainDoor = main.constH().getDoorConstantCoord();
-        List<Location> copiesDoorsList = main.constH().getAllCopiesDoors();
-        for (Location copiesDoors : copiesDoorsList) {
-            for (double x = -1; x <= 1; x++) {
-                for (double y = -1; y <= 1; y++) {
-                    for (double z = -1; z <= 1; z++) {
-                        Block mainBlock = new Location(Bukkit.getWorld(worldName), mainDoor.getBlockX() + x, mainDoor.getBlockY() + y, mainDoor.getBlockZ() + z).getBlock();
-                        Block copiesBlock = new Location(Bukkit.getWorld(worldName), copiesDoors.getBlockX() + x, copiesDoors.getBlockY() + y, copiesDoors.getBlockZ() + z).getBlock();
-                        copiesBlock.setType(mainBlock.getType());
-                    }
-                }
-            }
-        }
-    }
-    /**
-     * Loop all blocks with the copiesDoors list locations
-     * Change blocks type to AIR block
-     */
-    public void deleteAllDoors() {
-        List<Location> copiesDoorsList = main.constH().getAllCopiesDoors();
-        for (Location copiesDoors : copiesDoorsList) {
-            for (double x = -1; x <= 1; x++) {
-                for (double y = -1; y <= 1; y++) {
-                    for (double z = -1; z <= 1; z++) {
-                        Block copiesBlock = new Location(Bukkit.getWorld(worldName), copiesDoors.getBlockX() + x, copiesDoors.getBlockY() + y, copiesDoors.getBlockZ() + z).getBlock();
-                        copiesBlock.setType(Material.AIR);
-                    }
-                }
-            }
         }
     }
 }
