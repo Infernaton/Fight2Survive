@@ -37,6 +37,7 @@ public class FightToSurvive extends JavaPlugin {
     private final MobsHandler mobsHandler = new MobsHandler(this);
     private final DoorHandler doorHandler = new DoorHandler(this);
     private final HandleMerchantRecipe handleMR = new HandleMerchantRecipe(this);
+    private final BlockHandler BH = new BlockHandler();
 
     public ConstantHandler constH(){
         return constH;
@@ -58,6 +59,9 @@ public class FightToSurvive extends JavaPlugin {
     }
     public HandleMerchantRecipe MR() {
         return handleMR;
+    }
+    public BlockHandler BH(){
+        return BH;
     }
 
     public void enableCommand(String[] commandsName, CommandExecutor executor){
@@ -133,7 +137,8 @@ public class FightToSurvive extends JavaPlugin {
         }
         constH.setState(GState.WAITING);
         doorHandler.setAllDoors();
-        MH().killPnj();
+        BH.resetContainers();
+        MH().resetMob();
     }
 
     public void finish(){

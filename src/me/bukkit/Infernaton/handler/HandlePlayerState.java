@@ -16,6 +16,7 @@ public class HandlePlayerState {
 
     public void clear(Player player){
         player.getInventory().clear();
+        player.setExp(0f);
 
         player.getInventory().setHelmet(null);
         player.getInventory().setChestplate(null);

@@ -33,6 +33,14 @@ public class MobsHandler {
             Material.SOUL_SAND,
             Material.COBBLESTONE
     );
+    public List<EntityType> mobs = Arrays.asList(
+            EntityType.ZOMBIE,
+            EntityType.SPIDER,
+            EntityType.SKELETON,
+            EntityType.VILLAGER,
+            EntityType.EXPERIENCE_ORB,
+            EntityType.DROPPED_ITEM
+    );
 
     public static void setNoAI(Entity entity) {
         net.minecraft.server.v1_8_R3.Entity nmsVil = ((CraftEntity) entity).getHandle();
@@ -109,6 +117,14 @@ public class MobsHandler {
             if(round == 5){
                 ChatHandler.broadcast("azrazearfdsgb");
                 createSkeleton(newBlock.getLocation(), "Skeleton");
+            }
+        }
+    }
+
+    public void resetMob(){
+        for (Entity e : Bukkit.getWorld(worldName).getEntities()) {
+            if (mobs.contains(e.getType())) {
+                e.remove();
             }
         }
     }
