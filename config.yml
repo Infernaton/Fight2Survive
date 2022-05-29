@@ -14,6 +14,7 @@ string:
     spectator: "§7Spectateur"
     option: "§fOptions"
     return: "§fRetour"
+    cancelGame: "§4CancelGame"
   inventoryName:
     team: "§7Equipe"
     cancelStart: "§7CancelStart"
@@ -35,7 +36,7 @@ string:
       cancelStart: "Launch canceled."
       noCountdown: "Any countdown aren't set right now."
       noGame: "Any game is playing right now."
-      quitingReset: "Not enough player remaining, resetting the game"
+      quitingReset: "Not enough player remaining, resetting the game."
     timescales:
       nearNight: "The moon appears soon, be careful of monster"
       nearDay: "The sun is rising, a little rest for you"

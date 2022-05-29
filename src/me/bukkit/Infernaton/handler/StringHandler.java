@@ -70,6 +70,9 @@ public class StringHandler {
     public final String returnItem(){
         return clickItem("return");
     }
+    public final String cancelItem(){
+        return clickItem("§4CancelGame");
+    }
 
     private String inventoryName(String invType){
         return getDataString("inventoryName." + invType);
