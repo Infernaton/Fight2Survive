@@ -176,18 +176,22 @@ public class ConstantHandler {
         );
     }
     public Location getRedBase(){
-        return new Location(Bukkit.getWorld(worldName),
+        /*return new Location(Bukkit.getWorld(worldName),
                 main.getConfig().getDouble("coordinates.teamRed.spawnpoint.x"),
                 main.getConfig().getDouble("coordinates.teamRed.spawnpoint.y"),
                 main.getConfig().getDouble("coordinates.teamRed.spawnpoint.z")
         );
+         */
+        return new Location(Bukkit.getWorld(worldName), 37.5, 56.0, 83.5, -135f, 0f);
     }
     public Location getBlueBase(){
-        return new Location(Bukkit.getWorld(worldName),
+        /*return new Location(Bukkit.getWorld(worldName),
                 main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.x"),
                 main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.y"),
                 main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.z")
         );
+         */
+        return new Location(Bukkit.getWorld(worldName), -36.5,56,83.5, 135f, 0f);
     }
 
     public Team getRedTeam(){
