@@ -36,7 +36,7 @@ public class BlockListener implements Listener {
             if (block.getType() == Material.LOG){
                 if (block.getState().getData().getData() != 0){
                     event.setCancelled(true);
-                    ChatHandler.sendError(player, "Can't break this block");
+                    ChatHandler.sendError(player, main.stringH().avoidBreak());
                     return;
                 }
             }

@@ -31,37 +31,37 @@ public class HandleItem {
     }
 
     public ItemStack magicCompass(){
-        return new ItemBuilder(Material.COMPASS).setName("§aNavigation").toItemStack();
+        return new ItemBuilder(Material.COMPASS).setName(main.stringH().compassName()).toItemStack();
     }
     public ItemStack blueWool(){
-        return new ItemBuilder(Material.WOOL, 1, (byte)11).setName("§1Equipe Bleu").toItemStack();
+        return new ItemBuilder(Material.WOOL, 1, (byte)11).setName(main.stringH().blueTeamItem()).toItemStack();
     }
     public ItemStack redWool(){
-        return new ItemBuilder(Material.WOOL, 1, (byte)14).setName("§4Equipe Rouge").toItemStack();
+        return new ItemBuilder(Material.WOOL, 1, (byte)14).setName(main.stringH().redTeamItem()).toItemStack();
     }
     public ItemStack spectatorWool(){
-        return new ItemBuilder(Material.WOOL, 1, (byte)7).setName("§7Spectateur").toItemStack();
+        return new ItemBuilder(Material.WOOL, 1, (byte)7).setName(main.stringH().spectatorsItem()).toItemStack();
     }
 
     public ItemStack gameStartWool(){
-        return new ItemBuilder(Material.WOOL, 1, (byte)5).setName("§2StartGame").toItemStack();
+        return new ItemBuilder(Material.WOOL, 1, (byte)5).setName(main.stringH().launch()).toItemStack();
     }
 
     public ItemStack gameCancelWool(){
-        return new ItemBuilder(Material.WOOL, 1, (byte)14).setName("§4CancelGame").toItemStack();
+        return new ItemBuilder(Material.WOOL, 1, (byte)14).setName(main.stringH().cancelItem()).toItemStack();
     }
 
     public ItemStack optionsWool(){
-        return new ItemBuilder(Material.WOOL, 1, (byte)8).setName("§fOptions").toItemStack();
+        return new ItemBuilder(Material.WOOL, 1, (byte)8).setName(main.stringH().optionItem()).toItemStack();
     }
 
     public ItemStack returnWool(){
-        return new ItemBuilder(Material.WOOL, 1, (byte)8).setName("§fRetour").toItemStack();
+        return new ItemBuilder(Material.WOOL, 1, (byte)8).setName(main.stringH().returnItem()).toItemStack();
     }
 
     public ItemStack paperKey(){
-        return new ItemBuilder(Material.PAPER).setName("§9KEY").toItemStack();
-}
+        return new ItemBuilder(Material.PAPER).setName(main.stringH().keyName()).toItemStack();
+    }
 
     //#region TOOLS
     public ItemStack transformAxe(ItemStack axe){

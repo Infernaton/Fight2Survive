@@ -28,6 +28,7 @@ string:
     teleport: "Téléportation des joueurs..."
     avoidBreaking: "Can't break this block"
     opDoors: "La porte s'ouvre..."
+    finalPhase: "A team has open their last door. Starting the final Phase..."
     checkStart:
       launched: "Initialize the countdown..."
       countdownStarted: "CountDown already launch."

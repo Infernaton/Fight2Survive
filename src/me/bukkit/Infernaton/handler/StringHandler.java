@@ -127,6 +127,9 @@ public class StringHandler {
     public final String openDoors(){
         return sentence("opDoors");
     }
+    public final String finalPhase(){
+        return sentence("finalPhase");
+    }
 
     private String checkStart(String action){
         return sentence("checkStart."+action);

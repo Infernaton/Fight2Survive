@@ -13,7 +13,7 @@ public class InterfaceHandler {
     }
 
     public Inventory selectTeam(){
-        Inventory inv = Bukkit.createInventory(null, 45, "§7Equipe");
+        Inventory inv = Bukkit.createInventory(null, 45, main.stringH().teamInventory());
         inv.setItem(20, main.HI().blueWool());
         inv.setItem(24, main.HI().redWool());
         inv.setItem(13, main.HI().spectatorWool());
@@ -23,13 +23,13 @@ public class InterfaceHandler {
         return inv;
     }
     public Inventory cancelStart(){
-        Inventory inv = Bukkit.createInventory(null, 9, "§7Cancel Start");
+        Inventory inv = Bukkit.createInventory(null, 9, main.stringH().cancelInventory());
         inv.setItem(4, main.HI().gameCancelWool());
         return inv;
     }
 
     public Inventory optionsInventory(){
-        Inventory inv = Bukkit.createInventory(null, 45, "§7Options");
+        Inventory inv = Bukkit.createInventory(null, 45, main.stringH().optionInventory());
         inv.setItem(44, main.HI().returnWool());
         return inv;
     }
