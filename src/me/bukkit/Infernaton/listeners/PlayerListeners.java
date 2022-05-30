@@ -28,8 +28,8 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class PlayerListeners implements Listener {
 
-    private FightToSurvive main;
-    private InterfaceHandler IH;
+    private final FightToSurvive main;
+    private final InterfaceHandler IH;
 
     public PlayerListeners(FightToSurvive main) {
         this.main = main;
@@ -48,7 +48,7 @@ public class PlayerListeners implements Listener {
         //We test if the player is currently in game when he join,
         // if the game crashed client side, it would be a shame if he can't rejoin the party
         boolean isCurrentlyIG = !main.constH().isState(GState.WAITING) &&
-                !Team.getTeam(player).getTeamName().equalsIgnoreCase("Spectators");
+                !Team.getTeam(player).getTeamName().equalsIgnoreCase(main.stringH().spectatorName());
 
         //And, if the player is in creative, we don't need to reset is position
         if (!isCurrentlyIG && player.getGameMode() != GameMode.CREATIVE) {
@@ -63,10 +63,10 @@ public class PlayerListeners implements Listener {
         if (item == null) return;
 
         Player player = event.getPlayer();
-        Action action = event.getAction();
 
         //If the player clicked on a specified Compass, which is given when he spawn
-        if (item.getType() == Material.COMPASS && item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equalsIgnoreCase("§aNavigation")) {
+        if (item.getType() == Material.COMPASS && item.hasItemMeta() && item.getItemMeta().hasDisplayName()
+                && item.getItemMeta().getDisplayName().equalsIgnoreCase(main.stringH().compassName())) {
             if (main.constH().isState(GState.STARTING)) {
                 player.openInventory(IH.cancelStart());
             } else {
@@ -85,50 +85,33 @@ public class PlayerListeners implements Listener {
         Inventory inv = event.getInventory();
         Player player = (Player) event.getWhoClicked();
 
+        String itemName = current.getItemMeta().getDisplayName();
+
         //Action on the inventory of the compass, given when joining the server
-        if (inv.getName().equalsIgnoreCase("§7Equipe")) {
+        if (inv.getName().equalsIgnoreCase(main.stringH().teamInventory())) {
             event.setCancelled(true);
-            ItemMeta currentMeta = current.getItemMeta();
-            switch (currentMeta.getDisplayName()) {
-                case "§1Equipe Bleu":
-                    main.constH().getBlueTeam().add(player);
-                    break;
-                case "§4Equipe Rouge":
-                    main.constH().getRedTeam().add(player);
-                    break;
-                case "§7Spectateur":
-                    main.constH().getSpectators().add(player);
-                    break;
-                case "§2StartGame":
-                    main.onStarting(player);
-                    break;
-                case "§fOptions":
-                    player.openInventory(IH.optionsInventory());
-                    break;
-                default:
-                    break;
+            if (itemName.equals(main.stringH().blueTeamItem())){
+                main.constH().getBlueTeam().add(player);
+            }else if (itemName.equals(main.stringH().redTeamItem())){
+                main.constH().getRedTeam().add(player);
+            }else if (itemName.equals(main.stringH().spectatorsItem())){
+                main.constH().getSpectators().add(player);
+            }else if (itemName.equals(main.stringH().launch())){
+                main.onStarting(player);
+            }else if (itemName.equals(main.stringH().optionItem())){
+                player.openInventory(IH.optionsInventory());
             }
         }
-        if (inv.getName().equalsIgnoreCase("§7Options")) {
+        if (inv.getName().equalsIgnoreCase(main.stringH().optionInventory())) {
             event.setCancelled(true);
-            ItemMeta currentMeta = current.getItemMeta();
-            switch (currentMeta.getDisplayName()) {
-                case "§fRetour":
-                    player.openInventory(IH.selectTeam());
-                    break;
-                default:
-                    break;
+            if (itemName.equals(main.stringH().returnItem())){
+                player.openInventory(IH.selectTeam());
             }
         }
-        if (inv.getName().equalsIgnoreCase("§7Cancel Start")) {
+        if (inv.getName().equalsIgnoreCase(main.stringH().cancelInventory())) {
             event.setCancelled(true);
-            ItemMeta currentMeta = current.getItemMeta();
-            switch (currentMeta.getDisplayName()) {
-                case "§4CancelGame":
-                    main.cancelStart();
-                    break;
-                default:
-                    break;
+            if (itemName.equals(main.stringH().cancelItem())){
+                main.cancelStart();
             }
         }
     }
@@ -161,7 +144,7 @@ public class PlayerListeners implements Listener {
                             main.constH().getSpectators().add(player);
 
                             if (team.getPlayers().isEmpty()) {
-                                ChatHandler.toAllPlayer("Not enough player remaining, resetting the game");
+                                ChatHandler.toAllPlayer(main.stringH().quitingReset());
                                 main.finish();
                             }
                         }
@@ -181,7 +164,6 @@ public class PlayerListeners implements Listener {
             Team team = Team.getTeam(player);
             main.constH().getSpectators().add(player);
             if (team.getPlayers().isEmpty()) {
-                ChatHandler.toAllPlayer("Partie Terminée");
                 main.finish();
             }
         }
@@ -208,8 +190,10 @@ public class PlayerListeners implements Listener {
     @EventHandler
     public void onBoatPlace (PlayerInteractEvent event){
         if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            if (event.getPlayer().getItemInHand().getType() == Material.BOAT) {
+            Player p = event.getPlayer();
+            if (p.getItemInHand().getType() == Material.BOAT) {
                 event.setCancelled(true);
+                ChatHandler.sendError(p, main.stringH().cantWhilePlaying());
             }
         }
     }

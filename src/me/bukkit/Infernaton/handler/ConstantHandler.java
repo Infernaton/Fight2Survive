@@ -26,18 +26,38 @@ public class ConstantHandler {
     private GState state;
     private final FightToSurvive main;
     private Scoreboard scoreboard;
-    final static public String worldName = "Arene";
+    static public String worldName;
     private InterfaceHandler IH;
 
     public ConstantHandler(FightToSurvive main){
         this.main = main;
         this.IH = new InterfaceHandler(main);
+        worldName = setWorldName();
+    }
+
+    public String setWorldName(){
+        return main.stringH().worldName();
     }
 
     public String[] pnjName(){
         return new String[]{
-                "Bob", "Didier", "Rodrigues de Pomero", "André de Pomero", "Jean-Pierre Fanguin", "Baruk, le diamantaire", "Fabala l'enchanteur", //Team Blue
-                "Bob", "Didier", "Rodrigues de Pomero", "André de Pomero", "Jean-Pierre Fanguin", "Baruk, le diamantaire", "Fabala l'enchanteur"  //Team Red
+                //Team Blue
+                main.stringH().pnjWood(),
+                main.stringH().pnjCoal(),
+                main.stringH().pnjGold1(),
+                main.stringH().pnjGold2(),
+                main.stringH().pnjIron(),
+                main.stringH().pnjDiam(),
+                main.stringH().pnjLapis(),
+
+                //Team Red
+                main.stringH().pnjWood(),
+                main.stringH().pnjCoal(),
+                main.stringH().pnjGold1(),
+                main.stringH().pnjGold2(),
+                main.stringH().pnjIron(),
+                main.stringH().pnjDiam(),
+                main.stringH().pnjLapis()
         };
     }
 
@@ -99,13 +119,13 @@ public class ConstantHandler {
 
     public Map<String, MerchantRecipe> getAllTrade(){
         Map<String, MerchantRecipe> trade = new HashMap<>();
-        trade.put("Bob", main.MR().tradingKey(new ItemStack(Material.LOG,10), new ItemStack(Material.COBBLESTONE, 10)));
-        trade.put("Didier", main.MR().tradingKey(new ItemStack(Material.COAL_BLOCK,3)));
-        trade.put("André de Pomero", main.MR().defaultTrade());
-        trade.put("Rodrigues de Pomero", main.MR().tradingKey(new ItemStack(Material.GOLD_NUGGET,50)));
-        trade.put("Jean-Pierre Fanguin", main.MR().tradingKey(new ItemStack(Material.IRON_BLOCK,4)));
-        trade.put("Baruk, le diamantaire", main.MR().tradingKey(new ItemStack(Material.DIAMOND,6),new ItemStack(Material.COAL, 12)));
-        trade.put("Fabala l'enchanteur", main.MR().tradingKey(new ItemStack(Material.LAPIS_BLOCK,6), main.HI().goldSword()));
+        trade.put(main.stringH().pnjWood(), main.MR().tradingKey(new ItemStack(Material.LOG,10), new ItemStack(Material.COBBLESTONE, 10)));
+        trade.put(main.stringH().pnjCoal(), main.MR().tradingKey(new ItemStack(Material.COAL_BLOCK,3)));
+        trade.put(main.stringH().pnjGold1(), main.MR().defaultTrade());
+        trade.put(main.stringH().pnjGold2(), main.MR().tradingKey(new ItemStack(Material.GOLD_NUGGET,50)));
+        trade.put(main.stringH().pnjIron(), main.MR().tradingKey(new ItemStack(Material.IRON_BLOCK,4)));
+        trade.put(main.stringH().pnjDiam(), main.MR().tradingKey(new ItemStack(Material.DIAMOND,6),new ItemStack(Material.COAL, 12)));
+        trade.put(main.stringH().pnjLapis(), main.MR().tradingKey(new ItemStack(Material.LAPIS_BLOCK,6), main.HI().goldSword()));
 
         return trade;
     }
@@ -195,13 +215,13 @@ public class ConstantHandler {
     }
 
     public Team getRedTeam(){
-        return Team.getTeamByName("Red");
+        return Team.getTeamByName(main.stringH().redTeamName());
     }
     public Team getBlueTeam(){
-        return Team.getTeamByName("Blue");
+        return Team.getTeamByName(main.stringH().blueTeamName());
     }
     public Team getSpectators(){
-        return Team.getTeamByName("Spectators");
+        return Team.getTeamByName(main.stringH().spectatorName());
     }
 
     public List<Player> getAllTeamsPlayer(){

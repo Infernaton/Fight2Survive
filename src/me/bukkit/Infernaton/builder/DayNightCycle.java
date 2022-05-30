@@ -50,21 +50,21 @@ public class DayNightCycle implements Runnable{
 
         if (countdownStarter == 5) {
             if (dayOrNight){
-                ChatHandler.broadcast("The moon appears soon, be careful of monster");
+                ChatHandler.broadcast(main.stringH().nearNight());
             }
             else{
-                ChatHandler.broadcast("The sun is rising, a little rest for you");
+                ChatHandler.broadcast(main.stringH().nearDay());
             }
         }
         if (countdownStarter == 0) {
             countdownStarter = initTime;
             dayOrNight = !dayOrNight;
             if (dayOrNight){
-                ChatHandler.broadcast("Day Time");
+                ChatHandler.broadcast(main.stringH().day());
                 Bukkit.getWorld(worldName).setTime(1000);
             }
             else{
-                ChatHandler.broadcast("Night Time");
+                ChatHandler.broadcast(main.stringH().night());
                 Bukkit.getWorld(worldName).setTime(16000);
                 main.MH().generateMobWave();
             }
