@@ -27,7 +27,7 @@ public class PartyCommand implements CommandExecutor {
 
         if (cmd.getName().equalsIgnoreCase("start")) {
             if (sender instanceof Player) main.onStarting((Player) sender);
-            else ChatHandler.sendError(sender, "No Starting from the console");
+            else ChatHandler.sendError(sender, main.stringH().cantFromConsole());
             return true;
         }
 
@@ -35,30 +35,18 @@ public class PartyCommand implements CommandExecutor {
             Just after the starting command, and before the game actually start, we can cancel that countdown
          */
         else if (cmd.getName().equalsIgnoreCase("cancelStart")) {
-            if (main.constH().isState(GState.STARTING)) {
-                main.cancelStart();
-            } else {
-                ChatHandler.sendError(sender, "Any countdown aren't set right now.");
-            }
+            if (main.constH().isState(GState.STARTING)) main.cancelStart();
+            else ChatHandler.sendError(sender, main.stringH().noCountdown());
             return true;
         }
         else if (cmd.getName().equalsIgnoreCase("reset")){
-            if (main.constH().isState(GState.PLAYING)){
-                ChatHandler.sendMessageListPlayer(main.constH().getAllTeamsPlayer(), "Canceling the game");
-                Bukkit.getWorld(worldName).setTime(1000);
-                main.cancel();
-            } else {
-                ChatHandler.sendError(sender, "Any game is playing right now.");
-            }
+            if (main.constH().isState(GState.PLAYING)) main.cancel();
+            else ChatHandler.sendError(sender, main.stringH().noGame());
             return true;
         }
         else if (cmd.getName().equalsIgnoreCase("forceFinal")){
-            if(main.constH().isState(GState.PLAYING) || main.constH().isState(GState.WAITING)){
-                main.FP().on();
-            }
-            else {
-                ChatHandler.sendCantWhilePlaying(sender);
-            }
+            if(main.constH().isState(GState.PLAYING) || main.constH().isState(GState.WAITING)) main.FP().on();
+            else ChatHandler.sendCantWhilePlaying(sender);
             return true;
         }
         else if (cmd.getName().equalsIgnoreCase("endgame")){

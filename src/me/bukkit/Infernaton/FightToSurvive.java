@@ -98,7 +98,7 @@ public class FightToSurvive extends JavaPlugin {
                     redPlayers.addAll(bluePlayers); //All players in one variable
                     constH.setState(GState.STARTING);
 
-                    ChatHandler.sendInfoMessage(sender, stringH.launch());
+                    ChatHandler.sendInfoMessage(sender, stringH.launched());
                     CountDown.newCountDown(this, 10L);
                     doorHandler.setAllDoors();
                 } else {

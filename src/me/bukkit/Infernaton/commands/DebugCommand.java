@@ -27,29 +27,28 @@ public class DebugCommand implements CommandExecutor {
             if (args.length == 0) {
                 Player player = (Player) sender;
                 main.HP().setPlayer(player);
-                ChatHandler.sendMessage(sender, "§rYou §fare ready to play !");
+                ChatHandler.sendMessage(sender, main.stringH().setPlayer("You", "are"));
             }
             else if (args.length == 1) {
                 Player targetPlayer = Bukkit.getPlayerExact(args[0]);
                 System.out.println(targetPlayer);
                 if (targetPlayer == null) {
-                    ChatHandler.sendError(sender, "Player not found");
+                    ChatHandler.sendError(sender, main.stringH().notPlayer());
                 } else {
                     main.HP().setPlayer(targetPlayer);
-                    ChatHandler.sendMessage(sender, "§r" + args[0] + " §fis ready to play !");
+                    ChatHandler.sendMessage(sender, main.stringH().setPlayer(args[0], "is"));
                 }
             }
             else {
-                ChatHandler.sendError(sender, "Too many argument");
-                ChatHandler.sendCorrectUsage(sender, "Usage: /setPlayer <username>");
+                ChatHandler.sendError(sender, main.stringH().tooManyArgument());
+                ChatHandler.sendCorrectUsage(sender, main.stringH().correctUsage(cmd.getName(), "<username>"));
             }
             return true;
         }
 
         else if (cmd.getName().equalsIgnoreCase("getDoors")) {
             if (main.constH().isState(GState.WAITING)) {
-                ChatHandler.sendInfoMessage(sender, "Reset all doors...");
-
+                ChatHandler.sendInfoMessage(sender, main.stringH().getDoors());
                 main.DH().setAllDoors();
             } else {
                 ChatHandler.sendCantWhilePlaying(sender);
@@ -59,7 +58,7 @@ public class DebugCommand implements CommandExecutor {
 
         else if (cmd.getName().equalsIgnoreCase("deleteDoors")) {
             if (main.constH().isState(GState.WAITING)) {
-                ChatHandler.sendInfoMessage(sender, "Deleting all doors...");
+                ChatHandler.sendInfoMessage(sender, main.stringH().delDoors());
                 main.DH().deleteAllDoors();
             } else {
                 ChatHandler.sendCantWhilePlaying(sender);
@@ -69,14 +68,14 @@ public class DebugCommand implements CommandExecutor {
 
 
         else if (cmd.getName().equalsIgnoreCase("getKey")){
-            ChatHandler.sendInfoMessage(sender, "Giving the Key !");
+            ChatHandler.sendInfoMessage(sender, main.stringH().giveKey());
             main.HI().giveItemInInventory((Player) sender, main.HI().paperKey(), 1);
             return true;
         }
 
         else if (cmd.getName().equalsIgnoreCase("setVillagers")){
             if (main.constH().isState(GState.WAITING)) {
-                ChatHandler.sendInfoMessage(sender, "Spawning all Villagers...");
+                ChatHandler.sendInfoMessage(sender, main.stringH().setVill());
                 main.MH().setAllPnj();
             } else {
                 ChatHandler.sendCantWhilePlaying(sender);
@@ -85,7 +84,7 @@ public class DebugCommand implements CommandExecutor {
         }
 
         else if (cmd.getName().equalsIgnoreCase("killPnj")){
-            ChatHandler.sendInfoMessage(sender, "Killing all Villagers...");
+            ChatHandler.sendInfoMessage(sender, main.stringH().killVill());
             main.MH().killPnj();
             return true;
         }

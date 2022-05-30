@@ -181,11 +181,8 @@ public class StringHandler {
     private String preSetPlayer(String playerName, String be){
         return debugCommand("setPlayer").replace("<player>", playerName).replace("<be>", be);
     }
-    public final String setPlayer(Player player){
-        return preSetPlayer(player.getName(), "is");
-    }
-    public final String setPlayer(String pronoun){
-        return preSetPlayer(pronoun, "are");
+    public final String setPlayer(String playerName, String be){
+        return preSetPlayer(playerName, be);
     }
     public final String getDoors(){
         return debugCommand("getDoors");
