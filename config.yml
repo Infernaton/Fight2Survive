@@ -59,7 +59,7 @@ string:
     red: "Red"
     blue: "Blue"
     spec: "Spectators"
-  worldName: "Arene"
+  worldName: "Arene" #Main Map name of the server, where the game will be playing
   navCompass: "§aNavigation"
   keyItem: "§9KEY"
 coordinates:
