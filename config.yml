@@ -9,14 +9,14 @@ string:
     lapis: "Fabala l'enchanteur"
   clickInventory:
     launchGame: "§2StartGame"
-    red: "§4Equipe Red"
-    blue: "§1Equipe Bleu"
+    red: "§4Red Team"
+    blue: "§1Blue Team "
     spectator: "§7Spectateur"
     option: "§fOptions"
-    return: "§fRetour"
+    return: "§fBack"
     cancelGame: "§4CancelGame"
   inventoryName:
-    team: "§7Equipe"
+    team: "§7Team"
     cancelStart: "§7CancelStart"
     options: "§7Options"
   sentence:
