@@ -1,20 +1,9 @@
 package me.bukkit.Infernaton;
 
-import me.bukkit.Infernaton.builder.CountDown;
-import me.bukkit.Infernaton.builder.DayNightCycle;
-import me.bukkit.Infernaton.builder.Team;
-import me.bukkit.Infernaton.commands.DebugCommand;
-import me.bukkit.Infernaton.commands.PartyCommand;
-import me.bukkit.Infernaton.commands.SpawnMobs;
-import me.bukkit.Infernaton.handler.ChatHandler;
-import me.bukkit.Infernaton.handler.ConstantHandler;
-import me.bukkit.Infernaton.handler.HandleItem;
-import me.bukkit.Infernaton.handler.HandlePlayerState;
 import me.bukkit.Infernaton.handler.*;
-import me.bukkit.Infernaton.listeners.BlockListener;
-import me.bukkit.Infernaton.listeners.DoorListeners;
-import me.bukkit.Infernaton.listeners.EntityListeners;
-import me.bukkit.Infernaton.listeners.PlayerListeners;
+import me.bukkit.Infernaton.listeners.*;
+import me.bukkit.Infernaton.commands.*;
+import me.bukkit.Infernaton.builder.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
