@@ -8,21 +8,21 @@ string:
     diam: "Baruk, le diamantaire"
     lapis: "Fabala l'enchanteur"
   clickInventory:
-    launchGame: "§2StartGame"
-    red: "§4Red Team"
-    blue: "§1Blue Team "
-    spectator: "§7Spectateur"
-    option: "§fOptions"
-    return: "§fBack"
-    cancelGame: "§4CancelGame"
+    launchGame: "&2StartGame"
+    red: "&4Red Team"
+    blue: "&1Blue Team "
+    spectator: "&7Spectateur"
+    option: "&fOptions"
+    return: "&fBack"
+    cancelGame: "&4CancelGame"
   inventoryName:
-    team: "§7Team"
-    cancelStart: "§7CancelStart"
-    options: "§7Options"
+    team: "&7Team"
+    cancelStart: "&7CancelStart"
+    options: "&7Options"
   sentence:
     secondLeft: "<x> seconds left !"
     needOp: "You need to be an operator to do this action."
-    start: "§eStart the Game!"
+    start: "&eStart the Game!"
     cancel: "Canceling the game"
     end: "Partie Terminée"
     teleport: "Téléportation des joueurs..."
@@ -44,7 +44,7 @@ string:
       night: "Night Time"
       day: "Day Time"
     debug:
-      setPlayer: "§r<player> §f<be> ready to play"
+      setPlayer: "&a<player>&f <be> ready to play"
       getDoors: "Resetting all doors..."
       delDoors: "Deleting all doors..."
       setVill: "Spawning all villagers..."
@@ -60,8 +60,8 @@ string:
     blue: "Blue"
     spec: "Spectators"
   worldName: "Arene" #Main Map name of the server, where the game will be playing
-  navCompass: "§aNavigation"
-  keyItem: "§9KEY"
+  navCompass: "&aNavigation"
+  keyItem: "&9KEY"
 coordinates:
   lobby:
     x: 0.5
