@@ -15,7 +15,7 @@ public class Team{
 
     private static HashMap<Player, Team> playerTeams = new HashMap<>();
 
-    private Scoreboard scb;
+    private final Scoreboard scb;
     private final String teamName;
 
     public Team(String teamName, Scoreboard scb){

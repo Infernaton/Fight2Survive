@@ -33,6 +33,10 @@ public class HandleItem {
     public ItemStack magicCompass(){
         return new ItemBuilder(Material.COMPASS).setName(main.stringH().compassName()).toItemStack();
     }
+    public ItemStack paperKey(){
+        return new ItemBuilder(Material.PAPER).setName(main.stringH().keyName()).toItemStack();
+    }
+
     public ItemStack blueWool(){
         return new ItemBuilder(Material.WOOL, 1, (byte)11).setName(main.stringH().blueTeamItem()).toItemStack();
     }
@@ -42,25 +46,21 @@ public class HandleItem {
     public ItemStack spectatorWool(){
         return new ItemBuilder(Material.WOOL, 1, (byte)7).setName(main.stringH().spectatorsItem()).toItemStack();
     }
-
     public ItemStack gameStartWool(){
         return new ItemBuilder(Material.WOOL, 1, (byte)5).setName(main.stringH().launch()).toItemStack();
     }
-
     public ItemStack gameCancelWool(){
         return new ItemBuilder(Material.WOOL, 1, (byte)14).setName(main.stringH().cancelItem()).toItemStack();
     }
-
     public ItemStack optionsWool(){
         return new ItemBuilder(Material.WOOL, 1, (byte)8).setName(main.stringH().optionItem()).toItemStack();
     }
-
     public ItemStack returnWool(){
         return new ItemBuilder(Material.WOOL, 1, (byte)8).setName(main.stringH().returnItem()).toItemStack();
     }
 
-    public ItemStack paperKey(){
-        return new ItemBuilder(Material.PAPER).setName(main.stringH().keyName()).toItemStack();
+    public ItemStack separator(){
+        return new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (byte) 15).setName(" ").toItemStack();
     }
 
     //#region TOOLS
