@@ -48,8 +48,6 @@ public class InterfaceHandler {
         ArrayList<String> redlore = new ArrayList<String>();
         redlore.add("O holy stone");
         inv.setItem(13, main.HI().spectatorWool());
-        ArrayList<String> spectatorlore = new ArrayList<String>();
-        spectatorlore.add("O holy stone");
 
         separatorLine(inv, 36, createException(createException(40, main.HI().gameStartWool()), 44, main.HI().optionsWool()));
 
