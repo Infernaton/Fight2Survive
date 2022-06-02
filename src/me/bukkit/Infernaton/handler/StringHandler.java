@@ -1,6 +1,7 @@
 package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class StringHandler {
@@ -11,7 +12,7 @@ public class StringHandler {
     }
 
     private String getDataString(String key){
-        return main.getConfig().getString("string."+key);
+        return ChatColor.translateAlternateColorCodes('&', main.getConfig().getString("string."+key));
     }
 
     public final String worldName(){
