@@ -27,14 +27,14 @@ public class ScoreboardManager {
     }
 
     public ScoreboardPlayer addScoreboard(Player player) {
-        ScoreboardPlayer scoreboardPlayer = new ScoreboardPlayer(player);
+        ScoreboardPlayer scoreboardPlayer = new ScoreboardPlayer(main, player);
         scoreboardPlayerHashMap.put(player.getUniqueId(), scoreboardPlayer);
         return scoreboardPlayer;
     }
 
     public static void removeScoreboard(Player player) {
         ScoreboardPlayer scoreboardPlayer = scoreboardPlayerHashMap.get(player.getUniqueId());
-        if (Objects.nonNull(scoreboardPlayer)) {
+        if (scoreboardPlayer != null) {
             scoreboardPlayer.removeScoreboard(player);
         }
         scoreboardPlayerHashMap.remove(player.getUniqueId());

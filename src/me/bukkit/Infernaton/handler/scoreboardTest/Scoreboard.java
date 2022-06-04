@@ -110,16 +110,16 @@ public class Scoreboard {
     public void updateLines() {
         String oldName = changeNameBeforeDeleting();
 
-        this.receivers.stream()
-                .filter(OfflinePlayer::isOnline)
-                .forEach(receiver ->  {
-                    Player player = receiver.getPlayer();
-                    sendScoreboardPacket(player, this.name, this.displayName, ScoreboardObjectiveActionEnum.CREATE);
-                    updateLines(player);
-                    sendDisplayScoreboardPacket(player);
 
-                    sendScoreboardPacket(player, oldName, "", ScoreboardObjectiveActionEnum.REMOVE);
-                });
+        for (OfflinePlayer offPlayer: receivers) {
+            if (!offPlayer.isOnline()) continue;
+            Player player = offPlayer.getPlayer();
+            sendScoreboardPacket(player, this.name, this.displayName, ScoreboardObjectiveActionEnum.CREATE);
+            updateLines(player);
+            sendDisplayScoreboardPacket(player);
+
+            sendScoreboardPacket(player, oldName, "", ScoreboardObjectiveActionEnum.REMOVE);
+        }
     }
 
     /**
@@ -169,8 +169,6 @@ public class Scoreboard {
             sendScoreboardScorePacket(player, PacketPlayOutScoreboardScore.EnumScoreboardAction.CHANGE, scoreboardLine.getContent(), this.synchronizedLines.size() - scoreboardLine.getScore() - 1);
         }
     }
-
-
 
     /**
      * Sends a scoreboard packet to a Player

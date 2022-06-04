@@ -65,7 +65,7 @@ public class PlayerListeners implements Listener {
      */
     @EventHandler
     public void onQuit (PlayerQuitEvent event){
-        Player player = event.getPlayer();
+        final Player player = event.getPlayer();
         if (main.constH().isState(GState.PLAYING)) {
             final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
