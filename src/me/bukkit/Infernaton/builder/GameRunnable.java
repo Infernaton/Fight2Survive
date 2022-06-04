@@ -43,6 +43,7 @@ public class GameRunnable implements Runnable{
     public void run() {
 
         countdownStarter++;
+        main.getScoreboardManager().updateScoreboards();
 
         if (!main.constH().isState(GState.PLAYING)){
             System.out.print("Timer Over!");

@@ -1,7 +1,7 @@
 package me.bukkit.Infernaton;
 
 import me.bukkit.Infernaton.handler.*;
-import me.bukkit.Infernaton.handler.scoreboardTest.ScoreboardManager;
+import me.bukkit.Infernaton.handler.scoreboard.ScoreboardManager;
 import me.bukkit.Infernaton.listeners.*;
 import me.bukkit.Infernaton.commands.*;
 import me.bukkit.Infernaton.builder.*;
@@ -73,6 +73,10 @@ public class FightToSurvive extends JavaPlugin {
 
     public ScoreboardManager getScoreboardManager() {
         return scoreboardManager;
+    }
+    public void addingTeam(Team team, Player player){
+        team.add(player);
+        scoreboardManager.updateScoreboards();
     }
 
     public void enableCommand(String[] commandsName, CommandExecutor executor){

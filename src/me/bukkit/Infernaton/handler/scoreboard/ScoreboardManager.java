@@ -1,10 +1,9 @@
-package me.bukkit.Infernaton.handler.scoreboardTest;
+package me.bukkit.Infernaton.handler.scoreboard;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -17,6 +16,12 @@ public class ScoreboardManager {
 
     public ScoreboardManager(FightToSurvive main) {
         this.main = main;
+    }
+
+    public void updateScoreboards(){
+        for (ScoreboardPlayer sb : scoreboardPlayerHashMap.values()) {
+            sb.update();
+        }
     }
 
     public ScoreboardPlayer getScoreboard(Player player) {

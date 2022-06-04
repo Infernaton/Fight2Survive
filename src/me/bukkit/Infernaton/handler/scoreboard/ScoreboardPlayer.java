@@ -1,11 +1,9 @@
-package me.bukkit.Infernaton.handler.scoreboardTest;
+package me.bukkit.Infernaton.handler.scoreboard;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.builder.GameRunnable;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -54,10 +52,10 @@ public class ScoreboardPlayer {
         for (int i = 0; i < getLines().length; i++) {
             scoreboard.setLine(i, getLines()[i]);
         }
-        update();
+        scoreboard.updateLines();
     }
     public void update(){
-        scoreboard.updateLines();
+        setLines();
     }
 
 }

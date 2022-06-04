@@ -1,4 +1,4 @@
-package me.bukkit.Infernaton.handler.scoreboardTest;
+package me.bukkit.Infernaton.handler.scoreboard;
 
 import net.minecraft.server.v1_8_R3.IScoreboardCriteria;
 import net.minecraft.server.v1_8_R3.PacketPlayOutScoreboardDisplayObjective;

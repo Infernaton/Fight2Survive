@@ -19,6 +19,7 @@ public class DayNightCycle implements Runnable{
         this.main = main;
     }
 
+    @Deprecated
     public static void newCountDown(FightToSurvive main){
         DayNightCycle clock = new DayNightCycle(main);
         int countDownId = Bukkit.getScheduler().scheduleSyncRepeatingTask(main, clock, clock.initTime, 20L);

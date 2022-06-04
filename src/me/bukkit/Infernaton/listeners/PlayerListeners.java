@@ -4,7 +4,7 @@ import me.bukkit.Infernaton.*;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.InterfaceHandler;
-import me.bukkit.Infernaton.handler.scoreboardTest.ScoreboardManager;
+import me.bukkit.Infernaton.handler.scoreboard.ScoreboardManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -17,7 +17,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -158,11 +157,11 @@ public class PlayerListeners implements Listener {
         if (inv.getName().equalsIgnoreCase(main.stringH().teamInventory())) {
             event.setCancelled(true);
             if (itemName.equals(main.stringH().blueTeamItem())){
-                main.constH().getBlueTeam().add(player);
+                main.addingTeam(main.constH().getBlueTeam(), player);
             }else if (itemName.equals(main.stringH().redTeamItem())){
-                main.constH().getRedTeam().add(player);
+                main.addingTeam(main.constH().getRedTeam(), player);
             }else if (itemName.equals(main.stringH().spectatorsItem())){
-                main.constH().getSpectators().add(player);
+                main.addingTeam(main.constH().getSpectators(), player);
             }else if (itemName.equals(main.stringH().launch())){
                 main.onStarting(player);
             }else if (itemName.equals(main.stringH().optionItem())){
