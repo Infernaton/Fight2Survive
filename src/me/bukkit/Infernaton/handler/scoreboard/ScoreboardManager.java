@@ -1,6 +1,7 @@
 package me.bukkit.Infernaton.handler.scoreboard;
 
 import me.bukkit.Infernaton.FightToSurvive;
+import me.bukkit.Infernaton.builder.ScoreboardPlayer;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;

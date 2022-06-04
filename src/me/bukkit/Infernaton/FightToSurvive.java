@@ -155,6 +155,7 @@ public class FightToSurvive extends JavaPlugin {
         for (Player player: players) {
             HP.setPlayer(player);
         }
+        scoreboardManager.updateScoreboards();
         constH.setState(GState.WAITING);
         doorHandler.setAllDoors();
         BH.resetContainers();

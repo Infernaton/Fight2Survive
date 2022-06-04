@@ -2,6 +2,7 @@ package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
+import me.bukkit.Infernaton.builder.GameRunnable;
 import me.bukkit.Infernaton.builder.Team;
 import net.minecraft.server.v1_8_R3.MerchantRecipe;
 import org.bukkit.Bukkit;
@@ -245,5 +246,26 @@ public class ConstantHandler {
             default:
                 return getSpawnCoordinate();
         }
+    }
+
+
+    /**
+     * Each line of our scoreboard are stored here
+     * @return the scoreboard line by line
+     */
+    public String[] getScoreboardLines(){
+        GameRunnable gm = main.getTimer();
+        String timer = "00:00";
+        if (gm != null) timer = main.getTimer().stringTimer();
+
+        return new String[]{
+                "§§a",
+                "§7Timer: "+ timer,
+                "§§1",
+                "§4Red Team ("+ main.constH().getRedTeam().getPlayers().size() +")",
+                "§1Blue Team ("+ main.constH().getBlueTeam().getPlayers().size() +")",
+                "§§§1",
+                "§6----------------"
+        };
     }
 }
