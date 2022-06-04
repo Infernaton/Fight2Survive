@@ -14,10 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -57,65 +54,6 @@ public class PlayerListeners implements Listener {
         if (!isCurrentlyIG && player.getGameMode() != GameMode.CREATIVE) {
             main.HP().resetPlayerState(player);
             player.teleport(main.constH().getSpawnCoordinate());
-        }
-    }
-
-    @EventHandler
-    public void onInteract(PlayerInteractEvent event) {
-        ItemStack item = event.getItem();
-        if (item == null) return;
-
-        Player player = event.getPlayer();
-
-        //If the player clicked on a specified Compass, which is given when he spawn
-        if (item.getType() == Material.COMPASS && item.hasItemMeta() && item.getItemMeta().hasDisplayName()
-                && item.getItemMeta().getDisplayName().equalsIgnoreCase(main.stringH().compassName())) {
-            if (main.constH().isState(GState.STARTING)) {
-                player.openInventory(IH.cancelStart());
-            } else {
-                player.openInventory(IH.selectTeam());
-            }
-        }
-    }
-
-    @EventHandler
-    public void onClick(InventoryClickEvent event) {
-        ItemStack current = event.getCurrentItem();
-
-        //If the player click outside the inventory or in a slot where there's nothing, we don't need the function to be executed
-        if (current == null || current.getType() == Material.AIR) return;
-
-        Inventory inv = event.getInventory();
-        Player player = (Player) event.getWhoClicked();
-
-        String itemName = current.getItemMeta().getDisplayName();
-
-        //Action on the inventory of the compass, given when joining the server
-        if (inv.getName().equalsIgnoreCase(main.stringH().teamInventory())) {
-            event.setCancelled(true);
-            if (itemName.equals(main.stringH().blueTeamItem())){
-                main.constH().getBlueTeam().add(player);
-            }else if (itemName.equals(main.stringH().redTeamItem())){
-                main.constH().getRedTeam().add(player);
-            }else if (itemName.equals(main.stringH().spectatorsItem())){
-                main.constH().getSpectators().add(player);
-            }else if (itemName.equals(main.stringH().launch())){
-                main.onStarting(player);
-            }else if (itemName.equals(main.stringH().optionItem())){
-                player.openInventory(IH.optionsInventory());
-            }
-        }
-        if (inv.getName().equalsIgnoreCase(main.stringH().optionInventory())) {
-            event.setCancelled(true);
-            if (itemName.equals(main.stringH().returnItem())){
-                player.openInventory(IH.selectTeam());
-            }
-        }
-        if (inv.getName().equalsIgnoreCase(main.stringH().cancelInventory())) {
-            event.setCancelled(true);
-            if (itemName.equals(main.stringH().cancelItem())){
-                main.cancelStart();
-            }
         }
     }
 
@@ -184,6 +122,79 @@ public class PlayerListeners implements Listener {
         } else {
             event.setRespawnLocation(main.constH().getSpawnCoordinate());
         }
+    }
+
+    @EventHandler
+    public void onInteract(PlayerInteractEvent event) {
+        ItemStack item = event.getItem();
+        if (item == null) return;
+
+        Player player = event.getPlayer();
+
+        //If the player clicked on a specified Compass, which is given when he spawn
+        if (item.getType() == Material.COMPASS && item.hasItemMeta() && item.getItemMeta().hasDisplayName()
+                && item.getItemMeta().getDisplayName().equalsIgnoreCase(main.stringH().compassName())) {
+            if (main.constH().isState(GState.STARTING)) {
+                player.openInventory(IH.cancelStart());
+            } else {
+                player.openInventory(IH.selectTeam());
+            }
+        }
+    }
+
+    @EventHandler
+    public void onClick(InventoryClickEvent event) {
+        ItemStack current = event.getCurrentItem();
+
+        //If the player click outside the inventory or in a slot where there's nothing, we don't need the function to be executed
+        if (current == null || current.getType() == Material.AIR) return;
+
+        Inventory inv = event.getInventory();
+        Player player = (Player) event.getWhoClicked();
+
+        String itemName = current.getItemMeta().getDisplayName();
+
+        //Action on the inventory of the compass, given when joining the server
+        if (inv.getName().equalsIgnoreCase(main.stringH().teamInventory())) {
+            event.setCancelled(true);
+            if (itemName.equals(main.stringH().blueTeamItem())){
+                main.constH().getBlueTeam().add(player);
+            }else if (itemName.equals(main.stringH().redTeamItem())){
+                main.constH().getRedTeam().add(player);
+            }else if (itemName.equals(main.stringH().spectatorsItem())){
+                main.constH().getSpectators().add(player);
+            }else if (itemName.equals(main.stringH().launch())){
+                main.onStarting(player);
+            }else if (itemName.equals(main.stringH().optionItem())){
+                player.openInventory(IH.optionsInventory());
+            }
+        }
+        if (inv.getName().equalsIgnoreCase(main.stringH().optionInventory())) {
+            event.setCancelled(true);
+            if (itemName.equals(main.stringH().returnItem())){
+                player.openInventory(IH.selectTeam());
+            }
+        }
+        if (inv.getName().equalsIgnoreCase(main.stringH().cancelInventory())) {
+            event.setCancelled(true);
+            if (itemName.equals(main.stringH().cancelItem())){
+                main.cancelStart();
+            }
+        }
+    }
+
+    @EventHandler
+    public void onPlayerChat(PlayerChatEvent e){
+        e.setCancelled(true);
+        Player p = e.getPlayer();
+        Team playerTeam = Team.getTeam(p);
+        String colorName;
+        if (playerTeam != null){
+            colorName = playerTeam.getTeamColor();
+        }else {
+            colorName = "§r";
+        }
+        ChatHandler.broadcast(colorName + p.getDisplayName() + "§r: " + e.getMessage());
     }
 
     /**

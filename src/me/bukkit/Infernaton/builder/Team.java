@@ -32,6 +32,9 @@ public class Team{
             scb.getTeam(this.teamName).setPrefix(color.toString());
         }
     }
+    public String getTeamColor(){
+        return scb.getTeam(teamName).getPrefix();
+    }
 
     public String getTeamName(){
         return teamName;
