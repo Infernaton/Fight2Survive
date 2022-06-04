@@ -1,6 +1,7 @@
 package me.bukkit.Infernaton;
 
 import me.bukkit.Infernaton.handler.*;
+import me.bukkit.Infernaton.handler.scoreboardTest.ScoreboardManager;
 import me.bukkit.Infernaton.listeners.*;
 import me.bukkit.Infernaton.commands.*;
 import me.bukkit.Infernaton.builder.*;
@@ -60,6 +61,20 @@ public class FightToSurvive extends JavaPlugin {
     }
     //#endregion
 
+    //#region Game Timer
+    private GameRunnable gameTimer;
+
+    public GameRunnable getTimer(){
+        return gameTimer;
+    }
+    //#endregion
+
+    private ScoreboardManager scoreboardManager;
+
+    public ScoreboardManager getScoreboardManager() {
+        return scoreboardManager;
+    }
+
     public void enableCommand(String[] commandsName, CommandExecutor executor){
         for(String command: commandsName){
             getCommand(command).setExecutor(executor);
@@ -103,7 +118,7 @@ public class FightToSurvive extends JavaPlugin {
 
     public void start(){
         ChatHandler.sendMessageListPlayer(constH().getAllTeamsPlayer(), stringH.start());
-        DayNightCycle.newCountDown(this);
+        gameTimer = GameRunnable.newCountDown(this);
         List<Player> allPlayers = constH.getAllTeamsPlayer();
         for (Player player: allPlayers) {
             HP.clear(player);
@@ -119,7 +134,7 @@ public class FightToSurvive extends JavaPlugin {
             public void run() {
                 mobsHandler.setAllPnj();
             }
-        }.runTaskLater(this, 10);
+        }.runTaskLater(this, 5);
     }
 
     public void cancelStart() {
@@ -159,6 +174,7 @@ public class FightToSurvive extends JavaPlugin {
         saveDefaultConfig();
         this.constH = new ConstantHandler(this);
         this.finalPhase = new FinalPhaseHandler(this);
+        this.scoreboardManager = new ScoreboardManager(this);
 
         constH.setState(GState.WAITING);
 

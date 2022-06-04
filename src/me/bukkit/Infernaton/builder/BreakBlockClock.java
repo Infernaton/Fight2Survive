@@ -12,8 +12,8 @@ import org.bukkit.block.Block;
  */
 public class BreakBlockClock implements Runnable {
 
-    private Block block;
-    private Material blockType;
+    private final Block block;
+    private final Material blockType;
     private long startTime;
     private int id;
 
