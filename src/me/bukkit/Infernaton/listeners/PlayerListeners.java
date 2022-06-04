@@ -4,6 +4,7 @@ import me.bukkit.Infernaton.*;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.InterfaceHandler;
+import me.bukkit.Infernaton.handler.scoreboardTest.ScoreboardManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -39,6 +40,8 @@ public class PlayerListeners implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+
+        main.getScoreboardManager().addScoreboard(player);
 
         //If it's the first time he join, the player don't have a team yet, so we forced him to join one
         if (!Team.hasTeam(player)) {
@@ -123,7 +126,8 @@ public class PlayerListeners implements Listener {
      * @param event
      */
     @EventHandler
-    public void onQuit ( final PlayerQuitEvent event){
+    public void onQuit (PlayerQuitEvent event){
+        Player player = event.getPlayer();
         if (main.constH().isState(GState.PLAYING)) {
             final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
@@ -132,7 +136,6 @@ public class PlayerListeners implements Listener {
 
                 @Override
                 public void run() {
-                    Player player = event.getPlayer();
 
                     countdownStarter--;
                     if (countdownStarter == 0) {
@@ -153,6 +156,7 @@ public class PlayerListeners implements Listener {
             };
             scheduler.scheduleAtFixedRate(runnable, 0, 1, SECONDS);
         }
+        ScoreboardManager.removeScoreboard(player);
     }
 
     @EventHandler
