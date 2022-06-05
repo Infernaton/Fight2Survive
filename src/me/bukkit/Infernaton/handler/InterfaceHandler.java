@@ -3,8 +3,11 @@ package me.bukkit.Infernaton.handler;
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.builder.ItemBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.DyeColor;
+import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,23 +41,48 @@ public class InterfaceHandler {
         }
         return inv;
     }
+    public Inventory customBlueWool(){
+        ItemStack stackblue = new ItemStack(Material.WOOL, 1, DyeColor.BLUE.getData());
+        ItemMeta metablue = stackblue.getItemMeta();
+        ArrayList<String> loreblue = new ArrayList<String>();
+        loreblue.add("O holy stone");
+        metablue.setLore(loreblue);
+        stackblue.setItemMeta(metablue);
+        return (Inventory) stackblue;
+    }
+    public Inventory customRedWool(){
+        ItemStack stackred = new ItemStack(Material.WOOL, 1, DyeColor.RED.getData());
+        ItemMeta metared = stackred.getItemMeta();
+        ArrayList<String> lorered = new ArrayList<String>();
+        lorered.add("O holy stone");
+        metared.setLore(lorered);
+        stackred.setItemMeta(metared);
+        return (Inventory) stackred;
+    }
+    public Inventory customSpectatorWool(){
+        ItemStack stackspectator = new ItemStack(Material.WOOL, 1, DyeColor.RED.getData());
+        ItemMeta metaspectator = stackspectator.getItemMeta();
+        ArrayList<String> lorespectator = new ArrayList<String>();
+        lorespectator.add("O holy stone");
+        metaspectator.setLore(lorespectator);
+        stackspectator.setItemMeta(metaspectator);
+        return (Inventory) stackspectator;
+    }
+
+
+
 
     public Inventory selectTeam(){
         Inventory inv = Bukkit.createInventory(null, 45, main.stringH().teamInventory());
-        inv.setItem(20, main.HI().blueWool());
-        ArrayList<String> bluelore = new ArrayList<String>();
-        bluelore.add("O holy stone");
-        inv.setItem(24, main.HI().redWool());
-        ArrayList<String> redlore = new ArrayList<String>();
-        redlore.add("O holy stone");
-        inv.setItem(13, main.HI().spectatorWool());
-        ArrayList<String> spectatorlore = new ArrayList<String>();
-        spectatorlore.add("O holy stone");
+        inv.setItem(20, (ItemStack) customBlueWool());
+        inv.setItem(24, (ItemStack) customRedWool());
+        inv.setItem(13, (ItemStack) customSpectatorWool());
 
         separatorLine(inv, 36, createException(createException(40, main.HI().gameStartWool()), 44, main.HI().optionsWool()));
 
         return inv;
     }
+
     public Inventory cancelStart(){
         Inventory inv = Bukkit.createInventory(null, 9, main.stringH().cancelInventory());
         separatorLine(inv, 0, createException(4, main.HI().gameCancelWool()));
