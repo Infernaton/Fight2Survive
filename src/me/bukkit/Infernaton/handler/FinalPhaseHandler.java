@@ -32,8 +32,8 @@ public class FinalPhaseHandler {
         boolean isRed = listDoors.indexOf(currentDoor) % 2 == 0;
 
         Location lastDoor = listDoors.get(listDoors.size()- 1 - (isRed ? 1 : 0));
-        System.out.print("Derniere porte ? " + lastDoor.hashCode() + " == " + currentDoor.hashCode() + " = ");
-        System.out.println(lastDoor.hashCode() == currentDoor.hashCode());
+        /*System.out.print("Derniere porte ? " + lastDoor.hashCode() + " == " + currentDoor.hashCode() + " = ");
+        System.out.println(lastDoor.hashCode() == currentDoor.hashCode());*/
         if (lastDoor.hashCode() == currentDoor.hashCode()){
             on();
         }

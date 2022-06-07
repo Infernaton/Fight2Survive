@@ -46,7 +46,7 @@ public class ConstantHandler {
                 main.stringH().pnjWood(),
                 main.stringH().pnjCoal(),
                 main.stringH().pnjGold1(),
-                main.stringH().pnjGold2(),
+                //main.stringH().pnjGold2(),
                 main.stringH().pnjIron(),
                 main.stringH().pnjDiam(),
                 main.stringH().pnjLapis(),
@@ -55,7 +55,7 @@ public class ConstantHandler {
                 main.stringH().pnjWood(),
                 main.stringH().pnjCoal(),
                 main.stringH().pnjGold1(),
-                main.stringH().pnjGold2(),
+                //main.stringH().pnjGold2(),
                 main.stringH().pnjIron(),
                 main.stringH().pnjDiam(),
                 main.stringH().pnjLapis()
@@ -102,7 +102,7 @@ public class ConstantHandler {
         pc.add(new Location(w, -48.5, 56.0, 51.5)); //1er zone (bois)
         pc.add(new Location(w, -117.0, 56.0, 134.0, -135f, 0f)); //2e zone (charbon)
         pc.add(new Location(w, -157.0, 56.0, 104.0, 0f, 0f)); //3e zone (or)
-        pc.add(new Location(w, -159.5, 56.0, 105.5)); //Constant PNJ (or)
+        //pc.add(new Location(w, -159.5, 56.0, 105.5)); //Constant PNJ (or)
         pc.add(new Location(w, -103.0, 56.0, 161.0, 180f, 0f)); //4e zone (fer)
         pc.add(new Location(w, -41.0, 56.0, 181.0, 60f, 0f)); //5e zone (diamant)
         pc.add(new Location(w, -49.5, 44.0, 239.5, 120f, 0f)); //6e zone (lapis)
@@ -110,7 +110,7 @@ public class ConstantHandler {
         pc.add(new Location(w, 55.5, 56.0, 51.5)); //1er zone (bois)
         pc.add(new Location(w, 118.0, 56.0, 134.0, 135f,0f)); //2e zone (charbon)
         pc.add(new Location(w, 158.0, 56.0, 136.0, -180f, 0f)); //3e zone (or)
-        pc.add(new Location(w, 161.5, 56.0, 134.5)); //Constant PNJ (or)
+        //pc.add(new Location(w, 161.5, 56.0, 134.5)); //Constant PNJ (or)
         pc.add(new Location(w, 104.0, 56.0, 161.0, 180f, 0f)); //4e zone (fer)
         pc.add(new Location(w, 42.0, 56.0, 181.0, -60f, 0f)); //5e zone (diamant)
         pc.add(new Location(w, 54.5, 44.0, 239.5, 120f, 0f)); //6e zone (lapis)
