@@ -89,15 +89,6 @@ public class DebugCommand implements CommandExecutor {
             return true;
         }
 
-        else if (cmd.getName().equalsIgnoreCase("apple")){
-
-            Location[] allLoc = main.constH().getSpawnApplePoint();
-            for (Location loc: allLoc) {
-                main.HI().spawningApple(loc);
-            }
-            return true;
-        }
-
         return false;
     }
 }

@@ -21,7 +21,6 @@ public class ScoreboardManager {
 
     public void updateScoreboards(){
         for (ScoreboardPlayer sb : scoreboardPlayerHashMap.values()) {
-            System.out.println(sb);
             sb.update();
         }
     }

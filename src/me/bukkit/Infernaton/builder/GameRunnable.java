@@ -55,8 +55,8 @@ public class GameRunnable implements Runnable{
      */
     public String stringTimer(){
         long longTimer = getTime();
-        String formatTimer = longTimer < 6000 ? "mm:ss" : "mmm:ss";
-        return DurationFormatUtils.formatDuration(longTimer, formatTimer);
+        String formatTimer = longTimer < 6000 ? "%02d:%02d" : "%03d:%02d";
+        return String.format(formatTimer, (longTimer % 3600) / 60, (longTimer % 60));
     }
 
     private void changeDay(int time, String sentence){
