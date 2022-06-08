@@ -5,10 +5,18 @@ import me.bukkit.Infernaton.builder.ItemBuilder;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.NBTTagList;
 import net.minecraft.server.v1_8_R3.NBTTagString;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
+
+import java.util.Collection;
+
+import static me.bukkit.Infernaton.handler.ConstantHandler.worldName;
 
 public class HandleItem {
 
@@ -30,13 +38,16 @@ public class HandleItem {
         player.setItemInHand(new ItemStack(Material.AIR));
     }
 
+    //#region Custom Item
     public ItemStack magicCompass(){
         return new ItemBuilder(Material.COMPASS).setName(main.stringH().compassName()).toItemStack();
     }
     public ItemStack paperKey(){
         return new ItemBuilder(Material.PAPER).setName(main.stringH().keyName()).toItemStack();
     }
+    //#endregion
 
+    //#region Menu Item
     public ItemStack blueWool(){
         return new ItemBuilder(Material.WOOL, 1, (byte)11).setName(main.stringH().blueTeamItem()).toItemStack();
     }
@@ -62,6 +73,7 @@ public class HandleItem {
     public ItemStack separator(){
         return new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (byte) 15).setName(" ").toItemStack();
     }
+    //#endregion
 
     //#region TOOLS
     public ItemStack transformAxe(ItemStack axe){
@@ -139,6 +151,28 @@ public class HandleItem {
     }
     public ItemStack goldHoe(){
         return new ItemBuilder(Material.GOLD_HOE).setInfinityDurability().toItemStack();
+    }
+    //#endregion
+
+    //#region spawn item
+    private void spawnItem(Location loc, ItemStack it){
+        Bukkit.getWorld(worldName).dropItem(loc, it).setVelocity(new Vector(0.0, 0.0, 0.0));
+    }
+
+    /**
+     * Try to spawn an apple if there is a player nearby
+     * @param loc where the item will spawn
+     * @return the success of the operation
+     */
+    public boolean spawningApple(Location loc){
+        Collection<Entity> entities = Bukkit.getWorld(worldName).getNearbyEntities(loc, 25, 6, 25);
+        for (Entity e: entities) {
+            if (e instanceof Player){
+                spawnItem(loc, new ItemStack(Material.APPLE));
+                return true;
+            }
+        }
+        return false;
     }
     //#endregion
 }

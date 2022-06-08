@@ -4,6 +4,7 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -66,7 +67,6 @@ public class DebugCommand implements CommandExecutor {
             return true;
         }
 
-
         else if (cmd.getName().equalsIgnoreCase("getKey")){
             ChatHandler.sendInfoMessage(sender, main.stringH().giveKey());
             main.HI().giveItemInInventory((Player) sender, main.HI().paperKey(), 1);
@@ -86,6 +86,15 @@ public class DebugCommand implements CommandExecutor {
         else if (cmd.getName().equalsIgnoreCase("killPnj")){
             ChatHandler.sendInfoMessage(sender, main.stringH().killVill());
             main.MH().killPnj();
+            return true;
+        }
+
+        else if (cmd.getName().equalsIgnoreCase("apple")){
+
+            Location[] allLoc = main.constH().getSpawnApplePoint();
+            for (Location loc: allLoc) {
+                main.HI().spawningApple(loc);
+            }
             return true;
         }
 

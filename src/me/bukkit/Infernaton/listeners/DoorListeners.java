@@ -30,8 +30,10 @@ public class DoorListeners implements Listener {
         Player player = event.getPlayer();
         Block block = event.getClickedBlock();
         ItemStack it = event.getItem();
-        if (it != null && it.getItemMeta().getDisplayName() == main.HI().paperKey().getItemMeta().getDisplayName()
-                && block != null && block.getType() == Material.REDSTONE_BLOCK) {
+        if (it == null || it.getItemMeta() == null || block == null ) return;
+        
+        if (main.HI().paperKey().getItemMeta().getDisplayName().equals(it.getItemMeta().getDisplayName())
+                && block.getType() == Material.REDSTONE_BLOCK) {
 
             //to open the door, we just replace each block of it by air block
             Location location = block.getLocation();

@@ -5,19 +5,27 @@ import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static me.bukkit.Infernaton.handler.ConstantHandler.worldName;
 
 public class GameRunnable implements Runnable{
 
-    private final FightToSurvive main;
     private final int dayTime = 120; //length of a day or night in seconds
     private int countdownStarter = 0;
     private boolean isDay = true;
     private int id;
+    private final FightToSurvive main;
+    private final Location[] appleLocations;
+    private Map<Location, Integer> coolDownLoc;
 
     private GameRunnable(FightToSurvive main){
         this.main = main;
+        this.appleLocations = main.constH().getSpawnApplePoint();
+        this.coolDownLoc = new HashMap<>();
     }
 
     public static GameRunnable newCountDown(FightToSurvive main){
@@ -51,38 +59,52 @@ public class GameRunnable implements Runnable{
         return DurationFormatUtils.formatDuration(longTimer, formatTimer);
     }
 
+    private void changeDay(int time, String sentence){
+        ChatHandler.broadcast(sentence);
+        Bukkit.getWorld(worldName).setTime(time);
+    }
+
     @Override
     public void run() {
 
         countdownStarter++;
         main.getScoreboardManager().updateScoreboards();
 
+        //Warning all player of the change of the time
+        if ((countdownStarter+5) % dayTime == 0) {
+            ChatHandler.broadcast(isDay ? main.stringH().nearNight() : main.stringH().nearDay());
+        }
+        //Changing the current time
+        if (countdownStarter % dayTime == 0) {
+            isDay = !isDay;
+            if (isDay){
+                changeDay(1000, main.stringH().day());
+            }
+            else{
+                changeDay(16000, main.stringH().night());
+                main.MH().generateMobWave();
+            }
+        }
+
+        for (Location loc : appleLocations) {
+            if (!coolDownLoc.containsKey(loc)) {
+                boolean isSpawn = main.HI().spawningApple(loc);
+                if (isSpawn) coolDownLoc.put(loc, main.constH().getCoolDownAppleSpawn());
+            }
+        }
+
+        // All coolDown - 1
+        for (Map.Entry<Location, Integer> entry: coolDownLoc.entrySet()) {
+            entry.setValue(entry.getValue() - 1);
+            if (entry.getValue() == 0) coolDownLoc.remove(entry.getKey());
+        }
+
+        //Stopping the timer if the game stop
         if (!main.constH().isState(GState.PLAYING)){
             countdownStarter = 0;
             System.out.print("Timer Over!");
             stopCountdown(id);
             Bukkit.getWorld(worldName).setTime(1000);
-        }
-
-        if ((countdownStarter+5) % dayTime == 0) {
-            if (isDay){
-                ChatHandler.broadcast(main.stringH().nearNight());
-            }
-            else{
-                ChatHandler.broadcast(main.stringH().nearDay());
-            }
-        }
-        if (countdownStarter % dayTime == 0) {
-            isDay = !isDay;
-            if (isDay){
-                ChatHandler.broadcast(main.stringH().day());
-                Bukkit.getWorld(worldName).setTime(1000);
-            }
-            else{
-                ChatHandler.broadcast(main.stringH().night());
-                Bukkit.getWorld(worldName).setTime(16000);
-                main.MH().generateMobWave();
-            }
         }
     }
 }
