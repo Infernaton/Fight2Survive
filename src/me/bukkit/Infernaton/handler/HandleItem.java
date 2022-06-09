@@ -2,6 +2,7 @@ package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.builder.ItemBuilder;
+import me.bukkit.Infernaton.builder.Team;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.NBTTagList;
 import net.minecraft.server.v1_8_R3.NBTTagString;
@@ -10,18 +11,27 @@ import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
+
 public class HandleItem {
 
     private final FightToSurvive main;
-
+    private ConstantHandler constH;
     public HandleItem(FightToSurvive main){
         this.main = main;
     }
+    public ConstantHandler constH(){
+        return constH;
+    }
 
+    public Team getRedTeam(){return Team.getTeamByName(main.stringH().redTeamName());}
+    public Team getBlueTeam(){return Team.getTeamByName(main.stringH().blueTeamName());}
+    public Team getSpectators(){return Team.getTeamByName(main.stringH().spectatorName());}
     /**
      * Give the compass that help the player to move around or start a game
      * @param player to give that compass
      */
+
     public void giveItemInInventory(Player player, ItemStack item, int slot){
         player.getInventory().setItem(slot, item);
         player.updateInventory();
@@ -36,15 +46,14 @@ public class HandleItem {
     public ItemStack paperKey(){
         return new ItemBuilder(Material.PAPER).setName(main.stringH().keyName()).toItemStack();
     }
-
     public ItemStack blueWool(){
-        return new ItemBuilder(Material.WOOL, 1, (byte)11).setName(main.stringH().blueTeamItem()).toItemStack();
+        return new ItemBuilder(Material.WOOL, 1, (byte)11).setName(main.stringH().blueTeamItem()).setLore(getBlueTeam().getPlayers().toString()).toItemStack();
     }
     public ItemStack redWool(){
-        return new ItemBuilder(Material.WOOL, 1, (byte)14).setName(main.stringH().redTeamItem()).toItemStack();
+        return new ItemBuilder(Material.WOOL, 1, (byte)14).setName(main.stringH().redTeamItem()).setLore(getRedTeam().getPlayers().toString()).toItemStack();
     }
     public ItemStack spectatorWool(){
-        return new ItemBuilder(Material.WOOL, 1, (byte)7).setName(main.stringH().spectatorsItem()).toItemStack();
+        return new ItemBuilder(Material.WOOL, 1, (byte)7).setName(main.stringH().spectatorsItem()).setLore(getSpectators().getPlayers().toString()).toItemStack();
     }
     public ItemStack gameStartWool(){
         return new ItemBuilder(Material.WOOL, 1, (byte)5).setName(main.stringH().launch()).toItemStack();

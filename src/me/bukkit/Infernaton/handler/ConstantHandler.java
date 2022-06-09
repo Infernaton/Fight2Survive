@@ -215,9 +215,7 @@ public class ConstantHandler {
         return new Location(Bukkit.getWorld(worldName), -36.5,56,83.5, 135f, 0f);
     }
 
-    public Team getRedTeam(){
-        return Team.getTeamByName(main.stringH().redTeamName());
-    }
+    public Team getRedTeam(){return Team.getTeamByName(main.stringH().redTeamName());}
     public Team getBlueTeam(){
         return Team.getTeamByName(main.stringH().blueTeamName());
     }
@@ -236,7 +234,6 @@ public class ConstantHandler {
         allPlayers.addAll(this.getSpectators().getPlayers());
         return allPlayers;
     }
-
     public Location getBaseLocation(Team team) {
         switch (team.getTeamName()){
             case "Red":
