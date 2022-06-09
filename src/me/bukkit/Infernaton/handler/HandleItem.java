@@ -16,21 +16,9 @@ import java.util.List;
 public class HandleItem {
 
     private final FightToSurvive main;
-    private ConstantHandler constH;
     public HandleItem(FightToSurvive main){
         this.main = main;
     }
-    public ConstantHandler constH(){
-        return constH;
-    }
-
-    public Team getRedTeam(){return Team.getTeamByName(main.stringH().redTeamName());}
-    public Team getBlueTeam(){return Team.getTeamByName(main.stringH().blueTeamName());}
-    public Team getSpectators(){return Team.getTeamByName(main.stringH().spectatorName());}
-    /**
-     * Give the compass that help the player to move around or start a game
-     * @param player to give that compass
-     */
 
     public void giveItemInInventory(Player player, ItemStack item, int slot){
         player.getInventory().setItem(slot, item);
@@ -47,13 +35,20 @@ public class HandleItem {
         return new ItemBuilder(Material.PAPER).setName(main.stringH().keyName()).toItemStack();
     }
     public ItemStack blueWool(){
-        return new ItemBuilder(Material.WOOL, 1, (byte)11).setName(main.stringH().blueTeamItem()).setLore(getBlueTeam().getPlayers().toString()).toItemStack();
+        return new ItemBuilder(Material.WOOL, 1, (byte)11).setName(main.stringH().blueTeamItem()).setLore()
+                .setLore(main.stringH().makePlayerList(main.constH().getBlueTeam().getPlayers()))
+                .toItemStack();
     }
     public ItemStack redWool(){
-        return new ItemBuilder(Material.WOOL, 1, (byte)14).setName(main.stringH().redTeamItem()).setLore(getRedTeam().getPlayers().toString()).toItemStack();
+        return new ItemBuilder(Material.WOOL, 1, (byte)14).setName(main.stringH().redTeamItem())
+                .setLore(main.stringH().makePlayerList(main.constH().getRedTeam().getPlayers()))
+                .toItemStack();
     }
     public ItemStack spectatorWool(){
-        return new ItemBuilder(Material.WOOL, 1, (byte)7).setName(main.stringH().spectatorsItem()).setLore(getSpectators().getPlayers().toString()).toItemStack();
+        StringBuilder str = new StringBuilder();
+        return new ItemBuilder(Material.WOOL, 1, (byte)7).setName(main.stringH().spectatorsItem())
+                .setLore(main.stringH().makePlayerList(main.constH().getSpectators().getPlayers()))
+                .toItemStack();
     }
     public ItemStack gameStartWool(){
         return new ItemBuilder(Material.WOOL, 1, (byte)5).setName(main.stringH().launch()).toItemStack();

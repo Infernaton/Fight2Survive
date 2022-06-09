@@ -4,6 +4,9 @@ import me.bukkit.Infernaton.FightToSurvive;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StringHandler {
     private final FightToSurvive main;
 
@@ -11,6 +14,15 @@ public class StringHandler {
         this.main = context;
     }
 
+    public List<String> makePlayerList(List<Player> playerList){
+        List<String> str = new ArrayList<>();
+        for (Player p : playerList) {
+            str.add("- " + p.getName());
+        }
+        return str;
+    }
+
+    //#region get Data from config
     private String getDataString(String key){
         return ChatColor.translateAlternateColorCodes('&', main.getConfig().getString("string."+key));
     }
@@ -215,4 +227,5 @@ public class StringHandler {
     public final String cantFromConsole(){
         return debugCommand("cantFromConsole");
     }
+    //#endregion
 }
