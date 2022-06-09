@@ -40,6 +40,16 @@ public class ConstantHandler {
         return main.stringH().worldName();
     }
 
+    public Location[] getSpawnApplePoint(){
+        return new Location[]{
+                new Location(Bukkit.getWorld(worldName), 168.5, 61.5, 130.5),
+                new Location(Bukkit.getWorld(worldName), -167.5, 61.5, 110.5)
+        };
+    }
+    public int getCoolDownAppleSpawn(){
+        return 15;
+    }
+
     public String[] pnjName(){
         return new String[]{
                 //Team Blue
@@ -236,6 +246,11 @@ public class ConstantHandler {
         allPlayers.addAll(this.getSpectators().getPlayers());
         return allPlayers;
     }
+    /**
+     * Get the coordinate of the spawn point of target Team (Red or Blue)
+     * @param team to target
+     * @return the Location
+     */
     public Location getBaseLocation(Team team) {
         switch (team.getTeamName()){
             case "Red":
@@ -246,7 +261,6 @@ public class ConstantHandler {
                 return getSpawnCoordinate();
         }
     }
-
 
     /**
      * Each line of our scoreboard are stored here

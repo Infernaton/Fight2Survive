@@ -4,6 +4,7 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -65,7 +66,6 @@ public class DebugCommand implements CommandExecutor {
             }
             return true;
         }
-
 
         else if (cmd.getName().equalsIgnoreCase("getKey")){
             ChatHandler.sendInfoMessage(sender, main.stringH().giveKey());
