@@ -138,7 +138,7 @@ public class FightToSurvive extends JavaPlugin {
             public void run() {
                 mobsHandler.setAllPnj();
             }
-        }.runTaskLater(this, 5);
+        }.runTaskLater(this, 8);
     }
 
     public void cancelStart() {
