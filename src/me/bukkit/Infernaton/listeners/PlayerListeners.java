@@ -4,6 +4,7 @@ import me.bukkit.Infernaton.*;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.InterfaceHandler;
+import me.bukkit.Infernaton.handler.scoreboard.ScoreboardManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -13,13 +14,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -40,6 +37,8 @@ public class PlayerListeners implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
+        main.getScoreboardManager().addScoreboard(player);
+
         //If it's the first time he join, the player don't have a team yet, so we forced him to join one
         if (!Team.hasTeam(player)) {
             main.constH().getSpectators().add(player);
@@ -54,6 +53,73 @@ public class PlayerListeners implements Listener {
         if (!isCurrentlyIG && player.getGameMode() != GameMode.CREATIVE) {
             main.HP().resetPlayerState(player);
             player.teleport(main.constH().getSpawnCoordinate());
+        }
+    }
+
+    /**
+     * If a player quit the server, the event will trigger
+     * in case a player quit when a party is running, we will, after some time, force him to retire from the game
+     * If the player rejoin the server before the countdown stop, he will still be part of the game
+     * @param event
+     */
+    @EventHandler
+    public void onQuit (PlayerQuitEvent event){
+        final Player player = event.getPlayer();
+        if (main.constH().isState(GState.PLAYING)) {
+            final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+            final Runnable runnable = new Runnable() {
+                int countdownStarter = 10;
+
+                @Override
+                public void run() {
+
+                    countdownStarter--;
+                    if (countdownStarter == 0) {
+                        scheduler.shutdown();
+
+                        //test if the players is really offline before kicking him of the current party
+                        if (!Bukkit.getOnlinePlayers().contains(player) && main.constH().isState(GState.PLAYING)) {
+                            Team team = Team.getTeam(player);
+                            main.constH().getSpectators().add(player);
+
+                            if (team.getPlayers().isEmpty()) {
+                                ChatHandler.toAllPlayer(main.stringH().quitingReset());
+                                main.finish();
+                            }
+                        }
+                    }
+                }
+            };
+            scheduler.scheduleAtFixedRate(runnable, 0, 1, SECONDS);
+        }
+        ScoreboardManager.removeScoreboard(player);
+    }
+
+    @EventHandler
+    public void onDeath (PlayerDeathEvent event){
+        Player player = event.getEntity();
+
+        //Check if the game was entering the Final Phase (FP)
+        if (main.FP().isActive() && main.constH().isState(GState.PLAYING)) {
+            Team team = Team.getTeam(player);
+            main.constH().getSpectators().add(player);
+            if (team.getPlayers().isEmpty()) {
+                main.finish();
+            }
+        }
+    }
+
+    @EventHandler
+    public void onRespawn (PlayerRespawnEvent event){
+        Player player = event.getPlayer();
+        Team team = Team.getTeam(player);
+
+        //Check if the player is in a team to respawn him to the right place
+        if (main.constH().isState(GState.PLAYING) && team != null) {
+            event.setRespawnLocation(main.constH().getBaseLocation(team));
+        } else {
+            event.setRespawnLocation(main.constH().getSpawnCoordinate());
         }
     }
 
@@ -91,11 +157,11 @@ public class PlayerListeners implements Listener {
         if (inv.getName().equalsIgnoreCase(main.stringH().teamInventory())) {
             event.setCancelled(true);
             if (itemName.equals(main.stringH().blueTeamItem())){
-                main.constH().getBlueTeam().add(player);
+                main.addingTeam(main.constH().getBlueTeam(), player);
             }else if (itemName.equals(main.stringH().redTeamItem())){
-                main.constH().getRedTeam().add(player);
+                main.addingTeam(main.constH().getRedTeam(), player);
             }else if (itemName.equals(main.stringH().spectatorsItem())){
-                main.constH().getSpectators().add(player);
+                main.addingTeam(main.constH().getSpectators(), player);
             }else if (itemName.equals(main.stringH().launch())){
                 main.onStarting(player);
             }else if (itemName.equals(main.stringH().optionItem())){
@@ -116,70 +182,18 @@ public class PlayerListeners implements Listener {
         }
     }
 
-    /**
-     * If a player quit the server, the event will trigger
-     * in case a player quit when a party is running, we will, after some time, force him to retire from the game
-     * If the player rejoin the server before the countdown stop, he will still be part of the game
-     * @param event
-     */
     @EventHandler
-    public void onQuit ( final PlayerQuitEvent event){
-        if (main.constH().isState(GState.PLAYING)) {
-            final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-
-            final Runnable runnable = new Runnable() {
-                int countdownStarter = 10;
-
-                @Override
-                public void run() {
-                    Player player = event.getPlayer();
-
-                    countdownStarter--;
-                    if (countdownStarter == 0) {
-                        scheduler.shutdown();
-
-                        //test if the players is really offline before kicking him of the current party
-                        if (!Bukkit.getOnlinePlayers().contains(player) && main.constH().isState(GState.PLAYING)) {
-                            Team team = Team.getTeam(player);
-                            main.constH().getSpectators().add(player);
-
-                            if (team.getPlayers().isEmpty()) {
-                                ChatHandler.toAllPlayer(main.stringH().quitingReset());
-                                main.finish();
-                            }
-                        }
-                    }
-                }
-            };
-            scheduler.scheduleAtFixedRate(runnable, 0, 1, SECONDS);
+    public void onPlayerChat(PlayerChatEvent e){
+        e.setCancelled(true);
+        Player p = e.getPlayer();
+        Team playerTeam = Team.getTeam(p);
+        String colorName;
+        if (playerTeam != null){
+            colorName = playerTeam.getTeamColor();
+        }else {
+            colorName = "§r";
         }
-    }
-
-    @EventHandler
-    public void onDeath (PlayerDeathEvent event){
-        Player player = event.getEntity();
-
-        //Check if the game was entering the Final Phase (FP)
-        if (main.FP().isActive() && main.constH().isState(GState.PLAYING)) {
-            Team team = Team.getTeam(player);
-            main.constH().getSpectators().add(player);
-            if (team.getPlayers().isEmpty()) {
-                main.finish();
-            }
-        }
-    }
-
-    @EventHandler
-    public void onRespawn (PlayerRespawnEvent event){
-        Player player = event.getPlayer();
-        Team team = Team.getTeam(player);
-
-        //Check if the player is in a team to respawn him to the right place
-        if (main.constH().isState(GState.PLAYING) && team != null) {
-            event.setRespawnLocation(main.constH().getBaseLocation(team));
-        } else {
-            event.setRespawnLocation(main.constH().getSpawnCoordinate());
-        }
+        ChatHandler.broadcast(colorName + p.getDisplayName() + "§r: " + e.getMessage());
     }
 
     /**

@@ -72,7 +72,7 @@ public class StringHandler {
         return clickItem("return");
     }
     public final String cancelItem(){
-        return clickItem("§4CancelGame");
+        return clickItem("cancelGame");
     }
 
     private String inventoryName(String invType){
