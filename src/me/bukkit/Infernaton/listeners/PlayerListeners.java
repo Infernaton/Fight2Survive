@@ -93,6 +93,10 @@ public class PlayerListeners implements Listener {
             };
             scheduler.scheduleAtFixedRate(runnable, 0, 1, SECONDS);
         }
+        else if (main.constH().isState(GState.WAITING)){
+            Team t = Team.getTeam(player);
+            if (t != null) t.remove(player);
+        }
         ScoreboardManager.removeScoreboard(player);
     }
 
@@ -158,12 +162,16 @@ public class PlayerListeners implements Listener {
             event.setCancelled(true);
             if (itemName.equals(main.stringH().blueTeamItem())){
                 main.addingTeam(main.constH().getBlueTeam(), player);
+                player.closeInventory();
             }else if (itemName.equals(main.stringH().redTeamItem())){
                 main.addingTeam(main.constH().getRedTeam(), player);
+                player.closeInventory();
             }else if (itemName.equals(main.stringH().spectatorsItem())){
                 main.addingTeam(main.constH().getSpectators(), player);
+                player.closeInventory();
             }else if (itemName.equals(main.stringH().launch())){
                 main.onStarting(player);
+                player.closeInventory();
             }else if (itemName.equals(main.stringH().optionItem())){
                 player.openInventory(IH.optionsInventory());
             }
@@ -178,6 +186,7 @@ public class PlayerListeners implements Listener {
             event.setCancelled(true);
             if (itemName.equals(main.stringH().cancelItem())){
                 main.cancelStart();
+                player.closeInventory();
             }
         }
     }
