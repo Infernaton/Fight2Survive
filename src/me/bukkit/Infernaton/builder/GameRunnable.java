@@ -20,7 +20,7 @@ public class GameRunnable implements Runnable{
     private int id;
     private final FightToSurvive main;
     private final Location[] appleLocations;
-    private Map<Location, Integer> coolDownLoc;
+    private Map<String, Integer> coolDownLoc;
 
     private GameRunnable(FightToSurvive main){
         this.main = main;
@@ -70,6 +70,11 @@ public class GameRunnable implements Runnable{
         countdownStarter++;
         main.getScoreboardManager().updateScoreboards();
 
+        if (!(isDay && coolDownLoc.containsKey(main.stringH().mobWaveKey()))){
+            main.MH().generateMobWave();
+            coolDownLoc.put(main.stringH().mobWaveKey(), main.constH().getInitMobWaveCD());
+        }
+
         //Warning all player of the change of the time
         if ((countdownStarter+5) % dayTime == 0) {
             ChatHandler.broadcast(isDay ? main.stringH().nearNight() : main.stringH().nearDay());
@@ -77,26 +82,21 @@ public class GameRunnable implements Runnable{
         //Changing the current time
         if (countdownStarter % dayTime == 0) {
             isDay = !isDay;
-            if (isDay){
-                changeDay(1000, main.stringH().day());
-            }
-            else{
-                changeDay(16000, main.stringH().night());
-                main.MH().generateMobWave();
-            }
+            if (isDay){ changeDay(1000, main.stringH().day()); }
+            else{ changeDay(16000, main.stringH().night()); }
         }
 
         //To spawn apple on each location
         //In the methods, there a test if a player is in range
         for (Location loc : appleLocations) {
-            if (!coolDownLoc.containsKey(loc)) {
+            if (!coolDownLoc.containsKey(loc.toString())) {
                 boolean isSpawn = main.HI().spawningApple(loc);
-                if (isSpawn) coolDownLoc.put(loc, main.constH().getCoolDownAppleSpawn());
+                if (isSpawn) coolDownLoc.put(loc.toString(), main.constH().getCoolDownAppleSpawn());
             }
         }
 
         // All coolDown - 1
-        for (Map.Entry<Location, Integer> entry: coolDownLoc.entrySet()) {
+        for (Map.Entry<String, Integer> entry: coolDownLoc.entrySet()) {
             entry.setValue(entry.getValue() - 1);
             if (entry.getValue() == 0) coolDownLoc.remove(entry.getKey());
         }

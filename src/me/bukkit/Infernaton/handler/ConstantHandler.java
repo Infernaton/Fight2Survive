@@ -5,6 +5,7 @@ import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.GameRunnable;
 import me.bukkit.Infernaton.builder.Team;
 import net.minecraft.server.v1_8_R3.MerchantRecipe;
+import net.minecraft.server.v1_8_R3.NBTTagString;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
@@ -33,10 +34,10 @@ public class ConstantHandler {
     public ConstantHandler(FightToSurvive main){
         this.main = main;
         this.IH = new InterfaceHandler(main);
-        worldName = setWorldName();
+        worldName = getWorldName();
     }
 
-    public String setWorldName(){
+    public String getWorldName(){
         return main.stringH().worldName();
     }
 
@@ -48,6 +49,9 @@ public class ConstantHandler {
     }
     public int getCoolDownAppleSpawn(){
         return 15;
+    }
+    public int getInitMobWaveCD(){
+        return 61;
     }
 
     public String[] pnjName(){
@@ -84,15 +88,30 @@ public class ConstantHandler {
                 Material.STAINED_CLAY
         );
     }
+    public List<EntityType> aggressiveMob(int lvl){
+        List<EntityType> list = new ArrayList<>();
+        if (lvl>5) lvl = 5;
+        switch (lvl){
+            case 5:
+            case 4:
+            case 3:
+                list.add(EntityType.SKELETON);
+            case 2:
+                list.add(EntityType.SPIDER);
+            case 1:
+                list.add(EntityType.ZOMBIE);
+                break;
+        }
+        return list;
+    }
     public List<EntityType> spawnedMobs(){
-        return Arrays.asList(
-                EntityType.ZOMBIE,
-                EntityType.SPIDER,
-                EntityType.SKELETON,
+        List<EntityType> list = Arrays.asList(
                 EntityType.VILLAGER,
                 EntityType.EXPERIENCE_ORB,
                 EntityType.DROPPED_ITEM
         );
+        list.addAll(aggressiveMob(5));
+        return list;
     }
 
     public Map<Material, Integer> coolDownBlock(){

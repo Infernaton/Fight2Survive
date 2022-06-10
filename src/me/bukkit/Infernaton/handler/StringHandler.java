@@ -21,6 +21,9 @@ public class StringHandler {
         }
         return str;
     }
+    public String mobWaveKey(){
+        return "_mobWaveCD_";
+    }
 
     //#region get Data from config
     private String getDataString(String key){

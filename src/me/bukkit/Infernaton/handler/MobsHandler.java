@@ -11,6 +11,7 @@ import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
 import org.bukkit.entity.*;
 
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static me.bukkit.Infernaton.handler.ConstantHandler.worldName;
@@ -40,16 +41,12 @@ public class MobsHandler {
         new CustomVillager(main, villager).addRecipe(main.constH().getTrade(name)).finish();
     }
 
-    public void createZombie(Location location, String name){
-        location.getWorld().spawnEntity(location, EntityType.ZOMBIE);
-    }
-     public void createSpider(Location location, String name){
-        location.getWorld().spawnEntity(location, EntityType.SPIDER);
-    }
-    public void createSkeleton(Location location, String name){
-        location.getWorld().spawnEntity(location, EntityType.SKELETON);
-    }
+    public void createRandomAggressiveMob(Location location, int mobLevel){
+        List<EntityType> mobList = main.constH().aggressiveMob(mobLevel);
+        EntityType mobType = mobList.get(new Random().nextInt(mobList.size()));
 
+        location.getWorld().spawnEntity(location, mobType);
+    }
 
     public void setAllPnj() {
         List<Location> copiesPnjList = main.constH().getAllPnjLocation();
@@ -57,7 +54,6 @@ public class MobsHandler {
             createVillager(copiesPnjList.get(i), main.constH().pnjName()[i]);
         }
     }
-
     public void killPnj(){
         for (Entity e : Bukkit.getWorld(worldName).getEntities()) {
             if (e instanceof Villager) {
@@ -65,23 +61,22 @@ public class MobsHandler {
             }
         }
     }
-    public void generateMobWave() {
 
-        for (int i = 0; i < round; i++) {
-            generateOneMob();
+    public void generateMobWave() {
+        for (int i = 0; i < level; i++) {
+            generateOneMob(round);
         }
         level++;
-        int result = level % 3;
-        if(result == 0){
+        if(level % 3 == 0){
             round++;
         }
     }
 
-    public void generateOneMob() {
+    public void generateOneMob(int mobLevel) {
         List<Player> playerList = main.constH().getAllTeamsPlayer();
         for (Player player : playerList) {
             Location playerLocation = player.getLocation();
-            List<Block> test = main.constH().sphereAround(playerLocation, 6);
+            List<Block> test = main.constH().sphereAround(playerLocation, 12);
 
             Block blockBelow;
             Block newBlock;
@@ -92,11 +87,7 @@ public class MobsHandler {
                 blockBelow = newBlock.getRelative(0, -1, 0);
             } while (newBlock.getType() != Material.AIR || !main.constH().spawnableBlocks().contains(blockBelow.getType()));
 
-            createZombie(newBlock.getLocation(), "Zombie");
-            createSpider(newBlock.getLocation(), "Spider");
-            if(round == 5){
-                createSkeleton(newBlock.getLocation(), "Skeleton");
-            }
+            createRandomAggressiveMob(newBlock.getLocation(), mobLevel);
         }
     }
 
