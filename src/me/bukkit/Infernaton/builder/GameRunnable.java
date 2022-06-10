@@ -86,6 +86,8 @@ public class GameRunnable implements Runnable{
             }
         }
 
+        //To spawn apple on each location
+        //In the methods, there a test if a player is in range
         for (Location loc : appleLocations) {
             if (!coolDownLoc.containsKey(loc)) {
                 boolean isSpawn = main.HI().spawningApple(loc);
