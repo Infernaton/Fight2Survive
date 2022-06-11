@@ -4,6 +4,7 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.builder.CustomVillager;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -75,19 +76,21 @@ public class MobsHandler {
     public void generateOneMob(int mobLevel) {
         List<Player> playerList = main.constH().getAllTeamsPlayer();
         for (Player player : playerList) {
-            Location playerLocation = player.getLocation();
-            List<Block> test = main.constH().sphereAround(playerLocation, 12);
+            if (player.getGameMode() == GameMode.ADVENTURE) {
+                Location playerLocation = player.getLocation();
+                List<Block> test = main.constH().sphereAround(playerLocation, 12);
 
-            Block blockBelow;
-            Block newBlock;
-            do {
-                int randomNum = ThreadLocalRandom.current().nextInt(0, test.size());
-                //ChatHandler.sendInfoMessage(player, randomNum + "");
-                newBlock = test.get(randomNum);
-                blockBelow = newBlock.getRelative(0, -1, 0);
-            } while (newBlock.getType() != Material.AIR || !main.constH().spawnableBlocks().contains(blockBelow.getType()));
+                Block blockBelow;
+                Block newBlock;
+                do {
+                    int randomNum = ThreadLocalRandom.current().nextInt(0, test.size());
+                    //ChatHandler.sendInfoMessage(player, randomNum + "");
+                    newBlock = test.get(randomNum);
+                    blockBelow = newBlock.getRelative(0, -1, 0);
+                } while (newBlock.getType() != Material.AIR || !main.constH().spawnableBlocks().contains(blockBelow.getType()));
 
-            createRandomAggressiveMob(newBlock.getLocation(), mobLevel);
+                createRandomAggressiveMob(newBlock.getLocation(), mobLevel);
+            }
         }
     }
 
