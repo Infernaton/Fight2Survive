@@ -209,7 +209,7 @@ public class FightToSurvive extends JavaPlugin {
         new Team(stringH.blueTeamName(), constH.getScoreboard()).setTeamColor(ChatColor.BLUE);
         new Team(stringH.spectatorName(), constH.getScoreboard()).setTeamColor(ChatColor.GRAY);
 
-        new CustomRecipeHandler(this);
+        new CustomRecipe(this);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package me.bukkit.Infernaton.handler;
+package me.bukkit.Infernaton.builder;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import org.bukkit.Material;
@@ -8,11 +8,11 @@ import org.bukkit.inventory.ShapedRecipe;
 
 import java.util.Iterator;
 
-public class CustomRecipeHandler {
+public class CustomRecipe {
 
     private final FightToSurvive main;
 
-    public CustomRecipeHandler(FightToSurvive fightToSurvive) {
+    public CustomRecipe(FightToSurvive fightToSurvive) {
         this.main = fightToSurvive;
         definedCustomTools();
     }

@@ -81,7 +81,7 @@ public class HandleItem {
     //#endregion
 
     //#region TOOLS
-    public ItemStack transformAxe(ItemStack axe){
+    private ItemStack transformAxe(ItemStack axe){
         net.minecraft.server.v1_8_R3.ItemStack AXE = CraftItemStack.asNMSCopy(axe);
         NBTTagList idsTag2 = new NBTTagList();
         idsTag2.add(new NBTTagString("minecraft:log"));
@@ -90,8 +90,7 @@ public class HandleItem {
         AXE.setTag(tag2);
         return CraftItemStack.asBukkitCopy(AXE);
     }
-
-    public ItemStack transformPickaxe(ItemStack pick, int level){
+    private ItemStack transformPickaxe(ItemStack pick, int level){
         net.minecraft.server.v1_8_R3.ItemStack PICK = CraftItemStack.asNMSCopy(pick);
         NBTTagList idsTag = new NBTTagList();
         if (level>5) level = 5;
