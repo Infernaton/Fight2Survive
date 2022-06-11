@@ -27,10 +27,14 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 public class ServerListener implements Listener {
 
     private final FightToSurvive main;
-    private Map<Player, Team> afkList;
+    private static Map<Player, Team> afkList;
 
     public ServerListener(FightToSurvive main) {
         this.main = main;
+        resetAFKList();
+    }
+
+    public static void resetAFKList(){
         afkList = new HashMap<>();
     }
 

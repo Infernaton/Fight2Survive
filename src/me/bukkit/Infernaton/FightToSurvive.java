@@ -159,6 +159,7 @@ public class FightToSurvive extends JavaPlugin {
         doorHandler.setAllDoors();
         BH.resetContainers();
         MH().resetMob();
+        ServerListener.resetAFKList();
     }
 
     public void finish(){
@@ -187,7 +188,8 @@ public class FightToSurvive extends JavaPlugin {
                 new PlayerListeners(this),
                 new DoorListeners(this),
                 new BlockListener(this),
-                new EntityListeners()
+                new EntityListeners(),
+                new ServerListener(this)
         };
         registerEvent(listeners);
         //#endregion
