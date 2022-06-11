@@ -19,12 +19,6 @@ public class ScoreboardManager {
         this.main = main;
     }
 
-    public void updateScoreboards(){
-        for (ScoreboardPlayer sb : scoreboardPlayerHashMap.values()) {
-            sb.update();
-        }
-    }
-
     public ScoreboardPlayer getScoreboard(Player player) {
         if (scoreboardPlayerHashMap.containsKey(player.getUniqueId())) {
             return scoreboardPlayerHashMap.get(player.getUniqueId());

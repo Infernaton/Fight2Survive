@@ -76,7 +76,6 @@ public class FightToSurvive extends JavaPlugin {
     }
     public void addingTeam(Team team, Player player){
         team.add(player);
-        scoreboardManager.updateScoreboards();
     }
 
     public void enableCommand(String[] commandsName, CommandExecutor executor){
@@ -97,11 +96,8 @@ public class FightToSurvive extends JavaPlugin {
                 List<Player> redPlayers = constH.getRedTeam().getPlayers();
                 List<Player> bluePlayers = constH.getBlueTeam().getPlayers();
 
-                if (Bukkit.getScheduler().getPendingTasks().size() > 0) {
-                    ChatHandler.sendError(sender, stringH.countDownStarted());
-                } //CountDown started
                 //Compare if there the same numbers of players in each team
-                else if (redPlayers.size() == bluePlayers.size() && redPlayers.size() != 0) {
+                if (redPlayers.size() == bluePlayers.size() && redPlayers.size() != 0) {
                     //Clear all players that attend to play
                     redPlayers.addAll(bluePlayers); //All players in one variable
                     constH.setState(GState.STARTING);
@@ -109,10 +105,12 @@ public class FightToSurvive extends JavaPlugin {
                     ChatHandler.sendInfoMessage(sender, stringH.launched());
                     CountDown.newCountDown(this, 10L);
                     doorHandler.setAllDoors();
-                } else {
+                }
+                else {
                     ChatHandler.sendError(sender, stringH.needPlayers());
                 } //Not enough player
-            } else {
+            }
+            else {
                 ChatHandler.sendError(sender, stringH.alreadyLaunched());
             } //Party already launched
         }else {
@@ -133,6 +131,8 @@ public class FightToSurvive extends JavaPlugin {
         }
         constH.setState(GState.PLAYING);
 
+        //Spawning the villager after the player begin the party. Its to make sure all entity are set.
+        //We have certain problem with entity that don't appear because of not loaded chunk
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -155,7 +155,6 @@ public class FightToSurvive extends JavaPlugin {
         for (Player player: players) {
             HP.setPlayer(player);
         }
-        scoreboardManager.updateScoreboards();
         constH.setState(GState.WAITING);
         doorHandler.setAllDoors();
         BH.resetContainers();
@@ -211,7 +210,6 @@ public class FightToSurvive extends JavaPlugin {
         new Team(stringH.spectatorName(), constH.getScoreboard()).setTeamColor(ChatColor.GRAY);
 
         new CustomRecipeHandler(this);
-        getScoreboardManager().updateScoreboards();
     }
 
     @Override
