@@ -105,11 +105,11 @@ public class ConstantHandler {
         return list;
     }
     public List<EntityType> spawnedMobs(){
-        List<EntityType> list = Arrays.asList(
+        List<EntityType> list = new ArrayList<>(Arrays.asList(
                 EntityType.VILLAGER,
                 EntityType.EXPERIENCE_ORB,
                 EntityType.DROPPED_ITEM
-        );
+        ));
         list.addAll(aggressiveMob(5));
         return list;
     }

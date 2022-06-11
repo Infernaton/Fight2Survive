@@ -70,7 +70,7 @@ public class GameRunnable implements Runnable{
         countdownStarter++;
         main.getScoreboardManager().updateScoreboards();
 
-        if (!(isDay && coolDownLoc.containsKey(main.stringH().mobWaveKey()))){
+        if (!isDay && !coolDownLoc.containsKey(main.stringH().mobWaveKey())){
             main.MH().generateMobWave();
             coolDownLoc.put(main.stringH().mobWaveKey(), main.constH().getInitMobWaveCD());
         }
