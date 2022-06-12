@@ -69,9 +69,10 @@ public class GameRunnable implements Runnable{
 
         countdownStarter++;
 
+        //Spawning mob once the night is set
         if (!isDay && !coolDownLoc.containsKey(main.stringH().mobWaveKey())){
-            main.MH().generateMobWave();
-            coolDownLoc.put(main.stringH().mobWaveKey(), main.constH().getInitMobWaveCD());
+            int timeReduce = main.MH().generateMobWave();
+            coolDownLoc.put(main.stringH().mobWaveKey(), main.constH().getInitMobWaveCD() - timeReduce);
         }
 
         //Warning all player of the change of the time

@@ -15,10 +15,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -27,11 +24,10 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 public class ServerListener implements Listener {
 
     private final FightToSurvive main;
-    private static Map<Player, Team> afkList;
+    private static Map<UUID, Team> afkList = new HashMap<>();
 
     public ServerListener(FightToSurvive main) {
         this.main = main;
-        resetAFKList();
     }
 
     public static void resetAFKList(){
@@ -41,13 +37,14 @@ public class ServerListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+
         main.getScoreboardManager().addScoreboard(player);
 
         //If the player was originally in the game, we put him in it team
-        if(afkList.containsKey(player)){
-            Team rightTeam = afkList.get(player);
+        if(afkList.containsKey(player.getUniqueId())){
+            Team rightTeam = afkList.get(player.getUniqueId());
             if (rightTeam != null) rightTeam.add(player);
-            afkList.remove(player);
+            afkList.remove(player.getUniqueId());
         }
         //If it's the first time he join, the player don't have a team yet, so we forced him to join one
         else if (!Team.hasTeam(player)) {
@@ -79,8 +76,7 @@ public class ServerListener implements Listener {
 
             //Setting the quitting player in "AFK", to have a memory of who has quit during the game
             if (Team.hasTeam(player) && Team.getTeam(player) != main.constH().getSpectators()) {
-                afkList.put(player, Team.getTeam(player));
-                System.out.println(afkList);
+                afkList.put(player.getUniqueId(), Team.getTeam(player));
                 Team.getTeam(player).remove(player);
             }
 
@@ -89,14 +85,14 @@ public class ServerListener implements Listener {
             BukkitRunnable run = new BukkitRunnable() {
                 @Override
                 public void run() {
-                    if (afkList.containsKey(player)
-                            && afkList.get(player).getPlayers().isEmpty()){
+                    if (afkList.containsKey(player.getUniqueId())
+                            && afkList.get(player.getUniqueId()).getPlayers().isEmpty()){
                         ChatHandler.toAllPlayer(main.stringH().quitingReset());
                         main.finish();
                     }
                 }
             };
-            run.runTaskLaterAsynchronously(main, 10);
+            run.runTaskLaterAsynchronously(main, 60);
         }
         else if (main.constH().isState(GState.WAITING)){
             Team t = Team.getTeam(player);

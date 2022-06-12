@@ -84,4 +84,8 @@ public class Team{
 
         return allPlayers;
     }
+
+    public String toString(){
+        return "Team{"+ teamName +"}";
+    }
 }

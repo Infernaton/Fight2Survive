@@ -121,6 +121,9 @@ public class FightToSurvive extends JavaPlugin {
     public void start(){
         ChatHandler.sendMessageListPlayer(constH().getAllTeamsPlayer(), stringH.start());
         gameTimer = GameRunnable.newCountDown(this);
+
+        ServerListener.resetAFKList();
+
         List<Player> allPlayers = constH.getAllTeamsPlayer();
         for (Player player: allPlayers) {
             HP.clear(player);

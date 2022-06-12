@@ -63,7 +63,7 @@ public class MobsHandler {
         }
     }
 
-    public void generateMobWave() {
+    public int generateMobWave() {
         for (int i = 0; i < level; i++) {
             generateOneMob(round);
         }
@@ -71,6 +71,7 @@ public class MobsHandler {
         if(level % 3 == 0){
             round++;
         }
+        return (level-1)*3;
     }
 
     public void generateOneMob(int mobLevel) {
