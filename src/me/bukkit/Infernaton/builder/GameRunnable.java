@@ -97,10 +97,8 @@ public class GameRunnable implements Runnable{
 
         // All coolDown - 1
         for (Map.Entry<String, Integer> entry: coolDownLoc.entrySet()) {
-            if (entry != null){
-                entry.setValue(entry.getValue() - 1);
-                if (entry.getValue() == 0) coolDownLoc.remove(entry.getKey());
-            }
+            if (entry.getValue() == 0) coolDownLoc.remove(entry.getKey());
+            else entry.setValue(entry.getValue() - 1);
         }
 
         //Stopping the timer if the game stop

@@ -55,6 +55,7 @@ public class PlayerListeners implements Listener {
         //Check if the player is in a team to respawn him to the right place
         if (main.constH().isState(GState.PLAYING) && team != null) {
             event.setRespawnLocation(main.constH().getBaseLocation(team));
+            main.HP().giveStarterPack(player);
         } else {
             event.setRespawnLocation(main.constH().getSpawnCoordinate());
         }
