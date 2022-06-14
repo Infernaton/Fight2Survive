@@ -60,7 +60,7 @@ public class GameRunnable implements Runnable{
     }
 
     private void changeDay(int time, String sentence){
-        ChatHandler.broadcast(sentence);
+        ChatHandler.toAllPlayer(sentence);
         Bukkit.getWorld(worldName).setTime(time);
     }
 
@@ -77,7 +77,7 @@ public class GameRunnable implements Runnable{
 
         //Warning all player of the change of the time
         if ((countdownStarter+5) % dayTime == 0) {
-            ChatHandler.broadcast(isDay ? main.stringH().nearNight() : main.stringH().nearDay());
+            ChatHandler.toAllPlayer(isDay ? main.stringH().nearNight() : main.stringH().nearDay());
         }
         //Changing the current time
         if (countdownStarter % dayTime == 0) {

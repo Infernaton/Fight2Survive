@@ -43,7 +43,7 @@ public class CountDown implements Runnable {
             main.start();
         }
         else if(time % 10 == 0 || time <= 5){
-            ChatHandler.sendMessageListPlayer(main.constH().getAllTeamsPlayer(), main.stringH().secondLeft((int) time));
+            ChatHandler.toAllPlayer(main.stringH().secondLeft((int) time));
         }
         time--;
     }

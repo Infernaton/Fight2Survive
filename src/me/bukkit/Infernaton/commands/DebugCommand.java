@@ -32,7 +32,6 @@ public class DebugCommand implements CommandExecutor {
             }
             else if (args.length == 1) {
                 Player targetPlayer = Bukkit.getPlayerExact(args[0]);
-                System.out.println(targetPlayer);
                 if (targetPlayer == null) {
                     ChatHandler.sendError(sender, main.stringH().notPlayer());
                 } else {

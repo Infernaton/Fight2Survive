@@ -45,7 +45,7 @@ public class DoorListeners implements Listener {
                     }
                 }
             }
-            ChatHandler.broadcast(main.stringH().openDoors());
+            ChatHandler.toAllPlayer(main.stringH().openDoors());
             main.HI().removeItemHand(player);
             main.FP().asking(location, main.constH().getAllCopiesDoors());
         }
