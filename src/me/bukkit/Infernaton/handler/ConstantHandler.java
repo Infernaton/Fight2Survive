@@ -93,11 +93,11 @@ public class ConstantHandler {
         if (lvl>5) lvl = 5;
         switch (lvl){
             case 5:
+                list.add(EntityType.SKELETON);
             case 4:
             case 3:
-                list.add(EntityType.SKELETON);
-            case 2:
                 list.add(EntityType.SPIDER);
+            case 2:
             case 1:
                 list.add(EntityType.ZOMBIE);
                 break;

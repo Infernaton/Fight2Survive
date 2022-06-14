@@ -64,14 +64,15 @@ public class MobsHandler {
     }
 
     public int generateMobWave() {
-        for (int i = 0; i < level; i++) {
+        int nbMob = Math.max(level, 7);
+        for (int i = 0; i < nbMob; i++) {
             generateOneMob(round);
         }
         level++;
         if(level % 3 == 0){
             round++;
         }
-        return (level-1)*3;
+        return (nbMob-1)*3;
     }
 
     public void generateOneMob(int mobLevel) {
@@ -101,5 +102,7 @@ public class MobsHandler {
                 e.remove();
             }
         }
+        level = 1;
+        round = 1;
     }
 }
