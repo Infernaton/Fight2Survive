@@ -64,7 +64,7 @@ public class MobsHandler {
     }
 
     public int generateMobWave() {
-        int nbMob = Math.max(level, 7);
+        int nbMob = Math.min(level, 7);
         for (int i = 0; i < nbMob; i++) {
             generateOneMob(round);
         }
