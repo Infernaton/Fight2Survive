@@ -291,12 +291,12 @@ public class ConstantHandler {
         if (gm != null) timer = main.getTimer().stringTimer();
 
         return new String[]{
-                "§§a",
+                "§a",
                 "§7Timer: "+ timer,
-                "§§1",
+                "§1",
                 "§4Red Team ("+ main.constH().getRedTeam().getPlayers().size() +")",
                 "§1Blue Team ("+ main.constH().getBlueTeam().getPlayers().size() +")",
-                "§§§1",
+                "§b",
                 "§6----------------"
         };
     }

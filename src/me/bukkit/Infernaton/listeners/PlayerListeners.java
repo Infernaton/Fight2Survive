@@ -34,7 +34,7 @@ public class PlayerListeners implements Listener {
     }
 
     @EventHandler
-    public void onDeath (PlayerDeathEvent event){
+    public void onDeath(PlayerDeathEvent event){
         Player player = event.getEntity();
 
         //Check if the game was entering the Final Phase (FP)
