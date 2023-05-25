@@ -25,24 +25,7 @@ public class DebugCommand implements CommandExecutor {
             On debug, make target player like he is waiting to play the game
          */
         if (cmd.getName().equalsIgnoreCase("setPlayer")) {
-            if (args.length == 0) {
-                Player player = (Player) sender;
-                main.HP().setPlayer(player);
-                ChatHandler.sendMessage(sender, main.stringH().setPlayer("You", "are"));
-            }
-            else if (args.length == 1) {
-                Player targetPlayer = Bukkit.getPlayerExact(args[0]);
-                if (targetPlayer == null) {
-                    ChatHandler.sendError(sender, main.stringH().notPlayer());
-                } else {
-                    main.HP().setPlayer(targetPlayer);
-                    ChatHandler.sendMessage(sender, main.stringH().setPlayer(args[0], "is"));
-                }
-            }
-            else {
-                ChatHandler.sendError(sender, main.stringH().tooManyArgument());
-                ChatHandler.sendCorrectUsage(sender, main.stringH().correctUsage(cmd.getName(), "<username>"));
-            }
+            setPlayer(sender, cmd, label, args);
             return true;
         }
 
@@ -89,5 +72,26 @@ public class DebugCommand implements CommandExecutor {
         }
 
         return false;
+    }
+
+    private void setPlayer(CommandSender sender, Command cmd, String label, String[] args){
+        if (args.length == 0) {
+            Player player = (Player) sender;
+            main.HP().setPlayer(player);
+            ChatHandler.sendMessage(sender, main.stringH().setPlayer("You", "are"));
+        }
+        else if (args.length == 1) {
+            Player targetPlayer = Bukkit.getPlayerExact(args[0]);
+            if (targetPlayer == null) {
+                ChatHandler.sendError(sender, main.stringH().notPlayer());
+            } else {
+                main.HP().setPlayer(targetPlayer);
+                ChatHandler.sendMessage(sender, main.stringH().setPlayer(args[0], "is"));
+            }
+        }
+        else {
+            ChatHandler.sendError(sender, main.stringH().tooManyArgument());
+            ChatHandler.sendCorrectUsage(sender, main.stringH().correctUsage(cmd.getName(), "<username>"));
+        }
     }
 }
