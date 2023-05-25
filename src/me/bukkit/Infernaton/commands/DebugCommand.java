@@ -20,7 +20,7 @@ public class DebugCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-
+        if (!sender.isOp()) return false;
         /*
             On debug, make target player like he is waiting to play the game
          */

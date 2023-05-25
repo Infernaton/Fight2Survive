@@ -24,6 +24,7 @@ public class PartyCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] strings) {
+        if (!sender.isOp()) return false;
 
         if (cmd.getName().equalsIgnoreCase("start")) {
             if (sender instanceof Player) main.onStarting((Player) sender);
