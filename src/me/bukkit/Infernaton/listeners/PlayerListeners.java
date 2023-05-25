@@ -38,12 +38,12 @@ public class PlayerListeners implements Listener {
         Player player = event.getEntity();
 
         //Check if the game was entering the Final Phase (FP)
-        if (main.FP().isActive() && main.constH().isState(GState.PLAYING)) {
-            Team team = Team.getTeam(player);
-            main.constH().getSpectators().add(player);
-            if (team.getPlayers().isEmpty()) {
-                main.finish();
-            }
+        if (!main.FP().isActive() || !main.constH().isState(GState.PLAYING)) return;
+
+        Team team = Team.getTeam(player);
+        main.constH().getSpectators().add(player);
+        if (team.getPlayers().isEmpty()) {
+            main.finish();
         }
     }
 
@@ -146,12 +146,12 @@ public class PlayerListeners implements Listener {
      */
     @EventHandler
     public void onBoatPlace (PlayerInteractEvent event){
-        if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            Player p = event.getPlayer();
-            if (p.getItemInHand().getType() == Material.BOAT) {
-                event.setCancelled(true);
-                ChatHandler.sendError(p, main.stringH().cantWhilePlaying());
-            }
+        if (event.getAction() != Action.RIGHT_CLICK_AIR || event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+
+        Player p = event.getPlayer();
+        if (p.getItemInHand().getType() == Material.BOAT) {
+            event.setCancelled(true);
+            ChatHandler.sendError(p, main.stringH().cantWhilePlaying());
         }
     }
 }

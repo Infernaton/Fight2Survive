@@ -114,6 +114,10 @@ public class ConstantHandler {
         return list;
     }
 
+    /**
+     *
+     * @return Map<Material, Integer> Material-> Break Block, Integer-> Countdown in second
+     */
     public Map<Material, Integer> coolDownBlock(){
         Map<Material, Integer> cd = new HashMap<>();
         cd.put(Material.LOG, 10);
@@ -291,11 +295,11 @@ public class ConstantHandler {
         if (gm != null) timer = main.getTimer().stringTimer();
 
         return new String[]{
-                "§a",
-                "§7Timer: "+ timer,
-                "§1",
-                "§4Red Team ("+ main.constH().getRedTeam().getPlayers().size() +")",
-                "§1Blue Team ("+ main.constH().getBlueTeam().getPlayers().size() +")",
+                "§",
+                "§7Timer: " + timer,
+                "§",
+                "§4Red Team (" + main.constH().getRedTeam().getPlayers().size() + ")",
+                "§1Blue Team (" + main.constH().getBlueTeam().getPlayers().size() + ")",
                 "§b",
                 "§6----------------"
         };

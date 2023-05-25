@@ -91,31 +91,34 @@ public class FightToSurvive extends JavaPlugin {
     }
 
     public void onStarting(Player sender){
-        if (sender.isOp()){
-            if (constH.isState(GState.WAITING)) {
-                List<Player> redPlayers = constH.getRedTeam().getPlayers();
-                List<Player> bluePlayers = constH.getBlueTeam().getPlayers();
-
-                //Compare if there the same numbers of players in each team
-                if (redPlayers.size() == bluePlayers.size() && redPlayers.size() != 0) {
-                    //Clear all players that attend to play
-                    redPlayers.addAll(bluePlayers); //All players in one variable
-                    constH.setState(GState.STARTING);
-
-                    ChatHandler.sendInfoMessage(sender, stringH.launched());
-                    CountDown.newCountDown(this, 10L);
-                    doorHandler.setAllDoors();
-                }
-                else {
-                    ChatHandler.sendError(sender, stringH.needPlayers());
-                } //Not enough player
-            }
-            else {
-                ChatHandler.sendError(sender, stringH.alreadyLaunched());
-            } //Party already launched
-        }else {
+        //Need OP
+        if (!sender.isOp()) {
             ChatHandler.sendError(sender, stringH.needOp());
-        } //Need OP
+            return;
+        }
+        //Party already launched
+        if (!constH.isState(GState.WAITING)) {
+            ChatHandler.sendError(sender, stringH.alreadyLaunched());
+            return;
+        }
+
+        List<Player> redPlayers = constH.getRedTeam().getPlayers();
+        List<Player> bluePlayers = constH.getBlueTeam().getPlayers();
+
+        //Compare if there the same numbers of players in each team
+        //Not enough player
+        if (redPlayers.size() != bluePlayers.size() || redPlayers.size() == 0) {
+            ChatHandler.sendError(sender, stringH.needPlayers());
+            return;
+        }
+
+        //Clear all players that attend to play
+        redPlayers.addAll(bluePlayers); //All players in one variable
+        constH.setState(GState.STARTING);
+
+        ChatHandler.sendInfoMessage(sender, stringH.launched());
+        CountDown.newCountDown(this, 10L);
+        doorHandler.setAllDoors();
     }
 
     public void start(){

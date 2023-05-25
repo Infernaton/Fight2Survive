@@ -6,7 +6,7 @@ string:
     gold2: "André de Pomero"
     iron: "Jean-Pierre Fanguin"
     diam: "Baruk, the diamond"
-    lapis: "Fabala the enchantor"
+    lapis: "Fabala the enchanter"
   clickInventory:
     launchGame: "&2StartGame"
     red: "&4Red Team"

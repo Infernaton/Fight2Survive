@@ -27,17 +27,10 @@ public class InterfaceHandler {
         except.put(pos, item);
         return except;
     }
-    private Map<Integer, ItemStack> createException(Map<Integer, ItemStack> except, int pos, ItemStack item){
-        except.put(pos, item);
-        return except;
-    }
+
     private Inventory separatorLine(Inventory inv, int firstCell, Map<Integer, ItemStack> except){
         for(int i=firstCell; i< firstCell+9; i++){
-            if (except.containsKey(i)){
-                inv.setItem(i, except.get(i));
-            }else {
-                inv.setItem(i, main.HI().separator());
-            }
+            inv.setItem(i, except.containsKey(i) ? except.get(i) : main.HI().separator());
         }
         return inv;
     }
@@ -48,7 +41,11 @@ public class InterfaceHandler {
         inv.setItem(24, main.HI().redWool());
         inv.setItem(13, main.HI().spectatorWool());
 
-        separatorLine(inv, 36, createException(createException(40, main.HI().gameStartWool()), 44, main.HI().optionsWool()));
+        Map<Integer, ItemStack> except = new HashMap<>();
+        except.put(44, main.HI().optionsWool());
+        except.put(40, main.HI().gameStartWool());
+
+        separatorLine(inv, 36, except);
 
         return inv;
     }

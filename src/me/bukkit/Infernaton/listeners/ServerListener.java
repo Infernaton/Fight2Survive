@@ -51,7 +51,7 @@ public class ServerListener implements Listener {
             main.constH().getSpectators().add(player);
         }
 
-        //We test if the player is currently in game when he join,
+        //We check if the player is currently in game when he join,
         // if the game crashed client side, it would be a shame if he can't rejoin the party
         boolean isCurrentlyIG = !main.constH().isState(GState.WAITING) &&
                 !Team.getTeam(player).getTeamName().equalsIgnoreCase(main.stringH().spectatorName());
@@ -64,7 +64,7 @@ public class ServerListener implements Listener {
     }
 
     /**
-     * If a player quit the server, the event will trigger
+     * If a player quit the server, this event will trigger
      * in case a player quit when a party is running, we will, after some time, force him to retire from the game
      * If the player rejoin the server before the countdown stop, he will still be part of the game
      * @param event
@@ -72,6 +72,7 @@ public class ServerListener implements Listener {
     @EventHandler
     public void onQuit (PlayerQuitEvent event){
         final Player player = event.getPlayer();
+
         if (main.constH().isState(GState.PLAYING)) {
 
             //Setting the quitting player in "AFK", to have a memory of who has quit during the game

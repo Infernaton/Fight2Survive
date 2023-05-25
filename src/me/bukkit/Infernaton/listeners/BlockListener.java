@@ -31,18 +31,15 @@ public class BlockListener implements Listener {
     @EventHandler
     public void blockBreak(BlockBreakEvent event){
         Player player = event.getPlayer();
-        if (player.getGameMode() == GameMode.ADVENTURE){
-            Block block = event.getBlock();
-            if (block.getType() == Material.LOG){
-                if (block.getState().getData().getData() != 0){
-                    event.setCancelled(true);
-                    ChatHandler.sendError(player, main.stringH().avoidBreak());
-                    return;
-                }
-            }
-            Integer cd = main.constH().coolDownBlock().get(block.getType());
-            BreakBlockClock.newCountDown(main, cd != null ? cd : 10, block);
+        if (player.getGameMode() != GameMode.ADVENTURE) return;
+        Block block = event.getBlock();
+        if (block.getType() == Material.LOG && block.getState().getData().getData() != 0){
+            event.setCancelled(true);
+            ChatHandler.sendError(player, main.stringH().avoidBreak());
+            return;
         }
+        Integer cd = main.constH().coolDownBlock().get(block.getType());
+        BreakBlockClock.newCountDown(main, cd != null ? cd : 10, block);
     }
 
     @EventHandler
@@ -56,10 +53,9 @@ public class BlockListener implements Listener {
                 Material.FURNACE
         );
 
-        if (player.getGameMode() == GameMode.ADVENTURE && main.constH().isState(GState.PLAYING) && b != null) {
-            if (containers.contains(b.getType())){
-                main.BH().addContainers(b);
-            }
+        if (player.getGameMode() == GameMode.ADVENTURE && main.constH().isState(GState.PLAYING) && b != null
+                && containers.contains(b.getType())) {
+            main.BH().addContainers(b);
         }
     }
 }
