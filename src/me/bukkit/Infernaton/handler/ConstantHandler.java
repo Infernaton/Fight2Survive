@@ -236,7 +236,7 @@ public class ConstantHandler {
                 main.getConfig().getDouble("coordinates.teamRed.spawnpoint.z")
         );
          */
-        return new Location(Bukkit.getWorld(worldName), 37.5, 56.0, 83.5, -135f, 0f);
+        return new Location(Bukkit.getWorld(worldName), -36.5,56,83.5, 135f, 0f);
     }
     public Location getBlueBase(){
         /*return new Location(Bukkit.getWorld(worldName),
@@ -245,7 +245,7 @@ public class ConstantHandler {
                 main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.z")
         );
          */
-        return new Location(Bukkit.getWorld(worldName), -36.5,56,83.5, 135f, 0f);
+        return new Location(Bukkit.getWorld(worldName), 37.5, 56.0, 83.5, -135f, 0f);
     }
 
     public Team getRedTeam(){
