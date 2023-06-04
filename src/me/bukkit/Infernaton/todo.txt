@@ -1,0 +1,14 @@
+Fix:
+
+- spawn des mobs
+
+Ajout:
+
+- Random Event
+- Options / Config de jeu au start
+- Ajout d'un inventaire custom au start
+
+Idée:
+
+- Upgrade du starter kit au déblocage des salles
+- Diversité des mobs spawn
