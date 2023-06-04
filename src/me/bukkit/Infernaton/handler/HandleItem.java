@@ -17,7 +17,7 @@ import org.bukkit.util.Vector;
 
 import java.util.Collection;
 
-import static me.bukkit.Infernaton.handler.ConstantHandler.worldName;
+import static me.bukkit.Infernaton.handler.SpatialHandler.worldName;
 
 import java.util.List;
 

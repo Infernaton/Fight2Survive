@@ -10,7 +10,7 @@ import org.bukkit.Location;
 import java.util.HashMap;
 import java.util.Map;
 
-import static me.bukkit.Infernaton.handler.ConstantHandler.worldName;
+import static me.bukkit.Infernaton.handler.SpatialHandler.worldName;
 
 public class GameRunnable implements Runnable{
 
@@ -24,7 +24,7 @@ public class GameRunnable implements Runnable{
 
     private GameRunnable(FightToSurvive main){
         this.main = main;
-        this.appleLocations = main.constH().getSpawnApplePoint();
+        this.appleLocations = main.SH().getSpawnApplePoint();
         this.coolDownLoc = new HashMap<>();
     }
 

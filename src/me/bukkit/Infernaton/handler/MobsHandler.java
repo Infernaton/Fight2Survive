@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static me.bukkit.Infernaton.handler.ConstantHandler.worldName;
+import static me.bukkit.Infernaton.handler.SpatialHandler.worldName;
 
 public class MobsHandler {
     private int round = 1;

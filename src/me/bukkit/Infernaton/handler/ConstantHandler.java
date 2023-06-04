@@ -20,6 +20,8 @@ import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.*;
 
+import static me.bukkit.Infernaton.handler.SpatialHandler.worldName;
+
 /**
  * Class which regroup each variable we need in our project
  */
@@ -28,17 +30,11 @@ public class ConstantHandler {
     private GState state;
     private final FightToSurvive main;
     private Scoreboard scoreboard;
-    static public String worldName;
     private InterfaceHandler IH;
 
     public ConstantHandler(FightToSurvive main){
         this.main = main;
         this.IH = new InterfaceHandler(main);
-        worldName = getWorldName();
-    }
-
-    public String getWorldName(){
-        return main.stringH().worldName();
     }
 
     public Location[] getSpawnApplePoint(){

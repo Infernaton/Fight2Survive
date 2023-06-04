@@ -17,7 +17,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 
-import static me.bukkit.Infernaton.handler.ConstantHandler.worldName;
+import static me.bukkit.Infernaton.handler.SpatialHandler.worldName;
 
 public class FightToSurvive extends JavaPlugin {
 
@@ -31,6 +31,7 @@ public class FightToSurvive extends JavaPlugin {
     private final HandleMerchantRecipe handleMR = new HandleMerchantRecipe(this);
     private final BlockHandler BH = new BlockHandler();
     private final StringHandler stringH = new StringHandler(this);
+    private final SpatialHandler SH = new SpatialHandler(this);
 
     public ConstantHandler constH(){
         return constH;
@@ -59,6 +60,7 @@ public class FightToSurvive extends JavaPlugin {
     public StringHandler stringH(){
         return stringH;
     }
+    public SpatialHandler SH() { return SH; }
     //#endregion
 
     //#region Game Timer

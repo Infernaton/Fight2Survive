@@ -8,7 +8,7 @@ import org.bukkit.block.Block;
 
 import java.util.List;
 
-import static me.bukkit.Infernaton.handler.ConstantHandler.worldName;
+import static me.bukkit.Infernaton.handler.SpatialHandler.worldName;
 
 public class DoorHandler {
     private FightToSurvive main;
