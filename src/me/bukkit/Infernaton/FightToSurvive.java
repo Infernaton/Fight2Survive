@@ -132,7 +132,7 @@ public class FightToSurvive extends JavaPlugin {
         List<Player> allPlayers = constH.getAllTeamsPlayer();
         for (Player player: allPlayers) {
             HP.clear(player);
-            player.teleport(constH.getBaseLocation(Team.getTeam(player)));
+            player.teleport(SH.getBaseLocation(Team.getTeam(player)));
             HP.giveStarterPack(player);
             for (PotionEffect effect : player.getActivePotionEffects())
                 player.removePotionEffect(effect.getType());

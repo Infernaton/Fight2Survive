@@ -50,7 +50,7 @@ public class HandlePlayerState {
 
     public void setPlayer(Player player){
         resetPlayerState(player);
-        player.teleport(main.constH().getSpawnCoordinate());
+        player.teleport(main.SH().getSpawnCoordinate());
     }
 
     public void givePotionEffect(Player player, PotionEffectType potion){

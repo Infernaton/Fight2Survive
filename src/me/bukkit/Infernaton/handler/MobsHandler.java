@@ -50,7 +50,7 @@ public class MobsHandler {
     }
 
     public void setAllPnj() {
-        List<Location> copiesPnjList = main.constH().getAllPnjLocation();
+        List<Location> copiesPnjList = main.SH().getAllPnjLocation();
         for (int i=0; i<copiesPnjList.size(); i++){
             createVillager(copiesPnjList.get(i), main.constH().pnjName()[i]);
         }
@@ -80,7 +80,7 @@ public class MobsHandler {
         for (Player player : playerList) {
             if (player.getGameMode() != GameMode.ADVENTURE) continue;
             Location playerLocation = player.getLocation();
-            List<Block> test = main.constH().sphereAround(playerLocation, 12);
+            List<Block> test = main.SH().sphereAround(playerLocation, 12);
 
             Block blockBelow;
             Block newBlock;

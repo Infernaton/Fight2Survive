@@ -23,7 +23,7 @@ public class DoorHandler {
      *  to the copiesDoors list.
      */
     public void setAllDoors() {
-        Location mainDoor = main.constH().getDoorConstantCoord();
+        Location mainDoor = main.SH().getDoorConstantCoord();
         List<Location> copiesDoorsList = main.constH().getAllCopiesDoors();
         for (Location copiesDoors : copiesDoorsList) {
             for (double x = -1; x <= 1; x++) {

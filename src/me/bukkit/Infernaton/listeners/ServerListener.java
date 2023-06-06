@@ -59,7 +59,7 @@ public class ServerListener implements Listener {
         //And, if the player is in creative, we don't need to reset is position
         if (!isCurrentlyIG && player.getGameMode() != GameMode.CREATIVE) {
             main.HP().resetPlayerState(player);
-            player.teleport(main.constH().getSpawnCoordinate());
+            player.teleport(main.SH().getSpawnCoordinate());
         }
     }
 

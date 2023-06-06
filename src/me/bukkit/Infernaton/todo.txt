@@ -7,6 +7,7 @@ Ajout:
 - Random Event
 - Options / Config de jeu au start
 - Ajout d'un inventaire custom au start
+- Disparition des mobs quand phase finale commence
 
 Idée:
 
