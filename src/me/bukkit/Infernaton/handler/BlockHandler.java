@@ -11,13 +11,13 @@ public class BlockHandler {
 
     private List<Block> containers = new ArrayList<>();
 
-    public void addContainers(Block block){
+    public void addContainers(Block block) {
         containers.add(block);
     }
 
-    public void resetContainers(){
+    public void resetContainers() {
         for (Block b : containers) {
-            MaterialData md =  b.getState().getData();
+            MaterialData md = b.getState().getData();
             byte blockByte = b.getData();
             Material temp = b.getType();
             b.setType(Material.AIR);
