@@ -4,7 +4,6 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -20,9 +19,10 @@ public class DebugCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (!sender.isOp()) return false;
+        if (!sender.isOp())
+            return false;
         /*
-            On debug, make target player like he is waiting to play the game
+         * On debug, make target player like he is waiting to play the game
          */
         if (cmd.getName().equalsIgnoreCase("setPlayer")) {
             setPlayer(sender, cmd, label, args);
@@ -49,13 +49,13 @@ public class DebugCommand implements CommandExecutor {
             return true;
         }
 
-        else if (cmd.getName().equalsIgnoreCase("getKey")){
+        else if (cmd.getName().equalsIgnoreCase("getKey")) {
             ChatHandler.sendInfoMessage(sender, main.stringH().giveKey());
             main.HI().giveItemInInventory((Player) sender, main.HI().paperKey(), 1);
             return true;
         }
 
-        else if (cmd.getName().equalsIgnoreCase("setVillagers")){
+        else if (cmd.getName().equalsIgnoreCase("setVillagers")) {
             if (main.constH().isState(GState.WAITING)) {
                 ChatHandler.sendInfoMessage(sender, main.stringH().setVill());
                 main.MH().setAllPnj();
@@ -65,7 +65,7 @@ public class DebugCommand implements CommandExecutor {
             return true;
         }
 
-        else if (cmd.getName().equalsIgnoreCase("killPnj")){
+        else if (cmd.getName().equalsIgnoreCase("killPnj")) {
             ChatHandler.sendInfoMessage(sender, main.stringH().killVill());
             main.MH().killPnj();
             return true;
@@ -74,13 +74,12 @@ public class DebugCommand implements CommandExecutor {
         return false;
     }
 
-    private void setPlayer(CommandSender sender, Command cmd, String label, String[] args){
+    private void setPlayer(CommandSender sender, Command cmd, String label, String[] args) {
         if (args.length == 0) {
             Player player = (Player) sender;
             main.HP().setPlayer(player);
             ChatHandler.sendMessage(sender, main.stringH().setPlayer("You", "are"));
-        }
-        else if (args.length == 1) {
+        } else if (args.length == 1) {
             Player targetPlayer = Bukkit.getPlayerExact(args[0]);
             if (targetPlayer == null) {
                 ChatHandler.sendError(sender, main.stringH().notPlayer());
@@ -88,8 +87,7 @@ public class DebugCommand implements CommandExecutor {
                 main.HP().setPlayer(targetPlayer);
                 ChatHandler.sendMessage(sender, main.stringH().setPlayer(args[0], "is"));
             }
-        }
-        else {
+        } else {
             ChatHandler.sendError(sender, main.stringH().tooManyArgument());
             ChatHandler.sendCorrectUsage(sender, main.stringH().correctUsage(cmd.getName(), "<username>"));
         }
