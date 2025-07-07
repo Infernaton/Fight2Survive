@@ -1,3 +1,9 @@
+# Fight2Survive
+
+Minecraft Plugin for 1.8.9
+
+## To Do
+
 Fix:
 
 - spawn des mobs
