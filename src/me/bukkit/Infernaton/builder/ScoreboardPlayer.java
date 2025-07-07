@@ -5,13 +5,11 @@ import me.bukkit.Infernaton.handler.scoreboard.Scoreboard;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.UUID;
-
 /**
  * Setting a special scoreboard for a Player
  *
  * @author TheDarven
- * And modifyed by us
+ *         And modifyed by us
  */
 public class ScoreboardPlayer {
 
@@ -31,7 +29,7 @@ public class ScoreboardPlayer {
                 update();
             }
         };
-        updating.runTaskTimerAsynchronously(main, 1,1);
+        updating.runTaskTimerAsynchronously(main, 1, 1);
     }
 
     public void removeScoreboard(Player player) {
@@ -55,8 +53,7 @@ public class ScoreboardPlayer {
     /**
      * To actualise the scoreboard, just a reset of all the lines is enough
      */
-    private void update(){
+    private void update() {
         setLines();
     }
 }
-
