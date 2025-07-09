@@ -8,8 +8,6 @@ import net.minecraft.server.v1_8_R3.MerchantRecipe;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
-import org.bukkit.block.Block;
-
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -22,6 +20,8 @@ import static me.bukkit.Infernaton.handler.SpatialHandler.worldName;
 
 /**
  * Class which regroup each variable we need in our project
+ * 
+ * @todo make static function
  */
 public class ConstantHandler {
 

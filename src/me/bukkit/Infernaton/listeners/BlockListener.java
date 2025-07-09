@@ -19,21 +19,24 @@ import java.util.List;
 public class BlockListener implements Listener {
 
     private final FightToSurvive main;
-    
+
     public BlockListener(FightToSurvive main) {
         this.main = main;
     }
 
     /**
-     * To prevent the player in game, from breaking certain block that has the same name but not the same metadata
+     * To prevent the player in game, from breaking certain block that has the same
+     * name but not the same metadata
+     * 
      * @param event
      */
     @EventHandler
-    public void blockBreak(BlockBreakEvent event){
+    public void blockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
-        if (player.getGameMode() != GameMode.ADVENTURE) return;
+        if (player.getGameMode() != GameMode.ADVENTURE)
+            return;
         Block block = event.getBlock();
-        if (block.getType() == Material.LOG && block.getState().getData().getData() != 0){
+        if (block.getType() == Material.LOG && block.getState().getData().getData() != 0) {
             event.setCancelled(true);
             ChatHandler.sendError(player, main.stringH().avoidBreak());
             return;
@@ -42,6 +45,12 @@ public class BlockListener implements Listener {
         BreakBlockClock.newCountDown(main, cd != null ? cd : 10, block);
     }
 
+    /**
+     * Storing containers that a player interract with
+     * 
+     * @todo prevent a containers to be add twice
+     * @param event
+     */
     @EventHandler
     public void onBlockClicked(PlayerInteractEvent event) {
         Player player = event.getPlayer();
@@ -50,8 +59,7 @@ public class BlockListener implements Listener {
         List<Material> containers = Arrays.asList(
                 Material.CHEST,
                 Material.TRAPPED_CHEST,
-                Material.FURNACE
-        );
+                Material.FURNACE);
 
         if (player.getGameMode() == GameMode.ADVENTURE && main.constH().isState(GState.PLAYING) && b != null
                 && containers.contains(b.getType())) {

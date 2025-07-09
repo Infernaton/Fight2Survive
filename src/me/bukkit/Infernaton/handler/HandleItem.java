@@ -18,6 +18,11 @@ import java.util.Collection;
 
 import static me.bukkit.Infernaton.handler.SpatialHandler.worldName;
 
+/**
+ * Store all the specific item of the game
+ * 
+ * @todo set static function
+ */
 public class HandleItem {
 
     private final FightToSurvive main;
@@ -59,7 +64,6 @@ public class HandleItem {
     }
 
     public ItemStack spectatorWool() {
-        StringBuilder str = new StringBuilder();
         return new ItemBuilder(Material.WOOL, 1, (byte) 7).setName(main.stringH().spectatorsItem())
                 .setLore(main.stringH().makePlayerList(main.constH().getSpectators().getPlayers()))
                 .toItemStack();

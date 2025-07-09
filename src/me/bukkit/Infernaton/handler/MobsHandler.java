@@ -17,13 +17,20 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static me.bukkit.Infernaton.handler.SpatialHandler.worldName;
 
+/**
+ * Handle all the mobs that players can encounter
+ * + handle wave from aggressive mob
+ * 
+ * @todo set static function
+ */
 public class MobsHandler {
     private int round = 1;
     private int level = 1;
 
     final private FightToSurvive main;
+
     public MobsHandler(FightToSurvive fightToSurvive) {
-        this.main  = fightToSurvive;
+        this.main = fightToSurvive;
     }
 
     public static void setNoAI(Entity entity) {
@@ -34,7 +41,8 @@ public class MobsHandler {
         nmsVil.f(comp);
         nmsVil.b(true);
     }
-    public void createVillager(Location location, String name){
+
+    public void createVillager(Location location, String name) {
         Villager villager = (Villager) location.getWorld().spawnEntity(location, EntityType.VILLAGER);
         villager.setCustomName(name);
         villager.setCustomNameVisible(true);
@@ -42,7 +50,7 @@ public class MobsHandler {
         new CustomVillager(main, villager).addRecipe(main.constH().getTrade(name)).finish();
     }
 
-    public void createRandomAggressiveMob(Location location, int mobLevel){
+    public void createRandomAggressiveMob(Location location, int mobLevel) {
         List<EntityType> mobList = main.constH().aggressiveMob(mobLevel);
         EntityType mobType = mobList.get(new Random().nextInt(mobList.size()));
 
@@ -51,11 +59,12 @@ public class MobsHandler {
 
     public void setAllPnj() {
         List<Location> copiesPnjList = main.SH().getAllPnjLocation();
-        for (int i=0; i<copiesPnjList.size(); i++){
+        for (int i = 0; i < copiesPnjList.size(); i++) {
             createVillager(copiesPnjList.get(i), main.constH().pnjName()[i]);
         }
     }
-    public void killPnj(){
+
+    public void killPnj() {
         for (Entity e : Bukkit.getWorld(worldName).getEntities()) {
             if (e instanceof Villager) {
                 e.remove();
@@ -69,16 +78,17 @@ public class MobsHandler {
             generateOneMob(round);
         }
         level++;
-        if(level % 3 == 0){
+        if (level % 3 == 0) {
             round++;
         }
-        return (nbMob-1)*3;
+        return (nbMob - 1) * 3;
     }
 
     public void generateOneMob(int mobLevel) {
         List<Player> playerList = main.constH().getAllTeamsPlayer();
         for (Player player : playerList) {
-            if (player.getGameMode() != GameMode.ADVENTURE) continue;
+            if (player.getGameMode() != GameMode.ADVENTURE)
+                continue;
             Location playerLocation = player.getLocation();
             List<Block> test = main.SH().sphereAround(playerLocation, 12);
 
@@ -86,16 +96,17 @@ public class MobsHandler {
             Block newBlock;
             do {
                 int randomNum = ThreadLocalRandom.current().nextInt(0, test.size());
-                //ChatHandler.sendInfoMessage(player, randomNum + "");
+                // ChatHandler.sendInfoMessage(player, randomNum + "");
                 newBlock = test.get(randomNum);
                 blockBelow = newBlock.getRelative(0, -1, 0);
-            } while (newBlock.getType() != Material.AIR || !main.constH().spawnableBlocks().contains(blockBelow.getType()));
+            } while (newBlock.getType() != Material.AIR
+                    || !main.constH().spawnableBlocks().contains(blockBelow.getType()));
 
             createRandomAggressiveMob(newBlock.getLocation(), mobLevel);
         }
     }
 
-    public void resetMob(){
+    public void resetMob() {
         for (Entity e : Bukkit.getWorld(worldName).getEntities()) {
             if (main.constH().spawnedMobs().contains(e.getType())) {
                 e.remove();

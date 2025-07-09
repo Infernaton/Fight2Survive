@@ -8,8 +8,7 @@ Minecraft Plugin for 1.8.9
 
 - Revoir/Refaire les Handlers
 - Clean code : Ajout de commentaire, contexte
-- spawn des mobs
-- Inventaire des coffres/fours à vider
+- Equilibrer spawn des mobs
 - Replace par Bedrock quand block est cassé par joueur
 
 ### Ajout

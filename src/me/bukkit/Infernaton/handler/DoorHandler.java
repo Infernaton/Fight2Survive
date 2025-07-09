@@ -10,17 +10,20 @@ import java.util.List;
 
 import static me.bukkit.Infernaton.handler.SpatialHandler.worldName;
 
+/**
+ * Handle state of doors between rooms
+ * 
+ * @todo make static function
+ */
 public class DoorHandler {
     private FightToSurvive main;
 
-    public DoorHandler(FightToSurvive context){
+    public DoorHandler(FightToSurvive context) {
         this.main = context;
-
     }
+
     /**
-     * Loop all blocks with the copiesDoors list and mainDoor locations
-     *  Cloning mainDoor blocks type with the mainDoor location
-     *  to the copiesDoors list.
+     * Clone the main door design on each assign coordinate
      */
     public void setAllDoors() {
         Location mainDoor = main.SH().getDoorConstantCoord();
@@ -29,17 +32,19 @@ public class DoorHandler {
             for (double x = -1; x <= 1; x++) {
                 for (double y = -1; y <= 1; y++) {
                     for (double z = -1; z <= 1; z++) {
-                        Block mainBlock = new Location(Bukkit.getWorld(worldName), mainDoor.getBlockX() + x, mainDoor.getBlockY() + y, mainDoor.getBlockZ() + z).getBlock();
-                        Block copiesBlock = new Location(Bukkit.getWorld(worldName), copiesDoors.getBlockX() + x, copiesDoors.getBlockY() + y, copiesDoors.getBlockZ() + z).getBlock();
+                        Block mainBlock = new Location(Bukkit.getWorld(worldName), mainDoor.getBlockX() + x,
+                                mainDoor.getBlockY() + y, mainDoor.getBlockZ() + z).getBlock();
+                        Block copiesBlock = new Location(Bukkit.getWorld(worldName), copiesDoors.getBlockX() + x,
+                                copiesDoors.getBlockY() + y, copiesDoors.getBlockZ() + z).getBlock();
                         copiesBlock.setType(mainBlock.getType());
                     }
                 }
             }
         }
     }
+
     /**
-     * Loop all blocks with the copiesDoors list locations
-     * Change blocks type to AIR block
+     * Delete all existing Doors based on the assign coordinate
      */
     public void deleteAllDoors() {
         List<Location> copiesDoorsList = main.constH().getAllCopiesDoors();
@@ -47,7 +52,8 @@ public class DoorHandler {
             for (double x = -1; x <= 1; x++) {
                 for (double y = -1; y <= 1; y++) {
                     for (double z = -1; z <= 1; z++) {
-                        Block copiesBlock = new Location(Bukkit.getWorld(worldName), copiesDoors.getBlockX() + x, copiesDoors.getBlockY() + y, copiesDoors.getBlockZ() + z).getBlock();
+                        Block copiesBlock = new Location(Bukkit.getWorld(worldName), copiesDoors.getBlockX() + x,
+                                copiesDoors.getBlockY() + y, copiesDoors.getBlockZ() + z).getBlock();
                         copiesBlock.setType(Material.AIR);
                     }
                 }

@@ -11,10 +11,18 @@ public class BlockHandler {
 
     private List<Block> containers = new ArrayList<>();
 
+    /**
+     * Add block Containers to a list (Chest, furnace ...)
+     * 
+     * @param block the container
+     */
     public void addContainers(Block block) {
         containers.add(block);
     }
 
+    /**
+     * Reset the content of the container list
+     */
     public void resetContainers() {
         for (Block b : containers) {
             MaterialData md = b.getState().getData();

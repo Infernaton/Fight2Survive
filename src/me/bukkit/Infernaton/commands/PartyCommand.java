@@ -50,7 +50,7 @@ public class PartyCommand implements CommandExecutor {
             return true;
         } else if (cmd.getName().equalsIgnoreCase("forceFinal")) {
             if (main.constH().isState(GState.PLAYING) || main.constH().isState(GState.WAITING))
-                main.FP().on();
+                main.FP().activate();
             else
                 ChatHandler.sendCantWhilePlaying(sender);
             return true;
