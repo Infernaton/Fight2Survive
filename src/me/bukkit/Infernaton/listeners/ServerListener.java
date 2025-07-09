@@ -4,6 +4,8 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
+import me.bukkit.Infernaton.handler.ConstantHandler;
+import me.bukkit.Infernaton.handler.Store.SpatialHandler;
 import me.bukkit.Infernaton.handler.Store.StringHandler;
 import me.bukkit.Infernaton.handler.scoreboard.ScoreboardManager;
 import org.bukkit.GameMode;
@@ -45,7 +47,7 @@ public class ServerListener implements Listener {
         // If it's the first time he join, the player don't have a team yet, so we
         // forced him to join one
         else if (!Team.hasTeam(player)) {
-            main.constH().getSpectators().add(player);
+            ConstantHandler.getSpectators().add(player);
         }
 
         // We check if the player is currently in game when he join,
@@ -57,7 +59,7 @@ public class ServerListener implements Listener {
         // And, if the player is in creative, we don't need to reset is position
         if (!isCurrentlyIG && player.getGameMode() != GameMode.CREATIVE) {
             main.HP().resetPlayerState(player);
-            player.teleport(main.SH().getSpawnCoordinate());
+            player.teleport(SpatialHandler.getSpawnCoordinate());
         }
     }
 
@@ -78,7 +80,7 @@ public class ServerListener implements Listener {
 
             // Setting the quitting player in "AFK", to have a memory of who has quit during
             // the game
-            if (Team.hasTeam(player) && Team.getTeam(player) != main.constH().getSpectators()) {
+            if (Team.hasTeam(player) && Team.getTeam(player) != ConstantHandler.getSpectators()) {
                 afkList.put(player.getUniqueId(), Team.getTeam(player));
                 Team.getTeam(player).remove(player);
             }

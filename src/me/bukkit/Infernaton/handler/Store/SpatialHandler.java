@@ -1,8 +1,7 @@
-package me.bukkit.Infernaton.handler;
+package me.bukkit.Infernaton.handler.Store;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.builder.Team;
-import me.bukkit.Infernaton.handler.Store.StringHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -12,32 +11,19 @@ import org.bukkit.block.Block;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @todo set static function
- */
 public class SpatialHandler {
 
-    private final FightToSurvive main;
-    static public String worldName;
-
-    public SpatialHandler(FightToSurvive main) {
-        this.main = main;
-        worldName = getWorldName();
-    }
-
-    public String getWorldName() {
-        return StringHandler.worldName();
-    }
+    public final static String worldName = StringHandler.worldName();
 
     // #region Coordinate
-    public Location[] getSpawnApplePoint() {
+    public static Location[] getSpawnApplePoint() {
         return new Location[] {
                 new Location(Bukkit.getWorld(worldName), 168.5, 61.5, 130.5),
                 new Location(Bukkit.getWorld(worldName), -167.5, 61.5, 110.5)
         };
     }
 
-    public List<Location> getAllPnjLocation() {
+    public static List<Location> getAllPnjLocation() {
         List<Location> pc = new ArrayList<>();
         World w = Bukkit.getWorld(worldName);
         pc.add(new Location(w, -48.5, 56.0, 51.5)); // 1er zone (bois)
@@ -59,11 +45,11 @@ public class SpatialHandler {
         return pc;
     }
 
-    public Location getDoorConstantCoord() {
+    public static Location getDoorConstantCoord() {
         return new Location(Bukkit.getWorld(worldName),
-                main.getConfig().getDouble("coordinates.doorCoord.constant.x"),
-                main.getConfig().getDouble("coordinates.doorCoord.constant.y"),
-                main.getConfig().getDouble("coordinates.doorCoord.constant.z"));
+                FightToSurvive.GetConfig().getDouble("coordinates.doorCoord.constant.x"),
+                FightToSurvive.GetConfig().getDouble("coordinates.doorCoord.constant.y"),
+                FightToSurvive.GetConfig().getDouble("coordinates.doorCoord.constant.z"));
     }
 
     /**
@@ -72,7 +58,7 @@ public class SpatialHandler {
      * @param team to target
      * @return the Location
      */
-    public Location getBaseLocation(Team team) {
+    public static Location getBaseLocation(Team team) {
         switch (team.getTeamName()) {
             case "Red":
                 return getRedBase();
@@ -83,30 +69,30 @@ public class SpatialHandler {
         }
     }
 
-    public Location getSpawnCoordinate() {
+    public static Location getSpawnCoordinate() {
         return new Location(Bukkit.getWorld(worldName),
-                main.getConfig().getDouble("coordinates.lobby.x"),
-                main.getConfig().getDouble("coordinates.lobby.y"),
-                main.getConfig().getDouble("coordinates.lobby.z"));
+                FightToSurvive.GetConfig().getDouble("coordinates.lobby.x"),
+                FightToSurvive.GetConfig().getDouble("coordinates.lobby.y"),
+                FightToSurvive.GetConfig().getDouble("coordinates.lobby.z"));
     }
 
-    public Location getRedBase() {
+    public static Location getRedBase() {
         /*
          * return new Location(Bukkit.getWorld(worldName),
-         * main.getConfig().getDouble("coordinates.teamRed.spawnpoint.x"),
-         * main.getConfig().getDouble("coordinates.teamRed.spawnpoint.y"),
-         * main.getConfig().getDouble("coordinates.teamRed.spawnpoint.z")
+         * FightToSurvive.GetConfig().getDouble("coordinates.teamRed.spawnpoint.x"),
+         * FightToSurvive.GetConfig().getDouble("coordinates.teamRed.spawnpoint.y"),
+         * FightToSurvive.GetConfig().getDouble("coordinates.teamRed.spawnpoint.z")
          * );
          */
         return new Location(Bukkit.getWorld(worldName), -36.5, 56, 83.5, 135f, 0f);
     }
 
-    public Location getBlueBase() {
+    public static Location getBlueBase() {
         /*
          * return new Location(Bukkit.getWorld(worldName),
-         * main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.x"),
-         * main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.y"),
-         * main.getConfig().getDouble("coordinates.teamBlue.spawnpoint.z")
+         * FightToSurvive.GetConfig().getDouble("coordinates.teamBlue.spawnpoint.x"),
+         * FightToSurvive.GetConfig().getDouble("coordinates.teamBlue.spawnpoint.y"),
+         * FightToSurvive.GetConfig().getDouble("coordinates.teamBlue.spawnpoint.z")
          * );
          */
         return new Location(Bukkit.getWorld(worldName), 37.5, 56.0, 83.5, -135f, 0f);
@@ -114,7 +100,7 @@ public class SpatialHandler {
     // #endregion
 
     // Get all block around target location (mostly use around players) by radius
-    public List<Block> sphereAround(Location location, int radius) {
+    public static List<Block> sphereAround(Location location, int radius) {
         List<Block> sphere = new ArrayList<>();
         Block center = location.getBlock();
         for (int x = -radius; x <= radius; x++) {

@@ -3,7 +3,9 @@ package me.bukkit.Infernaton.listeners;
 import me.bukkit.Infernaton.*;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
+import me.bukkit.Infernaton.handler.ConstantHandler;
 import me.bukkit.Infernaton.handler.InterfaceHandler;
+import me.bukkit.Infernaton.handler.Store.SpatialHandler;
 import me.bukkit.Infernaton.handler.Store.StringHandler;
 
 import org.bukkit.Material;
@@ -36,7 +38,7 @@ public class PlayerListeners implements Listener {
             return;
 
         Team team = Team.getTeam(player);
-        main.constH().getSpectators().add(player);
+        ConstantHandler.getSpectators().add(player);
         if (team.getPlayers().isEmpty()) {
             main.finish();
         }
@@ -49,10 +51,10 @@ public class PlayerListeners implements Listener {
 
         // Check if the player is in a team to respawn him to the right place
         if (main.constH().isState(GState.PLAYING) && team != null) {
-            event.setRespawnLocation(main.SH().getBaseLocation(team));
+            event.setRespawnLocation(SpatialHandler.getBaseLocation(team));
             main.HP().giveStarterPack(player);
         } else {
-            event.setRespawnLocation(main.SH().getSpawnCoordinate());
+            event.setRespawnLocation(SpatialHandler.getSpawnCoordinate());
         }
     }
 
@@ -93,13 +95,13 @@ public class PlayerListeners implements Listener {
         if (inv.getName().equalsIgnoreCase(StringHandler.teamInventory())) {
             event.setCancelled(true);
             if (itemName.equals(StringHandler.blueTeamItem())) {
-                main.addingTeam(main.constH().getBlueTeam(), player);
+                main.addingTeam(ConstantHandler.getBlueTeam(), player);
                 player.closeInventory();
             } else if (itemName.equals(StringHandler.redTeamItem())) {
-                main.addingTeam(main.constH().getRedTeam(), player);
+                main.addingTeam(ConstantHandler.getRedTeam(), player);
                 player.closeInventory();
             } else if (itemName.equals(StringHandler.spectatorsItem())) {
-                main.addingTeam(main.constH().getSpectators(), player);
+                main.addingTeam(ConstantHandler.getSpectators(), player);
                 player.closeInventory();
             } else if (itemName.equals(StringHandler.launch())) {
                 main.onStarting(player);

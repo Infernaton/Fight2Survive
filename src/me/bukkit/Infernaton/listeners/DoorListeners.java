@@ -2,6 +2,7 @@ package me.bukkit.Infernaton.listeners;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.handler.ChatHandler;
+import me.bukkit.Infernaton.handler.ConstantHandler;
 import me.bukkit.Infernaton.handler.Store.StringHandler;
 
 import org.bukkit.Location;
@@ -53,6 +54,6 @@ public class DoorListeners implements Listener {
         }
         ChatHandler.toAllPlayer(StringHandler.openDoors());
         main.HI().removeItemHand(player);
-        main.FP().asking(location, main.constH().getAllCopiesDoors());
+        main.FP().asking(location, ConstantHandler.getAllCopiesDoors());
     }
 }

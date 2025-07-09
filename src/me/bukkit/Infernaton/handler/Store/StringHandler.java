@@ -23,7 +23,7 @@ public class StringHandler {
     // #region get Data from config
     private static String getDataString(String key) {
         return ChatColor.translateAlternateColorCodes('&',
-                FightToSurvive.Instance().getConfig().getString("string." + key));
+                FightToSurvive.GetConfig().getString("string." + key));
     }
 
     public static final String worldName() {

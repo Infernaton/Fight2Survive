@@ -15,9 +15,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
-import java.util.Collection;
+import static me.bukkit.Infernaton.handler.Store.SpatialHandler.worldName;
 
-import static me.bukkit.Infernaton.handler.SpatialHandler.worldName;
+import java.util.Collection;
 
 /**
  * Store all the specific item of the game
@@ -54,19 +54,19 @@ public class HandleItem {
     // #region Menu Item
     public ItemStack blueWool() {
         return new ItemBuilder(Material.WOOL, 1, (byte) 11).setName(StringHandler.blueTeamItem()).setLore()
-                .setLore(StringHandler.makePlayerList(main.constH().getBlueTeam().getPlayers()))
+                .setLore(StringHandler.makePlayerList(ConstantHandler.getBlueTeam().getPlayers()))
                 .toItemStack();
     }
 
     public ItemStack redWool() {
         return new ItemBuilder(Material.WOOL, 1, (byte) 14).setName(StringHandler.redTeamItem())
-                .setLore(StringHandler.makePlayerList(main.constH().getRedTeam().getPlayers()))
+                .setLore(StringHandler.makePlayerList(ConstantHandler.getRedTeam().getPlayers()))
                 .toItemStack();
     }
 
     public ItemStack spectatorWool() {
         return new ItemBuilder(Material.WOOL, 1, (byte) 7).setName(StringHandler.spectatorsItem())
-                .setLore(StringHandler.makePlayerList(main.constH().getSpectators().getPlayers()))
+                .setLore(StringHandler.makePlayerList(ConstantHandler.getSpectators().getPlayers()))
                 .toItemStack();
     }
 

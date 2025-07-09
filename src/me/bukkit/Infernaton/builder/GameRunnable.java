@@ -4,15 +4,16 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.ConstantHandler;
+import me.bukkit.Infernaton.handler.Store.SpatialHandler;
 import me.bukkit.Infernaton.handler.Store.StringHandler;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
+import static me.bukkit.Infernaton.handler.Store.SpatialHandler.worldName;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import static me.bukkit.Infernaton.handler.SpatialHandler.worldName;
 
 public class GameRunnable implements Runnable {
 
@@ -21,12 +22,11 @@ public class GameRunnable implements Runnable {
     private boolean isDay = true;
     private int id;
     private final FightToSurvive main;
-    private final Location[] appleLocations;
+    private final Location[] appleLocations = SpatialHandler.getSpawnApplePoint();
     private Map<String, Integer> coolDownLoc;
 
     private GameRunnable(FightToSurvive main) {
         this.main = main;
-        this.appleLocations = main.SH().getSpawnApplePoint();
         this.coolDownLoc = new HashMap<>();
     }
 

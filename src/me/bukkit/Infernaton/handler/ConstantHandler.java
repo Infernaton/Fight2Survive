@@ -15,9 +15,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.Scoreboard;
 
-import java.util.*;
+import static me.bukkit.Infernaton.handler.Store.SpatialHandler.worldName;
 
-import static me.bukkit.Infernaton.handler.SpatialHandler.worldName;
+import java.util.*;
 
 /**
  * Class which regroup each variable we need in our project
@@ -29,14 +29,12 @@ public class ConstantHandler {
     private GState state;
     private final FightToSurvive main;
     private Scoreboard scoreboard;
-    private InterfaceHandler IH;
 
     public final static int appleSpawningCooldown = 15;
     public final static int mobWaveCooldown = 61;
 
     public ConstantHandler(FightToSurvive main) {
         this.main = main;
-        this.IH = new InterfaceHandler(main);
     }
 
     public static String[] pnjName() {
@@ -62,7 +60,7 @@ public class ConstantHandler {
     }
 
     // List of block type where a monster can spawn
-    public List<Material> spawnableBlocks() {
+    public static List<Material> spawnableBlocks() {
         return Arrays.asList(
                 Material.GRASS,
                 Material.DIRT,
@@ -73,7 +71,7 @@ public class ConstantHandler {
                 Material.STAINED_CLAY);
     }
 
-    public List<EntityType> aggressiveMob(int lvl) {
+    public static List<EntityType> aggressiveMob(int lvl) {
         List<EntityType> list = new ArrayList<>();
         if (lvl > 5)
             lvl = 5;
@@ -91,7 +89,7 @@ public class ConstantHandler {
         return list;
     }
 
-    public List<EntityType> spawnedMobs() {
+    public static List<EntityType> spawnedMobs() {
         List<EntityType> list = new ArrayList<>(Arrays.asList(
                 EntityType.VILLAGER,
                 EntityType.EXPERIENCE_ORB,
@@ -101,11 +99,13 @@ public class ConstantHandler {
     }
 
     /**
-     *
+     * define all the cooldown for blocks
+     * 
+     * @todo define this on config file or option menu
      * @return Map<Material, Integer> Material-> Break Block, Integer-> Countdown in
      *         second
      */
-    public Map<Material, Integer> coolDownBlock() {
+    public static Map<Material, Integer> coolDownBlock() {
         Map<Material, Integer> cd = new HashMap<>();
         cd.put(Material.LOG, 10);
         cd.put(Material.COBBLESTONE, 10);
@@ -137,19 +137,20 @@ public class ConstantHandler {
         return getAllTrade().get(pnjName);
     }
 
-    public List<Location> getAllCopiesDoors() {
+    public static List<Location> getAllCopiesDoors() {
         List<Location> locations = new ArrayList<>();
         String path = "coordinates.doorCoord.copies";
-        for (String key : main.getConfig().getConfigurationSection(path).getKeys(false)) {
+        for (String key : FightToSurvive.GetConfig().getConfigurationSection(path).getKeys(false)) {
             Location door = new Location(Bukkit.getWorld(worldName),
-                    main.getConfig().getDouble(path + "." + key + ".x"),
-                    main.getConfig().getDouble(path + "." + key + ".y"),
-                    main.getConfig().getDouble(path + "." + key + ".z"));
+                    FightToSurvive.GetConfig().getDouble(path + "." + key + ".x"),
+                    FightToSurvive.GetConfig().getDouble(path + "." + key + ".y"),
+                    FightToSurvive.GetConfig().getDouble(path + "." + key + ".z"));
             locations.add(door);
         }
         return locations;
     }
 
+    // #region Game State
     public void setState(GState state) {
         this.state = state;
     }
@@ -161,7 +162,9 @@ public class ConstantHandler {
     public GState getState() {
         return this.state;
     }
+    // #endregion
 
+    // #region Scoreboard
     public Scoreboard getScoreboard() {
         return this.scoreboard;
     }
@@ -169,49 +172,53 @@ public class ConstantHandler {
     public void setScoreboard(Scoreboard scoreboard) {
         this.scoreboard = scoreboard;
     }
+    // #endregion
 
-    public Team getRedTeam() {
+    // #region Team related
+    public static Team getRedTeam() {
         return Team.getTeamByName(StringHandler.redTeamName());
     }
 
-    public Team getBlueTeam() {
+    public static Team getBlueTeam() {
         return Team.getTeamByName(StringHandler.blueTeamName());
     }
 
-    public Team getSpectators() {
+    public static Team getSpectators() {
         return Team.getTeamByName(StringHandler.spectatorName());
     }
 
-    public List<Player> getAllTeamsPlayer() {
-        List<Player> allPlayers = this.getBlueTeam().getPlayers();
-        allPlayers.addAll(this.getRedTeam().getPlayers());
+    public static List<Player> getAllTeamsPlayer() {
+        List<Player> allPlayers = getBlueTeam().getPlayers();
+        allPlayers.addAll(getRedTeam().getPlayers());
         return allPlayers;
     }
 
-    public List<Player> getAllPlayers() {
-        List<Player> allPlayers = this.getBlueTeam().getPlayers();
-        allPlayers.addAll(this.getRedTeam().getPlayers());
-        allPlayers.addAll(this.getSpectators().getPlayers());
+    public static List<Player> getAllPlayers() {
+        List<Player> allPlayers = getBlueTeam().getPlayers();
+        allPlayers.addAll(getRedTeam().getPlayers());
+        allPlayers.addAll(getSpectators().getPlayers());
         return allPlayers;
     }
+    // #endregion
 
     /**
      * Each line of our scoreboard are stored here
      * 
+     * @todo it's not this function which need to display the timer
      * @return the scoreboard line by line
      */
-    public String[] getScoreboardLines() {
-        GameRunnable gm = main.getTimer();
+    public static String[] getScoreboardLines() {
+        GameRunnable gm = FightToSurvive.getTimer();
         String timer = "00:00";
         if (gm != null)
-            timer = main.getTimer().stringTimer();
+            timer = FightToSurvive.getTimer().stringTimer();
 
         return new String[] {
                 "§a",
                 "§7Timer: " + timer,
                 "§1",
-                "§4Red Team (" + main.constH().getRedTeam().getPlayers().size() + ")",
-                "§1Blue Team (" + main.constH().getBlueTeam().getPlayers().size() + ")",
+                "§4Red Team (" + ConstantHandler.getRedTeam().getPlayers().size() + ")",
+                "§1Blue Team (" + ConstantHandler.getBlueTeam().getPlayers().size() + ")",
                 "§b",
                 "§6----------------"
         };

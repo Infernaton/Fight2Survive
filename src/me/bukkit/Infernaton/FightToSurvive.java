@@ -9,6 +9,7 @@ import me.bukkit.Infernaton.builder.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
@@ -31,6 +32,18 @@ public class FightToSurvive extends JavaPlugin {
         return self;
     }
 
+    public static FileConfiguration GetConfig() {
+        return self.getConfig();
+    }
+
+    // #region Game Timer
+    private GameRunnable gameTimer;
+
+    public static GameRunnable getTimer() {
+        return self.gameTimer;
+    }
+    // #endregion
+
     // #region HANDLER
     private ConstantHandler constH;
     private final HandlePlayerState HP = new HandlePlayerState(this);
@@ -40,7 +53,6 @@ public class FightToSurvive extends JavaPlugin {
     private final DoorHandler doorHandler = new DoorHandler(this);
     private final HandleMerchantRecipe handleMR = new HandleMerchantRecipe(this);
     private final BlockHandler BH = new BlockHandler();
-    private final SpatialHandler SH = new SpatialHandler(this);
 
     public ConstantHandler constH() {
         return constH;
@@ -72,18 +84,6 @@ public class FightToSurvive extends JavaPlugin {
 
     public BlockHandler BH() {
         return BH;
-    }
-
-    public SpatialHandler SH() {
-        return SH;
-    }
-    // #endregion
-
-    // #region Game Timer
-    private GameRunnable gameTimer;
-
-    public GameRunnable getTimer() {
-        return gameTimer;
     }
     // #endregion
 
@@ -122,8 +122,8 @@ public class FightToSurvive extends JavaPlugin {
             return;
         }
 
-        List<Player> redPlayers = constH.getRedTeam().getPlayers();
-        List<Player> bluePlayers = constH.getBlueTeam().getPlayers();
+        List<Player> redPlayers = ConstantHandler.getRedTeam().getPlayers();
+        List<Player> bluePlayers = ConstantHandler.getBlueTeam().getPlayers();
 
         // Compare if there the same numbers of players in each team
         // Not enough player
@@ -142,15 +142,15 @@ public class FightToSurvive extends JavaPlugin {
     }
 
     public void start() {
-        ChatHandler.sendMessageListPlayer(constH().getAllTeamsPlayer(), StringHandler.start());
+        ChatHandler.sendMessageListPlayer(ConstantHandler.getAllTeamsPlayer(), StringHandler.start());
         gameTimer = GameRunnable.newCountDown(this);
 
         ServerListener.resetAFKList();
 
-        List<Player> allPlayers = constH.getAllTeamsPlayer();
+        List<Player> allPlayers = ConstantHandler.getAllTeamsPlayer();
         for (Player player : allPlayers) {
             HP.clear(player);
-            player.teleport(SH.getBaseLocation(Team.getTeam(player)));
+            player.teleport(SpatialHandler.getBaseLocation(Team.getTeam(player)));
             HP.giveStarterPack(player);
             for (PotionEffect effect : player.getActivePotionEffects())
                 player.removePotionEffect(effect.getType());
@@ -172,12 +172,12 @@ public class FightToSurvive extends JavaPlugin {
     public void cancelStart() {
         constH.setState(GState.WAITING);
         CountDown.stopAllCountdown(this);
-        ChatHandler.sendMessageListPlayer(constH.getAllTeamsPlayer(), StringHandler.cancelStart());
+        ChatHandler.sendMessageListPlayer(ConstantHandler.getAllTeamsPlayer(), StringHandler.cancelStart());
     }
 
     public void cancel() {
         Bukkit.getWorld(worldName).setTime(1000);
-        List<Player> players = constH.getAllPlayers();
+        List<Player> players = ConstantHandler.getAllPlayers();
         ChatHandler.sendMessageListPlayer(players, StringHandler.cancel());
 
         for (Player player : players) {
