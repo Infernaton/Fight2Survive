@@ -61,7 +61,7 @@ public class FightToSurvive extends JavaPlugin {
     // #endregion
 
     // #region HANDLER
-    private final HandlePlayerState HP = new HandlePlayerState(this);
+    private final HandlePlayerState HP = new HandlePlayerState();
     private final BlockHandler BH = new BlockHandler();
 
     public HandlePlayerState HP() {

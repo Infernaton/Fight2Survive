@@ -23,17 +23,15 @@ public class GameRunnable implements Runnable {
     private int countdownStarter = 0;
     private boolean isDay = true;
     private int id;
-    private final FightToSurvive main;
     private final Location[] appleLocations = CoordStorage.getSpawnApplePoint();
     private Map<String, Integer> coolDownLoc;
 
-    private GameRunnable(FightToSurvive main) {
-        this.main = main;
+    private GameRunnable() {
         this.coolDownLoc = new HashMap<>();
     }
 
     public static GameRunnable newCountDown(FightToSurvive main) {
-        GameRunnable clock = new GameRunnable(main);
+        GameRunnable clock = new GameRunnable();
         int countDownId = Bukkit.getScheduler().scheduleSyncRepeatingTask(main, clock, clock.countdownStarter, 20L);
         clock.setId(countDownId);
         return clock;

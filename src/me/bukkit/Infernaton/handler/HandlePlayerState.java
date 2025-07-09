@@ -1,6 +1,5 @@
 package me.bukkit.Infernaton.handler;
 
-import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.store.Constants;
 import me.bukkit.Infernaton.store.CoordStorage;
 import me.bukkit.Infernaton.store.CustomItem;
@@ -13,12 +12,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class HandlePlayerState {
-
-    private FightToSurvive main;
-
-    public HandlePlayerState(FightToSurvive main) {
-        this.main = main;
-    }
 
     public void clear(Player player) {
         player.getInventory().clear();
