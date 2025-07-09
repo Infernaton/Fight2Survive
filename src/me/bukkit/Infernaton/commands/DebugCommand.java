@@ -3,6 +3,7 @@ package me.bukkit.Infernaton.commands;
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
+import me.bukkit.Infernaton.handler.DoorHandler;
 import me.bukkit.Infernaton.handler.Store.StringHandler;
 
 import org.bukkit.Bukkit;
@@ -34,7 +35,7 @@ public class DebugCommand implements CommandExecutor {
         else if (cmd.getName().equalsIgnoreCase("getDoors")) {
             if (main.constH().isState(GState.WAITING)) {
                 ChatHandler.sendInfoMessage(sender, StringHandler.getDoors());
-                main.DH().setAllDoors();
+                DoorHandler.setAllDoors();
             } else {
                 ChatHandler.sendCantWhilePlaying(sender);
             }
@@ -44,7 +45,7 @@ public class DebugCommand implements CommandExecutor {
         else if (cmd.getName().equalsIgnoreCase("deleteDoors")) {
             if (main.constH().isState(GState.WAITING)) {
                 ChatHandler.sendInfoMessage(sender, StringHandler.delDoors());
-                main.DH().deleteAllDoors();
+                DoorHandler.deleteAllDoors();
             } else {
                 ChatHandler.sendCantWhilePlaying(sender);
             }

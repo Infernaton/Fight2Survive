@@ -1,6 +1,5 @@
 package me.bukkit.Infernaton.handler;
 
-import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.handler.Store.SpatialHandler;
 
 import org.bukkit.Bukkit;
@@ -14,20 +13,13 @@ import java.util.List;
 
 /**
  * Handle state of doors between rooms
- * 
- * @todo make static function
  */
 public class DoorHandler {
-    private FightToSurvive main;
-
-    public DoorHandler(FightToSurvive context) {
-        this.main = context;
-    }
 
     /**
      * Clone the main door design on each assign coordinate
      */
-    public void setAllDoors() {
+    public static void setAllDoors() {
         Location mainDoor = SpatialHandler.getDoorConstantCoord();
         List<Location> copiesDoorsList = ConstantHandler.getAllCopiesDoors();
         for (Location copiesDoors : copiesDoorsList) {
@@ -48,7 +40,7 @@ public class DoorHandler {
     /**
      * Delete all existing Doors based on the assign coordinate
      */
-    public void deleteAllDoors() {
+    public static void deleteAllDoors() {
         List<Location> copiesDoorsList = ConstantHandler.getAllCopiesDoors();
         for (Location copiesDoors : copiesDoorsList) {
             for (double x = -1; x <= 1; x++) {

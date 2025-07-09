@@ -1,6 +1,7 @@
 package me.bukkit.Infernaton;
 
 import me.bukkit.Infernaton.handler.*;
+import me.bukkit.Infernaton.handler.Store.SpatialHandler;
 import me.bukkit.Infernaton.handler.Store.StringHandler;
 import me.bukkit.Infernaton.handler.scoreboard.ScoreboardManager;
 import me.bukkit.Infernaton.listeners.*;
@@ -17,9 +18,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.List;
+import static me.bukkit.Infernaton.handler.Store.SpatialHandler.worldName;
 
-import static me.bukkit.Infernaton.handler.SpatialHandler.worldName;
+import java.util.List;
 
 public class FightToSurvive extends JavaPlugin {
 
@@ -50,7 +51,6 @@ public class FightToSurvive extends JavaPlugin {
     private final HandleItem HI = new HandleItem(this);
     private FinalPhaseHandler finalPhase;
     private final MobsHandler mobsHandler = new MobsHandler(this);
-    private final DoorHandler doorHandler = new DoorHandler(this);
     private final HandleMerchantRecipe handleMR = new HandleMerchantRecipe(this);
     private final BlockHandler BH = new BlockHandler();
 
@@ -72,10 +72,6 @@ public class FightToSurvive extends JavaPlugin {
 
     public MobsHandler MH() {
         return mobsHandler;
-    }
-
-    public DoorHandler DH() {
-        return doorHandler;
     }
 
     public HandleMerchantRecipe MR() {
@@ -138,7 +134,7 @@ public class FightToSurvive extends JavaPlugin {
 
         ChatHandler.sendInfoMessage(sender, StringHandler.launched());
         CountDown.newCountDown(this, 10L);
-        doorHandler.setAllDoors();
+        DoorHandler.setAllDoors();
     }
 
     public void start() {
@@ -184,7 +180,7 @@ public class FightToSurvive extends JavaPlugin {
             HP.setPlayer(player);
         }
         constH.setState(GState.WAITING);
-        doorHandler.setAllDoors();
+        DoorHandler.setAllDoors();
         BH.resetContainers();
         MH().resetMob();
         ServerListener.resetAFKList();

@@ -18,7 +18,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.ConsoleHandler;
 
 public class BlockListener implements Listener {
 

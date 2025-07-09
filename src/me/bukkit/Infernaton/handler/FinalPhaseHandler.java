@@ -34,7 +34,7 @@ public class FinalPhaseHandler {
     public void activate() {
         active = true;
         ChatHandler.toAllPlayer(StringHandler.finalPhase());
-        main.DH().deleteAllDoors();
+        DoorHandler.deleteAllDoors();
     }
 
     public void asking(Location currentDoor, List<Location> listDoors) {
