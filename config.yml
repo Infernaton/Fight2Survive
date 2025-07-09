@@ -5,8 +5,8 @@ string:
     gold1: "Rodrigues de Pomero"
     gold2: "André de Pomero"
     iron: "Jean-Pierre Fanguin"
-    diam: "Baruk, the diamond"
-    lapis: "Fabala the enchantor"
+    diam: "Baruk, the collector"
+    lapis: "Fabala, the enchanter"
   clickInventory:
     launchGame: "&2StartGame"
     red: "&4Red Team"
@@ -59,7 +59,6 @@ string:
     red: "Red"
     blue: "Blue"
     spec: "Spectators"
-  worldName: "Arene" #Main Map name of the server, where the game will be playing
   navCompass: "&aNavigation"
   keyItem: "&9KEY"
 coordinates:

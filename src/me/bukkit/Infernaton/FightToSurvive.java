@@ -3,190 +3,198 @@ package me.bukkit.Infernaton;
 import me.bukkit.Infernaton.handler.*;
 import me.bukkit.Infernaton.handler.scoreboard.ScoreboardManager;
 import me.bukkit.Infernaton.listeners.*;
-import me.bukkit.Infernaton.commands.*;
+import me.bukkit.Infernaton.store.Constants;
+import me.bukkit.Infernaton.store.CoordStorage;
+import me.bukkit.Infernaton.store.Mobs;
+import me.bukkit.Infernaton.store.StringConfig;
 import me.bukkit.Infernaton.builder.*;
+import me.bukkit.Infernaton.builder.clock.CountDown;
+import me.bukkit.Infernaton.builder.clock.GameRunnable;
+import me.bukkit.Infernaton.commands.DebugCommand;
+import me.bukkit.Infernaton.commands.PartyCommand;
+import me.bukkit.Infernaton.commands.SpawnMobs;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scoreboard.Scoreboard;
+
+import static me.bukkit.Infernaton.store.CoordStorage.worldName;
 
 import java.util.List;
 
-import static me.bukkit.Infernaton.handler.ConstantHandler.worldName;
-
 public class FightToSurvive extends JavaPlugin {
 
-    //#region HANDLER
-    private ConstantHandler constH;
-    private final HandlePlayerState HP = new HandlePlayerState(this);
-    private final HandleItem HI = new HandleItem(this);
-    private FinalPhaseHandler finalPhase;
-    private final MobsHandler mobsHandler = new MobsHandler(this);
-    private final DoorHandler doorHandler = new DoorHandler(this);
-    private final HandleMerchantRecipe handleMR = new HandleMerchantRecipe(this);
-    private final BlockHandler BH = new BlockHandler();
-    private final StringHandler stringH = new StringHandler(this);
+    private static FightToSurvive self;
 
-    public ConstantHandler constH(){
-        return constH;
+    public static FightToSurvive Instance() {
+        return self;
     }
+
+    public static FileConfiguration GetConfig() {
+        return Instance().getConfig();
+    }
+
+    // #region Game Timer
+    private GameRunnable gameTimer;
+
+    public static GameRunnable getTimer() {
+        return Instance().gameTimer;
+    }
+    // #endregion
+
+    // #region Game State
+    private GState state;
+
+    private void setGameState(GState newState) {
+        this.state = newState;
+    }
+
+    public static boolean isGameState(GState state) {
+        return Instance().state == state;
+    }
+    // #endregion
+
+    // #region HANDLER
+    private final HandlePlayerState HP = new HandlePlayerState();
+    private final BlockHandler BH = new BlockHandler();
+
     public HandlePlayerState HP() {
         return HP;
     }
-    public HandleItem HI() {
-        return HI;
-    }
-    public FinalPhaseHandler FP() {
-        return finalPhase;
-    }
-    public MobsHandler MH() {
-        return mobsHandler;
-    }
-    public DoorHandler DH() {
-        return doorHandler;
-    }
-    public HandleMerchantRecipe MR() {
-        return handleMR;
-    }
-    public BlockHandler BH(){
+
+    public BlockHandler BH() {
         return BH;
     }
-    public StringHandler stringH(){
-        return stringH;
-    }
-    //#endregion
-
-    //#region Game Timer
-    private GameRunnable gameTimer;
-
-    public GameRunnable getTimer(){
-        return gameTimer;
-    }
-    //#endregion
+    // #endregion
 
     private ScoreboardManager scoreboardManager;
 
     public ScoreboardManager getScoreboardManager() {
         return scoreboardManager;
     }
-    public void addingTeam(Team team, Player player){
-        team.add(player);
-    }
 
-    public void enableCommand(String[] commandsName, CommandExecutor executor){
-        for(String command: commandsName){
+    public void enableCommand(String[] commandsName, CommandExecutor executor) {
+        for (String command : commandsName) {
             getCommand(command).setExecutor(executor);
         }
     }
-    private void registerEvent(Listener[] listeners){
+
+    private void registerEvent(Listener[] listeners) {
         PluginManager pm = getServer().getPluginManager();
-        for (Listener listener: listeners){
+        for (Listener listener : listeners) {
             pm.registerEvents(listener, this);
         }
     }
 
-    public void onStarting(Player sender){
-        if (sender.isOp()){
-            if (constH.isState(GState.WAITING)) {
-                List<Player> redPlayers = constH.getRedTeam().getPlayers();
-                List<Player> bluePlayers = constH.getBlueTeam().getPlayers();
+    public void onStarting(Player sender) {
+        // Need OP
+        if (!sender.isOp()) {
+            ChatHandler.sendError(sender, StringConfig.needOp());
+            return;
+        }
+        // Party already launched
+        if (!isGameState(GState.WAITING)) {
+            ChatHandler.sendError(sender, StringConfig.alreadyLaunched());
+            return;
+        }
 
-                //Compare if there the same numbers of players in each team
-                if (redPlayers.size() == bluePlayers.size() && redPlayers.size() != 0) {
-                    //Clear all players that attend to play
-                    redPlayers.addAll(bluePlayers); //All players in one variable
-                    constH.setState(GState.STARTING);
+        List<Player> redPlayers = Constants.getRedTeam().getPlayers();
+        List<Player> bluePlayers = Constants.getBlueTeam().getPlayers();
 
-                    ChatHandler.sendInfoMessage(sender, stringH.launched());
-                    CountDown.newCountDown(this, 10L);
-                    doorHandler.setAllDoors();
-                }
-                else {
-                    ChatHandler.sendError(sender, stringH.needPlayers());
-                } //Not enough player
-            }
-            else {
-                ChatHandler.sendError(sender, stringH.alreadyLaunched());
-            } //Party already launched
-        }else {
-            ChatHandler.sendError(sender, stringH.needOp());
-        } //Need OP
+        // Compare if there the same numbers of players in each team
+        // Not enough player
+        if (redPlayers.size() != bluePlayers.size() || redPlayers.size() == 0) {
+            ChatHandler.sendError(sender, StringConfig.needPlayers());
+            return;
+        }
+
+        // Clear all players that attend to play
+        redPlayers.addAll(bluePlayers); // All players in one variable
+        setGameState(GState.STARTING);
+
+        ChatHandler.sendInfoMessage(sender, StringConfig.launched());
+        CountDown.newCountDown(this, 10L);
+        DoorHandler.setAllDoors();
     }
 
-    public void start(){
-        ChatHandler.sendMessageListPlayer(constH().getAllTeamsPlayer(), stringH.start());
+    public void start() {
+        ChatHandler.sendMessageListPlayer(Constants.getAllTeamsPlayer(), StringConfig.start());
         gameTimer = GameRunnable.newCountDown(this);
 
         ServerListener.resetAFKList();
 
-        List<Player> allPlayers = constH.getAllTeamsPlayer();
-        for (Player player: allPlayers) {
+        List<Player> allPlayers = Constants.getAllTeamsPlayer();
+        for (Player player : allPlayers) {
             HP.clear(player);
-            player.teleport(constH.getBaseLocation(Team.getTeam(player)));
+            player.teleport(CoordStorage.getBaseLocation(Team.getTeam(player)));
             HP.giveStarterPack(player);
             for (PotionEffect effect : player.getActivePotionEffects())
                 player.removePotionEffect(effect.getType());
         }
-        constH.setState(GState.PLAYING);
+        setGameState(GState.PLAYING);
 
-        //Spawning the villager after the player begin the party. Its to make sure all entity are set.
-        //We have certain problem with entity that don't appear because of not loaded chunk
+        // Spawning the villager after the player begin the party. Its to make sure all
+        // entity are set.
+        // We have certain problem with entity that don't appear because of not loaded
+        // chunk
         new BukkitRunnable() {
             @Override
             public void run() {
-                mobsHandler.setAllPnj();
+                Mobs.setAllPnj();
             }
         }.runTaskLater(this, 8);
     }
 
     public void cancelStart() {
-        constH.setState(GState.WAITING);
+        setGameState(GState.WAITING);
         CountDown.stopAllCountdown(this);
-        ChatHandler.sendMessageListPlayer(constH.getAllTeamsPlayer(), stringH.cancelStart());
+        ChatHandler.sendMessageListPlayer(Constants.getAllTeamsPlayer(), StringConfig.cancelStart());
     }
 
-    public void cancel(){
+    public void cancel() {
         Bukkit.getWorld(worldName).setTime(1000);
-        List<Player> players = constH.getAllPlayers();
-        ChatHandler.sendMessageListPlayer(players, stringH.cancel());
+        List<Player> players = Constants.getAllPlayers();
+        ChatHandler.sendMessageListPlayer(players, StringConfig.cancel());
 
-        for (Player player: players) {
+        for (Player player : players) {
             HP.setPlayer(player);
         }
-        constH.setState(GState.WAITING);
-        doorHandler.setAllDoors();
+        setGameState(GState.WAITING);
+        DoorHandler.setAllDoors();
         BH.resetContainers();
-        MH().resetMob();
+        WaveHandler.Instance().resetMob();
         ServerListener.resetAFKList();
     }
 
-    public void finish(){
-        ChatHandler.toAllPlayer(stringH.end());
-        constH.setState(GState.FINISH);
+    public void finish() {
+        ChatHandler.toAllPlayer(StringConfig.end());
+        setGameState(GState.FINISH);
         new BukkitRunnable() {
             @Override
             public void run() {
-                ChatHandler.toAllPlayer(stringH.teleport());
+                ChatHandler.toAllPlayer(StringConfig.teleport());
                 FightToSurvive.this.cancel();
             }
-        }.runTaskLater(this, 5*20);
+        }.runTaskLater(this, 5 * 20);
     }
 
     @Override
-    public void onEnable(){
+    public void onEnable() {
         saveDefaultConfig();
-        this.constH = new ConstantHandler(this);
-        this.finalPhase = new FinalPhaseHandler(this);
+        self = this;
         this.scoreboardManager = new ScoreboardManager(this);
 
-        constH.setState(GState.WAITING);
+        setGameState(GState.WAITING);
 
-        //#region set all listeners
+        // #region set all listeners
         Listener[] listeners = {
                 new PlayerListeners(this),
                 new DoorListeners(this),
@@ -195,28 +203,31 @@ public class FightToSurvive extends JavaPlugin {
                 new ServerListener(this)
         };
         registerEvent(listeners);
-        //#endregion
+        // #endregion
 
-        //#region command declaration
-        String[] debugCommand = {"mob_villager", "setPlayer", "getDoors", "deleteDoors", "getKey", "setVillagers", "killPnj"};
-        enableCommand(debugCommand, new DebugCommand(this));
+        // #region command declaration
+        String[] partyCommand = { "start", "cancelStart", "reset", "forceFinal",
+                "endgame" };
+        enableCommand(partyCommand, new PartyCommand());
 
-        String[] partyCommand = {"start", "cancelStart", "reset", "forceFinal", "endgame"};
-        enableCommand(partyCommand, new PartyCommand(this));
+        String[] debugCommand = { "setPlayer", "getDoors", "deleteDoors", "getKey",
+                "printDebug" };
+        enableCommand(debugCommand, new DebugCommand());
 
-        String[] debugMob = {"mob_zombie"};
-        enableCommand(debugMob, new SpawnMobs(this));
-        //#endregion
+        String[] debugMob = { "mob_zombie", "set_villagers", "kill_pnj" };
+        enableCommand(debugMob, new SpawnMobs());
+        // #endregion
 
-        constH.setScoreboard(getServer().getScoreboardManager().getMainScoreboard());
+        Scoreboard sb = getServer().getScoreboardManager().getMainScoreboard();
 
-        new Team(stringH.redTeamName(), constH.getScoreboard()).setTeamColor(ChatColor.RED);
-        new Team(stringH.blueTeamName(), constH.getScoreboard()).setTeamColor(ChatColor.BLUE);
-        new Team(stringH.spectatorName(), constH.getScoreboard()).setTeamColor(ChatColor.GRAY);
+        new Team(StringConfig.redTeamName(), sb).setTeamColor(ChatColor.RED);
+        new Team(StringConfig.blueTeamName(), sb).setTeamColor(ChatColor.BLUE);
+        new Team(StringConfig.spectatorName(), sb).setTeamColor(ChatColor.GRAY);
 
         new CustomRecipe(this);
     }
 
     @Override
-    public void onDisable(){ }
+    public void onDisable() {
+    }
 }

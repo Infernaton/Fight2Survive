@@ -2,16 +2,16 @@ package me.bukkit.Infernaton.builder;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.handler.scoreboard.Scoreboard;
+import me.bukkit.Infernaton.store.Constants;
+
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.UUID;
 
 /**
  * Setting a special scoreboard for a Player
  *
  * @author TheDarven
- * And modifyed by us
+ *         And modifyed by us
  */
 public class ScoreboardPlayer {
 
@@ -31,7 +31,7 @@ public class ScoreboardPlayer {
                 update();
             }
         };
-        updating.runTaskTimerAsynchronously(main, 1,1);
+        updating.runTaskTimerAsynchronously(main, 1, 1);
     }
 
     public void removeScoreboard(Player player) {
@@ -44,7 +44,7 @@ public class ScoreboardPlayer {
      * Setting all the lines in the sideBar scoreboard
      */
     public void setLines() {
-        String[] scLines = main.constH().getScoreboardLines();
+        String[] scLines = Constants.getScoreboardLines();
 
         for (int i = 0; i < scLines.length; i++) {
             scoreboard.setLine(i, scLines[i]);
@@ -55,8 +55,7 @@ public class ScoreboardPlayer {
     /**
      * To actualise the scoreboard, just a reset of all the lines is enough
      */
-    private void update(){
+    private void update() {
         setLines();
     }
 }
-

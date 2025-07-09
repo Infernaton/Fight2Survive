@@ -3,8 +3,15 @@ package me.bukkit.Infernaton.commands;
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
+import me.bukkit.Infernaton.handler.DoorHandler;
+import me.bukkit.Infernaton.store.CustomItem;
+import me.bukkit.Infernaton.store.Mobs;
+import me.bukkit.Infernaton.store.StringConfig;
+
+import java.util.List;
+
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,42 +21,26 @@ public class DebugCommand implements CommandExecutor {
 
     private final FightToSurvive main;
 
-    public DebugCommand(FightToSurvive main) {
-        this.main = main;
+    public DebugCommand() {
+        this.main = FightToSurvive.Instance();
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-
+        if (!sender.isOp())
+            return false;
         /*
-            On debug, make target player like he is waiting to play the game
+         * On debug, make target player like he is waiting to play the game
          */
         if (cmd.getName().equalsIgnoreCase("setPlayer")) {
-            if (args.length == 0) {
-                Player player = (Player) sender;
-                main.HP().setPlayer(player);
-                ChatHandler.sendMessage(sender, main.stringH().setPlayer("You", "are"));
-            }
-            else if (args.length == 1) {
-                Player targetPlayer = Bukkit.getPlayerExact(args[0]);
-                if (targetPlayer == null) {
-                    ChatHandler.sendError(sender, main.stringH().notPlayer());
-                } else {
-                    main.HP().setPlayer(targetPlayer);
-                    ChatHandler.sendMessage(sender, main.stringH().setPlayer(args[0], "is"));
-                }
-            }
-            else {
-                ChatHandler.sendError(sender, main.stringH().tooManyArgument());
-                ChatHandler.sendCorrectUsage(sender, main.stringH().correctUsage(cmd.getName(), "<username>"));
-            }
+            setPlayer(sender, cmd, label, args);
             return true;
         }
 
         else if (cmd.getName().equalsIgnoreCase("getDoors")) {
-            if (main.constH().isState(GState.WAITING)) {
-                ChatHandler.sendInfoMessage(sender, main.stringH().getDoors());
-                main.DH().setAllDoors();
+            if (FightToSurvive.isGameState(GState.WAITING)) {
+                ChatHandler.sendInfoMessage(sender, StringConfig.getDoors());
+                DoorHandler.setAllDoors();
             } else {
                 ChatHandler.sendCantWhilePlaying(sender);
             }
@@ -57,37 +48,45 @@ public class DebugCommand implements CommandExecutor {
         }
 
         else if (cmd.getName().equalsIgnoreCase("deleteDoors")) {
-            if (main.constH().isState(GState.WAITING)) {
-                ChatHandler.sendInfoMessage(sender, main.stringH().delDoors());
-                main.DH().deleteAllDoors();
+            if (FightToSurvive.isGameState(GState.WAITING)) {
+                ChatHandler.sendInfoMessage(sender, StringConfig.delDoors());
+                DoorHandler.deleteAllDoors();
             } else {
                 ChatHandler.sendCantWhilePlaying(sender);
             }
             return true;
         }
 
-        else if (cmd.getName().equalsIgnoreCase("getKey")){
-            ChatHandler.sendInfoMessage(sender, main.stringH().giveKey());
-            main.HI().giveItemInInventory((Player) sender, main.HI().paperKey(), 1);
+        else if (cmd.getName().equalsIgnoreCase("getKey")) {
+            ChatHandler.sendInfoMessage(sender, StringConfig.giveKey());
+            CustomItem.giveItemInInventory((Player) sender, CustomItem.paperKey(), 1);
             return true;
         }
 
-        else if (cmd.getName().equalsIgnoreCase("setVillagers")){
-            if (main.constH().isState(GState.WAITING)) {
-                ChatHandler.sendInfoMessage(sender, main.stringH().setVill());
-                main.MH().setAllPnj();
-            } else {
-                ChatHandler.sendCantWhilePlaying(sender);
-            }
-            return true;
-        }
-
-        else if (cmd.getName().equalsIgnoreCase("killPnj")){
-            ChatHandler.sendInfoMessage(sender, main.stringH().killVill());
-            main.MH().killPnj();
+        else if (cmd.getName().equalsIgnoreCase("printDebug")) {
+            ChatHandler.sendInfoMessage(sender, "Nothing to debug ...");
             return true;
         }
 
         return false;
+    }
+
+    private void setPlayer(CommandSender sender, Command cmd, String label, String[] args) {
+        if (args.length == 0) {
+            Player player = (Player) sender;
+            main.HP().setPlayer(player);
+            ChatHandler.sendMessage(sender, StringConfig.setPlayer("You", "are"));
+        } else if (args.length == 1) {
+            Player targetPlayer = Bukkit.getPlayerExact(args[0]);
+            if (targetPlayer == null) {
+                ChatHandler.sendError(sender, StringConfig.notPlayer());
+            } else {
+                main.HP().setPlayer(targetPlayer);
+                ChatHandler.sendMessage(sender, StringConfig.setPlayer(args[0], "is"));
+            }
+        } else {
+            ChatHandler.sendError(sender, StringConfig.tooManyArgument());
+            ChatHandler.sendCorrectUsage(sender, StringConfig.correctUsage(cmd.getName(), "<username>"));
+        }
     }
 }

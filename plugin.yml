@@ -1,6 +1,6 @@
 name: FightToSurvive
 main: me.bukkit.Infernaton.FightToSurvive
-version: 1.5
+version: 1.1.4
 commands:
   start:
     description: start the game
@@ -14,31 +14,31 @@ commands:
   forceFinal:
     description: In game, force the final Phase to begin
     usage: /forceFinal
+  endgame:
+    description: endGame command
+    usage: /<command>
   setPlayer:
     description: Debug when a player is in the wrong gamemode
     usage: /setPlayer <player>
     permission: test.use
-  mob_villager:
-    description: spawn villager with wood tools trade
-    usage: /<command>
-  endgame:
-    description: endGame command
-    usage: /<command>
   getDoors:
     description: set all doors at location
     usage: /getDoors
   deleteDoors:
     description: delete all doors at location
     usage: /deleteDoors
-  mob_zombie:
-    description: Spawn a zombie near to the player
-    usage: /<command>
   getKey:
     description: get a key to open a door
     usage: /<command>
-  setVillagers:
+  printDebug:
+    description: to debug some behaviour
+    usage: /<command>
+  mob_zombie:
+    description: Spawn a zombie near to the player
+    usage: /<command>
+  set_villagers:
     description: spawn all villager
     usage: /<command>
-  killPnj:
+  kill_pnj:
     description: kill pnj
     usage: /<command>
