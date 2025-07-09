@@ -53,7 +53,8 @@ Minecraft Plugin for 1.8.9
 ```bat
 java -Xmx1024M -Xms1024M -jar spigot-1.8.8.jar nogui
 PAUSE
-`` 
+```
+
 Note: `Xmx1024M` représente la RAM maximum que va utiliser le serveur, cette valeur peux être modifier, mais n'est pas nécessaire, les ressources demandé par la map + plugin ne sont pas très importante.
 
 4. Exécuter `run.bat`
