@@ -3,6 +3,7 @@ package me.bukkit.Infernaton.commands;
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
+import me.bukkit.Infernaton.handler.FinalPhaseHandler;
 import me.bukkit.Infernaton.handler.store.StringConfig;
 
 import org.bukkit.command.Command;
@@ -14,8 +15,8 @@ public class PartyCommand implements CommandExecutor {
 
     private final FightToSurvive main;
 
-    public PartyCommand(FightToSurvive main) {
-        this.main = main;
+    public PartyCommand() {
+        this.main = FightToSurvive.Instance();
     }
 
     @Override
@@ -49,7 +50,7 @@ public class PartyCommand implements CommandExecutor {
             return true;
         } else if (cmd.getName().equalsIgnoreCase("forceFinal")) {
             if (FightToSurvive.isGameState(GState.PLAYING) || FightToSurvive.isGameState(GState.WAITING))
-                main.FP().activate();
+                FinalPhaseHandler.Instance().activate();
             else
                 ChatHandler.sendCantWhilePlaying(sender);
             return true;

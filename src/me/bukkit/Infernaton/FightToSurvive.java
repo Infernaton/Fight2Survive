@@ -62,15 +62,10 @@ public class FightToSurvive extends JavaPlugin {
 
     // #region HANDLER
     private final HandlePlayerState HP = new HandlePlayerState(this);
-    private FinalPhaseHandler finalPhase;
     private final BlockHandler BH = new BlockHandler();
 
     public HandlePlayerState HP() {
         return HP;
-    }
-
-    public FinalPhaseHandler FP() {
-        return finalPhase;
     }
 
     public BlockHandler BH() {
@@ -192,7 +187,6 @@ public class FightToSurvive extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        this.finalPhase = new FinalPhaseHandler(this);
         this.scoreboardManager = new ScoreboardManager(this);
 
         setGameState(GState.WAITING);
@@ -211,13 +205,13 @@ public class FightToSurvive extends JavaPlugin {
         // #region command declaration
         String[] debugCommand = { "mob_villager", "setPlayer", "getDoors", "deleteDoors", "getKey", "setVillagers",
                 "killPnj" };
-        enableCommand(debugCommand, new DebugCommand(this));
+        enableCommand(debugCommand, new DebugCommand());
 
         String[] partyCommand = { "start", "cancelStart", "reset", "forceFinal", "endgame" };
-        enableCommand(partyCommand, new PartyCommand(this));
+        enableCommand(partyCommand, new PartyCommand());
 
         String[] debugMob = { "mob_zombie" };
-        enableCommand(debugMob, new SpawnMobs(this));
+        enableCommand(debugMob, new SpawnMobs());
         // #endregion
 
         Scoreboard sb = getServer().getScoreboardManager().getMainScoreboard();

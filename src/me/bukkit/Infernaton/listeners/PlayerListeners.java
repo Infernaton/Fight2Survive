@@ -3,6 +3,7 @@ package me.bukkit.Infernaton.listeners;
 import me.bukkit.Infernaton.*;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
+import me.bukkit.Infernaton.handler.FinalPhaseHandler;
 import me.bukkit.Infernaton.handler.store.Constants;
 import me.bukkit.Infernaton.handler.store.CoordStorage;
 import me.bukkit.Infernaton.handler.store.InterfaceMenu;
@@ -32,7 +33,7 @@ public class PlayerListeners implements Listener {
         Player player = event.getEntity();
 
         // Check if the game was entering the Final Phase (FP)
-        if (!main.FP().isActive() || !FightToSurvive.isGameState(GState.PLAYING))
+        if (!FinalPhaseHandler.Instance().isActive() || !FightToSurvive.isGameState(GState.PLAYING))
             return;
 
         Team team = Team.getTeam(player);

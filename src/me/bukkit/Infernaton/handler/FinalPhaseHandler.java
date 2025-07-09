@@ -1,6 +1,5 @@
 package me.bukkit.Infernaton.handler;
 
-import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.handler.store.StringConfig;
 
 import org.bukkit.Location;
@@ -10,16 +9,21 @@ import java.util.List;
 /**
  * Handle the Final Phase, were player can't respawn and mean the end of the
  * game.
- * 
- * @todo set Instanciate
  */
 public class FinalPhaseHandler {
 
-    private final FightToSurvive main;
     private boolean active;
 
-    public FinalPhaseHandler(FightToSurvive main) {
-        this.main = main;
+    private static FinalPhaseHandler self;
+
+    public static FinalPhaseHandler Instance() {
+        if (self == null) {
+            self = new FinalPhaseHandler();
+        }
+        return self;
+    }
+
+    public FinalPhaseHandler() {
         this.active = false;
     }
 

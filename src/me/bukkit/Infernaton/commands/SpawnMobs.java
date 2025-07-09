@@ -1,6 +1,5 @@
 package me.bukkit.Infernaton.commands;
 
-import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.handler.WaveHandler;
 
 import org.bukkit.command.Command;
@@ -9,12 +8,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class SpawnMobs implements CommandExecutor {
-
-    final private FightToSurvive main;
-
-    public SpawnMobs(FightToSurvive fightToSurvive) {
-        this.main = fightToSurvive;
-    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

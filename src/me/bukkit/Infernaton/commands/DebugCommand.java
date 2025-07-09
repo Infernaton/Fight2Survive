@@ -18,8 +18,8 @@ public class DebugCommand implements CommandExecutor {
 
     private final FightToSurvive main;
 
-    public DebugCommand(FightToSurvive main) {
-        this.main = main;
+    public DebugCommand() {
+        this.main = FightToSurvive.Instance();
     }
 
     @Override
