@@ -114,7 +114,7 @@ public class GameRunnable implements Runnable {
         }
 
         // Stopping the timer if the game stop
-        if (!main.constH().isState(GState.PLAYING)) {
+        if (!FightToSurvive.isGameState(GState.PLAYING)) {
             countdownStarter = 0;
             System.out.print("Timer Over!");
             stopCountdown(id);

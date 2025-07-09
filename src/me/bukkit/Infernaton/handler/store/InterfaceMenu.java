@@ -1,8 +1,4 @@
-package me.bukkit.Infernaton.handler;
-
-import me.bukkit.Infernaton.FightToSurvive;
-import me.bukkit.Infernaton.handler.store.CustomItem;
-import me.bukkit.Infernaton.handler.store.StringConfig;
+package me.bukkit.Infernaton.handler.store;
 
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
@@ -11,28 +7,22 @@ import org.bukkit.inventory.ItemStack;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InterfaceHandler {
+public class InterfaceMenu {
 
-    private FightToSurvive main;
-
-    public InterfaceHandler(FightToSurvive main) {
-        this.main = main;
-    }
-
-    private Map<Integer, ItemStack> createException(int pos, ItemStack item) {
+    private static Map<Integer, ItemStack> createException(int pos, ItemStack item) {
         Map<Integer, ItemStack> except = new HashMap<>();
         except.put(pos, item);
         return except;
     }
 
-    private Inventory separatorLine(Inventory inv, int firstCell, Map<Integer, ItemStack> except) {
+    private static Inventory separatorLine(Inventory inv, int firstCell, Map<Integer, ItemStack> except) {
         for (int i = firstCell; i < firstCell + 9; i++) {
             inv.setItem(i, except.containsKey(i) ? except.get(i) : CustomItem.separator());
         }
         return inv;
     }
 
-    public Inventory selectTeam() {
+    public static Inventory selectTeam() {
         Inventory inv = Bukkit.createInventory(null, 45, StringConfig.teamInventory());
         inv.setItem(20, CustomItem.blueWool());
         inv.setItem(24, CustomItem.redWool());
@@ -47,13 +37,13 @@ public class InterfaceHandler {
         return inv;
     }
 
-    public Inventory cancelStart() {
+    public static Inventory cancelStart() {
         Inventory inv = Bukkit.createInventory(null, 9, StringConfig.cancelInventory());
         separatorLine(inv, 0, createException(4, CustomItem.gameCancelWool()));
         return inv;
     }
 
-    public Inventory optionsInventory() {
+    public static Inventory optionsInventory() {
         Inventory inv = Bukkit.createInventory(null, 45, StringConfig.optionInventory());
 
         separatorLine(inv, 36, createException(44, CustomItem.returnWool()));

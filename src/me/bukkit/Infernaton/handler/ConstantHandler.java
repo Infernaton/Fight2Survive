@@ -1,7 +1,6 @@
 package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
-import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.GameRunnable;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.store.CustomItem;
@@ -15,7 +14,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scoreboard.Scoreboard;
 
 import static me.bukkit.Infernaton.handler.store.CoordStorage.worldName;
 
@@ -23,21 +21,11 @@ import java.util.*;
 
 /**
  * Class which regroup each variable we need in our project
- * 
- * @todo make static function
  */
 public class ConstantHandler {
 
-    private GState state;
-    private final FightToSurvive main;
-    private Scoreboard scoreboard;
-
     public final static int appleSpawningCooldown = 15;
     public final static int mobWaveCooldown = 61;
-
-    public ConstantHandler(FightToSurvive main) {
-        this.main = main;
-    }
 
     public static String[] pnjName() {
         return new String[] {
@@ -153,30 +141,6 @@ public class ConstantHandler {
         }
         return locations;
     }
-
-    // #region Game State
-    public void setState(GState state) {
-        this.state = state;
-    }
-
-    public boolean isState(GState state) {
-        return this.state == state;
-    }
-
-    public GState getState() {
-        return this.state;
-    }
-    // #endregion
-
-    // #region Scoreboard
-    public Scoreboard getScoreboard() {
-        return this.scoreboard;
-    }
-
-    public void setScoreboard(Scoreboard scoreboard) {
-        this.scoreboard = scoreboard;
-    }
-    // #endregion
 
     // #region Team related
     public static Team getRedTeam() {

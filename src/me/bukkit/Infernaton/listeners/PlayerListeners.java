@@ -4,8 +4,8 @@ import me.bukkit.Infernaton.*;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.ConstantHandler;
-import me.bukkit.Infernaton.handler.InterfaceHandler;
 import me.bukkit.Infernaton.handler.store.CoordStorage;
+import me.bukkit.Infernaton.handler.store.InterfaceMenu;
 import me.bukkit.Infernaton.handler.store.StringConfig;
 
 import org.bukkit.Material;
@@ -22,11 +22,9 @@ import org.bukkit.inventory.ItemStack;
 public class PlayerListeners implements Listener {
 
     private final FightToSurvive main;
-    private final InterfaceHandler IH;
 
     public PlayerListeners(FightToSurvive main) {
         this.main = main;
-        this.IH = new InterfaceHandler(main);
     }
 
     @EventHandler
@@ -34,7 +32,7 @@ public class PlayerListeners implements Listener {
         Player player = event.getEntity();
 
         // Check if the game was entering the Final Phase (FP)
-        if (!main.FP().isActive() || !main.constH().isState(GState.PLAYING))
+        if (!main.FP().isActive() || !FightToSurvive.isGameState(GState.PLAYING))
             return;
 
         Team team = Team.getTeam(player);
@@ -50,7 +48,7 @@ public class PlayerListeners implements Listener {
         Team team = Team.getTeam(player);
 
         // Check if the player is in a team to respawn him to the right place
-        if (main.constH().isState(GState.PLAYING) && team != null) {
+        if (FightToSurvive.isGameState(GState.PLAYING) && team != null) {
             event.setRespawnLocation(CoordStorage.getBaseLocation(team));
             main.HP().giveStarterPack(player);
         } else {
@@ -69,10 +67,10 @@ public class PlayerListeners implements Listener {
         // If the player clicked on a specified Compass, which is given when he spawn
         if (item.getType() == Material.COMPASS && item.hasItemMeta() && item.getItemMeta().hasDisplayName()
                 && item.getItemMeta().getDisplayName().equalsIgnoreCase(StringConfig.compassName())) {
-            if (main.constH().isState(GState.STARTING)) {
-                player.openInventory(IH.cancelStart());
+            if (FightToSurvive.isGameState(GState.STARTING)) {
+                player.openInventory(InterfaceMenu.cancelStart());
             } else {
-                player.openInventory(IH.selectTeam());
+                player.openInventory(InterfaceMenu.selectTeam());
             }
         }
     }
@@ -107,13 +105,13 @@ public class PlayerListeners implements Listener {
                 main.onStarting(player);
                 player.closeInventory();
             } else if (itemName.equals(StringConfig.optionItem())) {
-                player.openInventory(IH.optionsInventory());
+                player.openInventory(InterfaceMenu.optionsInventory());
             }
         }
         if (inv.getName().equalsIgnoreCase(StringConfig.optionInventory())) {
             event.setCancelled(true);
             if (itemName.equals(StringConfig.returnItem())) {
-                player.openInventory(IH.selectTeam());
+                player.openInventory(InterfaceMenu.selectTeam());
             }
         }
         if (inv.getName().equalsIgnoreCase(StringConfig.cancelInventory())) {

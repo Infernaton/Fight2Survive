@@ -17,6 +17,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scoreboard.Scoreboard;
 
 import static me.bukkit.Infernaton.handler.store.CoordStorage.worldName;
 
@@ -45,16 +46,23 @@ public class FightToSurvive extends JavaPlugin {
     }
     // #endregion
 
+    // #region Game State
+    private GState state;
+
+    private void setGameState(GState newState) {
+        this.state = newState;
+    }
+
+    public static boolean isGameState(GState state) {
+        return self.state == state;
+    }
+    // #endregion
+
     // #region HANDLER
-    private ConstantHandler constH;
     private final HandlePlayerState HP = new HandlePlayerState(this);
     private FinalPhaseHandler finalPhase;
     private final MobsHandler mobsHandler = new MobsHandler(this);
     private final BlockHandler BH = new BlockHandler();
-
-    public ConstantHandler constH() {
-        return constH;
-    }
 
     public HandlePlayerState HP() {
         return HP;
@@ -103,7 +111,7 @@ public class FightToSurvive extends JavaPlugin {
             return;
         }
         // Party already launched
-        if (!constH.isState(GState.WAITING)) {
+        if (!isGameState(GState.WAITING)) {
             ChatHandler.sendError(sender, StringConfig.alreadyLaunched());
             return;
         }
@@ -120,7 +128,7 @@ public class FightToSurvive extends JavaPlugin {
 
         // Clear all players that attend to play
         redPlayers.addAll(bluePlayers); // All players in one variable
-        constH.setState(GState.STARTING);
+        setGameState(GState.STARTING);
 
         ChatHandler.sendInfoMessage(sender, StringConfig.launched());
         CountDown.newCountDown(this, 10L);
@@ -141,7 +149,7 @@ public class FightToSurvive extends JavaPlugin {
             for (PotionEffect effect : player.getActivePotionEffects())
                 player.removePotionEffect(effect.getType());
         }
-        constH.setState(GState.PLAYING);
+        setGameState(GState.PLAYING);
 
         // Spawning the villager after the player begin the party. Its to make sure all
         // entity are set.
@@ -156,7 +164,7 @@ public class FightToSurvive extends JavaPlugin {
     }
 
     public void cancelStart() {
-        constH.setState(GState.WAITING);
+        setGameState(GState.WAITING);
         CountDown.stopAllCountdown(this);
         ChatHandler.sendMessageListPlayer(ConstantHandler.getAllTeamsPlayer(), StringConfig.cancelStart());
     }
@@ -169,7 +177,7 @@ public class FightToSurvive extends JavaPlugin {
         for (Player player : players) {
             HP.setPlayer(player);
         }
-        constH.setState(GState.WAITING);
+        setGameState(GState.WAITING);
         DoorHandler.setAllDoors();
         BH.resetContainers();
         MH().resetMob();
@@ -178,7 +186,7 @@ public class FightToSurvive extends JavaPlugin {
 
     public void finish() {
         ChatHandler.toAllPlayer(StringConfig.end());
-        constH.setState(GState.FINISH);
+        setGameState(GState.FINISH);
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -191,11 +199,10 @@ public class FightToSurvive extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        this.constH = new ConstantHandler(this);
         this.finalPhase = new FinalPhaseHandler(this);
         this.scoreboardManager = new ScoreboardManager(this);
 
-        constH.setState(GState.WAITING);
+        setGameState(GState.WAITING);
 
         // #region set all listeners
         Listener[] listeners = {
@@ -220,11 +227,11 @@ public class FightToSurvive extends JavaPlugin {
         enableCommand(debugMob, new SpawnMobs(this));
         // #endregion
 
-        constH.setScoreboard(getServer().getScoreboardManager().getMainScoreboard());
+        Scoreboard sb = getServer().getScoreboardManager().getMainScoreboard();
 
-        new Team(StringConfig.redTeamName(), constH.getScoreboard()).setTeamColor(ChatColor.RED);
-        new Team(StringConfig.blueTeamName(), constH.getScoreboard()).setTeamColor(ChatColor.BLUE);
-        new Team(StringConfig.spectatorName(), constH.getScoreboard()).setTeamColor(ChatColor.GRAY);
+        new Team(StringConfig.redTeamName(), sb).setTeamColor(ChatColor.RED);
+        new Team(StringConfig.blueTeamName(), sb).setTeamColor(ChatColor.BLUE);
+        new Team(StringConfig.spectatorName(), sb).setTeamColor(ChatColor.GRAY);
 
         new CustomRecipe(this);
     }

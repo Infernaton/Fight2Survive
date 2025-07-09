@@ -34,7 +34,7 @@ public class DebugCommand implements CommandExecutor {
         }
 
         else if (cmd.getName().equalsIgnoreCase("getDoors")) {
-            if (main.constH().isState(GState.WAITING)) {
+            if (FightToSurvive.isGameState(GState.WAITING)) {
                 ChatHandler.sendInfoMessage(sender, StringConfig.getDoors());
                 DoorHandler.setAllDoors();
             } else {
@@ -44,7 +44,7 @@ public class DebugCommand implements CommandExecutor {
         }
 
         else if (cmd.getName().equalsIgnoreCase("deleteDoors")) {
-            if (main.constH().isState(GState.WAITING)) {
+            if (FightToSurvive.isGameState(GState.WAITING)) {
                 ChatHandler.sendInfoMessage(sender, StringConfig.delDoors());
                 DoorHandler.deleteAllDoors();
             } else {
@@ -60,7 +60,7 @@ public class DebugCommand implements CommandExecutor {
         }
 
         else if (cmd.getName().equalsIgnoreCase("setVillagers")) {
-            if (main.constH().isState(GState.WAITING)) {
+            if (FightToSurvive.isGameState(GState.WAITING)) {
                 ChatHandler.sendInfoMessage(sender, StringConfig.setVill());
                 main.MH().setAllPnj();
             } else {

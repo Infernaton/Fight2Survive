@@ -36,19 +36,19 @@ public class PartyCommand implements CommandExecutor {
          * cancel that countdown
          */
         else if (cmd.getName().equalsIgnoreCase("cancelStart")) {
-            if (main.constH().isState(GState.STARTING))
+            if (FightToSurvive.isGameState(GState.STARTING))
                 main.cancelStart();
             else
                 ChatHandler.sendError(sender, StringConfig.noCountdown());
             return true;
         } else if (cmd.getName().equalsIgnoreCase("reset")) {
-            if (main.constH().isState(GState.PLAYING))
+            if (FightToSurvive.isGameState(GState.PLAYING))
                 main.cancel();
             else
                 ChatHandler.sendError(sender, StringConfig.noGame());
             return true;
         } else if (cmd.getName().equalsIgnoreCase("forceFinal")) {
-            if (main.constH().isState(GState.PLAYING) || main.constH().isState(GState.WAITING))
+            if (FightToSurvive.isGameState(GState.PLAYING) || FightToSurvive.isGameState(GState.WAITING))
                 main.FP().activate();
             else
                 ChatHandler.sendCantWhilePlaying(sender);

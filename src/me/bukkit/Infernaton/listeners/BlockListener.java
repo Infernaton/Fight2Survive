@@ -64,7 +64,7 @@ public class BlockListener implements Listener {
                 Material.TRAPPED_CHEST,
                 Material.FURNACE);
 
-        if (player.getGameMode() == GameMode.ADVENTURE && main.constH().isState(GState.PLAYING) && b != null
+        if (player.getGameMode() == GameMode.ADVENTURE && FightToSurvive.isGameState(GState.PLAYING) && b != null
                 && containers.contains(b.getType())) {
             main.BH().addContainers(b);
         }
