@@ -2,6 +2,7 @@ package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.handler.store.CoordStorage;
+import me.bukkit.Infernaton.handler.store.CustomItem;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -49,7 +50,7 @@ public class HandlePlayerState {
         removeAllPotionEffect(player);
         givePotionEffect(player, PotionEffectType.SATURATION);
         givePotionEffect(player, PotionEffectType.DAMAGE_RESISTANCE);
-        main.HI().giveItemInInventory(player, main.HI().magicCompass(), 4);
+        CustomItem.giveItemInInventory(player, CustomItem.magicCompass(), 4);
     }
 
     public void setPlayer(Player player) {
@@ -67,6 +68,6 @@ public class HandlePlayerState {
     }
 
     public void giveStarterPack(Player player) {
-        player.getInventory().addItem(main.HI().woodAxe(), new ItemStack(Material.COOKED_BEEF, 10));
+        player.getInventory().addItem(CustomItem.woodAxe(), new ItemStack(Material.COOKED_BEEF, 10));
     }
 }

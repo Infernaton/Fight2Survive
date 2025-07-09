@@ -3,6 +3,7 @@ package me.bukkit.Infernaton.listeners;
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.ConstantHandler;
+import me.bukkit.Infernaton.handler.store.CustomItem;
 import me.bukkit.Infernaton.handler.store.StringConfig;
 
 import org.bukkit.Location;
@@ -37,7 +38,7 @@ public class DoorListeners implements Listener {
         if (it == null || it.getItemMeta() == null || block == null)
             return;
 
-        if (!main.HI().paperKey().getItemMeta().getDisplayName().equals(it.getItemMeta().getDisplayName())
+        if (!CustomItem.paperKey().getItemMeta().getDisplayName().equals(it.getItemMeta().getDisplayName())
                 || block.getType() != Material.REDSTONE_BLOCK)
             return;
 
@@ -53,7 +54,7 @@ public class DoorListeners implements Listener {
             }
         }
         ChatHandler.toAllPlayer(StringConfig.openDoors());
-        main.HI().removeItemHand(player);
+        CustomItem.removeItemHand(player);
         main.FP().asking(location, ConstantHandler.getAllCopiesDoors());
     }
 }

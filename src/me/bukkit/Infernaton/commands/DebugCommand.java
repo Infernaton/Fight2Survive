@@ -4,6 +4,7 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.DoorHandler;
+import me.bukkit.Infernaton.handler.store.CustomItem;
 import me.bukkit.Infernaton.handler.store.StringConfig;
 
 import org.bukkit.Bukkit;
@@ -54,7 +55,7 @@ public class DebugCommand implements CommandExecutor {
 
         else if (cmd.getName().equalsIgnoreCase("getKey")) {
             ChatHandler.sendInfoMessage(sender, StringConfig.giveKey());
-            main.HI().giveItemInInventory((Player) sender, main.HI().paperKey(), 1);
+            CustomItem.giveItemInInventory((Player) sender, CustomItem.paperKey(), 1);
             return true;
         }
 

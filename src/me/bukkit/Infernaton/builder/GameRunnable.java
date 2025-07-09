@@ -5,6 +5,7 @@ import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.ConstantHandler;
 import me.bukkit.Infernaton.handler.store.CoordStorage;
+import me.bukkit.Infernaton.handler.store.CustomItem;
 import me.bukkit.Infernaton.handler.store.StringConfig;
 
 import org.bukkit.Bukkit;
@@ -98,7 +99,7 @@ public class GameRunnable implements Runnable {
         // In the methods, there a test if a player is in range
         for (Location loc : appleLocations) {
             if (!coolDownLoc.containsKey(loc.toString())) {
-                boolean isSpawn = main.HI().spawningApple(loc);
+                boolean isSpawn = CustomItem.spawningApple(loc);
                 if (isSpawn)
                     coolDownLoc.put(loc.toString(), ConstantHandler.appleSpawningCooldown);
             }

@@ -4,6 +4,7 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.GameRunnable;
 import me.bukkit.Infernaton.builder.Team;
+import me.bukkit.Infernaton.handler.store.CustomItem;
 import me.bukkit.Infernaton.handler.store.StringConfig;
 import net.minecraft.server.v1_8_R3.MerchantRecipe;
 import org.bukkit.Bukkit;
@@ -128,7 +129,7 @@ public class ConstantHandler {
         trade.put(StringConfig.pnjDiam(),
                 main.MR().tradingKey(new ItemStack(Material.DIAMOND, 6), new ItemStack(Material.COAL, 12)));
         trade.put(StringConfig.pnjLapis(),
-                main.MR().tradingKey(new ItemStack(Material.LAPIS_BLOCK, 6), main.HI().goldSword()));
+                main.MR().tradingKey(new ItemStack(Material.LAPIS_BLOCK, 6), CustomItem.goldSword()));
 
         return trade;
     }

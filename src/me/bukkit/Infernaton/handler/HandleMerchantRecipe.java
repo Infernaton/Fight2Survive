@@ -1,6 +1,7 @@
 package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
+import me.bukkit.Infernaton.handler.store.CustomItem;
 import net.minecraft.server.v1_8_R3.MerchantRecipe;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
@@ -30,11 +31,11 @@ public class HandleMerchantRecipe {
     }
 
     public MerchantRecipe tradingKey(ItemStack item1, ItemStack item2) {
-        return withBukkitItem(item1, item2, main.HI().paperKey(), 0, 1);
+        return withBukkitItem(item1, item2, CustomItem.paperKey(), 0, 1);
     }
 
     public MerchantRecipe tradingKey(ItemStack item1) {
-        return withBukkitItem(item1, new ItemStack(Material.AIR), main.HI().paperKey(), 0, 1);
+        return withBukkitItem(item1, new ItemStack(Material.AIR), CustomItem.paperKey(), 0, 1);
     }
 
     public MerchantRecipe defaultTrade() {

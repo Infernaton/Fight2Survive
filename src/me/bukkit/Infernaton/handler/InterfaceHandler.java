@@ -1,6 +1,7 @@
 package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
+import me.bukkit.Infernaton.handler.store.CustomItem;
 import me.bukkit.Infernaton.handler.store.StringConfig;
 
 import org.bukkit.Bukkit;
@@ -26,20 +27,20 @@ public class InterfaceHandler {
 
     private Inventory separatorLine(Inventory inv, int firstCell, Map<Integer, ItemStack> except) {
         for (int i = firstCell; i < firstCell + 9; i++) {
-            inv.setItem(i, except.containsKey(i) ? except.get(i) : main.HI().separator());
+            inv.setItem(i, except.containsKey(i) ? except.get(i) : CustomItem.separator());
         }
         return inv;
     }
 
     public Inventory selectTeam() {
         Inventory inv = Bukkit.createInventory(null, 45, StringConfig.teamInventory());
-        inv.setItem(20, main.HI().blueWool());
-        inv.setItem(24, main.HI().redWool());
-        inv.setItem(13, main.HI().spectatorWool());
+        inv.setItem(20, CustomItem.blueWool());
+        inv.setItem(24, CustomItem.redWool());
+        inv.setItem(13, CustomItem.spectatorWool());
 
         Map<Integer, ItemStack> except = new HashMap<>();
-        except.put(44, main.HI().optionsWool());
-        except.put(40, main.HI().gameStartWool());
+        except.put(44, CustomItem.optionsWool());
+        except.put(40, CustomItem.gameStartWool());
 
         separatorLine(inv, 36, except);
 
@@ -48,14 +49,14 @@ public class InterfaceHandler {
 
     public Inventory cancelStart() {
         Inventory inv = Bukkit.createInventory(null, 9, StringConfig.cancelInventory());
-        separatorLine(inv, 0, createException(4, main.HI().gameCancelWool()));
+        separatorLine(inv, 0, createException(4, CustomItem.gameCancelWool()));
         return inv;
     }
 
     public Inventory optionsInventory() {
         Inventory inv = Bukkit.createInventory(null, 45, StringConfig.optionInventory());
 
-        separatorLine(inv, 36, createException(44, main.HI().returnWool()));
+        separatorLine(inv, 36, createException(44, CustomItem.returnWool()));
         return inv;
     }
 }

@@ -1,6 +1,8 @@
 package me.bukkit.Infernaton.builder;
 
 import me.bukkit.Infernaton.FightToSurvive;
+import me.bukkit.Infernaton.handler.store.CustomItem;
+
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
@@ -47,55 +49,55 @@ public class CustomRecipe {
     }
 
     private void woodPickaxe() {
-        pickaxeShape(main.HI().woodPickaxe(), Material.WOOD);
+        pickaxeShape(CustomItem.woodPickaxe(), Material.WOOD);
     }
 
     private void stonePickaxe() {
-        pickaxeShape(main.HI().stonePickaxe(), Material.COBBLESTONE);
+        pickaxeShape(CustomItem.stonePickaxe(), Material.COBBLESTONE);
     }
 
     private void goldPickaxe() {
-        pickaxeShape(main.HI().goldPickaxe(), Material.GOLD_INGOT);
+        pickaxeShape(CustomItem.goldPickaxe(), Material.GOLD_INGOT);
     }
 
     private void ironPickaxe() {
-        pickaxeShape(main.HI().ironPickaxe(), Material.IRON_INGOT);
+        pickaxeShape(CustomItem.ironPickaxe(), Material.IRON_INGOT);
     }
 
     private void diamondPickaxe() {
-        pickaxeShape(main.HI().diamondPickaxe(), Material.DIAMOND);
+        pickaxeShape(CustomItem.diamondPickaxe(), Material.DIAMOND);
     }
 
     private void woodAxe() {
-        axeShape(main.HI().woodAxe(), Material.WOOD);
+        axeShape(CustomItem.woodAxe(), Material.WOOD);
     }
 
     private void stoneAxe() {
-        axeShape(main.HI().stoneAxe(), Material.COBBLESTONE);
+        axeShape(CustomItem.stoneAxe(), Material.COBBLESTONE);
     }
 
     private void goldAxe() {
-        axeShape(main.HI().goldAxe(), Material.GOLD_INGOT);
+        axeShape(CustomItem.goldAxe(), Material.GOLD_INGOT);
     }
 
     private void ironAxe() {
-        axeShape(main.HI().ironAxe(), Material.IRON_INGOT);
+        axeShape(CustomItem.ironAxe(), Material.IRON_INGOT);
     }
 
     private void diamondAxe() {
-        axeShape(main.HI().diamondAxe(), Material.DIAMOND);
+        axeShape(CustomItem.diamondAxe(), Material.DIAMOND);
     }
 
     private void goldSword() {
-        swordShape(main.HI().goldSword(), Material.GOLD_INGOT);
+        swordShape(CustomItem.goldSword(), Material.GOLD_INGOT);
     }
 
     private void goldShovel() {
-        shovelShape(main.HI().goldShovel(), Material.GOLD_INGOT);
+        shovelShape(CustomItem.goldShovel(), Material.GOLD_INGOT);
     }
 
     private void goldHoe() {
-        hoeShape(main.HI().goldHoe(), Material.GOLD_INGOT);
+        hoeShape(CustomItem.goldHoe(), Material.GOLD_INGOT);
     }
 
     private void commonToolRecipeMaterial(ItemStack it, Material material, String[] shape) {
