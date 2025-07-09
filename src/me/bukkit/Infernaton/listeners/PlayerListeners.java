@@ -6,6 +6,7 @@ import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.FinalPhaseHandler;
 import me.bukkit.Infernaton.handler.store.Constants;
 import me.bukkit.Infernaton.handler.store.CoordStorage;
+import me.bukkit.Infernaton.handler.store.CustomItem;
 import me.bukkit.Infernaton.handler.store.InterfaceMenu;
 import me.bukkit.Infernaton.handler.store.StringConfig;
 
@@ -32,7 +33,8 @@ public class PlayerListeners implements Listener {
     public void onDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
 
-        // Check if the game was entering the Final Phase (FP)
+        // Check if the player can respawn to its team respawn point
+        // If final phase has begun, it means the player will respawn to spawn
         if (!FinalPhaseHandler.Instance().isActive() || !FightToSurvive.isGameState(GState.PLAYING))
             return;
 
@@ -66,8 +68,7 @@ public class PlayerListeners implements Listener {
         Player player = event.getPlayer();
 
         // If the player clicked on a specified Compass, which is given when he spawn
-        if (item.getType() == Material.COMPASS && item.hasItemMeta() && item.getItemMeta().hasDisplayName()
-                && item.getItemMeta().getDisplayName().equalsIgnoreCase(StringConfig.compassName())) {
+        if (CustomItem.comparor(item, CustomItem.magicCompass())) {
             if (FightToSurvive.isGameState(GState.STARTING)) {
                 player.openInventory(InterfaceMenu.cancelStart());
             } else {
@@ -88,36 +89,34 @@ public class PlayerListeners implements Listener {
         Inventory inv = event.getInventory();
         Player player = (Player) event.getWhoClicked();
 
-        String itemName = current.getItemMeta().getDisplayName();
-
         // Action on the inventory of the compass, given when joining the server
         if (inv.getName().equalsIgnoreCase(StringConfig.teamInventory())) {
             event.setCancelled(true);
-            if (itemName.equals(StringConfig.blueTeamItem())) {
+            if (CustomItem.comparor(current, CustomItem.blueWool())) {
                 Constants.getBlueTeam().add(player);
                 player.closeInventory();
-            } else if (itemName.equals(StringConfig.redTeamItem())) {
+            } else if (CustomItem.comparor(current, CustomItem.redWool())) {
                 Constants.getRedTeam().add(player);
                 player.closeInventory();
-            } else if (itemName.equals(StringConfig.spectatorsItem())) {
+            } else if (CustomItem.comparor(current, CustomItem.spectatorWool())) {
                 Constants.getSpectators().add(player);
                 player.closeInventory();
-            } else if (itemName.equals(StringConfig.launch())) {
+            } else if (CustomItem.comparor(current, CustomItem.gameStartWool())) {
                 main.onStarting(player);
                 player.closeInventory();
-            } else if (itemName.equals(StringConfig.optionItem())) {
+            } else if (CustomItem.comparor(current, CustomItem.optionsWool())) {
                 player.openInventory(InterfaceMenu.optionsInventory());
             }
         }
         if (inv.getName().equalsIgnoreCase(StringConfig.optionInventory())) {
             event.setCancelled(true);
-            if (itemName.equals(StringConfig.returnItem())) {
+            if (CustomItem.comparor(current, CustomItem.returnWool())) {
                 player.openInventory(InterfaceMenu.selectTeam());
             }
         }
         if (inv.getName().equalsIgnoreCase(StringConfig.cancelInventory())) {
             event.setCancelled(true);
-            if (itemName.equals(StringConfig.cancelItem())) {
+            if (CustomItem.comparor(current, CustomItem.gameCancelWool())) {
                 main.cancelStart();
                 player.closeInventory();
             }

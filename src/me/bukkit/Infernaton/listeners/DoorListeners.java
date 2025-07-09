@@ -36,10 +36,14 @@ public class DoorListeners implements Listener {
         Player player = event.getPlayer();
         Block block = event.getClickedBlock();
         ItemStack it = event.getItem();
+
+        // Verify if the player click with an item on a block
         if (it == null || it.getItemMeta() == null || block == null)
             return;
 
-        if (!CustomItem.paperKey().getItemMeta().getDisplayName().equals(it.getItemMeta().getDisplayName())
+        // Check if the item is the key of a doors, and the clicked block is a redstone
+        // block
+        if (!CustomItem.comparor(it, CustomItem.paperKey())
                 || block.getType() != Material.REDSTONE_BLOCK)
             return;
 

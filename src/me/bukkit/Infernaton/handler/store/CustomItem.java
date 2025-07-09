@@ -22,6 +22,12 @@ import java.util.Collection;
  */
 public class CustomItem {
 
+    /**
+     * @todo need to rework if slot = null -> make the next available slot
+     * @param player
+     * @param item
+     * @param slot
+     */
     public static void giveItemInInventory(Player player, ItemStack item, int slot) {
         player.getInventory().setItem(slot, item);
         player.updateInventory();
@@ -29,6 +35,11 @@ public class CustomItem {
 
     public static void removeItemHand(Player player) {
         player.setItemInHand(new ItemStack(Material.AIR));
+    }
+
+    public static boolean comparor(ItemStack check, ItemStack reference) {
+        return check.getType() == reference.getType() && check.hasItemMeta() && check.getItemMeta().hasDisplayName()
+                && check.getItemMeta().getDisplayName().equalsIgnoreCase(reference.getItemMeta().getDisplayName());
     }
 
     // #region Custom Item
