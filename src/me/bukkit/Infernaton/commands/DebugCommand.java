@@ -8,7 +8,10 @@ import me.bukkit.Infernaton.store.CustomItem;
 import me.bukkit.Infernaton.store.Mobs;
 import me.bukkit.Infernaton.store.StringConfig;
 
+import java.util.List;
+
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -60,19 +63,8 @@ public class DebugCommand implements CommandExecutor {
             return true;
         }
 
-        else if (cmd.getName().equalsIgnoreCase("setVillagers")) {
-            if (FightToSurvive.isGameState(GState.WAITING)) {
-                ChatHandler.sendInfoMessage(sender, StringConfig.setVill());
-                Mobs.setAllPnj();
-            } else {
-                ChatHandler.sendCantWhilePlaying(sender);
-            }
-            return true;
-        }
-
-        else if (cmd.getName().equalsIgnoreCase("killPnj")) {
-            ChatHandler.sendInfoMessage(sender, StringConfig.killVill());
-            Mobs.killPnj();
+        else if (cmd.getName().equalsIgnoreCase("printDebug")) {
+            ChatHandler.sendInfoMessage(sender, "Nothing to debug ...");
             return true;
         }
 

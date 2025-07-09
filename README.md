@@ -79,14 +79,15 @@ A ce stade il ne manque plus qu'à compiler le plugin et l'ajouter au dossier `/
 
 ### Pour compiler le projet
 
-1. Terminal > Run Task > java (buildartifact) > configure task (la roue dentée)
-2. Dans le json, modifie en y ajoutant le chemin vers le server minecraft local :
+1. Terminal > Run Build Task
+2. Terminal > Run Task > java (buildartifact) > configure task (la roue dentée)
+3. Dans le json, modifie en y ajoutant le chemin vers le server minecraft local :
 
 ```json
 "targetPath": "path/to/minecraft server/plugins/${workspaceFolderBasename}.jar",
 ```
 
-3. Egalement :
+4. Egalement :
 
 ```json
 "elements": [
@@ -97,4 +98,4 @@ A ce stade il ne manque plus qu'à compiler le plugin et l'ajouter au dossier `/
 ],
 ```
 
-4. Compile le projet puis une fois finis, redémarer le server local ou faire `/reload` en jeu via la console ou un joueur op.
+5. Compile le projet puis une fois finis, redémarer le server local ou faire `/reload` en jeu via la console ou un joueur op.

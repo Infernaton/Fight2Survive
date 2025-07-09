@@ -13,7 +13,7 @@ import java.util.List;
 
 public class CoordStorage {
 
-    public final static String worldName = StringConfig.worldName();
+    public final static String worldName = Bukkit.getWorlds().get(0).getName();
 
     // #region Coordinate
     public static Location[] getSpawnApplePoint() {

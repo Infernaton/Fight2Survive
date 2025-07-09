@@ -7,10 +7,12 @@ import me.bukkit.Infernaton.store.Constants;
 import me.bukkit.Infernaton.store.CoordStorage;
 import me.bukkit.Infernaton.store.Mobs;
 import me.bukkit.Infernaton.store.StringConfig;
-import me.bukkit.Infernaton.commands.*;
 import me.bukkit.Infernaton.builder.*;
 import me.bukkit.Infernaton.builder.clock.CountDown;
 import me.bukkit.Infernaton.builder.clock.GameRunnable;
+import me.bukkit.Infernaton.commands.DebugCommand;
+import me.bukkit.Infernaton.commands.PartyCommand;
+import me.bukkit.Infernaton.commands.SpawnMobs;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -33,21 +35,18 @@ public class FightToSurvive extends JavaPlugin {
     private static FightToSurvive self;
 
     public static FightToSurvive Instance() {
-        if (self == null) {
-            self = new FightToSurvive();
-        }
         return self;
     }
 
     public static FileConfiguration GetConfig() {
-        return self.getConfig();
+        return Instance().getConfig();
     }
 
     // #region Game Timer
     private GameRunnable gameTimer;
 
     public static GameRunnable getTimer() {
-        return self.gameTimer;
+        return Instance().gameTimer;
     }
     // #endregion
 
@@ -59,7 +58,7 @@ public class FightToSurvive extends JavaPlugin {
     }
 
     public static boolean isGameState(GState state) {
-        return self.state == state;
+        return Instance().state == state;
     }
     // #endregion
 
@@ -190,6 +189,7 @@ public class FightToSurvive extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
+        self = this;
         this.scoreboardManager = new ScoreboardManager(this);
 
         setGameState(GState.WAITING);
@@ -206,14 +206,15 @@ public class FightToSurvive extends JavaPlugin {
         // #endregion
 
         // #region command declaration
-        String[] debugCommand = { "mob_villager", "setPlayer", "getDoors", "deleteDoors", "getKey", "setVillagers",
-                "killPnj" };
-        enableCommand(debugCommand, new DebugCommand());
-
-        String[] partyCommand = { "start", "cancelStart", "reset", "forceFinal", "endgame" };
+        String[] partyCommand = { "start", "cancelStart", "reset", "forceFinal",
+                "endgame" };
         enableCommand(partyCommand, new PartyCommand());
 
-        String[] debugMob = { "mob_zombie" };
+        String[] debugCommand = { "setPlayer", "getDoors", "deleteDoors", "getKey",
+                "printDebug" };
+        enableCommand(debugCommand, new DebugCommand());
+
+        String[] debugMob = { "mob_zombie", "set_villagers", "kill_pnj" };
         enableCommand(debugMob, new SpawnMobs());
         // #endregion
 
