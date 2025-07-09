@@ -3,6 +3,7 @@ package me.bukkit.Infernaton.builder;
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
+import me.bukkit.Infernaton.handler.WaveHandler;
 import me.bukkit.Infernaton.handler.store.Constants;
 import me.bukkit.Infernaton.handler.store.CoordStorage;
 import me.bukkit.Infernaton.handler.store.CustomItem;
@@ -77,7 +78,7 @@ public class GameRunnable implements Runnable {
 
         // Spawning mob once the night is set
         if (!isDay && !coolDownLoc.containsKey(StringConfig.mobWaveKey())) {
-            int timeReduce = main.MH().generateMobWave();
+            int timeReduce = WaveHandler.Instance().generateMobWave();
             coolDownLoc.put(StringConfig.mobWaveKey(), Constants.mobWaveCooldown - timeReduce);
         }
 

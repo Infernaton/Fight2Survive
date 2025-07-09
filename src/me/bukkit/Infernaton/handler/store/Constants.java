@@ -46,45 +46,6 @@ public class Constants {
         };
     }
 
-    // List of block type where a monster can spawn
-    public static List<Material> spawnableBlocks() {
-        return Arrays.asList(
-                Material.GRASS,
-                Material.DIRT,
-                Material.STONE,
-                Material.SOUL_SAND,
-                Material.COBBLESTONE,
-                Material.HARD_CLAY,
-                Material.STAINED_CLAY);
-    }
-
-    public static List<EntityType> aggressiveMob(int lvl) {
-        List<EntityType> list = new ArrayList<>();
-        if (lvl > 5)
-            lvl = 5;
-        switch (lvl) {
-            case 5:
-                list.add(EntityType.SKELETON);
-            case 4:
-            case 3:
-                list.add(EntityType.SPIDER);
-            case 2:
-            case 1:
-                list.add(EntityType.ZOMBIE);
-                break;
-        }
-        return list;
-    }
-
-    public static List<EntityType> spawnedMobs() {
-        List<EntityType> list = new ArrayList<>(Arrays.asList(
-                EntityType.VILLAGER,
-                EntityType.EXPERIENCE_ORB,
-                EntityType.DROPPED_ITEM));
-        list.addAll(aggressiveMob(5));
-        return list;
-    }
-
     /**
      * define all the cooldown for blocks
      * 

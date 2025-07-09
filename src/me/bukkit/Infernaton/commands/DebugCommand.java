@@ -5,6 +5,7 @@ import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.DoorHandler;
 import me.bukkit.Infernaton.handler.store.CustomItem;
+import me.bukkit.Infernaton.handler.store.Mobs;
 import me.bukkit.Infernaton.handler.store.StringConfig;
 
 import org.bukkit.Bukkit;
@@ -62,7 +63,7 @@ public class DebugCommand implements CommandExecutor {
         else if (cmd.getName().equalsIgnoreCase("setVillagers")) {
             if (FightToSurvive.isGameState(GState.WAITING)) {
                 ChatHandler.sendInfoMessage(sender, StringConfig.setVill());
-                main.MH().setAllPnj();
+                Mobs.setAllPnj();
             } else {
                 ChatHandler.sendCantWhilePlaying(sender);
             }
@@ -71,7 +72,7 @@ public class DebugCommand implements CommandExecutor {
 
         else if (cmd.getName().equalsIgnoreCase("killPnj")) {
             ChatHandler.sendInfoMessage(sender, StringConfig.killVill());
-            main.MH().killPnj();
+            Mobs.killPnj();
             return true;
         }
 

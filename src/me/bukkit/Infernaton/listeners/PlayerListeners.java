@@ -93,13 +93,13 @@ public class PlayerListeners implements Listener {
         if (inv.getName().equalsIgnoreCase(StringConfig.teamInventory())) {
             event.setCancelled(true);
             if (itemName.equals(StringConfig.blueTeamItem())) {
-                main.addingTeam(Constants.getBlueTeam(), player);
+                Constants.getBlueTeam().add(player);
                 player.closeInventory();
             } else if (itemName.equals(StringConfig.redTeamItem())) {
-                main.addingTeam(Constants.getRedTeam(), player);
+                Constants.getRedTeam().add(player);
                 player.closeInventory();
             } else if (itemName.equals(StringConfig.spectatorsItem())) {
-                main.addingTeam(Constants.getSpectators(), player);
+                Constants.getSpectators().add(player);
                 player.closeInventory();
             } else if (itemName.equals(StringConfig.launch())) {
                 main.onStarting(player);

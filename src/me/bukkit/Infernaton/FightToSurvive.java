@@ -4,6 +4,7 @@ import me.bukkit.Infernaton.handler.*;
 import me.bukkit.Infernaton.handler.scoreboard.ScoreboardManager;
 import me.bukkit.Infernaton.handler.store.Constants;
 import me.bukkit.Infernaton.handler.store.CoordStorage;
+import me.bukkit.Infernaton.handler.store.Mobs;
 import me.bukkit.Infernaton.handler.store.StringConfig;
 import me.bukkit.Infernaton.listeners.*;
 import me.bukkit.Infernaton.commands.*;
@@ -62,7 +63,6 @@ public class FightToSurvive extends JavaPlugin {
     // #region HANDLER
     private final HandlePlayerState HP = new HandlePlayerState(this);
     private FinalPhaseHandler finalPhase;
-    private final MobsHandler mobsHandler = new MobsHandler(this);
     private final BlockHandler BH = new BlockHandler();
 
     public HandlePlayerState HP() {
@@ -71,10 +71,6 @@ public class FightToSurvive extends JavaPlugin {
 
     public FinalPhaseHandler FP() {
         return finalPhase;
-    }
-
-    public MobsHandler MH() {
-        return mobsHandler;
     }
 
     public BlockHandler BH() {
@@ -86,10 +82,6 @@ public class FightToSurvive extends JavaPlugin {
 
     public ScoreboardManager getScoreboardManager() {
         return scoreboardManager;
-    }
-
-    public void addingTeam(Team team, Player player) {
-        team.add(player);
     }
 
     public void enableCommand(String[] commandsName, CommandExecutor executor) {
@@ -159,7 +151,7 @@ public class FightToSurvive extends JavaPlugin {
         new BukkitRunnable() {
             @Override
             public void run() {
-                mobsHandler.setAllPnj();
+                Mobs.setAllPnj();
             }
         }.runTaskLater(this, 8);
     }
@@ -181,7 +173,7 @@ public class FightToSurvive extends JavaPlugin {
         setGameState(GState.WAITING);
         DoorHandler.setAllDoors();
         BH.resetContainers();
-        MH().resetMob();
+        WaveHandler.Instance().resetMob();
         ServerListener.resetAFKList();
     }
 

@@ -57,7 +57,7 @@ public class ServerListener implements Listener {
         boolean isCurrentlyIG = !FightToSurvive.isGameState(GState.WAITING) &&
                 !Team.getTeam(player).getTeamName().equalsIgnoreCase(StringConfig.spectatorName());
 
-        // And, if the player is in creative, we don't need to reset is position
+        // And, if the player is in creative, we don't need to reset his position
         if (!isCurrentlyIG && player.getGameMode() != GameMode.CREATIVE) {
             main.HP().resetPlayerState(player);
             player.teleport(CoordStorage.getSpawnCoordinate());
