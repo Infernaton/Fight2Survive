@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 
+import me.bukkit.Infernaton.handler.store.Constants;
 import me.bukkit.Infernaton.handler.store.CoordStorage;
 
 import static me.bukkit.Infernaton.handler.store.CoordStorage.worldName;
@@ -21,7 +22,7 @@ public class DoorHandler {
      */
     public static void setAllDoors() {
         Location mainDoor = CoordStorage.getDoorConstantCoord();
-        List<Location> copiesDoorsList = ConstantHandler.getAllCopiesDoors();
+        List<Location> copiesDoorsList = Constants.getAllCopiesDoors();
         for (Location copiesDoors : copiesDoorsList) {
             for (double x = -1; x <= 1; x++) {
                 for (double y = -1; y <= 1; y++) {
@@ -41,7 +42,7 @@ public class DoorHandler {
      * Delete all existing Doors based on the assign coordinate
      */
     public static void deleteAllDoors() {
-        List<Location> copiesDoorsList = ConstantHandler.getAllCopiesDoors();
+        List<Location> copiesDoorsList = Constants.getAllCopiesDoors();
         for (Location copiesDoors : copiesDoorsList) {
             for (double x = -1; x <= 1; x++) {
                 for (double y = -1; y <= 1; y++) {

@@ -3,7 +3,7 @@ package me.bukkit.Infernaton.listeners;
 import me.bukkit.Infernaton.*;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
-import me.bukkit.Infernaton.handler.ConstantHandler;
+import me.bukkit.Infernaton.handler.store.Constants;
 import me.bukkit.Infernaton.handler.store.CoordStorage;
 import me.bukkit.Infernaton.handler.store.InterfaceMenu;
 import me.bukkit.Infernaton.handler.store.StringConfig;
@@ -36,7 +36,7 @@ public class PlayerListeners implements Listener {
             return;
 
         Team team = Team.getTeam(player);
-        ConstantHandler.getSpectators().add(player);
+        Constants.getSpectators().add(player);
         if (team.getPlayers().isEmpty()) {
             main.finish();
         }
@@ -93,13 +93,13 @@ public class PlayerListeners implements Listener {
         if (inv.getName().equalsIgnoreCase(StringConfig.teamInventory())) {
             event.setCancelled(true);
             if (itemName.equals(StringConfig.blueTeamItem())) {
-                main.addingTeam(ConstantHandler.getBlueTeam(), player);
+                main.addingTeam(Constants.getBlueTeam(), player);
                 player.closeInventory();
             } else if (itemName.equals(StringConfig.redTeamItem())) {
-                main.addingTeam(ConstantHandler.getRedTeam(), player);
+                main.addingTeam(Constants.getRedTeam(), player);
                 player.closeInventory();
             } else if (itemName.equals(StringConfig.spectatorsItem())) {
-                main.addingTeam(ConstantHandler.getSpectators(), player);
+                main.addingTeam(Constants.getSpectators(), player);
                 player.closeInventory();
             } else if (itemName.equals(StringConfig.launch())) {
                 main.onStarting(player);

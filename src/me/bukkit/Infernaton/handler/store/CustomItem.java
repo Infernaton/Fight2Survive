@@ -1,7 +1,6 @@
 package me.bukkit.Infernaton.handler.store;
 
 import me.bukkit.Infernaton.builder.ItemBuilder;
-import me.bukkit.Infernaton.handler.ConstantHandler;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.NBTTagList;
 import net.minecraft.server.v1_8_R3.NBTTagString;
@@ -45,19 +44,19 @@ public class CustomItem {
     // #region Menu Item
     public static ItemStack blueWool() {
         return new ItemBuilder(Material.WOOL, 1, (byte) 11).setName(StringConfig.blueTeamItem()).setLore()
-                .setLore(StringConfig.makePlayerList(ConstantHandler.getBlueTeam().getPlayers()))
+                .setLore(StringConfig.makePlayerList(Constants.getBlueTeam().getPlayers()))
                 .toItemStack();
     }
 
     public static ItemStack redWool() {
         return new ItemBuilder(Material.WOOL, 1, (byte) 14).setName(StringConfig.redTeamItem())
-                .setLore(StringConfig.makePlayerList(ConstantHandler.getRedTeam().getPlayers()))
+                .setLore(StringConfig.makePlayerList(Constants.getRedTeam().getPlayers()))
                 .toItemStack();
     }
 
     public static ItemStack spectatorWool() {
         return new ItemBuilder(Material.WOOL, 1, (byte) 7).setName(StringConfig.spectatorsItem())
-                .setLore(StringConfig.makePlayerList(ConstantHandler.getSpectators().getPlayers()))
+                .setLore(StringConfig.makePlayerList(Constants.getSpectators().getPlayers()))
                 .toItemStack();
     }
 

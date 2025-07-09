@@ -1,8 +1,9 @@
 package me.bukkit.Infernaton.builder;
 
 import me.bukkit.Infernaton.FightToSurvive;
-import me.bukkit.Infernaton.handler.ConstantHandler;
 import me.bukkit.Infernaton.handler.scoreboard.Scoreboard;
+import me.bukkit.Infernaton.handler.store.Constants;
+
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -43,7 +44,7 @@ public class ScoreboardPlayer {
      * Setting all the lines in the sideBar scoreboard
      */
     public void setLines() {
-        String[] scLines = ConstantHandler.getScoreboardLines();
+        String[] scLines = Constants.getScoreboardLines();
 
         for (int i = 0; i < scLines.length; i++) {
             scoreboard.setLine(i, scLines[i]);

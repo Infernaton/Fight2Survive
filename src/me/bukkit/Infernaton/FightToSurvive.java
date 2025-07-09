@@ -2,6 +2,7 @@ package me.bukkit.Infernaton;
 
 import me.bukkit.Infernaton.handler.*;
 import me.bukkit.Infernaton.handler.scoreboard.ScoreboardManager;
+import me.bukkit.Infernaton.handler.store.Constants;
 import me.bukkit.Infernaton.handler.store.CoordStorage;
 import me.bukkit.Infernaton.handler.store.StringConfig;
 import me.bukkit.Infernaton.listeners.*;
@@ -116,8 +117,8 @@ public class FightToSurvive extends JavaPlugin {
             return;
         }
 
-        List<Player> redPlayers = ConstantHandler.getRedTeam().getPlayers();
-        List<Player> bluePlayers = ConstantHandler.getBlueTeam().getPlayers();
+        List<Player> redPlayers = Constants.getRedTeam().getPlayers();
+        List<Player> bluePlayers = Constants.getBlueTeam().getPlayers();
 
         // Compare if there the same numbers of players in each team
         // Not enough player
@@ -136,12 +137,12 @@ public class FightToSurvive extends JavaPlugin {
     }
 
     public void start() {
-        ChatHandler.sendMessageListPlayer(ConstantHandler.getAllTeamsPlayer(), StringConfig.start());
+        ChatHandler.sendMessageListPlayer(Constants.getAllTeamsPlayer(), StringConfig.start());
         gameTimer = GameRunnable.newCountDown(this);
 
         ServerListener.resetAFKList();
 
-        List<Player> allPlayers = ConstantHandler.getAllTeamsPlayer();
+        List<Player> allPlayers = Constants.getAllTeamsPlayer();
         for (Player player : allPlayers) {
             HP.clear(player);
             player.teleport(CoordStorage.getBaseLocation(Team.getTeam(player)));
@@ -166,12 +167,12 @@ public class FightToSurvive extends JavaPlugin {
     public void cancelStart() {
         setGameState(GState.WAITING);
         CountDown.stopAllCountdown(this);
-        ChatHandler.sendMessageListPlayer(ConstantHandler.getAllTeamsPlayer(), StringConfig.cancelStart());
+        ChatHandler.sendMessageListPlayer(Constants.getAllTeamsPlayer(), StringConfig.cancelStart());
     }
 
     public void cancel() {
         Bukkit.getWorld(worldName).setTime(1000);
-        List<Player> players = ConstantHandler.getAllPlayers();
+        List<Player> players = Constants.getAllPlayers();
         ChatHandler.sendMessageListPlayer(players, StringConfig.cancel());
 
         for (Player player : players) {

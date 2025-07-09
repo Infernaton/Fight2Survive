@@ -2,6 +2,7 @@ package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.builder.CustomVillager;
+import me.bukkit.Infernaton.handler.store.Constants;
 import me.bukkit.Infernaton.handler.store.CoordStorage;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.Bukkit;
@@ -48,11 +49,11 @@ public class MobsHandler {
         villager.setCustomName(name);
         villager.setCustomNameVisible(true);
 
-        new CustomVillager(main, villager).addRecipe(ConstantHandler.getTrade(name)).finish();
+        new CustomVillager(main, villager).addRecipe(Constants.getTrade(name)).finish();
     }
 
     public void createRandomAggressiveMob(Location location, int mobLevel) {
-        List<EntityType> mobList = ConstantHandler.aggressiveMob(mobLevel);
+        List<EntityType> mobList = Constants.aggressiveMob(mobLevel);
         EntityType mobType = mobList.get(new Random().nextInt(mobList.size()));
 
         location.getWorld().spawnEntity(location, mobType);
@@ -61,7 +62,7 @@ public class MobsHandler {
     public void setAllPnj() {
         List<Location> copiesPnjList = CoordStorage.getAllPnjLocation();
         for (int i = 0; i < copiesPnjList.size(); i++) {
-            createVillager(copiesPnjList.get(i), ConstantHandler.pnjName()[i]);
+            createVillager(copiesPnjList.get(i), Constants.pnjName()[i]);
         }
     }
 
@@ -86,7 +87,7 @@ public class MobsHandler {
     }
 
     public void generateOneMob(int mobLevel) {
-        List<Player> playerList = ConstantHandler.getAllTeamsPlayer();
+        List<Player> playerList = Constants.getAllTeamsPlayer();
         for (Player player : playerList) {
             if (player.getGameMode() != GameMode.ADVENTURE)
                 continue;
@@ -101,7 +102,7 @@ public class MobsHandler {
                 newBlock = test.get(randomNum);
                 blockBelow = newBlock.getRelative(0, -1, 0);
             } while (newBlock.getType() != Material.AIR
-                    || !ConstantHandler.spawnableBlocks().contains(blockBelow.getType()));
+                    || !Constants.spawnableBlocks().contains(blockBelow.getType()));
 
             createRandomAggressiveMob(newBlock.getLocation(), mobLevel);
         }
@@ -109,7 +110,7 @@ public class MobsHandler {
 
     public void resetMob() {
         for (Entity e : Bukkit.getWorld(worldName).getEntities()) {
-            if (ConstantHandler.spawnedMobs().contains(e.getType())) {
+            if (Constants.spawnedMobs().contains(e.getType())) {
                 e.remove();
             }
         }

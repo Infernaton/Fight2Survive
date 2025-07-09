@@ -1,11 +1,8 @@
-package me.bukkit.Infernaton.handler;
+package me.bukkit.Infernaton.handler.store;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.builder.GameRunnable;
 import me.bukkit.Infernaton.builder.Team;
-import me.bukkit.Infernaton.handler.store.CustomItem;
-import me.bukkit.Infernaton.handler.store.CustomMerchantRecipe;
-import me.bukkit.Infernaton.handler.store.StringConfig;
 import net.minecraft.server.v1_8_R3.MerchantRecipe;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -22,7 +19,7 @@ import java.util.*;
 /**
  * Class which regroup each variable we need in our project
  */
-public class ConstantHandler {
+public class Constants {
 
     public final static int appleSpawningCooldown = 15;
     public final static int mobWaveCooldown = 61;
@@ -185,8 +182,8 @@ public class ConstantHandler {
                 "§a",
                 "§7Timer: " + timer,
                 "§1",
-                "§4Red Team (" + ConstantHandler.getRedTeam().getPlayers().size() + ")",
-                "§1Blue Team (" + ConstantHandler.getBlueTeam().getPlayers().size() + ")",
+                "§4Red Team (" + Constants.getRedTeam().getPlayers().size() + ")",
+                "§1Blue Team (" + Constants.getBlueTeam().getPlayers().size() + ")",
                 "§b",
                 "§6----------------"
         };

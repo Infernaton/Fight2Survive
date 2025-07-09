@@ -3,7 +3,7 @@ package me.bukkit.Infernaton.builder;
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
-import me.bukkit.Infernaton.handler.ConstantHandler;
+import me.bukkit.Infernaton.handler.store.Constants;
 import me.bukkit.Infernaton.handler.store.CoordStorage;
 import me.bukkit.Infernaton.handler.store.CustomItem;
 import me.bukkit.Infernaton.handler.store.StringConfig;
@@ -78,7 +78,7 @@ public class GameRunnable implements Runnable {
         // Spawning mob once the night is set
         if (!isDay && !coolDownLoc.containsKey(StringConfig.mobWaveKey())) {
             int timeReduce = main.MH().generateMobWave();
-            coolDownLoc.put(StringConfig.mobWaveKey(), ConstantHandler.mobWaveCooldown - timeReduce);
+            coolDownLoc.put(StringConfig.mobWaveKey(), Constants.mobWaveCooldown - timeReduce);
         }
 
         // Warning all player of the change of the time
@@ -101,7 +101,7 @@ public class GameRunnable implements Runnable {
             if (!coolDownLoc.containsKey(loc.toString())) {
                 boolean isSpawn = CustomItem.spawningApple(loc);
                 if (isSpawn)
-                    coolDownLoc.put(loc.toString(), ConstantHandler.appleSpawningCooldown);
+                    coolDownLoc.put(loc.toString(), Constants.appleSpawningCooldown);
             }
         }
 
