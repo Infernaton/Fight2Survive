@@ -2,7 +2,7 @@ package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.builder.ItemBuilder;
-import me.bukkit.Infernaton.handler.Store.StringHandler;
+import me.bukkit.Infernaton.handler.store.StringConfig;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.NBTTagList;
 import net.minecraft.server.v1_8_R3.NBTTagString;
@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
-import static me.bukkit.Infernaton.handler.Store.SpatialHandler.worldName;
+import static me.bukkit.Infernaton.handler.store.CoordStorage.worldName;
 
 import java.util.Collection;
 
@@ -43,47 +43,47 @@ public class HandleItem {
 
     // #region Custom Item
     public ItemStack magicCompass() {
-        return new ItemBuilder(Material.COMPASS).setName(StringHandler.compassName()).toItemStack();
+        return new ItemBuilder(Material.COMPASS).setName(StringConfig.compassName()).toItemStack();
     }
 
     public ItemStack paperKey() {
-        return new ItemBuilder(Material.PAPER).setName(StringHandler.keyName()).toItemStack();
+        return new ItemBuilder(Material.PAPER).setName(StringConfig.keyName()).toItemStack();
     }
     // #endregion
 
     // #region Menu Item
     public ItemStack blueWool() {
-        return new ItemBuilder(Material.WOOL, 1, (byte) 11).setName(StringHandler.blueTeamItem()).setLore()
-                .setLore(StringHandler.makePlayerList(ConstantHandler.getBlueTeam().getPlayers()))
+        return new ItemBuilder(Material.WOOL, 1, (byte) 11).setName(StringConfig.blueTeamItem()).setLore()
+                .setLore(StringConfig.makePlayerList(ConstantHandler.getBlueTeam().getPlayers()))
                 .toItemStack();
     }
 
     public ItemStack redWool() {
-        return new ItemBuilder(Material.WOOL, 1, (byte) 14).setName(StringHandler.redTeamItem())
-                .setLore(StringHandler.makePlayerList(ConstantHandler.getRedTeam().getPlayers()))
+        return new ItemBuilder(Material.WOOL, 1, (byte) 14).setName(StringConfig.redTeamItem())
+                .setLore(StringConfig.makePlayerList(ConstantHandler.getRedTeam().getPlayers()))
                 .toItemStack();
     }
 
     public ItemStack spectatorWool() {
-        return new ItemBuilder(Material.WOOL, 1, (byte) 7).setName(StringHandler.spectatorsItem())
-                .setLore(StringHandler.makePlayerList(ConstantHandler.getSpectators().getPlayers()))
+        return new ItemBuilder(Material.WOOL, 1, (byte) 7).setName(StringConfig.spectatorsItem())
+                .setLore(StringConfig.makePlayerList(ConstantHandler.getSpectators().getPlayers()))
                 .toItemStack();
     }
 
     public ItemStack gameStartWool() {
-        return new ItemBuilder(Material.WOOL, 1, (byte) 5).setName(StringHandler.launch()).toItemStack();
+        return new ItemBuilder(Material.WOOL, 1, (byte) 5).setName(StringConfig.launch()).toItemStack();
     }
 
     public ItemStack gameCancelWool() {
-        return new ItemBuilder(Material.WOOL, 1, (byte) 14).setName(StringHandler.cancelItem()).toItemStack();
+        return new ItemBuilder(Material.WOOL, 1, (byte) 14).setName(StringConfig.cancelItem()).toItemStack();
     }
 
     public ItemStack optionsWool() {
-        return new ItemBuilder(Material.WOOL, 1, (byte) 8).setName(StringHandler.optionItem()).toItemStack();
+        return new ItemBuilder(Material.WOOL, 1, (byte) 8).setName(StringConfig.optionItem()).toItemStack();
     }
 
     public ItemStack returnWool() {
-        return new ItemBuilder(Material.WOOL, 1, (byte) 8).setName(StringHandler.returnItem()).toItemStack();
+        return new ItemBuilder(Material.WOOL, 1, (byte) 8).setName(StringConfig.returnItem()).toItemStack();
     }
 
     public ItemStack separator() {

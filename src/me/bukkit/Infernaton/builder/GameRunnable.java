@@ -4,13 +4,13 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.ConstantHandler;
-import me.bukkit.Infernaton.handler.Store.SpatialHandler;
-import me.bukkit.Infernaton.handler.Store.StringHandler;
+import me.bukkit.Infernaton.handler.store.CoordStorage;
+import me.bukkit.Infernaton.handler.store.StringConfig;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
-import static me.bukkit.Infernaton.handler.Store.SpatialHandler.worldName;
+import static me.bukkit.Infernaton.handler.store.CoordStorage.worldName;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,7 @@ public class GameRunnable implements Runnable {
     private boolean isDay = true;
     private int id;
     private final FightToSurvive main;
-    private final Location[] appleLocations = SpatialHandler.getSpawnApplePoint();
+    private final Location[] appleLocations = CoordStorage.getSpawnApplePoint();
     private Map<String, Integer> coolDownLoc;
 
     private GameRunnable(FightToSurvive main) {
@@ -75,22 +75,22 @@ public class GameRunnable implements Runnable {
         countdownStarter++;
 
         // Spawning mob once the night is set
-        if (!isDay && !coolDownLoc.containsKey(StringHandler.mobWaveKey())) {
+        if (!isDay && !coolDownLoc.containsKey(StringConfig.mobWaveKey())) {
             int timeReduce = main.MH().generateMobWave();
-            coolDownLoc.put(StringHandler.mobWaveKey(), ConstantHandler.mobWaveCooldown - timeReduce);
+            coolDownLoc.put(StringConfig.mobWaveKey(), ConstantHandler.mobWaveCooldown - timeReduce);
         }
 
         // Warning all player of the change of the time
         if ((countdownStarter + 5) % dayTime == 0) {
-            ChatHandler.toAllPlayer(isDay ? StringHandler.nearNight() : StringHandler.nearDay());
+            ChatHandler.toAllPlayer(isDay ? StringConfig.nearNight() : StringConfig.nearDay());
         }
         // Changing the current time
         if (countdownStarter % dayTime == 0) {
             isDay = !isDay;
             if (isDay) {
-                changeDay(1000, StringHandler.day());
+                changeDay(1000, StringConfig.day());
             } else {
-                changeDay(16000, StringHandler.night());
+                changeDay(16000, StringConfig.night());
             }
         }
 

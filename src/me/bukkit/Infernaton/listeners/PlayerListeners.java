@@ -5,8 +5,8 @@ import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.ConstantHandler;
 import me.bukkit.Infernaton.handler.InterfaceHandler;
-import me.bukkit.Infernaton.handler.Store.SpatialHandler;
-import me.bukkit.Infernaton.handler.Store.StringHandler;
+import me.bukkit.Infernaton.handler.store.CoordStorage;
+import me.bukkit.Infernaton.handler.store.StringConfig;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -51,10 +51,10 @@ public class PlayerListeners implements Listener {
 
         // Check if the player is in a team to respawn him to the right place
         if (main.constH().isState(GState.PLAYING) && team != null) {
-            event.setRespawnLocation(SpatialHandler.getBaseLocation(team));
+            event.setRespawnLocation(CoordStorage.getBaseLocation(team));
             main.HP().giveStarterPack(player);
         } else {
-            event.setRespawnLocation(SpatialHandler.getSpawnCoordinate());
+            event.setRespawnLocation(CoordStorage.getSpawnCoordinate());
         }
     }
 
@@ -68,7 +68,7 @@ public class PlayerListeners implements Listener {
 
         // If the player clicked on a specified Compass, which is given when he spawn
         if (item.getType() == Material.COMPASS && item.hasItemMeta() && item.getItemMeta().hasDisplayName()
-                && item.getItemMeta().getDisplayName().equalsIgnoreCase(StringHandler.compassName())) {
+                && item.getItemMeta().getDisplayName().equalsIgnoreCase(StringConfig.compassName())) {
             if (main.constH().isState(GState.STARTING)) {
                 player.openInventory(IH.cancelStart());
             } else {
@@ -92,33 +92,33 @@ public class PlayerListeners implements Listener {
         String itemName = current.getItemMeta().getDisplayName();
 
         // Action on the inventory of the compass, given when joining the server
-        if (inv.getName().equalsIgnoreCase(StringHandler.teamInventory())) {
+        if (inv.getName().equalsIgnoreCase(StringConfig.teamInventory())) {
             event.setCancelled(true);
-            if (itemName.equals(StringHandler.blueTeamItem())) {
+            if (itemName.equals(StringConfig.blueTeamItem())) {
                 main.addingTeam(ConstantHandler.getBlueTeam(), player);
                 player.closeInventory();
-            } else if (itemName.equals(StringHandler.redTeamItem())) {
+            } else if (itemName.equals(StringConfig.redTeamItem())) {
                 main.addingTeam(ConstantHandler.getRedTeam(), player);
                 player.closeInventory();
-            } else if (itemName.equals(StringHandler.spectatorsItem())) {
+            } else if (itemName.equals(StringConfig.spectatorsItem())) {
                 main.addingTeam(ConstantHandler.getSpectators(), player);
                 player.closeInventory();
-            } else if (itemName.equals(StringHandler.launch())) {
+            } else if (itemName.equals(StringConfig.launch())) {
                 main.onStarting(player);
                 player.closeInventory();
-            } else if (itemName.equals(StringHandler.optionItem())) {
+            } else if (itemName.equals(StringConfig.optionItem())) {
                 player.openInventory(IH.optionsInventory());
             }
         }
-        if (inv.getName().equalsIgnoreCase(StringHandler.optionInventory())) {
+        if (inv.getName().equalsIgnoreCase(StringConfig.optionInventory())) {
             event.setCancelled(true);
-            if (itemName.equals(StringHandler.returnItem())) {
+            if (itemName.equals(StringConfig.returnItem())) {
                 player.openInventory(IH.selectTeam());
             }
         }
-        if (inv.getName().equalsIgnoreCase(StringHandler.cancelInventory())) {
+        if (inv.getName().equalsIgnoreCase(StringConfig.cancelInventory())) {
             event.setCancelled(true);
-            if (itemName.equals(StringHandler.cancelItem())) {
+            if (itemName.equals(StringConfig.cancelItem())) {
                 main.cancelStart();
                 player.closeInventory();
             }
@@ -153,7 +153,7 @@ public class PlayerListeners implements Listener {
         Player p = event.getPlayer();
         if (p.getItemInHand().getType() == Material.BOAT) {
             event.setCancelled(true);
-            ChatHandler.sendError(p, StringHandler.cantWhilePlaying());
+            ChatHandler.sendError(p, StringConfig.cantWhilePlaying());
         }
     }
 }

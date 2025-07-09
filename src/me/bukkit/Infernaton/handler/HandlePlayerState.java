@@ -1,7 +1,7 @@
 package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
-import me.bukkit.Infernaton.handler.Store.SpatialHandler;
+import me.bukkit.Infernaton.handler.store.CoordStorage;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -54,7 +54,7 @@ public class HandlePlayerState {
 
     public void setPlayer(Player player) {
         resetPlayerState(player);
-        player.teleport(SpatialHandler.getSpawnCoordinate());
+        player.teleport(CoordStorage.getSpawnCoordinate());
     }
 
     public void givePotionEffect(Player player, PotionEffectType potion) {

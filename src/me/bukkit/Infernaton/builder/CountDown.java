@@ -2,7 +2,7 @@ package me.bukkit.Infernaton.builder;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.handler.ChatHandler;
-import me.bukkit.Infernaton.handler.Store.StringHandler;
+import me.bukkit.Infernaton.handler.store.StringConfig;
 
 import org.bukkit.Bukkit;
 
@@ -45,7 +45,7 @@ public class CountDown implements Runnable {
             stopCountdown(id);
             main.start();
         } else if (time % 10 == 0 || time <= 5) {
-            ChatHandler.toAllPlayer(StringHandler.secondLeft((int) time));
+            ChatHandler.toAllPlayer(StringConfig.secondLeft((int) time));
         }
         time--;
     }

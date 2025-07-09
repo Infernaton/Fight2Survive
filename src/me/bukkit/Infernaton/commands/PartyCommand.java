@@ -3,8 +3,7 @@ package me.bukkit.Infernaton.commands;
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
-import me.bukkit.Infernaton.handler.InterfaceHandler;
-import me.bukkit.Infernaton.handler.Store.StringHandler;
+import me.bukkit.Infernaton.handler.store.StringConfig;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,11 +13,9 @@ import org.bukkit.entity.Player;
 public class PartyCommand implements CommandExecutor {
 
     private final FightToSurvive main;
-    private InterfaceHandler IH;
 
     public PartyCommand(FightToSurvive main) {
         this.main = main;
-        this.IH = new InterfaceHandler(main);
     }
 
     @Override
@@ -30,7 +27,7 @@ public class PartyCommand implements CommandExecutor {
             if (sender instanceof Player)
                 main.onStarting((Player) sender);
             else
-                ChatHandler.sendError(sender, StringHandler.cantFromConsole());
+                ChatHandler.sendError(sender, StringConfig.cantFromConsole());
             return true;
         }
 
@@ -42,13 +39,13 @@ public class PartyCommand implements CommandExecutor {
             if (main.constH().isState(GState.STARTING))
                 main.cancelStart();
             else
-                ChatHandler.sendError(sender, StringHandler.noCountdown());
+                ChatHandler.sendError(sender, StringConfig.noCountdown());
             return true;
         } else if (cmd.getName().equalsIgnoreCase("reset")) {
             if (main.constH().isState(GState.PLAYING))
                 main.cancel();
             else
-                ChatHandler.sendError(sender, StringHandler.noGame());
+                ChatHandler.sendError(sender, StringConfig.noGame());
             return true;
         } else if (cmd.getName().equalsIgnoreCase("forceFinal")) {
             if (main.constH().isState(GState.PLAYING) || main.constH().isState(GState.WAITING))

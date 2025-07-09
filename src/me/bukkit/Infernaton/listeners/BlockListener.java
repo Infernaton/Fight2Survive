@@ -5,7 +5,7 @@ import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.BreakBlockClock;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.ConstantHandler;
-import me.bukkit.Infernaton.handler.Store.StringHandler;
+import me.bukkit.Infernaton.handler.store.StringConfig;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -41,7 +41,7 @@ public class BlockListener implements Listener {
         Block block = event.getBlock();
         if (block.getType() == Material.LOG && block.getState().getData().getData() != 0) {
             event.setCancelled(true);
-            ChatHandler.sendError(player, StringHandler.avoidBreak());
+            ChatHandler.sendError(player, StringConfig.avoidBreak());
             return;
         }
         Integer cd = ConstantHandler.coolDownBlock().get(block.getType());

@@ -1,4 +1,4 @@
-package me.bukkit.Infernaton.handler.Store;
+package me.bukkit.Infernaton.handler.store;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.builder.Team;
@@ -11,9 +11,9 @@ import org.bukkit.block.Block;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpatialHandler {
+public class CoordStorage {
 
-    public final static String worldName = StringHandler.worldName();
+    public final static String worldName = StringConfig.worldName();
 
     // #region Coordinate
     public static Location[] getSpawnApplePoint() {

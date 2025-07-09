@@ -1,9 +1,9 @@
 package me.bukkit.Infernaton;
 
 import me.bukkit.Infernaton.handler.*;
-import me.bukkit.Infernaton.handler.Store.SpatialHandler;
-import me.bukkit.Infernaton.handler.Store.StringHandler;
 import me.bukkit.Infernaton.handler.scoreboard.ScoreboardManager;
+import me.bukkit.Infernaton.handler.store.CoordStorage;
+import me.bukkit.Infernaton.handler.store.StringConfig;
 import me.bukkit.Infernaton.listeners.*;
 import me.bukkit.Infernaton.commands.*;
 import me.bukkit.Infernaton.builder.*;
@@ -18,7 +18,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import static me.bukkit.Infernaton.handler.Store.SpatialHandler.worldName;
+import static me.bukkit.Infernaton.handler.store.CoordStorage.worldName;
 
 import java.util.List;
 
@@ -109,12 +109,12 @@ public class FightToSurvive extends JavaPlugin {
     public void onStarting(Player sender) {
         // Need OP
         if (!sender.isOp()) {
-            ChatHandler.sendError(sender, StringHandler.needOp());
+            ChatHandler.sendError(sender, StringConfig.needOp());
             return;
         }
         // Party already launched
         if (!constH.isState(GState.WAITING)) {
-            ChatHandler.sendError(sender, StringHandler.alreadyLaunched());
+            ChatHandler.sendError(sender, StringConfig.alreadyLaunched());
             return;
         }
 
@@ -124,7 +124,7 @@ public class FightToSurvive extends JavaPlugin {
         // Compare if there the same numbers of players in each team
         // Not enough player
         if (redPlayers.size() != bluePlayers.size() || redPlayers.size() == 0) {
-            ChatHandler.sendError(sender, StringHandler.needPlayers());
+            ChatHandler.sendError(sender, StringConfig.needPlayers());
             return;
         }
 
@@ -132,13 +132,13 @@ public class FightToSurvive extends JavaPlugin {
         redPlayers.addAll(bluePlayers); // All players in one variable
         constH.setState(GState.STARTING);
 
-        ChatHandler.sendInfoMessage(sender, StringHandler.launched());
+        ChatHandler.sendInfoMessage(sender, StringConfig.launched());
         CountDown.newCountDown(this, 10L);
         DoorHandler.setAllDoors();
     }
 
     public void start() {
-        ChatHandler.sendMessageListPlayer(ConstantHandler.getAllTeamsPlayer(), StringHandler.start());
+        ChatHandler.sendMessageListPlayer(ConstantHandler.getAllTeamsPlayer(), StringConfig.start());
         gameTimer = GameRunnable.newCountDown(this);
 
         ServerListener.resetAFKList();
@@ -146,7 +146,7 @@ public class FightToSurvive extends JavaPlugin {
         List<Player> allPlayers = ConstantHandler.getAllTeamsPlayer();
         for (Player player : allPlayers) {
             HP.clear(player);
-            player.teleport(SpatialHandler.getBaseLocation(Team.getTeam(player)));
+            player.teleport(CoordStorage.getBaseLocation(Team.getTeam(player)));
             HP.giveStarterPack(player);
             for (PotionEffect effect : player.getActivePotionEffects())
                 player.removePotionEffect(effect.getType());
@@ -168,13 +168,13 @@ public class FightToSurvive extends JavaPlugin {
     public void cancelStart() {
         constH.setState(GState.WAITING);
         CountDown.stopAllCountdown(this);
-        ChatHandler.sendMessageListPlayer(ConstantHandler.getAllTeamsPlayer(), StringHandler.cancelStart());
+        ChatHandler.sendMessageListPlayer(ConstantHandler.getAllTeamsPlayer(), StringConfig.cancelStart());
     }
 
     public void cancel() {
         Bukkit.getWorld(worldName).setTime(1000);
         List<Player> players = ConstantHandler.getAllPlayers();
-        ChatHandler.sendMessageListPlayer(players, StringHandler.cancel());
+        ChatHandler.sendMessageListPlayer(players, StringConfig.cancel());
 
         for (Player player : players) {
             HP.setPlayer(player);
@@ -187,12 +187,12 @@ public class FightToSurvive extends JavaPlugin {
     }
 
     public void finish() {
-        ChatHandler.toAllPlayer(StringHandler.end());
+        ChatHandler.toAllPlayer(StringConfig.end());
         constH.setState(GState.FINISH);
         new BukkitRunnable() {
             @Override
             public void run() {
-                ChatHandler.toAllPlayer(StringHandler.teleport());
+                ChatHandler.toAllPlayer(StringConfig.teleport());
                 FightToSurvive.this.cancel();
             }
         }.runTaskLater(this, 5 * 20);
@@ -232,9 +232,9 @@ public class FightToSurvive extends JavaPlugin {
 
         constH.setScoreboard(getServer().getScoreboardManager().getMainScoreboard());
 
-        new Team(StringHandler.redTeamName(), constH.getScoreboard()).setTeamColor(ChatColor.RED);
-        new Team(StringHandler.blueTeamName(), constH.getScoreboard()).setTeamColor(ChatColor.BLUE);
-        new Team(StringHandler.spectatorName(), constH.getScoreboard()).setTeamColor(ChatColor.GRAY);
+        new Team(StringConfig.redTeamName(), constH.getScoreboard()).setTeamColor(ChatColor.RED);
+        new Team(StringConfig.blueTeamName(), constH.getScoreboard()).setTeamColor(ChatColor.BLUE);
+        new Team(StringConfig.spectatorName(), constH.getScoreboard()).setTeamColor(ChatColor.GRAY);
 
         new CustomRecipe(this);
     }

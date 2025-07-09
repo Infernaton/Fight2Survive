@@ -4,7 +4,7 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.GameRunnable;
 import me.bukkit.Infernaton.builder.Team;
-import me.bukkit.Infernaton.handler.Store.StringHandler;
+import me.bukkit.Infernaton.handler.store.StringConfig;
 import net.minecraft.server.v1_8_R3.MerchantRecipe;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.Scoreboard;
 
-import static me.bukkit.Infernaton.handler.Store.SpatialHandler.worldName;
+import static me.bukkit.Infernaton.handler.store.CoordStorage.worldName;
 
 import java.util.*;
 
@@ -40,22 +40,22 @@ public class ConstantHandler {
     public static String[] pnjName() {
         return new String[] {
                 // Team Blue
-                StringHandler.pnjWood(),
-                StringHandler.pnjCoal(),
+                StringConfig.pnjWood(),
+                StringConfig.pnjCoal(),
                 // StringHandler.pnjGold1(),
-                StringHandler.pnjGold2(),
-                StringHandler.pnjIron(),
-                StringHandler.pnjDiam(),
-                StringHandler.pnjLapis(),
+                StringConfig.pnjGold2(),
+                StringConfig.pnjIron(),
+                StringConfig.pnjDiam(),
+                StringConfig.pnjLapis(),
 
                 // Team Red
-                StringHandler.pnjWood(),
-                StringHandler.pnjCoal(),
+                StringConfig.pnjWood(),
+                StringConfig.pnjCoal(),
                 // StringHandler.pnjGold1(),
-                StringHandler.pnjGold2(),
-                StringHandler.pnjIron(),
-                StringHandler.pnjDiam(),
-                StringHandler.pnjLapis()
+                StringConfig.pnjGold2(),
+                StringConfig.pnjIron(),
+                StringConfig.pnjDiam(),
+                StringConfig.pnjLapis()
         };
     }
 
@@ -118,16 +118,16 @@ public class ConstantHandler {
 
     public Map<String, MerchantRecipe> getAllTrade() {
         Map<String, MerchantRecipe> trade = new HashMap<>();
-        trade.put(StringHandler.pnjWood(),
+        trade.put(StringConfig.pnjWood(),
                 main.MR().tradingKey(new ItemStack(Material.LOG, 10), new ItemStack(Material.COBBLESTONE, 10)));
-        trade.put(StringHandler.pnjCoal(), main.MR().tradingKey(new ItemStack(Material.COAL_BLOCK, 3)));
-        trade.put(StringHandler.pnjGold1(), main.MR().defaultTrade());
-        trade.put(StringHandler.pnjGold2(), main.MR().tradingKey(new ItemStack(Material.GOLD_NUGGET, 50)));
-        trade.put(StringHandler.pnjIron(),
+        trade.put(StringConfig.pnjCoal(), main.MR().tradingKey(new ItemStack(Material.COAL_BLOCK, 3)));
+        trade.put(StringConfig.pnjGold1(), main.MR().defaultTrade());
+        trade.put(StringConfig.pnjGold2(), main.MR().tradingKey(new ItemStack(Material.GOLD_NUGGET, 50)));
+        trade.put(StringConfig.pnjIron(),
                 main.MR().tradingKey(new ItemStack(Material.IRON_BLOCK, 2), new ItemStack(Material.IRON_INGOT, 5)));
-        trade.put(StringHandler.pnjDiam(),
+        trade.put(StringConfig.pnjDiam(),
                 main.MR().tradingKey(new ItemStack(Material.DIAMOND, 6), new ItemStack(Material.COAL, 12)));
-        trade.put(StringHandler.pnjLapis(),
+        trade.put(StringConfig.pnjLapis(),
                 main.MR().tradingKey(new ItemStack(Material.LAPIS_BLOCK, 6), main.HI().goldSword()));
 
         return trade;
@@ -176,15 +176,15 @@ public class ConstantHandler {
 
     // #region Team related
     public static Team getRedTeam() {
-        return Team.getTeamByName(StringHandler.redTeamName());
+        return Team.getTeamByName(StringConfig.redTeamName());
     }
 
     public static Team getBlueTeam() {
-        return Team.getTeamByName(StringHandler.blueTeamName());
+        return Team.getTeamByName(StringConfig.blueTeamName());
     }
 
     public static Team getSpectators() {
-        return Team.getTeamByName(StringHandler.spectatorName());
+        return Team.getTeamByName(StringConfig.spectatorName());
     }
 
     public static List<Player> getAllTeamsPlayer() {

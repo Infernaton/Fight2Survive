@@ -1,4 +1,4 @@
-package me.bukkit.Infernaton.handler.Store;
+package me.bukkit.Infernaton.handler.store;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import org.bukkit.ChatColor;
@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StringHandler {
+public class StringConfig {
     public static List<String> makePlayerList(List<Player> playerList) {
         List<String> str = new ArrayList<>();
         for (Player p : playerList) {

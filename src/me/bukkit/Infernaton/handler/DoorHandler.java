@@ -1,13 +1,13 @@
 package me.bukkit.Infernaton.handler;
 
-import me.bukkit.Infernaton.handler.Store.SpatialHandler;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 
-import static me.bukkit.Infernaton.handler.Store.SpatialHandler.worldName;
+import me.bukkit.Infernaton.handler.store.CoordStorage;
+
+import static me.bukkit.Infernaton.handler.store.CoordStorage.worldName;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class DoorHandler {
      * Clone the main door design on each assign coordinate
      */
     public static void setAllDoors() {
-        Location mainDoor = SpatialHandler.getDoorConstantCoord();
+        Location mainDoor = CoordStorage.getDoorConstantCoord();
         List<Location> copiesDoorsList = ConstantHandler.getAllCopiesDoors();
         for (Location copiesDoors : copiesDoorsList) {
             for (double x = -1; x <= 1; x++) {

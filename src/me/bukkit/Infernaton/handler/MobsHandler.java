@@ -2,7 +2,7 @@ package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.builder.CustomVillager;
-import me.bukkit.Infernaton.handler.Store.SpatialHandler;
+import me.bukkit.Infernaton.handler.store.CoordStorage;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -12,7 +12,7 @@ import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
 import org.bukkit.entity.*;
 
-import static me.bukkit.Infernaton.handler.Store.SpatialHandler.worldName;
+import static me.bukkit.Infernaton.handler.store.CoordStorage.worldName;
 
 import java.util.List;
 import java.util.Random;
@@ -59,7 +59,7 @@ public class MobsHandler {
     }
 
     public void setAllPnj() {
-        List<Location> copiesPnjList = SpatialHandler.getAllPnjLocation();
+        List<Location> copiesPnjList = CoordStorage.getAllPnjLocation();
         for (int i = 0; i < copiesPnjList.size(); i++) {
             createVillager(copiesPnjList.get(i), ConstantHandler.pnjName()[i]);
         }
@@ -91,7 +91,7 @@ public class MobsHandler {
             if (player.getGameMode() != GameMode.ADVENTURE)
                 continue;
             Location playerLocation = player.getLocation();
-            List<Block> test = SpatialHandler.sphereAround(playerLocation, 12);
+            List<Block> test = CoordStorage.sphereAround(playerLocation, 12);
 
             Block blockBelow;
             Block newBlock;
