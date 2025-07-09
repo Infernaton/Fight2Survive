@@ -1,8 +1,8 @@
 package me.bukkit.Infernaton.store;
 
 import me.bukkit.Infernaton.FightToSurvive;
-import me.bukkit.Infernaton.builder.GameRunnable;
 import me.bukkit.Infernaton.builder.Team;
+import me.bukkit.Infernaton.builder.clock.GameRunnable;
 import net.minecraft.server.v1_8_R3.MerchantRecipe;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

@@ -1,4 +1,4 @@
-package me.bukkit.Infernaton.builder;
+package me.bukkit.Infernaton.builder.clock;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import org.bukkit.Bukkit;

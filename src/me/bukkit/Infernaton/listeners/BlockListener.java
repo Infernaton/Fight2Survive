@@ -2,7 +2,7 @@ package me.bukkit.Infernaton.listeners;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
-import me.bukkit.Infernaton.builder.BreakBlockClock;
+import me.bukkit.Infernaton.builder.clock.BreakBlockClock;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.store.Constants;
 import me.bukkit.Infernaton.store.StringConfig;
