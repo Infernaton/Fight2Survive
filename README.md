@@ -7,6 +7,8 @@ Minecraft Plugin for 1.8.9
 Fix:
 
 - spawn des mobs
+- Inventaire des coffres/fours à vider
+- Replace par Bedrock quand block est cassé par joueur
 
 Ajout:
 
