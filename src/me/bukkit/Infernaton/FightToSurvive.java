@@ -50,7 +50,6 @@ public class FightToSurvive extends JavaPlugin {
     private final HandlePlayerState HP = new HandlePlayerState(this);
     private FinalPhaseHandler finalPhase;
     private final MobsHandler mobsHandler = new MobsHandler(this);
-    private final HandleMerchantRecipe handleMR = new HandleMerchantRecipe(this);
     private final BlockHandler BH = new BlockHandler();
 
     public ConstantHandler constH() {
@@ -67,10 +66,6 @@ public class FightToSurvive extends JavaPlugin {
 
     public MobsHandler MH() {
         return mobsHandler;
-    }
-
-    public HandleMerchantRecipe MR() {
-        return handleMR;
     }
 
     public BlockHandler BH() {

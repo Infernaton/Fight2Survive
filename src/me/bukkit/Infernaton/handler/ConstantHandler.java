@@ -5,6 +5,7 @@ import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.GameRunnable;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.store.CustomItem;
+import me.bukkit.Infernaton.handler.store.CustomMerchantRecipe;
 import me.bukkit.Infernaton.handler.store.StringConfig;
 import net.minecraft.server.v1_8_R3.MerchantRecipe;
 import org.bukkit.Bukkit;
@@ -117,24 +118,26 @@ public class ConstantHandler {
         return cd;
     }
 
-    public Map<String, MerchantRecipe> getAllTrade() {
+    public static Map<String, MerchantRecipe> getAllTrade() {
         Map<String, MerchantRecipe> trade = new HashMap<>();
         trade.put(StringConfig.pnjWood(),
-                main.MR().tradingKey(new ItemStack(Material.LOG, 10), new ItemStack(Material.COBBLESTONE, 10)));
-        trade.put(StringConfig.pnjCoal(), main.MR().tradingKey(new ItemStack(Material.COAL_BLOCK, 3)));
-        trade.put(StringConfig.pnjGold1(), main.MR().defaultTrade());
-        trade.put(StringConfig.pnjGold2(), main.MR().tradingKey(new ItemStack(Material.GOLD_NUGGET, 50)));
+                CustomMerchantRecipe.tradingKey(new ItemStack(Material.LOG, 10),
+                        new ItemStack(Material.COBBLESTONE, 10)));
+        trade.put(StringConfig.pnjCoal(), CustomMerchantRecipe.tradingKey(new ItemStack(Material.COAL_BLOCK, 3)));
+        trade.put(StringConfig.pnjGold1(), CustomMerchantRecipe.defaultTrade());
+        trade.put(StringConfig.pnjGold2(), CustomMerchantRecipe.tradingKey(new ItemStack(Material.GOLD_NUGGET, 50)));
         trade.put(StringConfig.pnjIron(),
-                main.MR().tradingKey(new ItemStack(Material.IRON_BLOCK, 2), new ItemStack(Material.IRON_INGOT, 5)));
+                CustomMerchantRecipe.tradingKey(new ItemStack(Material.IRON_BLOCK, 2),
+                        new ItemStack(Material.IRON_INGOT, 5)));
         trade.put(StringConfig.pnjDiam(),
-                main.MR().tradingKey(new ItemStack(Material.DIAMOND, 6), new ItemStack(Material.COAL, 12)));
+                CustomMerchantRecipe.tradingKey(new ItemStack(Material.DIAMOND, 6), new ItemStack(Material.COAL, 12)));
         trade.put(StringConfig.pnjLapis(),
-                main.MR().tradingKey(new ItemStack(Material.LAPIS_BLOCK, 6), CustomItem.goldSword()));
+                CustomMerchantRecipe.tradingKey(new ItemStack(Material.LAPIS_BLOCK, 6), CustomItem.goldSword()));
 
         return trade;
     }
 
-    public MerchantRecipe getTrade(String pnjName) {
+    public static MerchantRecipe getTrade(String pnjName) {
         return getAllTrade().get(pnjName);
     }
 

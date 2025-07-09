@@ -48,7 +48,7 @@ public class MobsHandler {
         villager.setCustomName(name);
         villager.setCustomNameVisible(true);
 
-        new CustomVillager(main, villager).addRecipe(main.constH().getTrade(name)).finish();
+        new CustomVillager(main, villager).addRecipe(ConstantHandler.getTrade(name)).finish();
     }
 
     public void createRandomAggressiveMob(Location location, int mobLevel) {
