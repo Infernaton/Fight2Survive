@@ -4,6 +4,8 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.BreakBlockClock;
 import me.bukkit.Infernaton.handler.ChatHandler;
+import me.bukkit.Infernaton.handler.Store.StringHandler;
+
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -38,7 +40,7 @@ public class BlockListener implements Listener {
         Block block = event.getBlock();
         if (block.getType() == Material.LOG && block.getState().getData().getData() != 0) {
             event.setCancelled(true);
-            ChatHandler.sendError(player, main.stringH().avoidBreak());
+            ChatHandler.sendError(player, StringHandler.avoidBreak());
             return;
         }
         Integer cd = main.constH().coolDownBlock().get(block.getType());

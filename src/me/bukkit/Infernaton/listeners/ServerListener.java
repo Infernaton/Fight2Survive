@@ -4,6 +4,7 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
+import me.bukkit.Infernaton.handler.Store.StringHandler;
 import me.bukkit.Infernaton.handler.scoreboard.ScoreboardManager;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -51,7 +52,7 @@ public class ServerListener implements Listener {
         // if the game crashed client side, it would be a shame if he can't rejoin the
         // party
         boolean isCurrentlyIG = !main.constH().isState(GState.WAITING) &&
-                !Team.getTeam(player).getTeamName().equalsIgnoreCase(main.stringH().spectatorName());
+                !Team.getTeam(player).getTeamName().equalsIgnoreCase(StringHandler.spectatorName());
 
         // And, if the player is in creative, we don't need to reset is position
         if (!isCurrentlyIG && player.getGameMode() != GameMode.CREATIVE) {
@@ -91,7 +92,7 @@ public class ServerListener implements Listener {
                 public void run() {
                     if (afkList.containsKey(player.getUniqueId())
                             && afkList.get(player.getUniqueId()).getPlayers().isEmpty()) {
-                        ChatHandler.toAllPlayer(main.stringH().quitingReset());
+                        ChatHandler.toAllPlayer(StringHandler.quitingReset());
                         main.finish();
                     }
                 }

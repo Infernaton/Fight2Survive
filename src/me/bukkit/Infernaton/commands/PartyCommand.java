@@ -4,6 +4,8 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.InterfaceHandler;
+import me.bukkit.Infernaton.handler.Store.StringHandler;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,7 +30,7 @@ public class PartyCommand implements CommandExecutor {
             if (sender instanceof Player)
                 main.onStarting((Player) sender);
             else
-                ChatHandler.sendError(sender, main.stringH().cantFromConsole());
+                ChatHandler.sendError(sender, StringHandler.cantFromConsole());
             return true;
         }
 
@@ -40,13 +42,13 @@ public class PartyCommand implements CommandExecutor {
             if (main.constH().isState(GState.STARTING))
                 main.cancelStart();
             else
-                ChatHandler.sendError(sender, main.stringH().noCountdown());
+                ChatHandler.sendError(sender, StringHandler.noCountdown());
             return true;
         } else if (cmd.getName().equalsIgnoreCase("reset")) {
             if (main.constH().isState(GState.PLAYING))
                 main.cancel();
             else
-                ChatHandler.sendError(sender, main.stringH().noGame());
+                ChatHandler.sendError(sender, StringHandler.noGame());
             return true;
         } else if (cmd.getName().equalsIgnoreCase("forceFinal")) {
             if (main.constH().isState(GState.PLAYING) || main.constH().isState(GState.WAITING))

@@ -3,6 +3,9 @@ package me.bukkit.Infernaton.builder;
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
+import me.bukkit.Infernaton.handler.ConstantHandler;
+import me.bukkit.Infernaton.handler.Store.StringHandler;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
@@ -72,22 +75,22 @@ public class GameRunnable implements Runnable {
         countdownStarter++;
 
         // Spawning mob once the night is set
-        if (!isDay && !coolDownLoc.containsKey(main.stringH().mobWaveKey())) {
+        if (!isDay && !coolDownLoc.containsKey(StringHandler.mobWaveKey())) {
             int timeReduce = main.MH().generateMobWave();
-            coolDownLoc.put(main.stringH().mobWaveKey(), main.constH().getInitMobWaveCD() - timeReduce);
+            coolDownLoc.put(StringHandler.mobWaveKey(), ConstantHandler.mobWaveCooldown - timeReduce);
         }
 
         // Warning all player of the change of the time
         if ((countdownStarter + 5) % dayTime == 0) {
-            ChatHandler.toAllPlayer(isDay ? main.stringH().nearNight() : main.stringH().nearDay());
+            ChatHandler.toAllPlayer(isDay ? StringHandler.nearNight() : StringHandler.nearDay());
         }
         // Changing the current time
         if (countdownStarter % dayTime == 0) {
             isDay = !isDay;
             if (isDay) {
-                changeDay(1000, main.stringH().day());
+                changeDay(1000, StringHandler.day());
             } else {
-                changeDay(16000, main.stringH().night());
+                changeDay(16000, StringHandler.night());
             }
         }
 
@@ -97,7 +100,7 @@ public class GameRunnable implements Runnable {
             if (!coolDownLoc.containsKey(loc.toString())) {
                 boolean isSpawn = main.HI().spawningApple(loc);
                 if (isSpawn)
-                    coolDownLoc.put(loc.toString(), main.constH().getCoolDownAppleSpawn());
+                    coolDownLoc.put(loc.toString(), ConstantHandler.appleSpawningCooldown);
             }
         }
 

@@ -4,6 +4,7 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.GameRunnable;
 import me.bukkit.Infernaton.builder.Team;
+import me.bukkit.Infernaton.handler.Store.StringHandler;
 import net.minecraft.server.v1_8_R3.MerchantRecipe;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -30,38 +31,33 @@ public class ConstantHandler {
     private Scoreboard scoreboard;
     private InterfaceHandler IH;
 
+    public final static int appleSpawningCooldown = 15;
+    public final static int mobWaveCooldown = 61;
+
     public ConstantHandler(FightToSurvive main) {
         this.main = main;
         this.IH = new InterfaceHandler(main);
     }
 
-    public int getCoolDownAppleSpawn() {
-        return 15;
-    }
-
-    public int getInitMobWaveCD() {
-        return 61;
-    }
-
-    public String[] pnjName() {
+    public static String[] pnjName() {
         return new String[] {
                 // Team Blue
-                main.stringH().pnjWood(),
-                main.stringH().pnjCoal(),
-                // main.stringH().pnjGold1(),
-                main.stringH().pnjGold2(),
-                main.stringH().pnjIron(),
-                main.stringH().pnjDiam(),
-                main.stringH().pnjLapis(),
+                StringHandler.pnjWood(),
+                StringHandler.pnjCoal(),
+                // StringHandler.pnjGold1(),
+                StringHandler.pnjGold2(),
+                StringHandler.pnjIron(),
+                StringHandler.pnjDiam(),
+                StringHandler.pnjLapis(),
 
                 // Team Red
-                main.stringH().pnjWood(),
-                main.stringH().pnjCoal(),
-                // main.stringH().pnjGold1(),
-                main.stringH().pnjGold2(),
-                main.stringH().pnjIron(),
-                main.stringH().pnjDiam(),
-                main.stringH().pnjLapis()
+                StringHandler.pnjWood(),
+                StringHandler.pnjCoal(),
+                // StringHandler.pnjGold1(),
+                StringHandler.pnjGold2(),
+                StringHandler.pnjIron(),
+                StringHandler.pnjDiam(),
+                StringHandler.pnjLapis()
         };
     }
 
@@ -122,16 +118,16 @@ public class ConstantHandler {
 
     public Map<String, MerchantRecipe> getAllTrade() {
         Map<String, MerchantRecipe> trade = new HashMap<>();
-        trade.put(main.stringH().pnjWood(),
+        trade.put(StringHandler.pnjWood(),
                 main.MR().tradingKey(new ItemStack(Material.LOG, 10), new ItemStack(Material.COBBLESTONE, 10)));
-        trade.put(main.stringH().pnjCoal(), main.MR().tradingKey(new ItemStack(Material.COAL_BLOCK, 3)));
-        trade.put(main.stringH().pnjGold1(), main.MR().defaultTrade());
-        trade.put(main.stringH().pnjGold2(), main.MR().tradingKey(new ItemStack(Material.GOLD_NUGGET, 50)));
-        trade.put(main.stringH().pnjIron(),
+        trade.put(StringHandler.pnjCoal(), main.MR().tradingKey(new ItemStack(Material.COAL_BLOCK, 3)));
+        trade.put(StringHandler.pnjGold1(), main.MR().defaultTrade());
+        trade.put(StringHandler.pnjGold2(), main.MR().tradingKey(new ItemStack(Material.GOLD_NUGGET, 50)));
+        trade.put(StringHandler.pnjIron(),
                 main.MR().tradingKey(new ItemStack(Material.IRON_BLOCK, 2), new ItemStack(Material.IRON_INGOT, 5)));
-        trade.put(main.stringH().pnjDiam(),
+        trade.put(StringHandler.pnjDiam(),
                 main.MR().tradingKey(new ItemStack(Material.DIAMOND, 6), new ItemStack(Material.COAL, 12)));
-        trade.put(main.stringH().pnjLapis(),
+        trade.put(StringHandler.pnjLapis(),
                 main.MR().tradingKey(new ItemStack(Material.LAPIS_BLOCK, 6), main.HI().goldSword()));
 
         return trade;
@@ -175,15 +171,15 @@ public class ConstantHandler {
     }
 
     public Team getRedTeam() {
-        return Team.getTeamByName(main.stringH().redTeamName());
+        return Team.getTeamByName(StringHandler.redTeamName());
     }
 
     public Team getBlueTeam() {
-        return Team.getTeamByName(main.stringH().blueTeamName());
+        return Team.getTeamByName(StringHandler.blueTeamName());
     }
 
     public Team getSpectators() {
-        return Team.getTeamByName(main.stringH().spectatorName());
+        return Team.getTeamByName(StringHandler.spectatorName());
     }
 
     public List<Player> getAllTeamsPlayer() {

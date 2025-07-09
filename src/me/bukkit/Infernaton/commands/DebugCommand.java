@@ -3,6 +3,8 @@ package me.bukkit.Infernaton.commands;
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
+import me.bukkit.Infernaton.handler.Store.StringHandler;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -31,7 +33,7 @@ public class DebugCommand implements CommandExecutor {
 
         else if (cmd.getName().equalsIgnoreCase("getDoors")) {
             if (main.constH().isState(GState.WAITING)) {
-                ChatHandler.sendInfoMessage(sender, main.stringH().getDoors());
+                ChatHandler.sendInfoMessage(sender, StringHandler.getDoors());
                 main.DH().setAllDoors();
             } else {
                 ChatHandler.sendCantWhilePlaying(sender);
@@ -41,7 +43,7 @@ public class DebugCommand implements CommandExecutor {
 
         else if (cmd.getName().equalsIgnoreCase("deleteDoors")) {
             if (main.constH().isState(GState.WAITING)) {
-                ChatHandler.sendInfoMessage(sender, main.stringH().delDoors());
+                ChatHandler.sendInfoMessage(sender, StringHandler.delDoors());
                 main.DH().deleteAllDoors();
             } else {
                 ChatHandler.sendCantWhilePlaying(sender);
@@ -50,14 +52,14 @@ public class DebugCommand implements CommandExecutor {
         }
 
         else if (cmd.getName().equalsIgnoreCase("getKey")) {
-            ChatHandler.sendInfoMessage(sender, main.stringH().giveKey());
+            ChatHandler.sendInfoMessage(sender, StringHandler.giveKey());
             main.HI().giveItemInInventory((Player) sender, main.HI().paperKey(), 1);
             return true;
         }
 
         else if (cmd.getName().equalsIgnoreCase("setVillagers")) {
             if (main.constH().isState(GState.WAITING)) {
-                ChatHandler.sendInfoMessage(sender, main.stringH().setVill());
+                ChatHandler.sendInfoMessage(sender, StringHandler.setVill());
                 main.MH().setAllPnj();
             } else {
                 ChatHandler.sendCantWhilePlaying(sender);
@@ -66,7 +68,7 @@ public class DebugCommand implements CommandExecutor {
         }
 
         else if (cmd.getName().equalsIgnoreCase("killPnj")) {
-            ChatHandler.sendInfoMessage(sender, main.stringH().killVill());
+            ChatHandler.sendInfoMessage(sender, StringHandler.killVill());
             main.MH().killPnj();
             return true;
         }
@@ -78,18 +80,18 @@ public class DebugCommand implements CommandExecutor {
         if (args.length == 0) {
             Player player = (Player) sender;
             main.HP().setPlayer(player);
-            ChatHandler.sendMessage(sender, main.stringH().setPlayer("You", "are"));
+            ChatHandler.sendMessage(sender, StringHandler.setPlayer("You", "are"));
         } else if (args.length == 1) {
             Player targetPlayer = Bukkit.getPlayerExact(args[0]);
             if (targetPlayer == null) {
-                ChatHandler.sendError(sender, main.stringH().notPlayer());
+                ChatHandler.sendError(sender, StringHandler.notPlayer());
             } else {
                 main.HP().setPlayer(targetPlayer);
-                ChatHandler.sendMessage(sender, main.stringH().setPlayer(args[0], "is"));
+                ChatHandler.sendMessage(sender, StringHandler.setPlayer(args[0], "is"));
             }
         } else {
-            ChatHandler.sendError(sender, main.stringH().tooManyArgument());
-            ChatHandler.sendCorrectUsage(sender, main.stringH().correctUsage(cmd.getName(), "<username>"));
+            ChatHandler.sendError(sender, StringHandler.tooManyArgument());
+            ChatHandler.sendCorrectUsage(sender, StringHandler.correctUsage(cmd.getName(), "<username>"));
         }
     }
 }

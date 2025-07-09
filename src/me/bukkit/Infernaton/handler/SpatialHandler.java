@@ -2,6 +2,8 @@ package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.builder.Team;
+import me.bukkit.Infernaton.handler.Store.StringHandler;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -24,7 +26,7 @@ public class SpatialHandler {
     }
 
     public String getWorldName() {
-        return main.stringH().worldName();
+        return StringHandler.worldName();
     }
 
     // #region Coordinate

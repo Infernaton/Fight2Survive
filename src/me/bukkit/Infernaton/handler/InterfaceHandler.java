@@ -1,6 +1,8 @@
 package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
+import me.bukkit.Infernaton.handler.Store.StringHandler;
+
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -30,7 +32,7 @@ public class InterfaceHandler {
     }
 
     public Inventory selectTeam() {
-        Inventory inv = Bukkit.createInventory(null, 45, main.stringH().teamInventory());
+        Inventory inv = Bukkit.createInventory(null, 45, StringHandler.teamInventory());
         inv.setItem(20, main.HI().blueWool());
         inv.setItem(24, main.HI().redWool());
         inv.setItem(13, main.HI().spectatorWool());
@@ -45,13 +47,13 @@ public class InterfaceHandler {
     }
 
     public Inventory cancelStart() {
-        Inventory inv = Bukkit.createInventory(null, 9, main.stringH().cancelInventory());
+        Inventory inv = Bukkit.createInventory(null, 9, StringHandler.cancelInventory());
         separatorLine(inv, 0, createException(4, main.HI().gameCancelWool()));
         return inv;
     }
 
     public Inventory optionsInventory() {
-        Inventory inv = Bukkit.createInventory(null, 45, main.stringH().optionInventory());
+        Inventory inv = Bukkit.createInventory(null, 45, StringHandler.optionInventory());
 
         separatorLine(inv, 36, createException(44, main.HI().returnWool()));
         return inv;

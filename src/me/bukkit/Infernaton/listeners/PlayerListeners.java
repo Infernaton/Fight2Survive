@@ -4,6 +4,8 @@ import me.bukkit.Infernaton.*;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.InterfaceHandler;
+import me.bukkit.Infernaton.handler.Store.StringHandler;
+
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -64,7 +66,7 @@ public class PlayerListeners implements Listener {
 
         // If the player clicked on a specified Compass, which is given when he spawn
         if (item.getType() == Material.COMPASS && item.hasItemMeta() && item.getItemMeta().hasDisplayName()
-                && item.getItemMeta().getDisplayName().equalsIgnoreCase(main.stringH().compassName())) {
+                && item.getItemMeta().getDisplayName().equalsIgnoreCase(StringHandler.compassName())) {
             if (main.constH().isState(GState.STARTING)) {
                 player.openInventory(IH.cancelStart());
             } else {
@@ -88,33 +90,33 @@ public class PlayerListeners implements Listener {
         String itemName = current.getItemMeta().getDisplayName();
 
         // Action on the inventory of the compass, given when joining the server
-        if (inv.getName().equalsIgnoreCase(main.stringH().teamInventory())) {
+        if (inv.getName().equalsIgnoreCase(StringHandler.teamInventory())) {
             event.setCancelled(true);
-            if (itemName.equals(main.stringH().blueTeamItem())) {
+            if (itemName.equals(StringHandler.blueTeamItem())) {
                 main.addingTeam(main.constH().getBlueTeam(), player);
                 player.closeInventory();
-            } else if (itemName.equals(main.stringH().redTeamItem())) {
+            } else if (itemName.equals(StringHandler.redTeamItem())) {
                 main.addingTeam(main.constH().getRedTeam(), player);
                 player.closeInventory();
-            } else if (itemName.equals(main.stringH().spectatorsItem())) {
+            } else if (itemName.equals(StringHandler.spectatorsItem())) {
                 main.addingTeam(main.constH().getSpectators(), player);
                 player.closeInventory();
-            } else if (itemName.equals(main.stringH().launch())) {
+            } else if (itemName.equals(StringHandler.launch())) {
                 main.onStarting(player);
                 player.closeInventory();
-            } else if (itemName.equals(main.stringH().optionItem())) {
+            } else if (itemName.equals(StringHandler.optionItem())) {
                 player.openInventory(IH.optionsInventory());
             }
         }
-        if (inv.getName().equalsIgnoreCase(main.stringH().optionInventory())) {
+        if (inv.getName().equalsIgnoreCase(StringHandler.optionInventory())) {
             event.setCancelled(true);
-            if (itemName.equals(main.stringH().returnItem())) {
+            if (itemName.equals(StringHandler.returnItem())) {
                 player.openInventory(IH.selectTeam());
             }
         }
-        if (inv.getName().equalsIgnoreCase(main.stringH().cancelInventory())) {
+        if (inv.getName().equalsIgnoreCase(StringHandler.cancelInventory())) {
             event.setCancelled(true);
-            if (itemName.equals(main.stringH().cancelItem())) {
+            if (itemName.equals(StringHandler.cancelItem())) {
                 main.cancelStart();
                 player.closeInventory();
             }
@@ -149,7 +151,7 @@ public class PlayerListeners implements Listener {
         Player p = event.getPlayer();
         if (p.getItemInHand().getType() == Material.BOAT) {
             event.setCancelled(true);
-            ChatHandler.sendError(p, main.stringH().cantWhilePlaying());
+            ChatHandler.sendError(p, StringHandler.cantWhilePlaying());
         }
     }
 }

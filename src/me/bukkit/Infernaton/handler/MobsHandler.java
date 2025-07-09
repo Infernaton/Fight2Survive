@@ -60,7 +60,7 @@ public class MobsHandler {
     public void setAllPnj() {
         List<Location> copiesPnjList = main.SH().getAllPnjLocation();
         for (int i = 0; i < copiesPnjList.size(); i++) {
-            createVillager(copiesPnjList.get(i), main.constH().pnjName()[i]);
+            createVillager(copiesPnjList.get(i), ConstantHandler.pnjName()[i]);
         }
     }
 

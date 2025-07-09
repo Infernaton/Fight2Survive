@@ -1,6 +1,8 @@
 package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.FightToSurvive;
+import me.bukkit.Infernaton.handler.Store.StringHandler;
+
 import org.bukkit.Location;
 
 import java.util.List;
@@ -31,7 +33,7 @@ public class FinalPhaseHandler {
 
     public void activate() {
         active = true;
-        ChatHandler.toAllPlayer(main.stringH().finalPhase());
+        ChatHandler.toAllPlayer(StringHandler.finalPhase());
         main.DH().deleteAllDoors();
     }
 
