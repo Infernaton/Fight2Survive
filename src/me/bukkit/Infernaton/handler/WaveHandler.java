@@ -1,6 +1,6 @@
 package me.bukkit.Infernaton.handler;
 
-import static me.bukkit.Infernaton.handler.store.CoordStorage.worldName;
+import static me.bukkit.Infernaton.store.CoordStorage.worldName;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -13,9 +13,9 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-import me.bukkit.Infernaton.handler.store.Constants;
-import me.bukkit.Infernaton.handler.store.CoordStorage;
-import me.bukkit.Infernaton.handler.store.Mobs;
+import me.bukkit.Infernaton.store.Constants;
+import me.bukkit.Infernaton.store.CoordStorage;
+import me.bukkit.Infernaton.store.Mobs;
 
 /**
  * Handle wave from aggressive mob

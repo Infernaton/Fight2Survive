@@ -2,11 +2,11 @@ package me.bukkit.Infernaton;
 
 import me.bukkit.Infernaton.handler.*;
 import me.bukkit.Infernaton.handler.scoreboard.ScoreboardManager;
-import me.bukkit.Infernaton.handler.store.Constants;
-import me.bukkit.Infernaton.handler.store.CoordStorage;
-import me.bukkit.Infernaton.handler.store.Mobs;
-import me.bukkit.Infernaton.handler.store.StringConfig;
 import me.bukkit.Infernaton.listeners.*;
+import me.bukkit.Infernaton.store.Constants;
+import me.bukkit.Infernaton.store.CoordStorage;
+import me.bukkit.Infernaton.store.Mobs;
+import me.bukkit.Infernaton.store.StringConfig;
 import me.bukkit.Infernaton.commands.*;
 import me.bukkit.Infernaton.builder.*;
 import org.bukkit.Bukkit;
@@ -21,7 +21,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 
-import static me.bukkit.Infernaton.handler.store.CoordStorage.worldName;
+import static me.bukkit.Infernaton.store.CoordStorage.worldName;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package me.bukkit.Infernaton.handler.store;
+package me.bukkit.Infernaton.store;
 
 import net.minecraft.server.v1_8_R3.MerchantRecipe;
 import org.bukkit.Material;

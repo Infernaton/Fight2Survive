@@ -4,15 +4,15 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.WaveHandler;
-import me.bukkit.Infernaton.handler.store.Constants;
-import me.bukkit.Infernaton.handler.store.CoordStorage;
-import me.bukkit.Infernaton.handler.store.CustomItem;
-import me.bukkit.Infernaton.handler.store.StringConfig;
+import me.bukkit.Infernaton.store.Constants;
+import me.bukkit.Infernaton.store.CoordStorage;
+import me.bukkit.Infernaton.store.CustomItem;
+import me.bukkit.Infernaton.store.StringConfig;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
-import static me.bukkit.Infernaton.handler.store.CoordStorage.worldName;
+import static me.bukkit.Infernaton.store.CoordStorage.worldName;
 
 import java.util.HashMap;
 import java.util.Map;

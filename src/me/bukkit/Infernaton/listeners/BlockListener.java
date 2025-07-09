@@ -4,8 +4,8 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.BreakBlockClock;
 import me.bukkit.Infernaton.handler.ChatHandler;
-import me.bukkit.Infernaton.handler.store.Constants;
-import me.bukkit.Infernaton.handler.store.StringConfig;
+import me.bukkit.Infernaton.store.Constants;
+import me.bukkit.Infernaton.store.StringConfig;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;

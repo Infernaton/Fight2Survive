@@ -5,10 +5,10 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 
-import me.bukkit.Infernaton.handler.store.Constants;
-import me.bukkit.Infernaton.handler.store.CoordStorage;
+import me.bukkit.Infernaton.store.Constants;
+import me.bukkit.Infernaton.store.CoordStorage;
 
-import static me.bukkit.Infernaton.handler.store.CoordStorage.worldName;
+import static me.bukkit.Infernaton.store.CoordStorage.worldName;
 
 import java.util.List;
 

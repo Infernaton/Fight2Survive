@@ -1,7 +1,7 @@
 package me.bukkit.Infernaton.builder;
 
 import me.bukkit.Infernaton.FightToSurvive;
-import me.bukkit.Infernaton.handler.store.CustomItem;
+import me.bukkit.Infernaton.store.CustomItem;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

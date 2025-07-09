@@ -4,9 +4,9 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.DoorHandler;
-import me.bukkit.Infernaton.handler.store.CustomItem;
-import me.bukkit.Infernaton.handler.store.Mobs;
-import me.bukkit.Infernaton.handler.store.StringConfig;
+import me.bukkit.Infernaton.store.CustomItem;
+import me.bukkit.Infernaton.store.Mobs;
+import me.bukkit.Infernaton.store.StringConfig;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

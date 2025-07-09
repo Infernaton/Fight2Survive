@@ -4,11 +4,11 @@ import me.bukkit.Infernaton.*;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.FinalPhaseHandler;
-import me.bukkit.Infernaton.handler.store.Constants;
-import me.bukkit.Infernaton.handler.store.CoordStorage;
-import me.bukkit.Infernaton.handler.store.CustomItem;
-import me.bukkit.Infernaton.handler.store.InterfaceMenu;
-import me.bukkit.Infernaton.handler.store.StringConfig;
+import me.bukkit.Infernaton.store.Constants;
+import me.bukkit.Infernaton.store.CoordStorage;
+import me.bukkit.Infernaton.store.CustomItem;
+import me.bukkit.Infernaton.store.InterfaceMenu;
+import me.bukkit.Infernaton.store.StringConfig;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

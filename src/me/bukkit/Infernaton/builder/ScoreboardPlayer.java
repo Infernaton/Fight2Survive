@@ -2,7 +2,7 @@ package me.bukkit.Infernaton.builder;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.handler.scoreboard.Scoreboard;
-import me.bukkit.Infernaton.handler.store.Constants;
+import me.bukkit.Infernaton.store.Constants;
 
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;

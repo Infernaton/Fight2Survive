@@ -1,4 +1,4 @@
-package me.bukkit.Infernaton.handler.store;
+package me.bukkit.Infernaton.store;
 
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;

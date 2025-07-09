@@ -4,7 +4,7 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.FinalPhaseHandler;
-import me.bukkit.Infernaton.handler.store.StringConfig;
+import me.bukkit.Infernaton.store.StringConfig;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

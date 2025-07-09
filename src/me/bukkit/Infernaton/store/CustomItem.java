@@ -1,4 +1,4 @@
-package me.bukkit.Infernaton.handler.store;
+package me.bukkit.Infernaton.store;
 
 import me.bukkit.Infernaton.builder.ItemBuilder;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
-import static me.bukkit.Infernaton.handler.store.CoordStorage.worldName;
+import static me.bukkit.Infernaton.store.CoordStorage.worldName;
 
 import java.util.Collection;
 

@@ -5,9 +5,9 @@ import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.scoreboard.ScoreboardManager;
-import me.bukkit.Infernaton.handler.store.Constants;
-import me.bukkit.Infernaton.handler.store.CoordStorage;
-import me.bukkit.Infernaton.handler.store.StringConfig;
+import me.bukkit.Infernaton.store.Constants;
+import me.bukkit.Infernaton.store.CoordStorage;
+import me.bukkit.Infernaton.store.StringConfig;
 
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;

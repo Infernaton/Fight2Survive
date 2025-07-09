@@ -1,8 +1,8 @@
 package me.bukkit.Infernaton.handler;
 
-import me.bukkit.Infernaton.handler.store.StringConfig;
-
 import org.bukkit.Location;
+
+import me.bukkit.Infernaton.store.StringConfig;
 
 import java.util.List;
 

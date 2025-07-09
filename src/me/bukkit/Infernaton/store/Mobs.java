@@ -1,4 +1,4 @@
-package me.bukkit.Infernaton.handler.store;
+package me.bukkit.Infernaton.store;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.builder.CustomVillager;
@@ -9,7 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
 import org.bukkit.entity.*;
 
-import static me.bukkit.Infernaton.handler.store.CoordStorage.worldName;
+import static me.bukkit.Infernaton.store.CoordStorage.worldName;
 
 import java.util.ArrayList;
 import java.util.Arrays;

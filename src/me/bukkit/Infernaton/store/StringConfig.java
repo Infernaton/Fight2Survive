@@ -1,4 +1,4 @@
-package me.bukkit.Infernaton.handler.store;
+package me.bukkit.Infernaton.store;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import org.bukkit.ChatColor;
