@@ -7,7 +7,7 @@ Minecraft Plugin for 1.8.9
 ### Fix
 
 - Clean code : Ajout de commentaire, contexte
-- Equilibrer spawn des mobs
+- A tester ~~Equilibrer spawn des mobs~~
 - Replace par Bedrock quand block est cassé par joueur + afficher cooldown
 
 ### Ajout

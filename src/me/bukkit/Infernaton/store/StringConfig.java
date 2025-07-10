@@ -16,10 +16,6 @@ public class StringConfig {
         return str;
     }
 
-    public static String mobWaveKey() {
-        return "_mobWaveCD_";
-    }
-
     // #region get Data from config
     private static String getDataString(String key) {
         return ChatColor.translateAlternateColorCodes('&',

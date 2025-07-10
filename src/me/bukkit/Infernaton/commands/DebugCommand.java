@@ -5,13 +5,9 @@ import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.DoorHandler;
 import me.bukkit.Infernaton.store.CustomItem;
-import me.bukkit.Infernaton.store.Mobs;
 import me.bukkit.Infernaton.store.StringConfig;
 
-import java.util.List;
-
 import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

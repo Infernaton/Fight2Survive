@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.store.Constants;
 import me.bukkit.Infernaton.store.CoordStorage;
 import me.bukkit.Infernaton.store.Mobs;
@@ -21,9 +21,6 @@ import me.bukkit.Infernaton.store.Mobs;
  * Handle wave from aggressive mob
  */
 public class WaveHandler {
-
-    private int round = 1;
-    private int level = 1;
 
     private static WaveHandler self;
 
@@ -34,38 +31,42 @@ public class WaveHandler {
         return self;
     }
 
-    public int generateMobWave() {
-        int nbMob = Math.min(level, 7);
-        for (int i = 0; i < nbMob; i++) {
-            generateOneMob(round);
-        }
-        level++;
-        if (level % 3 == 0) {
-            round++;
-        }
-        return (nbMob - 1) * 3;
+    private int generateMobLevel() {
+        // Each 5 minutes, the mob level will rise to 1
+        return Math.round(1 + (FightToSurvive.getTimer().getTime() / 5 * 60));
     }
 
-    public void generateOneMob(int mobLevel) {
-        List<Player> playerList = Constants.getAllTeamsPlayer();
-        for (Player player : playerList) {
-            if (player.getGameMode() != GameMode.ADVENTURE)
-                continue;
-            Location playerLocation = player.getLocation();
-            List<Block> test = CoordStorage.sphereAround(playerLocation, 12);
+    public float chanceToSpawn() {
+        return Constants.mobSpawnChance
+                + (Constants.mobSpawnChanceMultiplier * FightToSurvive.getTimer().getTime() / 3);
+        // 1 min => + 2%
+    }
 
-            Block blockBelow;
-            Block newBlock;
-            do {
-                int randomNum = ThreadLocalRandom.current().nextInt(0, test.size());
-                // ChatHandler.sendInfoMessage(player, randomNum + "");
-                newBlock = test.get(randomNum);
-                blockBelow = newBlock.getRelative(0, -1, 0);
-            } while (newBlock.getType() != Material.AIR
-                    || !Mobs.spawnableBlocks().contains(blockBelow.getType()));
+    public void spawnMob(Player player) {
+        spawnMob(player, generateMobLevel());
+    }
 
-            Mobs.createRandomAggressiveMob(newBlock.getLocation(), mobLevel);
+    public void spawnMob(Player player, int mobLevel) {
+        Location playerLocation = player.getLocation();
+        List<Block> test = CoordStorage.sphereAround(playerLocation, 12);
+
+        Block blockBelow;
+        Block newBlock;
+        int count = 50;
+        do {
+            int randomNum = ThreadLocalRandom.current().nextInt(0, test.size());
+            // ChatHandler.sendInfoMessage(player, randomNum + "");
+            newBlock = test.get(randomNum);
+            blockBelow = newBlock.getRelative(0, -1, 0);
+            count--;
+        } while ((newBlock.getType() != Material.AIR || !Mobs.spawnableBlocks().contains(blockBelow.getType()))
+                && count > 0);
+
+        if (newBlock.getType() != Material.AIR || !Mobs.spawnableBlocks().contains(blockBelow.getType())) {
+            ChatHandler.sendError(player, "Wasn't able to spawn a mob");
+            return;
         }
+        Mobs.createRandomAggressiveMob(newBlock.getLocation(), mobLevel);
     }
 
     public void resetMob() {
@@ -74,7 +75,5 @@ public class WaveHandler {
                 e.remove();
             }
         }
-        level = 1;
-        round = 1;
     }
 }
