@@ -13,6 +13,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import me.bukkit.Infernaton.FightToSurvive;
+import me.bukkit.Infernaton.builder.clock.GameRunnable;
 import me.bukkit.Infernaton.store.Constants;
 import me.bukkit.Infernaton.store.CoordStorage;
 import me.bukkit.Infernaton.store.Mobs;
@@ -32,8 +33,15 @@ public class WaveHandler {
     }
 
     private int generateMobLevel() {
+        GameRunnable gr = FightToSurvive.getTimer();
+        int currentTime;
+        if (gr == null)
+            currentTime = 0;
+        else
+            currentTime = gr.getTime();
+
         // Each 5 minutes, the mob level will rise to 1
-        return Math.round(1 + (FightToSurvive.getTimer().getTime() / 5 * 60));
+        return (int) Math.floor(1 + (currentTime / (5 * 60)));
     }
 
     public float chanceToSpawn() {
