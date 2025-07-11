@@ -38,19 +38,19 @@ public class WaveHandler {
         if (gr == null)
             currentTime = 0;
         else
-            // Because the time need to be only for the night, the simpliest way to
-            // represent that is to divide current time by 2
-            // (day and night last the same time)
-            currentTime = gr.getTime() / 2;
+            currentTime = gr.getTime();
 
         // Each 5 minutes, the mob level will rise to 1
         return (int) Math.floor(1 + (currentTime / (5 * 60)));
     }
 
     public float chanceToSpawn() {
+        // Because the time need to be only for the night, the simpliest way to
+        // represent that is to divide current time by 2
+        // (day and night last the same time)
         return Constants.mobSpawnChance
-                + (Constants.mobSpawnChanceMultiplier * FightToSurvive.getTimer().getTime() / 3);
-        // 1 min => + 2%
+                + (Constants.mobSpawnChanceMultiplier * (FightToSurvive.getTimer().getTime() / 2) / 3);
+        // + 1 min => + 1%
     }
 
     public void spawnMob(Player player) {
