@@ -38,7 +38,10 @@ public class WaveHandler {
         if (gr == null)
             currentTime = 0;
         else
-            currentTime = gr.getTime();
+            // Because the time need to be only for the night, the simpliest way to
+            // represent that is to divide current time by 2
+            // (day and night last the same time)
+            currentTime = gr.getTime() / 2;
 
         // Each 5 minutes, the mob level will rise to 1
         return (int) Math.floor(1 + (currentTime / (5 * 60)));
