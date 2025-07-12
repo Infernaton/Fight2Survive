@@ -9,6 +9,9 @@ Minecraft Plugin for 1.8.9
 - Clean code : Ajout de commentaire, contexte
 - A tester condition réelle ~~Equilibrer spawn des mobs~~
 - Replace par Bedrock quand block est cassé par joueur + afficher cooldown
+- Voir pour remplacer les loots des blocks dérivés ~~Pioche peux casser stone~~
+- Replace "Block.getData()" with "Block.getMetaData()"
+- Repensez trade of Lapis room -> soft lock
 
 ### Ajout
 

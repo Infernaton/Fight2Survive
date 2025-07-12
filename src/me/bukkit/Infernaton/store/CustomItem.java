@@ -1,6 +1,7 @@
 package me.bukkit.Infernaton.store;
 
 import me.bukkit.Infernaton.builder.ItemBuilder;
+import me.bukkit.Infernaton.handler.ChatHandler;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.NBTTagList;
 import net.minecraft.server.v1_8_R3.NBTTagString;
@@ -22,13 +23,17 @@ import java.util.Collection;
  */
 public class CustomItem {
 
+    public static void giveItem(Player player, ItemStack item) {
+        player.getInventory().addItem(item);
+        player.updateInventory();
+    }
+
     /**
-     * @todo need to rework if slot = null -> make the next available slot
      * @param player
      * @param item
      * @param slot
      */
-    public static void giveItemInInventory(Player player, ItemStack item, int slot) {
+    public static void setItemInInventory(Player player, ItemStack item, int slot) {
         player.getInventory().setItem(slot, item);
         player.updateInventory();
     }
@@ -120,6 +125,7 @@ public class CustomItem {
                 idsTag.add(new NBTTagString("minecraft:coal_ore"));
             case 1:
                 idsTag.add(new NBTTagString("minecraft:cobblestone"));
+                idsTag.add(new NBTTagString("minecraft:stone"));
                 break;
         }
         NBTTagCompound tag2 = new NBTTagCompound();

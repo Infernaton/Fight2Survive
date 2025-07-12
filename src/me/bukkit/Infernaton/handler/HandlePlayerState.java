@@ -44,7 +44,7 @@ public class HandlePlayerState {
         removeAllPotionEffect(player);
         givePotionEffect(player, PotionEffectType.SATURATION);
         givePotionEffect(player, PotionEffectType.DAMAGE_RESISTANCE);
-        CustomItem.giveItemInInventory(player, CustomItem.magicCompass(), 4);
+        CustomItem.setItemInInventory(player, CustomItem.magicCompass(), 4);
     }
 
     public void setPlayer(Player player) {

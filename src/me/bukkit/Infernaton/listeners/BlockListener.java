@@ -5,6 +5,7 @@ import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.clock.BreakBlockClock;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.store.Constants;
+import me.bukkit.Infernaton.store.CustomItem;
 import me.bukkit.Infernaton.store.StringConfig;
 
 import org.bukkit.GameMode;
@@ -46,6 +47,12 @@ public class BlockListener implements Listener {
         }
         Integer cd = Constants.coolDownBlock().get(block.getType());
         BreakBlockClock.newCountDown(main, cd != null ? cd : 10, block);
+        // Replace the broken block with bedrock, to prevent that player to dig through
+        // the ground and getting stuck
+        // + give the player the given block to its inventory (replacing the block will
+        // not drop the item)
+        CustomItem.giveItem(player, block.getDrops().iterator().next());
+        block.setType(Material.BEDROCK);
     }
 
     /**
