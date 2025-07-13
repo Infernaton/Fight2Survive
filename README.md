@@ -10,7 +10,6 @@ Minecraft Plugin for 1.8.9
 - A tester condition réelle ~~Equilibrer spawn des mobs~~
 - ~~Replace par Bedrock quand block est cassé par joueur~~ + afficher cooldown
 - Voir pour remplacer les loots des blocks dérivés ~~Pioche peux casser stone~~
-- Replace "Block.getData()" with "Block.getMetaData()"
 
 ### Ajout
 
