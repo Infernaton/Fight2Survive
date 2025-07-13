@@ -1,7 +1,6 @@
 package me.bukkit.Infernaton.store;
 
 import me.bukkit.Infernaton.builder.ItemBuilder;
-import me.bukkit.Infernaton.handler.ChatHandler;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.NBTTagList;
 import net.minecraft.server.v1_8_R3.NBTTagString;
@@ -25,7 +24,6 @@ public class CustomItem {
 
     public static void giveItem(Player player, ItemStack item) {
         player.getInventory().addItem(item);
-        player.updateInventory();
     }
 
     /**
@@ -35,7 +33,6 @@ public class CustomItem {
      */
     public static void setItemInInventory(Player player, ItemStack item, int slot) {
         player.getInventory().setItem(slot, item);
-        player.updateInventory();
     }
 
     public static void removeItemHand(Player player) {

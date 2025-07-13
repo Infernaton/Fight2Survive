@@ -11,13 +11,17 @@ import me.bukkit.Infernaton.store.StringConfig;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class BlockListener implements Listener {
@@ -51,8 +55,17 @@ public class BlockListener implements Listener {
         // the ground and getting stuck
         // + give the player the given block to its inventory (replacing the block will
         // not drop the item)
-        CustomItem.giveItem(player, block.getDrops().iterator().next());
-        block.setType(Material.BEDROCK);
+        Iterator<ItemStack> drops = block.getDrops().iterator();
+        while (drops.hasNext()) {
+            CustomItem.giveItem(player, drops.next());
+        }
+        // Spawn manually the xp orb for ore because the "setType()" cancel it
+        if (event.getExpToDrop() >= 1) {
+            ExperienceOrb orb = (ExperienceOrb) block.getLocation().getWorld().spawnEntity(block.getLocation(),
+                    EntityType.EXPERIENCE_ORB);
+            orb.setExperience(event.getExpToDrop());
+        }
+        event.getBlock().setType(Material.BEDROCK);
     }
 
     /**
