@@ -78,7 +78,8 @@ public class Constants {
         trade.put(StringConfig.pnjDiam(),
                 CustomMerchantRecipe.tradingKey(new ItemStack(Material.DIAMOND, 6), new ItemStack(Material.COAL, 12)));
         trade.put(StringConfig.pnjLapis(),
-                CustomMerchantRecipe.tradingKey(new ItemStack(Material.LAPIS_BLOCK, 6), CustomItem.goldSword()));
+                CustomMerchantRecipe.tradingKey(new ItemStack(Material.LAPIS_BLOCK, 6),
+                        new ItemStack(Material.OBSIDIAN, 6)));
 
         return trade;
     }

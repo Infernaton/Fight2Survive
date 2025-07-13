@@ -116,10 +116,11 @@ public class CustomItem {
         switch (level) {
             case 5:
             case 4:
-                idsTag.add(new NBTTagString("minecraft:lapis_ore"));
+                idsTag.add(new NBTTagString("minecraft:obsidian"));
             case 3:
                 idsTag.add(new NBTTagString("minecraft:diamond_ore"));
                 idsTag.add(new NBTTagString("minecraft:gold_ore"));
+                idsTag.add(new NBTTagString("minecraft:lapis_ore"));
             case 2:
                 idsTag.add(new NBTTagString("minecraft:iron_ore"));
                 idsTag.add(new NBTTagString("minecraft:coal_ore"));
