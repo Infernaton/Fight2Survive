@@ -55,7 +55,7 @@ public class DebugCommand implements CommandExecutor {
 
         else if (cmd.getName().equalsIgnoreCase("getKey")) {
             ChatHandler.sendInfoMessage(sender, StringConfig.giveKey());
-            CustomItem.giveItemInInventory((Player) sender, CustomItem.paperKey(), 1);
+            CustomItem.giveItem((Player) sender, CustomItem.paperKey());
             return true;
         }
 

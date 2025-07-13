@@ -22,15 +22,17 @@ import java.util.Collection;
  */
 public class CustomItem {
 
+    public static void giveItem(Player player, ItemStack item) {
+        player.getInventory().addItem(item);
+    }
+
     /**
-     * @todo need to rework if slot = null -> make the next available slot
      * @param player
      * @param item
      * @param slot
      */
-    public static void giveItemInInventory(Player player, ItemStack item, int slot) {
+    public static void setItemInInventory(Player player, ItemStack item, int slot) {
         player.getInventory().setItem(slot, item);
-        player.updateInventory();
     }
 
     public static void removeItemHand(Player player) {
@@ -97,8 +99,10 @@ public class CustomItem {
         net.minecraft.server.v1_8_R3.ItemStack AXE = CraftItemStack.asNMSCopy(axe);
         NBTTagList idsTag2 = new NBTTagList();
         idsTag2.add(new NBTTagString("minecraft:log"));
+
         NBTTagCompound tag2 = new NBTTagCompound();
         tag2.set("CanDestroy", idsTag2);
+
         AXE.setTag(tag2);
         return CraftItemStack.asBukkitCopy(AXE);
     }
@@ -106,20 +110,22 @@ public class CustomItem {
     private static ItemStack transformPickaxe(ItemStack pick, int level) {
         net.minecraft.server.v1_8_R3.ItemStack PICK = CraftItemStack.asNMSCopy(pick);
         NBTTagList idsTag = new NBTTagList();
-        if (level > 5)
-            level = 5;
+        level = Math.min(level, 5);
+
         switch (level) {
             case 5:
             case 4:
-                idsTag.add(new NBTTagString("minecraft:lapis_ore"));
+                idsTag.add(new NBTTagString("minecraft:obsidian"));
             case 3:
                 idsTag.add(new NBTTagString("minecraft:diamond_ore"));
                 idsTag.add(new NBTTagString("minecraft:gold_ore"));
+                idsTag.add(new NBTTagString("minecraft:lapis_ore"));
             case 2:
                 idsTag.add(new NBTTagString("minecraft:iron_ore"));
                 idsTag.add(new NBTTagString("minecraft:coal_ore"));
             case 1:
                 idsTag.add(new NBTTagString("minecraft:cobblestone"));
+                idsTag.add(new NBTTagString("minecraft:stone"));
                 break;
         }
         NBTTagCompound tag2 = new NBTTagCompound();
