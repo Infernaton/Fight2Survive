@@ -22,10 +22,6 @@ public class StringConfig {
                 FightToSurvive.GetConfig().getString("string." + key));
     }
 
-    public static final String worldName() {
-        return getDataString("worldName");
-    }
-
     // #region PNJ Name
     private static String pnjName(String zone) {
         return getDataString("pnjName." + zone);

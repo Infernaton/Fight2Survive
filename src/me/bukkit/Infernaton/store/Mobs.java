@@ -60,15 +60,6 @@ public class Mobs {
         return list;
     }
 
-    public static void setNoAI(Entity entity) {
-        net.minecraft.server.v1_8_R3.Entity nmsVil = ((CraftEntity) entity).getHandle();
-        NBTTagCompound comp = new NBTTagCompound();
-        nmsVil.c(comp);
-        comp.setByte("NoAI", (byte) 1);
-        nmsVil.f(comp);
-        nmsVil.b(true);
-    }
-
     public static void createVillager(Location location, String name) {
         Villager villager = (Villager) location.getWorld().spawnEntity(location, EntityType.VILLAGER);
         villager.setCustomName(name);

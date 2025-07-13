@@ -102,8 +102,10 @@ public class CustomItem {
         net.minecraft.server.v1_8_R3.ItemStack AXE = CraftItemStack.asNMSCopy(axe);
         NBTTagList idsTag2 = new NBTTagList();
         idsTag2.add(new NBTTagString("minecraft:log"));
+
         NBTTagCompound tag2 = new NBTTagCompound();
         tag2.set("CanDestroy", idsTag2);
+
         AXE.setTag(tag2);
         return CraftItemStack.asBukkitCopy(AXE);
     }
@@ -111,8 +113,8 @@ public class CustomItem {
     private static ItemStack transformPickaxe(ItemStack pick, int level) {
         net.minecraft.server.v1_8_R3.ItemStack PICK = CraftItemStack.asNMSCopy(pick);
         NBTTagList idsTag = new NBTTagList();
-        if (level > 5)
-            level = 5;
+        level = Math.min(level, 5);
+
         switch (level) {
             case 5:
             case 4:
