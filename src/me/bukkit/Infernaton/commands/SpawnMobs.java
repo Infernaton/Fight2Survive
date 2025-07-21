@@ -33,7 +33,7 @@ public class SpawnMobs implements CommandExecutor {
             }
 
             else
-                ChatHandler.sendError(sender, "Too much argument. Usage '/mob_zombie <level>'");
+                ChatHandler.sendError(sender, "Too much argument. Usage '/mob_zombie<level>'");
 
             return true;
         }

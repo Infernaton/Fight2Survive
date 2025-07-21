@@ -115,4 +115,23 @@ public class CoordStorage {
         }
         return sphere;
     }
+
+    public static List<Block> highestCircleArround(Location center, int radius) {
+        List<Block> disk = new ArrayList<>();
+        Block centerBlock = center.getWorld().getHighestBlockAt(center);
+        System.out.println(center.getWorld().getHighestBlockAt(center.getBlockX(), center.getBlockZ()));
+        System.out.println(center.getWorld().getHighestBlockYAt(center.getBlockX(), center.getBlockZ()));
+        for (int x = -radius; x <= radius; x++) {
+            for (int z = -radius; z <= radius; z++) {
+                Block b = centerBlock.getRelative(x, 0, z);
+                if (centerBlock.getLocation().distance(b.getLocation()) <= radius) {
+                    Block highestBlock = center.getWorld().getHighestBlockAt(b.getLocation());
+                    disk.add(highestBlock);
+                    System.out.println("x: " + b.getX() + ", y: " + highestBlock.getY() + ", z: " + b.getZ()
+                            + ", block: " + highestBlock.getType());
+                }
+            }
+        }
+        return disk;
+    }
 }

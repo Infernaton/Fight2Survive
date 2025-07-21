@@ -59,25 +59,26 @@ public class WaveHandler {
 
     public void spawnMob(Player player, int mobLevel) {
         Location playerLocation = player.getLocation();
-        List<Block> test = CoordStorage.sphereAround(playerLocation, 12);
+        List<Block> test = CoordStorage.highestCircleArround(playerLocation, 4);
 
-        Block blockBelow;
+        System.out.println(test.size());
+
+        Block spawnBlockPosition;
         Block newBlock;
         int count = 50;
         do {
             int randomNum = ThreadLocalRandom.current().nextInt(0, test.size());
             // ChatHandler.sendInfoMessage(player, randomNum + "");
             newBlock = test.get(randomNum);
-            blockBelow = newBlock.getRelative(0, -1, 0);
+            spawnBlockPosition = newBlock.getRelative(0, 1, 0);
             count--;
-        } while ((newBlock.getType() != Material.AIR || !Mobs.spawnableBlocks().contains(blockBelow.getType()))
-                && count > 0);
+        } while ((!Mobs.spawnableBlocks().contains(newBlock.getType())) && count > 0);
 
-        if (newBlock.getType() != Material.AIR || !Mobs.spawnableBlocks().contains(blockBelow.getType())) {
+        if (!Mobs.spawnableBlocks().contains(newBlock.getType())) {
             ChatHandler.sendError(player, "Wasn't able to spawn a mob");
             return;
         }
-        Mobs.createRandomAggressiveMob(newBlock.getLocation(), mobLevel);
+        Mobs.createRandomAggressiveMob(spawnBlockPosition.getLocation(), mobLevel);
     }
 
     public void resetMob() {
