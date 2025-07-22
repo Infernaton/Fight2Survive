@@ -127,8 +127,6 @@ public class CoordStorage {
     public static List<Block> highestCircleArround(Location center, int minRadius, int maxRadius) {
         List<Block> disk = new ArrayList<>();
         Block centerBlock = center.getWorld().getHighestBlockAt(center);
-        System.out.println(center.getWorld().getHighestBlockAt(center.getBlockX(), center.getBlockZ()));
-        System.out.println(center.getWorld().getHighestBlockYAt(center.getBlockX(), center.getBlockZ()));
         for (int x = -maxRadius; x <= maxRadius; x++) {
             for (int z = -maxRadius; z <= maxRadius; z++) {
                 Block b = centerBlock.getRelative(x, 0, z);

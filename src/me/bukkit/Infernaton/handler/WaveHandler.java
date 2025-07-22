@@ -61,8 +61,6 @@ public class WaveHandler {
         Location playerLocation = player.getLocation();
         List<Block> test = CoordStorage.highestCircleArround(playerLocation, 8, 12);
 
-        System.out.println(test.size());
-
         Block spawnBlockPosition;
         Block newBlock;
         int count = 50;

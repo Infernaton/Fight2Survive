@@ -133,7 +133,7 @@ public class GameRunnable implements Runnable {
         // Stopping the timer if the game stop
         if (!FightToSurvive.isGameState(GState.PLAYING)) {
             countdownStarter = 0;
-            System.out.print("Timer Over!");
+            System.out.print("Time Over!");
             stopCountdown(id);
             Bukkit.getWorld(worldName).setTime(1000);
         }
