@@ -72,9 +72,9 @@ public class WaveHandler {
             newBlock = test.get(randomNum);
             spawnBlockPosition = newBlock.getRelative(0, 1, 0);
             count--;
-        } while ((!Mobs.spawnableBlocks().contains(newBlock.getType())) && count > 0);
+        } while (spawnBlockPosition.getType() != Material.AIR && count > 0);
 
-        if (!Mobs.spawnableBlocks().contains(newBlock.getType())) {
+        if (spawnBlockPosition.getType() != Material.AIR) {
             ChatHandler.sendError(player, "Wasn't able to spawn a mob");
             return;
         }
