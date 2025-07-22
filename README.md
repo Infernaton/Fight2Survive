@@ -8,9 +8,9 @@ Minecraft Plugin for 1.8.9
 
 - Clean code : Ajout de commentaire, contexte
 - A tester condition réelle ~~Equilibrer spawn des mobs~~
-- ~~Replace par Bedrock quand block est cassé par joueur~~ + afficher cooldown
+- ~~Replace par Bedrock quand block est cassé par joueur~~
 - Voir pour remplacer les loots des blocks dérivés ~~Pioche peux casser stone~~
-- fix position spawn mob + sphere arround
+- ~~fix position spawn mob + sphere arround~~
 
 ### Ajout
 
