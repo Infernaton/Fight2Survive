@@ -116,22 +116,44 @@ public class CoordStorage {
         return sphere;
     }
 
-    public static List<Block> highestCircleArround(Location center, int radius) {
+    /**
+     * Get all block where mobs can spawn arround a center
+     * 
+     * @param center    the center of the circle
+     * @param minRadius the minimum distance for the mobs to spawn
+     * @param maxRadius the maximum distance for the mobs to spawn
+     * @return
+     */
+    public static List<Block> highestCircleArround(Location center, int minRadius, int maxRadius) {
         List<Block> disk = new ArrayList<>();
         Block centerBlock = center.getWorld().getHighestBlockAt(center);
         System.out.println(center.getWorld().getHighestBlockAt(center.getBlockX(), center.getBlockZ()));
         System.out.println(center.getWorld().getHighestBlockYAt(center.getBlockX(), center.getBlockZ()));
-        for (int x = -radius; x <= radius; x++) {
-            for (int z = -radius; z <= radius; z++) {
+        for (int x = -maxRadius; x <= maxRadius; x++) {
+            for (int z = -maxRadius; z <= maxRadius; z++) {
                 Block b = centerBlock.getRelative(x, 0, z);
-                if (centerBlock.getLocation().distance(b.getLocation()) <= radius) {
-                    Block highestBlock = center.getWorld().getHighestBlockAt(b.getLocation());
-                    disk.add(highestBlock);
-                    System.out.println("x: " + b.getX() + ", y: " + highestBlock.getY() + ", z: " + b.getZ()
-                            + ", block: " + highestBlock.getType());
+                double distance = centerBlock.getLocation().distance(b.getLocation());
+                if (minRadius <= distance && distance <= maxRadius) {
+                    int highestLocalY = center.getBlock().getRelative(0, 5, 0).getY();
+                    Block highestBlock = getHighestLocalBlock(center.getWorld(), highestLocalY, b.getX(), b.getZ());
+                    if (highestBlock != null)
+                        disk.add(highestBlock);
                 }
             }
         }
         return disk;
+    }
+
+    public static Block getHighestBlock(World world, int x, int z) {
+        return getHighestLocalBlock(world, world.getMaxHeight(), x, z);
+    }
+
+    public static Block getHighestLocalBlock(World world, int maxHeight, int x, int z) {
+        for (int y = maxHeight; y >= 0; y--) {
+            Block b = world.getBlockAt(x, y, z);
+            if (Mobs.spawnableBlocks().contains(b.getType()))
+                return b;
+        }
+        return null;
     }
 }
