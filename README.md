@@ -44,6 +44,8 @@ Minecraft Plugin for 1.8.9
 4. Le déplacer où bon vous semble.
 5. Pour démarer le serveur, double cliquer sur le fichier `run.bat`
 
+Note: La map minecraft et le plugin ne seront peut être pas à jour. Si c'est le cas suivez à partir de `9.` de l'installation manuelle.
+
 #### Installation Manuelle
 
 1. Créer un répertoire "Minecraft server" sur le bureau (il peux être placer où cela arrange et renommé comme souhaité)
