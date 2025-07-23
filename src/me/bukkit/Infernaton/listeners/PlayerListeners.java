@@ -106,16 +106,27 @@ public class PlayerListeners implements Listener {
             } else if (CustomItem.comparor(current, CustomItem.gameStartWool())) {
                 main.onStarting(player);
                 player.closeInventory();
-            } else if (CustomItem.comparor(current, CustomItem.optionsWool())) {
+            } else if (CustomItem.comparor(current, CustomItem.options())) {
                 player.openInventory(InterfaceMenu.optionsInventory());
+            } else if (CustomItem.comparor(current, CustomItem.setup())) {
+                player.openInventory(InterfaceMenu.setupInventory());
             }
         }
+
         if (inv.getName().equalsIgnoreCase(StringConfig.optionInventory())) {
             event.setCancelled(true);
-            if (CustomItem.comparor(current, CustomItem.returnWool())) {
+            if (CustomItem.comparor(current, CustomItem.returnArrow())) {
                 player.openInventory(InterfaceMenu.selectTeam());
             }
         }
+
+        if (inv.getName().equalsIgnoreCase(StringConfig.setupInventory())) {
+            event.setCancelled(true);
+            if (CustomItem.comparor(current, CustomItem.returnArrow())) {
+                player.openInventory(InterfaceMenu.selectTeam());
+            }
+        }
+
         if (inv.getName().equalsIgnoreCase(StringConfig.cancelInventory())) {
             event.setCancelled(true);
             if (CustomItem.comparor(current, CustomItem.gameCancelWool())) {

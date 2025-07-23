@@ -90,6 +90,10 @@ public class StringConfig {
         return clickItem("option");
     }
 
+    public static final String setupItem() {
+        return clickItem("setup");
+    }
+
     public static final String returnItem() {
         return clickItem("return");
     }
@@ -116,6 +120,10 @@ public class StringConfig {
 
     public static final String optionInventory() {
         return inventoryName("options");
+    }
+
+    public static final String setupInventory() {
+        return inventoryName("setup");
     }
     // #endregion
 

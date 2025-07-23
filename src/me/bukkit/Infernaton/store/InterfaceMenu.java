@@ -29,8 +29,9 @@ public class InterfaceMenu {
         inv.setItem(13, CustomItem.spectatorWool());
 
         Map<Integer, ItemStack> except = new HashMap<>();
-        except.put(44, CustomItem.optionsWool());
+        except.put(44, CustomItem.options());
         except.put(40, CustomItem.gameStartWool());
+        except.put(36, CustomItem.setup());
 
         separatorLine(inv, 36, except);
 
@@ -46,7 +47,14 @@ public class InterfaceMenu {
     public static Inventory optionsInventory() {
         Inventory inv = Bukkit.createInventory(null, 45, StringConfig.optionInventory());
 
-        separatorLine(inv, 36, createException(44, CustomItem.returnWool()));
+        separatorLine(inv, 0, createException(0, CustomItem.returnArrow()));
+        return inv;
+    }
+
+    public static Inventory setupInventory() {
+        Inventory inv = Bukkit.createInventory(null, 45, StringConfig.setupInventory());
+
+        separatorLine(inv, 0, createException(0, CustomItem.returnArrow()));
         return inv;
     }
 }

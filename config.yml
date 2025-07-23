@@ -11,14 +11,16 @@ string:
     launchGame: "&2StartGame"
     red: "&4Red Team"
     blue: "&1Blue Team "
-    spectator: "&7Spectateur"
+    spectator: "&7Spectator"
     option: "&fOptions"
+    setup: "&fSetup"
     return: "&fBack"
     cancelGame: "&4CancelGame"
   inventoryName:
     team: "&7Team"
     cancelStart: "&7CancelStart"
     options: "&7Options"
+    setup: "&7Setup"
   sentence:
     secondLeft: "<x> seconds left !"
     needOp: "You need to be an operator to do this action."
