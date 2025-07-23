@@ -73,9 +73,8 @@ enable-command-block=true
 level-name=Arene
 ```
 
-9. Télécharger [la map pour le plugin](https://drive.google.com/file/d/12zyh25ZAXubfTHzGPpCUNI7qnb7qsV2M/view?usp=drive_link)
-10. Décompiler le, puis mettre le dossier "Arene" dans le dossier du Serveur Minecraft
-11. Redémarer le serveur (en exécutant `run.bat`).
+9. Dans ce repository, dans `/minecraft-map`, copier/coller le dossier "Arene" dans le dossier du Serveur Minecraft
+10. Redémarer le serveur (en exécutant `run.bat`).
 
 A ce stade il ne manque plus qu'à compiler le plugin et l'ajouter au dossier `/plugin` pour que le serveur soit opérationnel.
 
