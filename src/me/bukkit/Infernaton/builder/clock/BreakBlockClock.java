@@ -13,6 +13,7 @@ public class BreakBlockClock implements Runnable {
 
     private final Block block;
     private final Material blockType;
+    private final byte blockData;
     private long startTime;
     private int id;
 
@@ -31,6 +32,7 @@ public class BreakBlockClock implements Runnable {
         this.startTime = startTime;
         this.block = block;
         this.blockType = block.getType();
+        this.blockData = block.getData();
     }
 
     private void setId(int id) {
@@ -42,6 +44,7 @@ public class BreakBlockClock implements Runnable {
         startTime--;
         if (startTime == 0) {
             block.setType(blockType);
+            block.setData(blockData);
             stopCountdown(id);
         }
     }

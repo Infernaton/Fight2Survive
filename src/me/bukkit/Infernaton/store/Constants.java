@@ -21,7 +21,8 @@ import java.util.*;
 public class Constants {
 
     public final static int appleSpawningCooldown = 15;
-    public final static int mobWaveCooldown = 61;
+    public final static float mobSpawnChance = 1; // Base % to spawn each second
+    public final static float mobSpawnChanceMultiplier = 0.1f; // pts to add to upgrade the percentage of mob spawning
 
     public static String[] pnjName() {
         return new String[] {
@@ -63,6 +64,10 @@ public class Constants {
         return cd;
     }
 
+    /**
+     * @todo merge with getTrade()
+     * @return
+     */
     public static Map<String, MerchantRecipe> getAllTrade() {
         Map<String, MerchantRecipe> trade = new HashMap<>();
         trade.put(StringConfig.pnjWood(),
@@ -77,7 +82,8 @@ public class Constants {
         trade.put(StringConfig.pnjDiam(),
                 CustomMerchantRecipe.tradingKey(new ItemStack(Material.DIAMOND, 6), new ItemStack(Material.COAL, 12)));
         trade.put(StringConfig.pnjLapis(),
-                CustomMerchantRecipe.tradingKey(new ItemStack(Material.LAPIS_BLOCK, 6), CustomItem.goldSword()));
+                CustomMerchantRecipe.tradingKey(new ItemStack(Material.LAPIS_BLOCK, 6),
+                        new ItemStack(Material.OBSIDIAN, 6)));
 
         return trade;
     }

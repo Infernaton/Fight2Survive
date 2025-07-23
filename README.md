@@ -1,4 +1,4 @@
-# Fight2Survive v1.1.4
+# Fight2Survive v1.2
 
 Minecraft Plugin for 1.8.9
 
@@ -7,15 +7,17 @@ Minecraft Plugin for 1.8.9
 ### Fix
 
 - Clean code : Ajout de commentaire, contexte
-- Equilibrer spawn des mobs
-- Replace par Bedrock quand block est cassé par joueur + afficher cooldown
+- ~~Equilibrer spawn des mobs~~ A tester condition réelle
+- ~~Replace par Bedrock quand block est cassé par joueur~~
+- ~~Pioche peux casser stone~~ Voir pour remplacer les loots des blocks dérivés
+- ~~fix position spawn mob + sphere arround~~
 
 ### Ajout
 
 - Random Event
 - Options / Config de jeu au start
 - Ajout d'un inventaire custom au start
-- Disparition des mobs quand phase finale commence
+- Disparition des mobs quand phase finale commence ?
 
 ### Idée
 

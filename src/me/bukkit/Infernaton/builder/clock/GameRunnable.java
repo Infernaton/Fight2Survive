@@ -10,11 +10,14 @@ import me.bukkit.Infernaton.store.CustomItem;
 import me.bukkit.Infernaton.store.StringConfig;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 import static me.bukkit.Infernaton.store.CoordStorage.worldName;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GameRunnable implements Runnable {
@@ -41,6 +44,9 @@ public class GameRunnable implements Runnable {
         Bukkit.getScheduler().cancelTask(clockId);
     }
 
+    /**
+     * @return the current time in second since the start of the game
+     */
     public int getTime() {
         return countdownStarter;
     }
@@ -74,10 +80,22 @@ public class GameRunnable implements Runnable {
 
         countdownStarter++;
 
-        // Spawning mob once the night is set
-        if (!isDay && !coolDownLoc.containsKey(StringConfig.mobWaveKey())) {
-            int timeReduce = WaveHandler.Instance().generateMobWave();
-            coolDownLoc.put(StringConfig.mobWaveKey(), Constants.mobWaveCooldown - timeReduce);
+        // If it's night, each tick => percentage of chance that a mobs will spawn for
+        // each
+        // => Percentage go up each round/level
+        if (!isDay) {
+            WaveHandler wh = WaveHandler.Instance();
+            List<Player> playerList = Constants.getAllTeamsPlayer();
+            for (Player player : playerList) {
+                if (player.getGameMode() != GameMode.ADVENTURE)
+                    continue;
+                // Get a percentage value from 0 to 100;
+                float randomNum = (float) (Math.random() * 101);
+
+                if (randomNum <= wh.chanceToSpawn()) {
+                    wh.spawnMob(player);
+                }
+            }
         }
 
         // Warning all player of the change of the time
@@ -115,7 +133,7 @@ public class GameRunnable implements Runnable {
         // Stopping the timer if the game stop
         if (!FightToSurvive.isGameState(GState.PLAYING)) {
             countdownStarter = 0;
-            System.out.print("Timer Over!");
+            System.out.print("Time Over!");
             stopCountdown(id);
             Bukkit.getWorld(worldName).setTime(1000);
         }

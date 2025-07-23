@@ -20,7 +20,21 @@ public class SpawnMobs implements CommandExecutor {
             return false;
 
         if (cmd.getName().equalsIgnoreCase("mob_zombie") && sender instanceof Player) {
-            WaveHandler.Instance().generateMobWave();
+            ChatHandler.sendInfoMessage(sender, "Spawning a mob next to you.");
+            if (args.length == 0)
+                WaveHandler.Instance().spawnMob((Player) sender);
+
+            else if (args.length == 1) {
+                try {
+                    WaveHandler.Instance().spawnMob((Player) sender, Integer.parseInt(args[0]));
+                } catch (NumberFormatException e) {
+                    ChatHandler.sendError(sender, "Argument wasn't an integer. Usage '/mob_zombie <level>'");
+                }
+            }
+
+            else
+                ChatHandler.sendError(sender, "Too much argument. Usage '/mob_zombie<level>'");
+
             return true;
         }
 

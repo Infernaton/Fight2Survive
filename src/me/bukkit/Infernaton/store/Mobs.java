@@ -2,11 +2,10 @@ package me.bukkit.Infernaton.store;
 
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.builder.CustomVillager;
-import net.minecraft.server.v1_8_R3.NBTTagCompound;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
 import org.bukkit.entity.*;
 
 import static me.bukkit.Infernaton.store.CoordStorage.worldName;
@@ -60,15 +59,6 @@ public class Mobs {
         return list;
     }
 
-    public static void setNoAI(Entity entity) {
-        net.minecraft.server.v1_8_R3.Entity nmsVil = ((CraftEntity) entity).getHandle();
-        NBTTagCompound comp = new NBTTagCompound();
-        nmsVil.c(comp);
-        comp.setByte("NoAI", (byte) 1);
-        nmsVil.f(comp);
-        nmsVil.b(true);
-    }
-
     public static void createVillager(Location location, String name) {
         Villager villager = (Villager) location.getWorld().spawnEntity(location, EntityType.VILLAGER);
         villager.setCustomName(name);
@@ -81,6 +71,8 @@ public class Mobs {
         List<EntityType> mobList = aggressiveMob(mobLevel);
         EntityType mobType = mobList.get(new Random().nextInt(mobList.size()));
 
+        // make sur the spawn location is in the center of a block
+        location = new Location(location.getWorld(), location.getX() + 0.5f, location.getY(), location.getZ() + 0.5f);
         location.getWorld().spawnEntity(location, mobType);
     }
 

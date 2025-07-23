@@ -10,7 +10,9 @@ import me.bukkit.Infernaton.store.CustomItem;
 import me.bukkit.Infernaton.store.InterfaceMenu;
 import me.bukkit.Infernaton.store.StringConfig;
 
+import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -121,6 +123,26 @@ public class PlayerListeners implements Listener {
                 player.closeInventory();
             }
         }
+    }
+
+    /**
+     * Prevent the player from throwing away the magic compass in the main lobby
+     * 
+     * @param event
+     */
+    @EventHandler
+    public void onDropItem(PlayerDropItemEvent event) {
+        Item droppedItem = event.getItemDrop();
+        Player p = event.getPlayer();
+
+        if (p.getGameMode() != GameMode.ADVENTURE
+                || !CustomItem.comparor(droppedItem.getItemStack(), CustomItem.magicCompass()))
+            return;
+
+        if (!FightToSurvive.isGameState(GState.WAITING) && !FightToSurvive.isGameState(GState.STARTING))
+            return;
+
+        event.setCancelled(true);
     }
 
     @EventHandler
