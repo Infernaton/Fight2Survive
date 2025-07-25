@@ -11,16 +11,22 @@ Minecraft Plugin for 1.8.9
 - ~~Replace par Bedrock quand block est cassé par joueur~~
 - ~~Pioche peux casser stone~~ Voir pour remplacer les loots des blocks dérivés
 - ~~fix position spawn mob + sphere arround~~
+- Durabilité des outils bizarre
+- Indiquer où vont les portes avant de les ouvrir
+- - Voir pour casser le différents bois ?
 
 ### Ajout
 
 - Random Event
 - Options / Config de jeu au start
+	- Auto smelt
+	- Craft/Items custom prédéfinis
 - Ajout d'un inventaire custom au start
 - Disparition des mobs quand phase finale commence ?
 
 ### Idée
 
+- Supprimer pnj après trade
 - Amélioration du starter kit au déblocage des salles
 - Diversité des mobs spawn
 
