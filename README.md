@@ -12,15 +12,15 @@ Minecraft Plugin for 1.8.9
 - ~~Pioche peux casser stone~~ Voir pour remplacer les loots des blocks dérivés
 - ~~fix position spawn mob + sphere arround~~
 - Durabilité des outils bizarre
-- Indiquer où vont les portes avant de les ouvrir
 - - Voir pour casser le différents bois ?
 
 ### Ajout
 
+- ~~Indiquer où vont les portes avant de les ouvrir~~
 - Random Event
 - Options / Config de jeu au start
-	- Auto smelt
-	- Craft/Items custom prédéfinis
+  - Auto smelt
+  - Craft/Items custom prédéfinis
 - Ajout d'un inventaire custom au start
 - Disparition des mobs quand phase finale commence ?
 
