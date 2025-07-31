@@ -17,18 +17,19 @@ Minecraft Plugin for 1.8.9
 ### Ajout
 
 - ~~Indiquer où vont les portes avant de les ouvrir~~
-- Random Event
 - Options / Config de jeu au start
   - Auto smelt
   - Craft/Items custom prédéfinis
+  - Random Event
 - Ajout d'un inventaire custom au start
-- Disparition des mobs quand phase finale commence ?
 
 ### Idée
 
 - Supprimer pnj après trade
 - Amélioration du starter kit au déblocage des salles
 - Diversité des mobs spawn
+- Pouvoir se téléporter dans le camps ennemis pendant un certain temps (~30s) ?
+- Disparition des mobs quand phase finale commence ?
 
 ## Setup Vs Code
 
