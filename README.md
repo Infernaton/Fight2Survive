@@ -6,45 +6,50 @@ Minecraft Plugin for 1.8.9
 
 ### Fix
 
-- Clean code : Ajout de commentaire, contexte
-- ~~Equilibrer spawn des mobs~~ A tester condition réelle
-- ~~Replace par Bedrock quand block est cassé par joueur~~
-- ~~Pioche peux casser stone~~ Voir pour remplacer les loots des blocks dérivés
-- ~~fix position spawn mob + sphere arround~~
-- Durabilité des outils bizarre 
-- Position de la salle de l'or coince la progression (ne peux pas casser)
-- Indiquer où vont les portes avant de les ouvrir 
-- Ajouter table de craft dans toutes les salles 
-- Si quelqu'un meurt avec une clé dans la lave -> bloqué 
-  - fix possible -> faire qu'elle reste dans l'inventaire du joueur qui l'achete
-				-> faire des cléfs virtuelle par équipe
-- la phase final ne se desactive pas après un restart
-- Voir pour casser le différents bois ?
+-   Clean code : Ajout de commentaire, contexte
+-   ~~Equilibrer spawn des mobs~~ A tester condition réelle
+-   ~~Replace par Bedrock quand block est cassé par joueur~~
+-   ~~Pioche peux casser stone~~ Voir pour remplacer les loots des blocks dérivés
+-   ~~fix position spawn mob + sphere arround~~
+-   Durabilité des outils bizarre
+-   Position de la salle de l'or coince la progression (ne peux pas casser)
+-   Indiquer où vont les portes avant de les ouvrir
+-   Ajouter table de craft dans toutes les salles
+-   Si quelqu'un meurt avec une clé dans la lave -> bloqué
+    -   fix possible -> faire qu'elle reste dans l'inventaire du joueur qui l'achete
+        -> faire des cléfs virtuelle par équipe
+-   la phase final ne se desactive pas après un restart
+-   Voir pour casser le différents bois ?
 
 ### Ajout
 
-- Random Event 
-- Améliorer l'entrée de la phase final (message en pleine ecran + bruit)
-- Options / Config de jeu au start
-	- Auto smelt 
-	- Only day / only night
-	- Craft/Items custom prédéfinis :
-		- Oeuf de golem
-- Ajout d'un inventaire custom au start
-- Disparition des mobs quand phase finale commence ?
-- Ajouter du gravier + pelle / voir pour les plumes
-- Voir pour ajouter des barrieres pour la fin du jeu
-- Afficher l'équipe gagnante
+-   Random Event
+-   Améliorer l'entrée de la phase final (message en pleine ecran + bruit)
+-   Options / Config de jeu au start
+    -   Random Event
+    -   Auto smelt
+    -   Only day / only night
+    -   Craft/Items custom prédéfinis :
+        -   Oeuf de golem
+-   Ajout d'un inventaire custom au start
+-   Disparition des mobs quand phase finale commence ?
+-   Ajouter du gravier + pelle / voir pour les plumes
+-   Voir pour ajouter des barrieres pour la fin du jeu
+-   Afficher l'équipe gagnante
 
 ### Idée
 
-- Supprimer pnj après trade 
-- Activé mode UHC uniquement en phase final 
-- Voir pour faire mode peaceful quand le jour se lève
-- Amélioration du starter kit au déblocage des salles
-- Diversité des mobs spawn
-- Faire un random de team
-- Faire une salle pour les potions
+-   Supprimer pnj après trade
+-   Activé mode UHC uniquement en phase final
+-   Voir pour faire mode peaceful quand le jour se lève
+-   Amélioration du starter kit au déblocage des salles
+-   Diversité des mobs spawn
+    <<<<<<< HEAD
+-   Faire un random de team
+-   # Faire une salle pour les potions
+-   Pouvoir se téléporter dans le camps ennemis pendant un certain temps (~30s) ?
+-   Disparition des mobs quand phase finale commence ?
+    > > > > > > > 0a633d2c6f27ae31b6deac910d1cd7bb77fab588
 
 ## Setup Vs Code
 
