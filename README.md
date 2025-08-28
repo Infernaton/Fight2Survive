@@ -18,7 +18,7 @@ Minecraft Plugin for 1.8.9
 -   Si quelqu'un meurt avec une clé dans la lave -> bloqué
     -   fix possible -> faire qu'elle reste dans l'inventaire du joueur qui l'achete \
         -> faire des cléfs virtuelle par équipe
--   la phase final ne se desactive pas après un restart
+-   ~~la phase final ne se desactive pas après un restart~~
 -   Voir pour casser le différents bois ?
 
 ### Ajout
