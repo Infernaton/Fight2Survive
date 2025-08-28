@@ -12,7 +12,7 @@ Minecraft Plugin for 1.8.9
 -   ~~Pioche peux casser stone~~ Voir pour remplacer les loots des blocks dérivés
 -   ~~fix position spawn mob + sphere arround~~
 -   Durabilité des outils bizarre
--   Position de la salle de l'or coince la progression (ne peux pas casser)
+-   ~~Position de la salle de l'or coince la progression (ne peux pas casser)~~ Ajout de minerai de fer dans la carrière de charbon
 -   ~~Indiquer où vont les portes avant de les ouvrir~~ Manque la porte finale
 -   ~~Ajouter table de craft dans toutes les salles~~
 -   Si quelqu'un meurt avec une clé dans la lave -> bloqué
