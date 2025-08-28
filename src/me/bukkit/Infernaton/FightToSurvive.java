@@ -172,6 +172,7 @@ public class FightToSurvive extends JavaPlugin {
         BH.resetContainers();
         WaveHandler.Instance().resetMob();
         ServerListener.resetAFKList();
+        FinalPhaseHandler.Instance().off();
     }
 
     public void finish() {
