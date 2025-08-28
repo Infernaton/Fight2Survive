@@ -13,7 +13,7 @@ Minecraft Plugin for 1.8.9
 -   ~~fix position spawn mob + sphere arround~~
 -   Durabilité des outils bizarre
 -   Position de la salle de l'or coince la progression (ne peux pas casser)
--   Indiquer où vont les portes avant de les ouvrir
+-   ~~Indiquer où vont les portes avant de les ouvrir~~ Manque la porte finale
 -   ~~Ajouter table de craft dans toutes les salles~~
 -   Si quelqu'un meurt avec une clé dans la lave -> bloqué
     -   fix possible -> faire qu'elle reste dans l'inventaire du joueur qui l'achete \
