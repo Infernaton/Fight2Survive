@@ -59,7 +59,7 @@ public class WaveHandler {
 
     public void spawnMob(Player player, int mobLevel) {
         Location playerLocation = player.getLocation();
-        List<Block> test = CoordStorage.highestCircleArround(playerLocation, 8, 12);
+        List<Block> test = CoordStorage.highestCircleAround(playerLocation, 8, 12);
 
         Block spawnBlockPosition;
         Block newBlock;

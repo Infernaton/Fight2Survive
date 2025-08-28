@@ -27,12 +27,11 @@ Minecraft Plugin for 1.8.9
 -   Améliorer l'entrée de la phase final (message en pleine ecran + bruit)
 -   Options / Config de jeu au start
     -   Random Event
-        -   Pouvoir se téléporter dans le camps ennemis pendant un certain temps (~30s) ?
-        -   Disparition des mobs quand phase finale commence ?
     -   Auto smelt
     -   Only day / only night
     -   Craft/Items custom prédéfinis :
         -   Oeuf de golem
+        -   Pouvoir se téléporter dans le camps ennemis pendant un certain temps (~30s) ?
 -   Ajout d'un inventaire custom au start
 -   Disparition des mobs quand phase finale commence ?
 -   Ajouter du gravier + pelle / voir pour les plumes
@@ -44,6 +43,7 @@ Minecraft Plugin for 1.8.9
 -   Supprimer pnj après trade
 -   Activé mode UHC uniquement en phase final
 -   Voir pour faire mode peaceful quand le jour se lève
+-   Disparition des mobs quand phase finale commence ?
 -   Amélioration du starter kit au déblocage des salles
 -   Diversité des mobs spawn
 -   Faire un random de team

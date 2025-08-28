@@ -11,6 +11,9 @@ import org.bukkit.block.Block;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @todo need to define it with setup parameters (setup spawn point). This way the map can be configarable much easier
+ */
 public class CoordStorage {
 
     public final static String worldName = Bukkit.getWorlds().get(0).getName();
@@ -117,14 +120,14 @@ public class CoordStorage {
     }
 
     /**
-     * Get all block where mobs can spawn arround a center
+     * Get all block where mobs can spawn around a center
      * 
      * @param center    the center of the circle
      * @param minRadius the minimum distance for the mobs to spawn
      * @param maxRadius the maximum distance for the mobs to spawn
      * @return
      */
-    public static List<Block> highestCircleArround(Location center, int minRadius, int maxRadius) {
+    public static List<Block> highestCircleAround(Location center, int minRadius, int maxRadius) {
         List<Block> disk = new ArrayList<>();
         Block centerBlock = center.getWorld().getHighestBlockAt(center);
         for (int x = -maxRadius; x <= maxRadius; x++) {

@@ -53,11 +53,12 @@ public class PlayerListeners implements Listener {
         Team team = Team.getTeam(player);
 
         // Check if the player is in a team to respawn him to the right place
-        if (FightToSurvive.isGameState(GState.PLAYING) && team != null) {
+        if (FightToSurvive.isGameState(GState.PLAYING) &&
+                (team != null || !team.equals(Constants.getSpectators()))) {
             event.setRespawnLocation(CoordStorage.getBaseLocation(team));
             main.HP().giveStarterPack(player);
         } else {
-            event.setRespawnLocation(CoordStorage.getSpawnCoordinate());
+            FightToSurvive.Instance().HP().setPlayer(player);
         }
     }
 
