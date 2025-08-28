@@ -14,9 +14,9 @@ Minecraft Plugin for 1.8.9
 -   Durabilité des outils bizarre
 -   Position de la salle de l'or coince la progression (ne peux pas casser)
 -   Indiquer où vont les portes avant de les ouvrir
--   Ajouter table de craft dans toutes les salles
+-   ~~Ajouter table de craft dans toutes les salles~~
 -   Si quelqu'un meurt avec une clé dans la lave -> bloqué
-    -   fix possible -> faire qu'elle reste dans l'inventaire du joueur qui l'achete
+    -   fix possible -> faire qu'elle reste dans l'inventaire du joueur qui l'achete \
         -> faire des cléfs virtuelle par équipe
 -   la phase final ne se desactive pas après un restart
 -   Voir pour casser le différents bois ?
@@ -27,6 +27,8 @@ Minecraft Plugin for 1.8.9
 -   Améliorer l'entrée de la phase final (message en pleine ecran + bruit)
 -   Options / Config de jeu au start
     -   Random Event
+        -   Pouvoir se téléporter dans le camps ennemis pendant un certain temps (~30s) ?
+        -   Disparition des mobs quand phase finale commence ?
     -   Auto smelt
     -   Only day / only night
     -   Craft/Items custom prédéfinis :
@@ -44,12 +46,8 @@ Minecraft Plugin for 1.8.9
 -   Voir pour faire mode peaceful quand le jour se lève
 -   Amélioration du starter kit au déblocage des salles
 -   Diversité des mobs spawn
-    <<<<<<< HEAD
 -   Faire un random de team
--   # Faire une salle pour les potions
--   Pouvoir se téléporter dans le camps ennemis pendant un certain temps (~30s) ?
--   Disparition des mobs quand phase finale commence ?
-    > > > > > > > 0a633d2c6f27ae31b6deac910d1cd7bb77fab588
+-   Faire une salle pour les potions
 
 ## Setup Vs Code
 
