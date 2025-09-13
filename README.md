@@ -1,4 +1,4 @@
-# Fight2Survive v1.2
+# Fight2Survive v1.2.1
 
 Minecraft Plugin for 1.8.9
 
