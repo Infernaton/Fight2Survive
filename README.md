@@ -48,6 +48,7 @@ Minecraft Plugin for 1.8.9
 -   Diversité des mobs spawn
 -   Faire un random de team
 -   Faire une salle pour les potions
+-   Faire un spleef d'attente
 
 ## Setup Vs Code
 
