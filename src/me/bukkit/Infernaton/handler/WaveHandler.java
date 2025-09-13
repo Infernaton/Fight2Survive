@@ -2,6 +2,7 @@ package me.bukkit.Infernaton.handler;
 
 import static me.bukkit.Infernaton.store.CoordStorage.worldName;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -10,6 +11,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import me.bukkit.Infernaton.FightToSurvive;
@@ -79,9 +81,19 @@ public class WaveHandler {
         Mobs.createRandomAggressiveMob(spawnBlockPosition.getLocation(), mobLevel);
     }
 
-    public void resetMob() {
+    public List<LivingEntity> getAllMobs() {
+        List<LivingEntity> entities = new ArrayList<>();
         for (Entity e : Bukkit.getWorld(worldName).getEntities()) {
-            if (Mobs.spawnedMobs().contains(e.getType())) {
+            if (e instanceof LivingEntity && Mobs.aggressiveMob(5).contains(e.getType())) {
+                entities.add((LivingEntity) e);
+            }
+        }
+        return entities;
+    }
+
+    public void resetSpawnedEntity() {
+        for (Entity e : Bukkit.getWorld(worldName).getEntities()) {
+            if (Mobs.spawnedEntity().contains(e.getType())) {
                 e.remove();
             }
         }

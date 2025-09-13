@@ -50,7 +50,7 @@ public class Mobs {
         return list;
     }
 
-    public static List<EntityType> spawnedMobs() {
+    public static List<EntityType> spawnedEntity() {
         List<EntityType> list = new ArrayList<>(Arrays.asList(
                 EntityType.VILLAGER,
                 EntityType.EXPERIENCE_ORB,

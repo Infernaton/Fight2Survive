@@ -15,7 +15,7 @@ Minecraft Plugin for 1.8.9
     - Bruit d'apparition du dragon
     - Timer avant l'activation de cette phase
 - Afficher l'équipe gagnante de la partie
-- Voir pour que les mobs prennent des dégats instantanés lorsque le jour se lève
+- ~~Voir pour que les mobs prennent des dégats instantanés lorsque le jour se lève~~
 
 ### Fix
 
