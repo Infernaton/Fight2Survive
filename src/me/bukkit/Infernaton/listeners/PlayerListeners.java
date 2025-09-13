@@ -53,11 +53,12 @@ public class PlayerListeners implements Listener {
         Team team = Team.getTeam(player);
 
         // Check if the player is in a team to respawn him to the right place
-        if (FightToSurvive.isGameState(GState.PLAYING) && team != null) {
+        if (FightToSurvive.isGameState(GState.PLAYING) &&
+                (team != null || !team.equals(Constants.getSpectators()))) {
             event.setRespawnLocation(CoordStorage.getBaseLocation(team));
             main.HP().giveStarterPack(player);
         } else {
-            event.setRespawnLocation(CoordStorage.getSpawnCoordinate());
+            FightToSurvive.Instance().HP().setPlayer(player);
         }
     }
 
@@ -106,16 +107,27 @@ public class PlayerListeners implements Listener {
             } else if (CustomItem.comparor(current, CustomItem.gameStartWool())) {
                 main.onStarting(player);
                 player.closeInventory();
-            } else if (CustomItem.comparor(current, CustomItem.optionsWool())) {
+            } else if (CustomItem.comparor(current, CustomItem.options())) {
                 player.openInventory(InterfaceMenu.optionsInventory());
+            } else if (CustomItem.comparor(current, CustomItem.setup())) {
+                player.openInventory(InterfaceMenu.setupInventory());
             }
         }
+
         if (inv.getName().equalsIgnoreCase(StringConfig.optionInventory())) {
             event.setCancelled(true);
-            if (CustomItem.comparor(current, CustomItem.returnWool())) {
+            if (CustomItem.comparor(current, CustomItem.returnArrow())) {
                 player.openInventory(InterfaceMenu.selectTeam());
             }
         }
+
+        if (inv.getName().equalsIgnoreCase(StringConfig.setupInventory())) {
+            event.setCancelled(true);
+            if (CustomItem.comparor(current, CustomItem.returnArrow())) {
+                player.openInventory(InterfaceMenu.selectTeam());
+            }
+        }
+
         if (inv.getName().equalsIgnoreCase(StringConfig.cancelInventory())) {
             event.setCancelled(true);
             if (CustomItem.comparor(current, CustomItem.gameCancelWool())) {

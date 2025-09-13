@@ -172,6 +172,7 @@ public class FightToSurvive extends JavaPlugin {
         BH.resetContainers();
         WaveHandler.Instance().resetMob();
         ServerListener.resetAFKList();
+        FinalPhaseHandler.Instance().off();
     }
 
     public void finish() {
@@ -206,15 +207,13 @@ public class FightToSurvive extends JavaPlugin {
         // #endregion
 
         // #region command declaration
-        String[] partyCommand = { "start", "cancelStart", "reset", "forceFinal",
-                "endgame" };
+        String[] partyCommand = { "start", "cancelStart", "reset", "forceFinal", "endgame" };
         enableCommand(partyCommand, new PartyCommand());
 
-        String[] debugCommand = { "setPlayer", "getDoors", "deleteDoors", "getKey",
-                "printDebug" };
+        String[] debugCommand = { "setPlayer", "getDoors", "deleteDoors", "getKey", "printDebug" };
         enableCommand(debugCommand, new DebugCommand());
 
-        String[] debugMob = { "mob_zombie", "set_villagers", "kill_pnj" };
+        String[] debugMob = { "mob_zombie", "set_villagers", "kill_pnj", "hologram", "killhologram" };
         enableCommand(debugMob, new SpawnMobs());
         // #endregion
 

@@ -81,12 +81,16 @@ public class CustomItem {
         return new ItemBuilder(Material.WOOL, 1, (byte) 14).setName(StringConfig.cancelItem()).toItemStack();
     }
 
-    public static ItemStack optionsWool() {
-        return new ItemBuilder(Material.WOOL, 1, (byte) 8).setName(StringConfig.optionItem()).toItemStack();
+    public static ItemStack options() {
+        return new ItemBuilder(Material.WATCH, 1).setName(StringConfig.optionItem()).toItemStack();
     }
 
-    public static ItemStack returnWool() {
-        return new ItemBuilder(Material.WOOL, 1, (byte) 8).setName(StringConfig.returnItem()).toItemStack();
+    public static ItemStack setup() {
+        return new ItemBuilder(Material.IRON_PICKAXE, 1).setName(StringConfig.setupItem()).toItemStack();
+    }
+
+    public static ItemStack returnArrow() {
+        return new ItemBuilder(Material.ARROW, 1).setName(StringConfig.returnItem()).toItemStack();
     }
 
     public static ItemStack separator() {

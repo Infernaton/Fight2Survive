@@ -1,4 +1,4 @@
-# Fight2Survive v1.2
+# Fight2Survive v1.2.1
 
 Minecraft Plugin for 1.8.9
 
@@ -6,23 +6,49 @@ Minecraft Plugin for 1.8.9
 
 ### Fix
 
-- Clean code : Ajout de commentaire, contexte
-- ~~Equilibrer spawn des mobs~~ A tester condition réelle
-- ~~Replace par Bedrock quand block est cassé par joueur~~
-- ~~Pioche peux casser stone~~ Voir pour remplacer les loots des blocks dérivés
-- ~~fix position spawn mob + sphere arround~~
+-   Clean code : Ajout de commentaire, contexte
+-   ~~Equilibrer spawn des mobs~~ A tester condition réelle
+-   ~~Replace par Bedrock quand block est cassé par joueur~~
+-   ~~Pioche peux casser stone~~ Voir pour remplacer les loots des blocks dérivés
+-   ~~fix position spawn mob + sphere arround~~
+-   Durabilité des outils bizarre
+-   ~~Position de la salle de l'or coince la progression (ne peux pas casser)~~ Ajout de minerai de fer dans la carrière de charbon
+-   ~~Indiquer où vont les portes avant de les ouvrir~~ Manque la porte finale
+-   ~~Ajouter table de craft dans toutes les salles~~
+-   Si quelqu'un meurt avec une clé dans la lave -> bloqué
+    -   fix possible -> faire qu'elle reste dans l'inventaire du joueur qui l'achete \
+        -> faire des cléfs virtuelle par équipe
+-   ~~la phase final ne se desactive pas après un restart~~
+-   Voir pour casser le différents bois ?
 
 ### Ajout
 
-- Random Event
-- Options / Config de jeu au start
-- Ajout d'un inventaire custom au start
-- Disparition des mobs quand phase finale commence ?
+-   Random Event
+-   Améliorer l'entrée de la phase final (message en pleine ecran + bruit)
+-   Options / Config de jeu au start
+    -   Random Event
+    -   Auto smelt
+    -   Only day / only night
+    -   Craft/Items custom prédéfinis :
+        -   Oeuf de golem
+        -   Pouvoir se téléporter dans le camps ennemis pendant un certain temps (~30s) ?
+-   Ajout d'un inventaire custom au start
+-   Disparition des mobs quand phase finale commence ?
+-   Ajouter du gravier + pelle / voir pour les plumes
+-   Voir pour ajouter des barrieres pour la fin du jeu
+-   Afficher l'équipe gagnante
 
 ### Idée
 
-- Amélioration du starter kit au déblocage des salles
-- Diversité des mobs spawn
+-   Supprimer pnj après trade
+-   Activé mode UHC uniquement en phase final
+-   Voir pour faire mode peaceful quand le jour se lève
+-   Disparition des mobs quand phase finale commence ?
+-   Amélioration du starter kit au déblocage des salles
+-   Diversité des mobs spawn
+-   Faire un random de team
+-   Faire une salle pour les potions
+-   Faire un spleef d'attente
 
 ## Setup Vs Code
 
@@ -43,6 +69,8 @@ Minecraft Plugin for 1.8.9
 3. Séléctionner le dossier "1.8 Minecraft Server". Il contient le serveur minecraft prêt à être utilisé.
 4. Le déplacer où bon vous semble.
 5. Pour démarer le serveur, double cliquer sur le fichier `run.bat`
+
+Note: La map minecraft et le plugin ne seront peut être pas à jour. Si c'est le cas suivez à partir de `9.` de l'installation manuelle.
 
 #### Installation Manuelle
 
@@ -73,9 +101,8 @@ enable-command-block=true
 level-name=Arene
 ```
 
-9. Télécharger [la map pour le plugin](https://drive.google.com/file/d/12zyh25ZAXubfTHzGPpCUNI7qnb7qsV2M/view?usp=drive_link)
-10. Décompiler le, puis mettre le dossier "Arene" dans le dossier du Serveur Minecraft
-11. Redémarer le serveur (en exécutant `run.bat`).
+9. Dans ce repository, dans `/minecraft-map`, copier/coller le dossier "Arene" dans le dossier du Serveur Minecraft
+10. Redémarer le serveur (en exécutant `run.bat`).
 
 A ce stade il ne manque plus qu'à compiler le plugin et l'ajouter au dossier `/plugin` pour que le serveur soit opérationnel.
 
