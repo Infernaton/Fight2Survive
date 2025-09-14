@@ -36,4 +36,8 @@ public class Sounds {
     public static void selectingOptions(Player player) {
         toPlayer(player, Sound.CLICK, 15,15);
     }
+
+    public static void ErrorSound(Player player) {
+        toPlayer(player, Sound.NOTE_BASS, 30,1);
+    }
 }

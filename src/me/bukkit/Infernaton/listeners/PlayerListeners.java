@@ -118,6 +118,7 @@ public class PlayerListeners implements Listener {
         if (inv.getName().equalsIgnoreCase(StringConfig.optionInventory())) {
             event.setCancelled(true);
             if (CustomItem.comparor(current, CustomItem.returnArrow())) {
+                Sounds.selectingOptions(player);
                 player.openInventory(InterfaceMenu.selectTeam());
             }
         }
@@ -125,6 +126,7 @@ public class PlayerListeners implements Listener {
         if (inv.getName().equalsIgnoreCase(StringConfig.setupInventory())) {
             event.setCancelled(true);
             if (CustomItem.comparor(current, CustomItem.returnArrow())) {
+                Sounds.selectingOptions(player);
                 player.openInventory(InterfaceMenu.selectTeam());
             }
         }
@@ -132,6 +134,7 @@ public class PlayerListeners implements Listener {
         if (inv.getName().equalsIgnoreCase(StringConfig.cancelInventory())) {
             event.setCancelled(true);
             if (CustomItem.comparor(current, CustomItem.gameCancelWool())) {
+                Sounds.selectingOptions(player);
                 main.cancelStart();
                 player.closeInventory();
             }

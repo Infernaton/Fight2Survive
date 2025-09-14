@@ -104,7 +104,7 @@ public class FightToSurvive extends JavaPlugin {
             return;
         }
 
-        Sounds.selectingMenu(sender);
+        //Sounds.selectingMenu(sender);
 
         List<Player> redPlayers = Constants.getRedTeam().getPlayers();
         List<Player> bluePlayers = Constants.getBlueTeam().getPlayers();

@@ -44,7 +44,7 @@ public class FinalPhaseHandler {
         active = true;
         ChatHandler.toAllPlayer(StringConfig.finalPhase());
         DoorHandler.deleteAllDoors();
-        TitleHandler.toAllPlayer("The Final Phase Begins", "All remaining doors are now opened");
+        TitleHandler.toAllPlayer("§lThe Final Phase Begins", "§c§oAll remaining doors are now opened");
         Sounds.finalPhaseSound();
     }
 
