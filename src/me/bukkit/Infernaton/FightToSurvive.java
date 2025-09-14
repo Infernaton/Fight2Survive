@@ -1,5 +1,6 @@
 package me.bukkit.Infernaton;
 
+import me.bukkit.Infernaton.builder.clock.StartingCountdown;
 import me.bukkit.Infernaton.handler.*;
 import me.bukkit.Infernaton.handler.scoreboard.ScoreboardManager;
 import me.bukkit.Infernaton.listeners.*;
@@ -121,7 +122,7 @@ public class FightToSurvive extends JavaPlugin {
         setGameState(GState.STARTING);
 
         ChatHandler.sendInfoMessage(sender, StringConfig.launched());
-        CountDown.newCountDown(this, 10L);
+        new StartingCountdown(10L);
         DoorHandler.setAllDoors();
     }
 
