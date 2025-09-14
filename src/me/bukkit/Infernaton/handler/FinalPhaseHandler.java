@@ -1,5 +1,7 @@
 package me.bukkit.Infernaton.handler;
 
+import me.bukkit.Infernaton.builder.clock.FinalPhaseCountdown;
+import me.bukkit.Infernaton.builder.clock.StartingCountdown;
 import me.bukkit.Infernaton.store.Constants;
 import me.bukkit.Infernaton.store.Sounds;
 import org.bukkit.Location;
@@ -43,7 +45,6 @@ public class FinalPhaseHandler {
         ChatHandler.toAllPlayer(StringConfig.finalPhase());
         DoorHandler.deleteAllDoors();
         TitleHandler.toAllPlayer("The Final Phase Begins", "All remaining doors are now opened");
-        Constants.getAllTeamsPlayer().forEach(player -> player.playSound(player.getLocation(), Sound.ENDERDRAGON_GROWL, 30, 30));
         Sounds.finalPhaseSound();
     }
 
@@ -52,13 +53,10 @@ public class FinalPhaseHandler {
         boolean isRed = listDoors.indexOf(currentDoor) % 2 == 0;
 
         Location lastDoor = listDoors.get(listDoors.size() - 1 - (isRed ? 1 : 0));
-        /*
-         * System.out.print("Derniere porte ? " + lastDoor.hashCode() + " == " +
-         * currentDoor.hashCode() + " = ");
-         * System.out.println(lastDoor.hashCode() == currentDoor.hashCode());
-         */
+
+        // Will launched a timer before the finalPhase will begins
         if (lastDoor.hashCode() == currentDoor.hashCode()) {
-            activate();
+            new FinalPhaseCountdown(15);
         }
     }
 }

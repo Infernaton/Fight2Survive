@@ -10,10 +10,10 @@ Minecraft Plugin for 1.8.9
     - Pour débloquer une porte -> avoir les ressources nécessaire dans son inventaire
     - Faire écriteau indiquant les ingrédients pour ouvrir la porte
     - Supprimer PNJ devenus useless (voir pour les transformer en vrai trader)
-- Améliorer l'arriver en Phase Finale :
+- ~~Améliorer l'arriver en Phase Finale :~~
     - ~~Message en full screen~~
     - ~~Bruit d'apparition du dragon~~
-    - Timer avant l'activation de cette phase
+    - ~~Timer avant l'activation de cette phase~~
 - Afficher l'équipe gagnante de la partie
 - ~~Voir pour que les mobs prennent des dégats instantanés lorsque le jour se lève~~
 

@@ -1,27 +1,21 @@
 package me.bukkit.Infernaton.builder.clock;
 
-import me.bukkit.Infernaton.FightToSurvive;
-import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
+import me.bukkit.Infernaton.handler.FinalPhaseHandler;
 import me.bukkit.Infernaton.store.Sounds;
 import me.bukkit.Infernaton.store.StringConfig;
 
-public class StartingCountdown extends CountDown{
+public class FinalPhaseCountdown extends CountDown{
 
-    public StartingCountdown(long departTime) {
-        newCountDown(this, departTime);
+    public FinalPhaseCountdown(long cooldown) {
+        newCountDown(this, cooldown);
     }
 
     @Override
     public void run() {
-        //If the GState is back to WAITING, it meaning the CancelStart methods has been called
-        if (FightToSurvive.isGameState(GState.WAITING)) {
-            stopCountdown(id);
-            return;
-        }
 
         if (time == 0) {
-            FightToSurvive.Instance().start();
+            FinalPhaseHandler.Instance().activate();
         } else if (time % 10 == 0 || time <= 5) {
             Sounds.tickTimerSound();
             ChatHandler.toAllPlayer(StringConfig.secondLeft((int) time));

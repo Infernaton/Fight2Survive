@@ -24,4 +24,8 @@ public class Sounds {
     public static void finalPhaseSound() {
         toPlayers(Constants.getAllTeamsPlayer(), Sound.ENDERDRAGON_GROWL, 30,30);
     }
+
+    public static void tickTimerSound() {
+        toPlayers(Constants.getAllTeamsPlayer(), Sound.LEVEL_UP, 15,15);
+    }
 }

@@ -155,8 +155,8 @@ public class FightToSurvive extends JavaPlugin {
     }
 
     public void cancelStart() {
+        //By changing the GState to Waiting, it will automatically stop the starting countdown
         setGameState(GState.WAITING);
-        CountDown.stopAllCountdown(this);
         ChatHandler.sendMessageListPlayer(Constants.getAllTeamsPlayer(), StringConfig.cancelStart());
     }
 
