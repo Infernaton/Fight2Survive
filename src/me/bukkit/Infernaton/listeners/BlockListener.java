@@ -49,8 +49,8 @@ public class BlockListener implements Listener {
             ChatHandler.sendError(player, StringConfig.avoidBreak());
             return;
         }
-        Integer cd = Constants.coolDownBlock().get(block.getType());
-        BreakBlockClock.newCountDown(main, cd != null ? cd : 10, block);
+        Integer cd = Constants.cooldownBlock(block.getType());
+        new BreakBlockClock(cd, block);
         // Replace the broken block with bedrock, to prevent that player to dig through
         // the ground and getting stuck
         // + give the player the given block to its inventory (replacing the block will
@@ -69,7 +69,7 @@ public class BlockListener implements Listener {
     }
 
     /**
-     * Storing containers that a player interract with
+     * Storing containers that a player interact with
      * 
      * @todo prevent a containers to be add twice
      * @param event

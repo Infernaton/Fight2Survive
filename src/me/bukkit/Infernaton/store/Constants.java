@@ -50,18 +50,20 @@ public class Constants {
      * define all the cooldown for blocks
      * 
      * @todo define this on config file or option menu
-     * @return Map<Material, Integer> Material-> Break Block, Integer-> Countdown in
-     *         second
+     * @return Integer Countdown in second
      */
-    public static Map<Material, Integer> coolDownBlock() {
-        Map<Material, Integer> cd = new HashMap<>();
-        cd.put(Material.LOG, 10);
-        cd.put(Material.COBBLESTONE, 10);
-        cd.put(Material.COAL_ORE, 10);
-        cd.put(Material.IRON_ORE, 20);
-        cd.put(Material.DIAMOND_ORE, 45);
-        cd.put(Material.LAPIS_ORE, 25);
-        return cd;
+    public static Integer cooldownBlock(Material block) {
+        switch (block) {
+            case IRON_ORE: return 20;
+            case DIAMOND_ORE: return 45;
+            case LAPIS_ORE: return 25;
+
+            case LOG:
+            case COBBLESTONE:
+            case COAL_ORE:
+            default:
+                return 10;
+        }
     }
 
     /**
