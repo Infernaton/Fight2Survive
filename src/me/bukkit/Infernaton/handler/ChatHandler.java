@@ -22,9 +22,7 @@ public class ChatHandler {
     }
 
     public static void sendMessageListPlayer(List<Player> players, String msg){
-        for (Player player : players) {
-            sendInfoMessage(player, msg);
-        }
+        players.forEach(player -> sendInfoMessage(player, msg));
     }
 
     public static void broadcast(String msg){

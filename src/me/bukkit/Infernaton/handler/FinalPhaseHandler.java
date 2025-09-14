@@ -1,8 +1,11 @@
 package me.bukkit.Infernaton.handler;
 
+import me.bukkit.Infernaton.store.Constants;
+import me.bukkit.Infernaton.store.Sounds;
 import org.bukkit.Location;
 
 import me.bukkit.Infernaton.store.StringConfig;
+import org.bukkit.Sound;
 
 import java.util.List;
 
@@ -39,6 +42,9 @@ public class FinalPhaseHandler {
         active = true;
         ChatHandler.toAllPlayer(StringConfig.finalPhase());
         DoorHandler.deleteAllDoors();
+        TitleHandler.toAllPlayer("The Final Phase Begins", "All remaining doors are now opened");
+        Constants.getAllTeamsPlayer().forEach(player -> player.playSound(player.getLocation(), Sound.ENDERDRAGON_GROWL, 30, 30));
+        Sounds.finalPhaseSound();
     }
 
     public void asking(Location currentDoor, List<Location> listDoors) {
