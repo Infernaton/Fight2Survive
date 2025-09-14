@@ -26,6 +26,14 @@ public class Sounds {
     }
 
     public static void tickTimerSound() {
-        toPlayers(Constants.getAllTeamsPlayer(), Sound.LEVEL_UP, 15,15);
+        toPlayers(Constants.getAllTeamsPlayer(), Sound.ORB_PICKUP, 15,15);
+    }
+
+    public static void selectingMenu(Player player) {
+        toPlayer(player, Sound.LEVEL_UP, 15,15);
+    }
+
+    public static void selectingOptions(Player player) {
+        toPlayer(player, Sound.CLICK, 15,15);
     }
 }

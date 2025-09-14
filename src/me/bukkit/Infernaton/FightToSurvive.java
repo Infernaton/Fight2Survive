@@ -4,10 +4,7 @@ import me.bukkit.Infernaton.builder.clock.StartingCountdown;
 import me.bukkit.Infernaton.handler.*;
 import me.bukkit.Infernaton.handler.scoreboard.ScoreboardManager;
 import me.bukkit.Infernaton.listeners.*;
-import me.bukkit.Infernaton.store.Constants;
-import me.bukkit.Infernaton.store.CoordStorage;
-import me.bukkit.Infernaton.store.Mobs;
-import me.bukkit.Infernaton.store.StringConfig;
+import me.bukkit.Infernaton.store.*;
 import me.bukkit.Infernaton.builder.*;
 import me.bukkit.Infernaton.builder.clock.CountDown;
 import me.bukkit.Infernaton.builder.clock.GameRunnable;
@@ -106,6 +103,8 @@ public class FightToSurvive extends JavaPlugin {
             ChatHandler.sendError(sender, StringConfig.alreadyLaunched());
             return;
         }
+
+        Sounds.selectingMenu(sender);
 
         List<Player> redPlayers = Constants.getRedTeam().getPlayers();
         List<Player> bluePlayers = Constants.getBlueTeam().getPlayers();

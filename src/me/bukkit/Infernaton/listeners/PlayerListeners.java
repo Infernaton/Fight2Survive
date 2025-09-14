@@ -4,11 +4,7 @@ import me.bukkit.Infernaton.*;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.FinalPhaseHandler;
-import me.bukkit.Infernaton.store.Constants;
-import me.bukkit.Infernaton.store.CoordStorage;
-import me.bukkit.Infernaton.store.CustomItem;
-import me.bukkit.Infernaton.store.InterfaceMenu;
-import me.bukkit.Infernaton.store.StringConfig;
+import me.bukkit.Infernaton.store.*;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -96,20 +92,25 @@ public class PlayerListeners implements Listener {
         if (inv.getName().equalsIgnoreCase(StringConfig.teamInventory())) {
             event.setCancelled(true);
             if (CustomItem.comparor(current, CustomItem.blueWool())) {
+                Sounds.selectingMenu(player);
                 Constants.getBlueTeam().add(player);
                 player.closeInventory();
             } else if (CustomItem.comparor(current, CustomItem.redWool())) {
+                Sounds.selectingMenu(player);
                 Constants.getRedTeam().add(player);
                 player.closeInventory();
             } else if (CustomItem.comparor(current, CustomItem.spectatorWool())) {
+                Sounds.selectingMenu(player);
                 Constants.getSpectators().add(player);
                 player.closeInventory();
             } else if (CustomItem.comparor(current, CustomItem.gameStartWool())) {
                 main.onStarting(player);
                 player.closeInventory();
             } else if (CustomItem.comparor(current, CustomItem.options())) {
+                Sounds.selectingOptions(player);
                 player.openInventory(InterfaceMenu.optionsInventory());
             } else if (CustomItem.comparor(current, CustomItem.setup())) {
+                Sounds.selectingOptions(player);
                 player.openInventory(InterfaceMenu.setupInventory());
             }
         }
