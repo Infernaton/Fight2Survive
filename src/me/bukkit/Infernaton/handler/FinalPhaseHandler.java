@@ -42,9 +42,8 @@ public class FinalPhaseHandler {
 
     public void activate() {
         active = true;
-        ChatHandler.toAllPlayer(StringConfig.finalPhase());
-        DoorHandler.deleteAllDoors();
         TitleHandler.toAllPlayer("§lThe Final Phase Begins", "§c§oAll remaining doors are now opened");
+        DoorHandler.deleteAllDoors();
         Sounds.finalPhaseSound();
     }
 
@@ -56,6 +55,7 @@ public class FinalPhaseHandler {
 
         // Will launched a timer before the finalPhase will begins
         if (lastDoor.hashCode() == currentDoor.hashCode()) {
+            ChatHandler.toAllPlayer(StringConfig.finalPhase());
             new FinalPhaseCountdown(15);
         }
     }

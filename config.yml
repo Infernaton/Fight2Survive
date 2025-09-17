@@ -30,7 +30,7 @@ string:
     teleport: "Teleporting player"
     avoidBreaking: "Can't break this block"
     opDoors: "A door was opened"
-    finalPhase: "A team has open their last door. Starting the final Phase..."
+    finalPhase: "A team has open their last door. The final Phase is about de begin..."
     checkStart:
       launched: "Initialize the countdown..."
       countdownStarted: "CountDown already launch."
@@ -41,8 +41,8 @@ string:
       noGame: "No game are playing right now."
       quitingReset: "Not enough player remaining, resetting the game."
     timescales:
-      nearNight: "The moon appears soon, be careful of monster"
-      nearDay: "The sun is rising, a little rest for you"
+      nearNight: "The moon appears soon, be careful of monster..."
+      nearDay: "The sun is rising, a little rest for you."
       night: "Night Time"
       day: "Day Time"
     debug:
