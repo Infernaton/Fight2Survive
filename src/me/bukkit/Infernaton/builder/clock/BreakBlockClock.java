@@ -1,7 +1,8 @@
 package me.bukkit.Infernaton.builder.clock;
 
-import org.bukkit.Material;
+import me.bukkit.Infernaton.handler.BlockHandler;
 import org.bukkit.block.Block;
+import org.bukkit.material.MaterialData;
 
 /**
  * A clock which is called right after a player breaks a block,
@@ -10,21 +11,21 @@ import org.bukkit.block.Block;
 public class BreakBlockClock extends CountDown {
 
     private final Block block;
-    private final Material blockType;
-    private final byte blockData;
+    private final MaterialData material;
 
     public BreakBlockClock(long startTime, Block block) {
         newCountDown(this, startTime);
+
         this.block = block;
-        this.blockType = block.getType();
-        this.blockData = block.getData();
+        this.material = new MaterialData(block.getType(), block.getData());
     }
 
     @Override
     public void run() {
         if (time == 0) {
-            block.setType(blockType);
-            block.setData(blockData);
+            BlockHandler.setMaterial(block, material);
         }
+
+        super.run();
     }
 }
