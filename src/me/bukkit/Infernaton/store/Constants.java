@@ -94,19 +94,6 @@ public class Constants {
         return getAllTrade().get(pnjName);
     }
 
-    public static List<Location> getAllCopiesDoors() {
-        List<Location> locations = new ArrayList<>();
-        String path = "coordinates.doorCoord.copies";
-        for (String key : FightToSurvive.GetConfig().getConfigurationSection(path).getKeys(false)) {
-            Location door = new Location(Bukkit.getWorld(worldName),
-                    FightToSurvive.GetConfig().getDouble(path + "." + key + ".x"),
-                    FightToSurvive.GetConfig().getDouble(path + "." + key + ".y"),
-                    FightToSurvive.GetConfig().getDouble(path + "." + key + ".z"));
-            locations.add(door);
-        }
-        return locations;
-    }
-
     // #region Team related
     public static Team getRedTeam() {
         return Team.getTeamByName(StringConfig.redTeamName());

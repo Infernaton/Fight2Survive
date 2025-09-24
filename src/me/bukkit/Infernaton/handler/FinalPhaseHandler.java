@@ -1,5 +1,7 @@
 package me.bukkit.Infernaton.handler;
 
+import me.bukkit.Infernaton.builder.DoorStruct;
+import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.builder.clock.FinalPhaseCountdown;
 import me.bukkit.Infernaton.builder.clock.StartingCountdown;
 import me.bukkit.Infernaton.store.Constants;
@@ -47,14 +49,9 @@ public class FinalPhaseHandler {
         Sounds.finalPhaseSound();
     }
 
-    public void asking(Location currentDoor, List<Location> listDoors) {
-
-        boolean isRed = listDoors.indexOf(currentDoor) % 2 == 0;
-
-        Location lastDoor = listDoors.get(listDoors.size() - 1 - (isRed ? 1 : 0));
-
+    public void asking(boolean needToActivate) {
         // Will launched a timer before the finalPhase will begins
-        if (lastDoor.hashCode() == currentDoor.hashCode()) {
+        if (needToActivate) {
             ChatHandler.toAllPlayer(StringConfig.finalPhase());
             new FinalPhaseCountdown(15);
         }

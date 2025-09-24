@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,13 +49,6 @@ public class CoordStorage {
         return pc;
     }
 
-    public static Location getDoorConstantCoord() {
-        return new Location(Bukkit.getWorld(worldName),
-                FightToSurvive.GetConfig().getDouble("coordinates.doorCoord.constant.x"),
-                FightToSurvive.GetConfig().getDouble("coordinates.doorCoord.constant.y"),
-                FightToSurvive.GetConfig().getDouble("coordinates.doorCoord.constant.z"));
-    }
-
     /**
      * Get the coordinate of the spawn point of target Team (Red or Blue)
      * 
@@ -80,25 +74,25 @@ public class CoordStorage {
     }
 
     public static Location getRedBase() {
-        /*
-         * return new Location(Bukkit.getWorld(worldName),
-         * FightToSurvive.GetConfig().getDouble("coordinates.teamRed.spawnpoint.x"),
-         * FightToSurvive.GetConfig().getDouble("coordinates.teamRed.spawnpoint.y"),
-         * FightToSurvive.GetConfig().getDouble("coordinates.teamRed.spawnpoint.z")
-         * );
-         */
-        return new Location(Bukkit.getWorld(worldName), -36.5, 56, 83.5, 135f, 0f);
+        FileConfiguration config = FightToSurvive.GetConfig();
+        return new Location(Bukkit.getWorld(worldName),
+                config.getDouble("teamData.red.spawnpoint.x"),
+                config.getDouble("teamData.red.spawnpoint.y"),
+                config.getDouble("teamData.red.spawnpoint.z"),
+                (float) config.getDouble("teamData.red.spawnpoint.yaw"),
+                (float) config.getDouble("teamData.red.spawnpoint.pitch")
+        );
     }
 
     public static Location getBlueBase() {
-        /*
-         * return new Location(Bukkit.getWorld(worldName),
-         * FightToSurvive.GetConfig().getDouble("coordinates.teamBlue.spawnpoint.x"),
-         * FightToSurvive.GetConfig().getDouble("coordinates.teamBlue.spawnpoint.y"),
-         * FightToSurvive.GetConfig().getDouble("coordinates.teamBlue.spawnpoint.z")
-         * );
-         */
-        return new Location(Bukkit.getWorld(worldName), 37.5, 56.0, 83.5, -135f, 0f);
+        FileConfiguration config = FightToSurvive.GetConfig();
+        return new Location(Bukkit.getWorld(worldName),
+                config.getDouble("teamData.blue.spawnpoint.x"),
+                config.getDouble("teamData.blue.spawnpoint.y"),
+                config.getDouble("teamData.blue.spawnpoint.z"),
+                (float) config.getDouble("teamData.blue.spawnpoint.yaw"),
+                (float) config.getDouble("teamData.blue.spawnpoint.pitch")
+        );
     }
     // #endregion
 

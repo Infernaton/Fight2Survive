@@ -1,7 +1,10 @@
 package me.bukkit.Infernaton.listeners;
 
 import me.bukkit.Infernaton.FightToSurvive;
+import me.bukkit.Infernaton.builder.DoorStruct;
+import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
+import me.bukkit.Infernaton.handler.DoorHandler;
 import me.bukkit.Infernaton.handler.FinalPhaseHandler;
 import me.bukkit.Infernaton.store.Constants;
 import me.bukkit.Infernaton.store.CustomItem;
@@ -44,22 +47,15 @@ public class DoorListeners implements Listener {
         // Check if the item is the key of a doors, and the clicked block is a redstone
         // block
         if (!CustomItem.comparor(it, CustomItem.paperKey())
-                || block.getType() != Material.REDSTONE_BLOCK)
+                || block.getType() != Material.REDSTONE_BLOCK || !Team.hasTeam(player))
             return;
 
-        // to open the door, we just replace each block of it by air block
         Location location = block.getLocation();
-        for (double x = -1; x <= 1; x++) {
-            for (double y = -1; y <= 1; y++) {
-                for (double z = -1; z <= 1; z++) {
-                    Block bc = new Location(player.getWorld(), location.getBlockX() + x, location.getBlockY() + y,
-                            location.getBlockZ() + z).getBlock();
-                    bc.setType(Material.AIR);
-                }
-            }
-        }
+        DoorStruct door = DoorHandler.getDoor(location, Team.getTeam(player));
+        door.open();
+
         ChatHandler.toAllPlayer(StringConfig.openDoors());
         CustomItem.removeItemHand(player);
-        FinalPhaseHandler.Instance().asking(location, Constants.getAllCopiesDoors());
+        FinalPhaseHandler.Instance().asking(door.isLastDoor());
     }
 }
