@@ -14,18 +14,16 @@ public class BreakBlockClock extends CountDown {
     private final MaterialData material;
 
     public BreakBlockClock(long startTime, Block block) {
-        newCountDown(this, startTime);
+        super(startTime);
 
         this.block = block;
         this.material = new MaterialData(block.getType(), block.getData());
     }
 
     @Override
-    public void run() {
+    public void newRun() {
         if (time == 0) {
             BlockHandler.setMaterial(block, material);
         }
-
-        super.run();
     }
 }

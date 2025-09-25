@@ -1,17 +1,9 @@
 package me.bukkit.Infernaton.handler;
 
-import me.bukkit.Infernaton.builder.DoorStruct;
-import me.bukkit.Infernaton.builder.Team;
-import me.bukkit.Infernaton.builder.clock.FinalPhaseCountdown;
-import me.bukkit.Infernaton.builder.clock.StartingCountdown;
-import me.bukkit.Infernaton.store.Constants;
+import me.bukkit.Infernaton.builder.clock.CountDown;
 import me.bukkit.Infernaton.store.Sounds;
-import org.bukkit.Location;
 
 import me.bukkit.Infernaton.store.StringConfig;
-import org.bukkit.Sound;
-
-import java.util.List;
 
 /**
  * Handle the Final Phase, were player can't respawn and mean the end of the
@@ -53,7 +45,18 @@ public class FinalPhaseHandler {
         // Will launched a timer before the finalPhase will begins
         if (needToActivate) {
             ChatHandler.toAllPlayer(StringConfig.finalPhase());
-            new FinalPhaseCountdown(15);
+            new CountDown(15) {
+                @Override
+                public void newRun() {
+                    if (time == 0) {
+                        FinalPhaseHandler.Instance().activate();
+                    } else if (time % 10 == 0 || time <= 5) {
+                        Sounds.tickTimerSound();
+                        ChatHandler.toAllPlayer(StringConfig.secondLeft((int) time));
+                    }
+                }
+            };
+//            new FinalPhaseCountdown(15);
         }
     }
 }

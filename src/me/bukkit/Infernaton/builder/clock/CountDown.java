@@ -6,10 +6,14 @@ import me.bukkit.Infernaton.store.StringConfig;
 
 import org.bukkit.Bukkit;
 
-public class CountDown implements Runnable {
+public abstract class CountDown implements Runnable {
 
     protected int id;
     protected long time;
+
+    public CountDown(long time) {
+        newCountDown(this, time);
+    }
 
     protected static void newCountDown(CountDown cd, long time) {
         cd.time = time;
@@ -29,12 +33,14 @@ public class CountDown implements Runnable {
         this.id = id;
     }
 
-    @Override
     public void run() {
+        newRun();
         if (time == 0) {
             stopCountdown(id);
         }
 
         time--;
     }
+
+    public abstract void newRun();
 }

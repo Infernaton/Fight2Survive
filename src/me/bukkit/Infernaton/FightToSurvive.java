@@ -1,6 +1,5 @@
 package me.bukkit.Infernaton;
 
-import me.bukkit.Infernaton.builder.clock.StartingCountdown;
 import me.bukkit.Infernaton.handler.*;
 import me.bukkit.Infernaton.handler.scoreboard.ScoreboardManager;
 import me.bukkit.Infernaton.listeners.*;
@@ -121,7 +120,23 @@ public class FightToSurvive extends JavaPlugin {
         setGameState(GState.STARTING);
 
         ChatHandler.sendInfoMessage(sender, StringConfig.launched());
-        new StartingCountdown(10L);
+        new CountDown(10) {
+            @Override
+            public void newRun() {
+                //If the GState is back to WAITING, it meaning the CancelStart methods has been called
+                if (FightToSurvive.isGameState(GState.WAITING)) {
+                    stopCountdown(id);
+                    return;
+                }
+
+                if (time == 0) {
+                    FightToSurvive.Instance().start();
+                } else if (time % 10 == 0 || time <= 5) {
+                    Sounds.tickTimerSound();
+                    ChatHandler.toAllPlayer(StringConfig.secondLeft((int) time));
+                }
+            }
+        };
         DoorHandler.setAllDoors();
     }
 
