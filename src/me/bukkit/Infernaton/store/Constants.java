@@ -66,10 +66,6 @@ public class Constants {
         }
     }
 
-    /**
-     * @todo merge with getTrade()
-     * @return
-     */
     public static Map<String, MerchantRecipe> getAllTrade() {
         Map<String, MerchantRecipe> trade = new HashMap<>();
         trade.put(StringConfig.pnjWood(),

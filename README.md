@@ -7,6 +7,7 @@ Minecraft Plugin for 1.8.9
 #### Pour 1.3
 
 - Faire clé virtuelle :
+    - ~~Stocker toutes les portes de la partie par équipe -> savoir lesquelles sont ouvertes~~
     - Pour débloquer une porte -> avoir les ressources nécessaire dans son inventaire
     - Faire écriteau indiquant les ingrédients pour ouvrir la porte
     - Supprimer PNJ devenus useless (voir pour les transformer en vrai trader)

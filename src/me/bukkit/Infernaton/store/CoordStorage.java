@@ -74,24 +74,21 @@ public class CoordStorage {
     }
 
     public static Location getRedBase() {
-        FileConfiguration config = FightToSurvive.GetConfig();
-        return new Location(Bukkit.getWorld(worldName),
-                config.getDouble("teamData.red.spawnpoint.x"),
-                config.getDouble("teamData.red.spawnpoint.y"),
-                config.getDouble("teamData.red.spawnpoint.z"),
-                (float) config.getDouble("teamData.red.spawnpoint.yaw"),
-                (float) config.getDouble("teamData.red.spawnpoint.pitch")
-        );
+        return getTeamBase("red");
     }
 
     public static Location getBlueBase() {
+        return getTeamBase("blue");
+    }
+
+    private static Location getTeamBase(String teamkey) {
         FileConfiguration config = FightToSurvive.GetConfig();
         return new Location(Bukkit.getWorld(worldName),
-                config.getDouble("teamData.blue.spawnpoint.x"),
-                config.getDouble("teamData.blue.spawnpoint.y"),
-                config.getDouble("teamData.blue.spawnpoint.z"),
-                (float) config.getDouble("teamData.blue.spawnpoint.yaw"),
-                (float) config.getDouble("teamData.blue.spawnpoint.pitch")
+                config.getDouble("teamData."+ teamkey +".spawnpoint.x"),
+                config.getDouble("teamData."+ teamkey +".spawnpoint.y"),
+                config.getDouble("teamData."+ teamkey +".spawnpoint.z"),
+                (float) config.getDouble("teamData."+ teamkey +".spawnpoint.yaw"),
+                (float) config.getDouble("teamData."+ teamkey +".spawnpoint.pitch")
         );
     }
     // #endregion

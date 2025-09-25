@@ -48,7 +48,6 @@ public class DoorHandler {
             // handle item2
 
             boolean isLastDoor = conf.getBoolean(teamkey + "." + key + ".metadata.isLastDoor", false);
-            String isLastDoorString = conf.getString(teamkey + "." + key + ".metadata.isLastDoor", "test");
             DoorStruct door = new DoorStruct(origin, item1, isLastDoor);
             doorsList.put(origin.toString(), door);
         }
