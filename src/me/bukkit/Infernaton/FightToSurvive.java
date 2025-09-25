@@ -163,7 +163,7 @@ public class FightToSurvive extends JavaPlugin {
         new BukkitRunnable() {
             @Override
             public void run() {
-                Mobs.setAllPnj();
+//                Mobs.setAllPnj();
             }
         }.runTaskLater(this, 8);
     }

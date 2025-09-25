@@ -59,6 +59,7 @@ Minecraft Plugin for 1.8.9
 -   Faire un random de team
 -   Faire une salle pour les potions
 -   Faire un spleef d'attente
+-   Les cléfs physique serviront à ouvrir n'importe quelle porte en cliquant dessus, en oubliant son prix initial (voir pour ajouter le trader dans la zone de l'or)
 
 ## Setup Vs Code
 

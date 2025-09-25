@@ -68,20 +68,21 @@ public class Constants {
 
     public static Map<String, MerchantRecipe> getAllTrade() {
         Map<String, MerchantRecipe> trade = new HashMap<>();
-        trade.put(StringConfig.pnjWood(),
-                CustomMerchantRecipe.tradingKey(new ItemStack(Material.LOG, 10),
-                        new ItemStack(Material.COBBLESTONE, 10)));
-        trade.put(StringConfig.pnjCoal(), CustomMerchantRecipe.tradingKey(new ItemStack(Material.COAL_BLOCK, 3)));
+        trade.put(StringConfig.pnjWood(), CustomMerchantRecipe.defaultTrade());
+//                CustomMerchantRecipe.tradingKey(new ItemStack(Material.LOG, 10), new ItemStack(Material.COBBLESTONE, 10)));
+        trade.put(StringConfig.pnjCoal(), CustomMerchantRecipe.defaultTrade());
+//                CustomMerchantRecipe.tradingKey(new ItemStack(Material.COAL_BLOCK, 3)));
         trade.put(StringConfig.pnjGold1(), CustomMerchantRecipe.defaultTrade());
-        trade.put(StringConfig.pnjGold2(), CustomMerchantRecipe.tradingKey(new ItemStack(Material.GOLD_NUGGET, 50)));
-        trade.put(StringConfig.pnjIron(),
-                CustomMerchantRecipe.tradingKey(new ItemStack(Material.IRON_BLOCK, 2),
-                        new ItemStack(Material.IRON_INGOT, 5)));
-        trade.put(StringConfig.pnjDiam(),
-                CustomMerchantRecipe.tradingKey(new ItemStack(Material.DIAMOND, 6), new ItemStack(Material.COAL, 12)));
-        trade.put(StringConfig.pnjLapis(),
-                CustomMerchantRecipe.tradingKey(new ItemStack(Material.LAPIS_BLOCK, 6),
-                        new ItemStack(Material.OBSIDIAN, 6)));
+        trade.put(StringConfig.pnjGold2(), CustomMerchantRecipe.defaultTrade());
+//                CustomMerchantRecipe.tradingKey(new ItemStack(Material.GOLD_NUGGET, 50)));
+        trade.put(StringConfig.pnjIron(), CustomMerchantRecipe.defaultTrade());
+//                CustomMerchantRecipe.tradingKey(new ItemStack(Material.IRON_BLOCK, 2),
+//                        new ItemStack(Material.IRON_INGOT, 5)));
+        trade.put(StringConfig.pnjDiam(), CustomMerchantRecipe.defaultTrade());
+//                CustomMerchantRecipe.tradingKey(new ItemStack(Material.DIAMOND, 6), new ItemStack(Material.COAL, 12)));
+        trade.put(StringConfig.pnjLapis(), CustomMerchantRecipe.defaultTrade());
+//                CustomMerchantRecipe.tradingKey(new ItemStack(Material.LAPIS_BLOCK, 6),
+//                        new ItemStack(Material.OBSIDIAN, 6)));
 
         return trade;
     }
