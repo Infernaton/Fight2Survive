@@ -4,7 +4,9 @@ import me.bukkit.Infernaton.handler.BlockHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.material.MaterialData;
 
 import static me.bukkit.Infernaton.store.CoordStorage.worldName;
@@ -65,6 +67,7 @@ public class DoorStruct {
     public boolean isLastDoor() {
         return isLastDoor;
     }
+    private boolean hasItem2Slot() { return item2 != null; }
 
     // to open the door, we just replace each block of it by air block
     public void open() {
@@ -79,6 +82,21 @@ public class DoorStruct {
     }
 
     /**
-     * @todo Faire gestion des trades
+     * Will try to open this door by paying the cost reference by item1 and item2
+     * @param player the player that try to open the door
+     * @return if he succeed
      */
+    public boolean tryToOpen(Player player) {
+        PlayerInventory playerInventory = player.getInventory();
+
+        if(playerInventory.contains(item1.getType(), item1.getAmount()) && (!hasItem2Slot() || playerInventory.contains(item2.getType(), item2.getAmount()))) {
+            open();
+            playerInventory.removeItem(item1);
+            if (item2 != null) playerInventory.removeItem(item2);
+
+            return true;
+        }
+
+        return false;
+    }
 }
