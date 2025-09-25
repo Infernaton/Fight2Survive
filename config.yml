@@ -77,9 +77,11 @@ teamData:
         z: 94.0
         cost:
           1:
+            ==: org.bukkit.inventory.ItemStack
             type: "LOG"
-            nb: 10
+            amount: 10
           2:
+            ==: org.bukkit.inventory.ItemStack
             type: "COBBLESTONE"
             amount: 10
       2:
@@ -88,6 +90,7 @@ teamData:
         z: 146.0
         cost:
           1:
+            ==: org.bukkit.inventory.ItemStack
             type: "COAL_BLOCK"
             amount: 3
       3:
@@ -96,9 +99,11 @@ teamData:
         z: 120.0
         cost:
           1:
+            ==: org.bukkit.inventory.ItemStack
             type: "COAL"
             amount: 20
           2:
+            ==: org.bukkit.inventory.ItemStack
             type: "IRON_INGOT"
             amount: 2
       4:
@@ -107,9 +112,11 @@ teamData:
         z: 172.0
         cost:
           1:
+            ==: org.bukkit.inventory.ItemStack
             type: "IRON_BLOCK"
             amount: 2
           2:
+            ==: org.bukkit.inventory.ItemStack
             type: "IRON_INGOT"
             amount: 5
       5:
@@ -118,9 +125,11 @@ teamData:
         z: 195.0
         cost:
           1:
+            ==: org.bukkit.inventory.ItemStack
             type: "DIAMOND"
             amount: 3
           2:
+            ==: org.bukkit.inventory.ItemStack
             type: "IRON_INGOT"
             amount: 6
       6:
@@ -129,6 +138,7 @@ teamData:
         z: 146.0
         cost:
           1:
+            ==: org.bukkit.inventory.ItemStack
             type: "DIAMOND"
             amount: 6
         metadata:
@@ -147,9 +157,11 @@ teamData:
         z: 94.0
         cost:
           1:
+            ==: org.bukkit.inventory.ItemStack
             type: "LOG"
             amount: 10
           2:
+            ==: org.bukkit.inventory.ItemStack
             type: "COBBLESTONE"
             amount: 10
       2:
@@ -158,6 +170,7 @@ teamData:
         z: 146.0
         cost:
           1:
+            ==: org.bukkit.inventory.ItemStack
             type: "COAL_BLOCK"
             amount: 3
       3:
@@ -166,9 +179,11 @@ teamData:
         z: 120.0
         cost:
           1:
+            ==: org.bukkit.inventory.ItemStack
             type: "COAL"
             amount: 20
           2:
+            ==: org.bukkit.inventory.ItemStack
             type: "IRON_INGOT"
             amount: 2
       4:
@@ -177,9 +192,11 @@ teamData:
         z: 172.0
         cost:
           1:
+            ==: org.bukkit.inventory.ItemStack
             type: "IRON_BLOCK"
             amount: 2
           2:
+            ==: org.bukkit.inventory.ItemStack
             type: "IRON_INGOT"
             amount: 5
       5:
@@ -188,9 +205,11 @@ teamData:
         z: 195.0
         cost:
           1:
+            ==: org.bukkit.inventory.ItemStack
             type: "DIAMOND"
             amount: 3
           2:
+            ==: org.bukkit.inventory.ItemStack
             type: "IRON_INGOT"
             amount: 6
       6:
@@ -199,6 +218,7 @@ teamData:
         z: 146.0
         cost:
           1:
+            ==: org.bukkit.inventory.ItemStack
             type: "DIAMOND"
             amount: 6
         metadata:

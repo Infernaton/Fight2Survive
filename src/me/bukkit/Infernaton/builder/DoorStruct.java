@@ -58,7 +58,7 @@ public class DoorStruct {
         setDoorStruct(origin);
         this.origin = origin;
         this.item1 = item1;
-        this.item2 = item2;
+        if (item2.getType() != Material.AIR) this.item2 = item2;
         this.isLastDoor = isLastDoor;
     }
 

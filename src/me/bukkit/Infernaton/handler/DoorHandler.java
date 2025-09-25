@@ -7,6 +7,7 @@ import me.bukkit.Infernaton.store.Constants;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 
@@ -45,10 +46,10 @@ public class DoorHandler {
                     conf.getDouble(teamkey + "." + key + ".z"));
 
             ItemStack item1 = conf.getItemStack(teamkey + "." + key + ".cost.1");
-            // handle item2
+            ItemStack item2 = conf.getItemStack(teamkey + "." + key + ".cost.2", new ItemStack(Material.AIR));
 
             boolean isLastDoor = conf.getBoolean(teamkey + "." + key + ".metadata.isLastDoor", false);
-            DoorStruct door = new DoorStruct(origin, item1, isLastDoor);
+            DoorStruct door = new DoorStruct(origin, item1, item2, isLastDoor);
             doorsList.put(origin.toString(), door);
         }
         return doorsList;
