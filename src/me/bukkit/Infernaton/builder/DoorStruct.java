@@ -22,9 +22,6 @@ public class DoorStruct {
     private ItemStack item2;
     public boolean isLastDoor;
 
-    private Entity name;
-    private Entity cost;
-
     private static void setDoorStruct(Location origin) {
         //Relative y - 1
         for (int x=-1; x<2; x++) {
@@ -63,7 +60,7 @@ public class DoorStruct {
     private void setHologram(String name) {
         Location pos = new Location(origin.getWorld(), origin.getX()+0.5f, origin.getY(), origin.getZ()+0.5f);
         pos.add(origin.getDirection().multiply(2.1)); // move the name position to be on the verge of the door
-        this.name = Mobs.createHologram(pos, name);
+        Mobs.createHologram(pos, name); // name of the door
     }
 
     public DoorStruct (Location origin, String name, ItemStack item1, boolean isLastDoor) {
@@ -93,7 +90,7 @@ public class DoorStruct {
                 }
             }
         }
-        name.remove();
+        Mobs.killNearbyHolograms(origin);
         Sounds.openDoor();
     }
 

@@ -80,14 +80,8 @@ public class SpawnMobs implements CommandExecutor {
 
         else if (cmd.getName().equalsIgnoreCase("killhologram") && sender instanceof Player) {
             Location location = ((Player) sender).getLocation();
-            Collection<Entity> nearbyEntities = location.getWorld().getNearbyEntities(location, 2, 2, 2);
-            for (Entity entity : nearbyEntities) {
-                if (entity.getType() == EntityType.ARMOR_STAND) {
-                    entity.remove();
-                    break;
-                }
-            }
-            ChatHandler.sendInfoMessage(sender, "Kill nearby entity.");
+            Mobs.killNearbyHolograms(location);
+            ChatHandler.sendInfoMessage(sender, "Kill all nearby hologram.");
 
             return true;
         }

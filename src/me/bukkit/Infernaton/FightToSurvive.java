@@ -183,7 +183,7 @@ public class FightToSurvive extends JavaPlugin {
             HP.setPlayer(player);
         }
         setGameState(GState.WAITING);
-        DoorHandler.setAllDoors();
+        DoorHandler.deleteAllDoors();
         BH.resetContainers();
         WaveHandler.Instance().resetSpawnedEntity();
         ServerListener.resetAFKList();

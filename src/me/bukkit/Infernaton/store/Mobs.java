@@ -11,10 +11,7 @@ import org.bukkit.entity.*;
 
 import static me.bukkit.Infernaton.store.CoordStorage.worldName;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Handle all the mobs that players can encounter
@@ -105,5 +102,14 @@ public class Mobs {
         as.setSmall(true); // To reduce its hitbox
 
         return as;
+    }
+
+    public static void killNearbyHolograms(Location location) {
+        Collection<Entity> nearbyEntities = location.getWorld().getNearbyEntities(location, 3, 3, 3);
+        for (Entity entity : nearbyEntities) {
+            if (entity.getType() == EntityType.ARMOR_STAND) {
+                entity.remove();
+            }
+        }
     }
 }
