@@ -18,7 +18,7 @@ public class StringConfig {
 
     // #region get Data from config
     private static String getDataString(String key) {
-        return ChatColor.translateAlternateColorCodes('&',
+        return ChatColor.translateAlternateColorCodes('§',
                 FightToSurvive.GetConfig().getString("string." + key));
     }
 
