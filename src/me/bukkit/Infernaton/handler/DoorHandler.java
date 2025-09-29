@@ -40,16 +40,20 @@ public class DoorHandler {
     private static Map<String, DoorStruct> setAllTeamDoors(String teamkey, Map<String, DoorStruct> doorsList) {
         FileConfiguration conf =  FightToSurvive.GetConfig();
         for (String key : conf.getConfigurationSection(teamkey).getKeys(false)) {
+            String currentPath = teamkey + "." + key;
             Location origin = new Location(Bukkit.getWorld(worldName),
-                    conf.getDouble(teamkey + "." + key + ".x"),
-                    conf.getDouble(teamkey + "." + key + ".y"),
-                    conf.getDouble(teamkey + "." + key + ".z"));
+                    conf.getDouble( currentPath + ".x"),
+                    conf.getDouble(currentPath + ".y"),
+                    conf.getDouble(currentPath + ".z"),
+                    (float) conf.getDouble(currentPath + ".facing"),
+                    0.0f);
 
-            ItemStack item1 = conf.getItemStack(teamkey + "." + key + ".cost.1");
-            ItemStack item2 = conf.getItemStack(teamkey + "." + key + ".cost.2", new ItemStack(Material.AIR));
+            String name = conf.getString(currentPath + ".name");
+            ItemStack item1 = conf.getItemStack(currentPath + ".cost.1");
+            ItemStack item2 = conf.getItemStack(currentPath + ".cost.2", new ItemStack(Material.AIR));
 
-            boolean isLastDoor = conf.getBoolean(teamkey + "." + key + ".metadata.isLastDoor", false);
-            DoorStruct door = new DoorStruct(origin, item1, item2, isLastDoor);
+            boolean isLastDoor = conf.getBoolean(currentPath + ".metadata.isLastDoor", false);
+            DoorStruct door = new DoorStruct(origin, name, item1, item2, isLastDoor);
             doorsList.put(origin.toString(), door);
         }
         return doorsList;

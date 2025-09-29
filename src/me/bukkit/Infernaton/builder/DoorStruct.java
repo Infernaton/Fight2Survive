@@ -1,13 +1,17 @@
 package me.bukkit.Infernaton.builder;
 
 import me.bukkit.Infernaton.handler.BlockHandler;
+import me.bukkit.Infernaton.store.Mobs;
+import me.bukkit.Infernaton.store.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.material.MaterialData;
+import org.bukkit.util.Vector;
 
 import static me.bukkit.Infernaton.store.CoordStorage.worldName;
 
@@ -17,6 +21,9 @@ public class DoorStruct {
     private ItemStack item1;
     private ItemStack item2;
     public boolean isLastDoor;
+
+    private Entity name;
+    private Entity cost;
 
     private static void setDoorStruct(Location origin) {
         //Relative y - 1
@@ -53,15 +60,22 @@ public class DoorStruct {
         }
     }
 
-    public DoorStruct (Location origin, ItemStack item1, boolean isLastDoor) {
-        this(origin, item1, new ItemStack(Material.AIR, 1), isLastDoor);
+    private void setHologram(String name) {
+        Location pos = new Location(origin.getWorld(), origin.getX()+0.5f, origin.getY(), origin.getZ()+0.5f);
+        pos.add(origin.getDirection().multiply(2.1)); // move the name position to be on the verge of the door
+        this.name = Mobs.createHologram(pos, name);
     }
-    public DoorStruct (Location origin, ItemStack item1, ItemStack item2, boolean isLastDoor) {
+
+    public DoorStruct (Location origin, String name, ItemStack item1, boolean isLastDoor) {
+        this(origin, name, item1, new ItemStack(Material.AIR, 1), isLastDoor);
+    }
+    public DoorStruct (Location origin, String name, ItemStack item1, ItemStack item2, boolean isLastDoor) {
         setDoorStruct(origin);
         this.origin = origin;
         this.item1 = item1;
         if (item2.getType() != Material.AIR) this.item2 = item2;
         this.isLastDoor = isLastDoor;
+        this.setHologram(name);
     }
 
     public boolean isLastDoor() {
@@ -79,6 +93,8 @@ public class DoorStruct {
                 }
             }
         }
+        name.remove();
+        Sounds.openDoor();
     }
 
     /**

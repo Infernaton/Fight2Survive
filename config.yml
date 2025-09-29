@@ -72,9 +72,11 @@ teamData:
   red:
     doors:
       1:
+        name: "Coal Quarry"
         x: -78.0
         y: 57.0
         z: 94.0
+        facing: -135.0
         cost:
           1:
             ==: org.bukkit.inventory.ItemStack
@@ -85,18 +87,22 @@ teamData:
             type: "COBBLESTONE"
             amount: 10
       2:
+        name: "Iron Mine"
         x: -104.0
         y: 57.0
         z: 146.0
+        facing: 180.0
         cost:
           1:
             ==: org.bukkit.inventory.ItemStack
             type: "COAL_BLOCK"
             amount: 3
       3:
+        name: "Golden Valley"
         x: -135.0
         y: 57.0
         z: 120.0
+        facing: -90.0
         cost:
           1:
             ==: org.bukkit.inventory.ItemStack
@@ -107,9 +113,11 @@ teamData:
             type: "IRON_INGOT"
             amount: 2
       4:
+        name: "Diamond Grotto"
         x: -78.0
         y: 57.0
         z: 172.0
+        facing: 90.0
         cost:
           1:
             ==: org.bukkit.inventory.ItemStack
@@ -120,9 +128,11 @@ teamData:
             type: "IRON_INGOT"
             amount: 5
       5:
+        name: "Forgotten Temple"
         x: -52.0
         y: 57.0
         z: 195.0
+        facing: -180.0
         cost:
           1:
             ==: org.bukkit.inventory.ItemStack
@@ -133,9 +143,11 @@ teamData:
             type: "IRON_INGOT"
             amount: 6
       6:
+        name: "Last Corridor"
         x: -26.0
         y: 57.0
         z: 146.0
+        facing: 45.0
         cost:
           1:
             ==: org.bukkit.inventory.ItemStack
@@ -152,9 +164,11 @@ teamData:
   blue:
     doors:
       1:
+        name: "Coal Quarry"
         x: 78.0
         y: 57.0
         z: 94.0
+        facing: 135.0
         cost:
           1:
             ==: org.bukkit.inventory.ItemStack
@@ -165,18 +179,22 @@ teamData:
             type: "COBBLESTONE"
             amount: 10
       2:
+        name: "Iron Mine"
         x: 104.0
         y: 57.0
         z: 146.0
+        facing: 180.0
         cost:
           1:
             ==: org.bukkit.inventory.ItemStack
             type: "COAL_BLOCK"
             amount: 3
       3:
+        name: "Golden Valley"
         x: 135.0
         y: 57.0
         z: 120.0
+        facing: 90.0
         cost:
           1:
             ==: org.bukkit.inventory.ItemStack
@@ -187,9 +205,11 @@ teamData:
             type: "IRON_INGOT"
             amount: 2
       4:
+        name: "Diamond Grotto"
         x: 78.0
         y: 57.0
         z: 172.0
+        facing: -90.0
         cost:
           1:
             ==: org.bukkit.inventory.ItemStack
@@ -200,9 +220,11 @@ teamData:
             type: "IRON_INGOT"
             amount: 5
       5:
+        name: "Forgotten Temple"
         x: 52.0
         y: 57.0
         z: 195.0
+        facing: -180.0
         cost:
           1:
             ==: org.bukkit.inventory.ItemStack
@@ -213,9 +235,11 @@ teamData:
             type: "IRON_INGOT"
             amount: 6
       6:
+        name: "Last Corridor"
         x: 26.0
         y: 57.0
         z: 146.0
+        facing: -45.0
         cost:
           1:
             ==: org.bukkit.inventory.ItemStack

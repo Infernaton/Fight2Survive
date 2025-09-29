@@ -40,4 +40,6 @@ public class Sounds {
     public static void ErrorSound(Player player) {
         toPlayer(player, Sound.NOTE_BASS, 30,1);
     }
+
+    public static void openDoor() { toPlayers(Constants.getAllTeamsPlayer(), Sound.CHEST_OPEN, 30, 30);}
 }
