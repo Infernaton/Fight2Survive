@@ -66,11 +66,9 @@ public class SpawnMobs implements CommandExecutor {
                 ChatHandler.sendError(sender, "Missing text to display.");
             else {
                 Location location = ((Player) sender).getLocation();
-
                 String myString = String.join(" ", args);
-                String textFinal = ChatColor.translateAlternateColorCodes('&', myString);
 
-                Mobs.createHologram(location, textFinal);
+                Mobs.createHologram(location, myString);
 
                 ChatHandler.sendInfoMessage(sender, "Spawn the hologram.");
             }

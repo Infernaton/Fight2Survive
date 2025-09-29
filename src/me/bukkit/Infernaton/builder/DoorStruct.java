@@ -59,8 +59,15 @@ public class DoorStruct {
 
     private void setHologram(String name) {
         Location pos = new Location(origin.getWorld(), origin.getX()+0.5f, origin.getY(), origin.getZ()+0.5f);
-        pos.add(origin.getDirection().multiply(2.1)); // move the name position to be on the verge of the door
-        Mobs.createHologram(pos, name); // name of the door
+        pos.add(origin.getDirection().multiply(2.25)); // move the name position to be on the verge of the door
+        Mobs.createHologram(pos, "§b§l" + name); // name of the door
+
+        pos.add(0,-0.5,0);
+        Mobs.createHologram(pos, String.format("x%d %s", item1.getAmount(), item1.getType()));
+
+        if(!hasItem2Slot()) return;
+        pos.add(0,-0.25,0);
+        Mobs.createHologram(pos, String.format("x%d %s", item2.getAmount(), item2.getType()));
     }
 
     public DoorStruct (Location origin, String name, ItemStack item1, boolean isLastDoor) {
@@ -82,6 +89,7 @@ public class DoorStruct {
 
     // to open the door, we just replace each block of it by air block
     public void open() {
+        Mobs.killNearbyHolograms(origin);
         for (double x = -1; x <= 1; x++) {
             for (double y = -1; y <= 1; y++) {
                 for (double z = -1; z <= 1; z++) {
@@ -90,7 +98,6 @@ public class DoorStruct {
                 }
             }
         }
-        Mobs.killNearbyHolograms(origin);
         Sounds.openDoor();
     }
 

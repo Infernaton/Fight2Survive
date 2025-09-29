@@ -5,6 +5,7 @@ import me.bukkit.Infernaton.builder.CustomVillager;
 
 import net.minecraft.server.v1_8_R3.BlockCactus;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.*;
@@ -90,12 +91,13 @@ public class Mobs {
     }
 
     public static ArmorStand createHologram(Location location, String text) {
+        String finalText = ChatColor.translateAlternateColorCodes('§', text);
         ArmorStand as = (ArmorStand) location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
 
         as.setGravity(false);        // Make sure it doesn't fall
         as.setCanPickupItems(false); // I'm not sure what happens if you leave this as it is, but you might as
                                      // well disable it
-        as.setCustomName(text); // Set this to the text you want
+        as.setCustomName(finalText); // Set this to the text you want
         as.setCustomNameVisible(true); // This makes the text appear no matter if your looking at the entity or
                                        // not
         as.setVisible(false); // Makes the ArmorStand invisible
