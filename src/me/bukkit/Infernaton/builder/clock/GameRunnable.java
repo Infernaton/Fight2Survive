@@ -103,7 +103,7 @@ public class GameRunnable implements Runnable {
         else {
             List<LivingEntity> mobs = WaveHandler.Instance().getAllMobs();
             for (LivingEntity e : mobs) {
-                e.damage(1);
+                e.damage(5);
             }
         }
 
