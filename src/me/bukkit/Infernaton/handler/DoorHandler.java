@@ -54,7 +54,8 @@ public class DoorHandler {
 
             boolean isLastDoor = conf.getBoolean(currentPath + ".metadata.isLastDoor", false);
             DoorStruct door = new DoorStruct(origin, name, item1, item2, isLastDoor);
-            doorsList.put(origin.toString(), door);
+            //get block location to remove potential yaw or pitch involve
+            doorsList.put(origin.getBlock().getLocation().toString(), door);
         }
         return doorsList;
     }
