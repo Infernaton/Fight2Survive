@@ -11,9 +11,13 @@ import me.bukkit.Infernaton.store.StringConfig;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class DoorListeners implements Listener {
@@ -25,9 +29,7 @@ public class DoorListeners implements Listener {
     }
 
     /**
-     * When the player click with the key item in game, on a redstone block (which
-     * represent the key hole of the doors),
-     * it will open that door
+     * When a player click a redstone block (which represent a key hole on a door), it will open that door if it has all the required ressources
      *
      * @param event PlayerInteractEvent
      */
@@ -42,10 +44,36 @@ public class DoorListeners implements Listener {
             return;
 
         Location location = block.getLocation();
-        DoorStruct door = DoorHandler.getDoor(location, Team.getTeam(player));
+        interactDoor(location, player);
+    }
+
+    /**
+     * Whenever a player click on a armor stand that is near a redstone block, it means they try to open its associated door
+     *
+     * @todo make it work -> print doesn't print
+     * @param event
+     */
+    @EventHandler
+    public void onInteractDoorEntity(PlayerInteractEntityEvent event) {
+        Player player = event.getPlayer();
+        Entity entity = event.getRightClicked();
+
+        System.out.println(event);
+
+        if (entity.getType() != EntityType.ARMOR_STAND && !Team.hasTeam(player))
+            return;
+
+        Location location = entity.getLocation();
+        interactDoor(location, player);
+    }
+
+    private void interactDoor(Location nearLocation, Player player) {
+        DoorStruct door = DoorHandler.getNearbyDoor(nearLocation, Team.getTeam(player));
+        if (door == null)
+            return;
+
         if (door.tryToOpen(player)) {
             ChatHandler.toAllPlayer(StringConfig.openDoors());
-//            CustomItem.removeItemHand(player);
             FinalPhaseHandler.Instance().asking(door.isLastDoor());
         } else {
             ChatHandler.sendError(player, "You don't have enough resources to pay.");

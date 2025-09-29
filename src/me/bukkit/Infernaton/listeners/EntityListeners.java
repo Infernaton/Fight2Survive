@@ -12,7 +12,7 @@ public class EntityListeners implements Listener {
      * Prevent Villager from taking damage
      * That will prevent it from being killed by player or zombie
      * 
-     * @param event
+     * @param event EntityDamageByEntityEvent
      */
     @EventHandler
     public void onEntityDamage(EntityDamageByEntityEvent event) {
@@ -24,7 +24,7 @@ public class EntityListeners implements Listener {
     /**
      * Prevent Player from giving item to invisible armor stand
      * 
-     * @param event
+     * @param event PlayerArmorStandManipulateEvent
      */
     @EventHandler
     public void onManipulateArmorStand(PlayerArmorStandManipulateEvent event) {

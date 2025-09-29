@@ -78,4 +78,17 @@ public class DoorHandler {
         Map<String, DoorStruct> doorList = team.equals(Constants.getRedTeam()) ? redDoorsList : blueDoorsList;
         return doorList.get(loc.toString());
     }
+
+    public static DoorStruct getNearbyDoor(Location loc, Team team) {
+        if (team.equals(Constants.getSpectators())) return null;
+        Map<String, DoorStruct> doorList = team.equals(Constants.getRedTeam()) ? redDoorsList : blueDoorsList;
+        for (DoorStruct door : doorList.values()) {
+            if (door.origin.distance(loc) <= 3) {
+                return door;
+            }
+        }
+
+        // No door was nearby the current player
+        return null;
+    }
 }
