@@ -40,7 +40,7 @@ public class SpawnMobs implements CommandExecutor {
             }
 
             else
-                ChatHandler.sendError(sender, "Too much argument. Usage '/mob_zombie<level>'");
+                ChatHandler.sendError(sender, "Too much argument. Usage '/mob_zombie <level>'");
 
             return true;
         }
@@ -66,19 +66,9 @@ public class SpawnMobs implements CommandExecutor {
                 ChatHandler.sendError(sender, "Missing text to display.");
             else {
                 Location location = ((Player) sender).getLocation();
-                ArmorStand as = (ArmorStand) location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
-
                 String myString = String.join(" ", args);
-                String textFinal = ChatColor.translateAlternateColorCodes('&', myString);
 
-                as.setGravity(false); // Make sure it doesn't fall
-                as.setCanPickupItems(false); // I'm not sure what happens if you leave this as it is, but you might as
-                                             // well disable it
-                as.setCustomName(textFinal); // Set this to the text you want
-                as.setCustomNameVisible(true); // This makes the text appear no matter if your looking at the entity or
-                                               // not
-                as.setVisible(false); // Makes the ArmorStand invisible
-                as.setSmall(true); // To reduce its hitbox
+                Mobs.createHologram(location, myString);
 
                 ChatHandler.sendInfoMessage(sender, "Spawn the hologram.");
             }
@@ -88,14 +78,8 @@ public class SpawnMobs implements CommandExecutor {
 
         else if (cmd.getName().equalsIgnoreCase("killhologram") && sender instanceof Player) {
             Location location = ((Player) sender).getLocation();
-            Collection<Entity> nearbyEntities = location.getWorld().getNearbyEntities(location, 2, 2, 2);
-            for (Entity entity : nearbyEntities) {
-                if (entity.getType() == EntityType.ARMOR_STAND) {
-                    entity.remove();
-                    break;
-                }
-            }
-            ChatHandler.sendInfoMessage(sender, "Kill nearby entity.");
+            Mobs.killNearbyHolograms(location);
+            ChatHandler.sendInfoMessage(sender, "Kill all nearby hologram.");
 
             return true;
         }

@@ -6,19 +6,19 @@ import me.bukkit.Infernaton.store.StringConfig;
 
 import org.bukkit.Bukkit;
 
-/**
- * The clock right before the game start
- */
-public class CountDown implements Runnable {
+public abstract class CountDown implements Runnable {
 
-    private FightToSurvive main;
-    private long time;
-    private int id;
+    protected int id;
+    protected long time;
 
-    public static void newCountDown(FightToSurvive main, long time) {
-        CountDown countDown = new CountDown(time, main);
-        int countDownId = Bukkit.getScheduler().scheduleSyncRepeatingTask(main, countDown, time, 20L);
-        countDown.setId(countDownId);
+    public CountDown(long time) {
+        newCountDown(this, time);
+    }
+
+    protected static void newCountDown(CountDown cd, long time) {
+        cd.time = time;
+        int countDownId = Bukkit.getScheduler().scheduleSyncRepeatingTask(FightToSurvive.Instance(), cd, time, 20L);
+        cd.setId(countDownId);
     }
 
     public static void stopCountdown(int clockId) {
@@ -29,24 +29,18 @@ public class CountDown implements Runnable {
         Bukkit.getScheduler().cancelTasks(main);
     }
 
-    private CountDown(long departTime, FightToSurvive main) {
-        this.time = departTime;
-        this.main = main;
-    }
-
     private void setId(int id) {
         this.id = id;
     }
 
-    @Override
     public void run() {
-
+        newRun();
         if (time == 0) {
             stopCountdown(id);
-            main.start();
-        } else if (time % 10 == 0 || time <= 5) {
-            ChatHandler.toAllPlayer(StringConfig.secondLeft((int) time));
         }
+
         time--;
     }
+
+    public abstract void newRun();
 }

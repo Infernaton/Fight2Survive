@@ -44,7 +44,7 @@ public class PartyCommand implements CommandExecutor {
             return true;
         } else if (cmd.getName().equalsIgnoreCase("reset")) {
             if (FightToSurvive.isGameState(GState.PLAYING))
-                main.cancel();
+                main.reset();
             else
                 ChatHandler.sendError(sender, StringConfig.noGame());
             return true;
@@ -53,9 +53,6 @@ public class PartyCommand implements CommandExecutor {
                 FinalPhaseHandler.Instance().activate();
             else
                 ChatHandler.sendCantWhilePlaying(sender);
-            return true;
-        } else if (cmd.getName().equalsIgnoreCase("endgame")) {
-            main.finish();
             return true;
         }
 

@@ -1,30 +1,33 @@
-# Fight2Survive v1.2.1
+# Fight2Survive v1.3
 
 Minecraft Plugin for 1.8.9
 
 ## To Do
 
+#### Pour 1.3
+
+- Faire clé virtuelle :
+    - Stocker toutes les portes de la partie par équipe -> savoir lesquelles sont ouvertes
+    - Pour débloquer une porte -> avoir les ressources nécessaire dans son inventaire
+    - Faire écriteau indiquant les ingrédients pour ouvrir la porte
+    - Supprimer PNJ devenus useless (voir pour les transformer en vrai trader)
+- Améliorer l'arriver en Phase Finale :
+    - Message en full screen
+    - Bruit d'apparition du dragon
+    - Timer avant l'activation de cette phase
+- Afficher l'équipe gagnante de la partie
+- Voir pour que les mobs prennent des dégats instantanés lorsque le jour se lève
+
 ### Fix
 
 -   Clean code : Ajout de commentaire, contexte
 -   ~~Equilibrer spawn des mobs~~ A tester condition réelle
--   ~~Replace par Bedrock quand block est cassé par joueur~~
--   ~~Pioche peux casser stone~~ Voir pour remplacer les loots des blocks dérivés
--   ~~fix position spawn mob + sphere arround~~
 -   Durabilité des outils bizarre
--   ~~Position de la salle de l'or coince la progression (ne peux pas casser)~~ Ajout de minerai de fer dans la carrière de charbon
--   ~~Indiquer où vont les portes avant de les ouvrir~~ Manque la porte finale
--   ~~Ajouter table de craft dans toutes les salles~~
--   Si quelqu'un meurt avec une clé dans la lave -> bloqué
-    -   fix possible -> faire qu'elle reste dans l'inventaire du joueur qui l'achete \
-        -> faire des cléfs virtuelle par équipe
--   ~~la phase final ne se desactive pas après un restart~~
 -   Voir pour casser le différents bois ?
 
 ### Ajout
 
 -   Random Event
--   Améliorer l'entrée de la phase final (message en pleine ecran + bruit)
 -   Options / Config de jeu au start
     -   Random Event
     -   Auto smelt
@@ -33,9 +36,8 @@ Minecraft Plugin for 1.8.9
         -   Oeuf de golem
         -   Pouvoir se téléporter dans le camps ennemis pendant un certain temps (~30s) ?
 -   Ajout d'un inventaire custom au start
--   Disparition des mobs quand phase finale commence ?
 -   Ajouter du gravier + pelle / voir pour les plumes
--   Voir pour ajouter des barrieres pour la fin du jeu
+-   Voir pour ajouter des barrier\border pour la fin du jeu
 -   Afficher l'équipe gagnante
 
 ### Idée
@@ -49,6 +51,8 @@ Minecraft Plugin for 1.8.9
 -   Faire un random de team
 -   Faire une salle pour les potions
 -   Faire un spleef d'attente
+-   Les cléfs physique serviront à ouvrir n'importe quelle porte en cliquant dessus, en oubliant son prix initial (voir pour ajouter le trader dans la zone de l'or)
+-   Voir pour remplacer les loots des blocks dérivés
 
 ## Setup Vs Code
 

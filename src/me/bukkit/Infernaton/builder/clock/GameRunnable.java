@@ -12,6 +12,7 @@ import me.bukkit.Infernaton.store.StringConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import static me.bukkit.Infernaton.store.CoordStorage.worldName;
@@ -95,6 +96,14 @@ public class GameRunnable implements Runnable {
                 if (randomNum <= wh.chanceToSpawn()) {
                     wh.spawnMob(player);
                 }
+            }
+        }
+        // If it's day, each mobs will take instant damage over time to make sure they do not stay on the map
+        // and let the player to take a real rest
+        else {
+            List<LivingEntity> mobs = WaveHandler.Instance().getAllMobs();
+            for (LivingEntity e : mobs) {
+                e.damage(5);
             }
         }
 

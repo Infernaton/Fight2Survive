@@ -3,10 +3,7 @@ package me.bukkit.Infernaton;
 import me.bukkit.Infernaton.handler.*;
 import me.bukkit.Infernaton.handler.scoreboard.ScoreboardManager;
 import me.bukkit.Infernaton.listeners.*;
-import me.bukkit.Infernaton.store.Constants;
-import me.bukkit.Infernaton.store.CoordStorage;
-import me.bukkit.Infernaton.store.Mobs;
-import me.bukkit.Infernaton.store.StringConfig;
+import me.bukkit.Infernaton.store.*;
 import me.bukkit.Infernaton.builder.*;
 import me.bukkit.Infernaton.builder.clock.CountDown;
 import me.bukkit.Infernaton.builder.clock.GameRunnable;
@@ -106,6 +103,8 @@ public class FightToSurvive extends JavaPlugin {
             return;
         }
 
+        //Sounds.selectingMenu(sender);
+
         List<Player> redPlayers = Constants.getRedTeam().getPlayers();
         List<Player> bluePlayers = Constants.getBlueTeam().getPlayers();
 
@@ -121,7 +120,23 @@ public class FightToSurvive extends JavaPlugin {
         setGameState(GState.STARTING);
 
         ChatHandler.sendInfoMessage(sender, StringConfig.launched());
-        CountDown.newCountDown(this, 10L);
+        new CountDown(10) {
+            @Override
+            public void newRun() {
+                //If the GState is back to WAITING, it meaning the CancelStart methods has been called
+                if (FightToSurvive.isGameState(GState.WAITING)) {
+                    stopCountdown(id);
+                    return;
+                }
+
+                if (time == 0) {
+                    FightToSurvive.Instance().start();
+                } else if (time % 10 == 0 || time <= 5) {
+                    Sounds.tickTimerSound();
+                    ChatHandler.toAllPlayer(StringConfig.secondLeft((int) time));
+                }
+            }
+        };
         DoorHandler.setAllDoors();
     }
 
@@ -148,41 +163,51 @@ public class FightToSurvive extends JavaPlugin {
         new BukkitRunnable() {
             @Override
             public void run() {
-                Mobs.setAllPnj();
+//                Mobs.setAllPnj();
             }
         }.runTaskLater(this, 8);
     }
 
     public void cancelStart() {
+        //By changing the GState to Waiting, it will automatically stop the starting countdown
         setGameState(GState.WAITING);
-        CountDown.stopAllCountdown(this);
         ChatHandler.sendMessageListPlayer(Constants.getAllTeamsPlayer(), StringConfig.cancelStart());
     }
 
-    public void cancel() {
+    public void reset() {
         Bukkit.getWorld(worldName).setTime(1000);
         List<Player> players = Constants.getAllPlayers();
-        ChatHandler.sendMessageListPlayer(players, StringConfig.cancel());
+        ChatHandler.sendMessageListPlayer(players, StringConfig.reset());
 
         for (Player player : players) {
             HP.setPlayer(player);
         }
         setGameState(GState.WAITING);
-        DoorHandler.setAllDoors();
+        DoorHandler.deleteAllDoors();
         BH.resetContainers();
-        WaveHandler.Instance().resetMob();
+        WaveHandler.Instance().resetSpawnedEntity();
         ServerListener.resetAFKList();
         FinalPhaseHandler.Instance().off();
     }
 
     public void finish() {
-        ChatHandler.toAllPlayer(StringConfig.end());
+        Team winner = null;
+        for (Team team : Team.getAllTeams()) {
+            if (!team.getPlayers().isEmpty() && !team.equals(Constants.getSpectators())) {
+                winner = team;
+                break;
+            }
+        }
+        if (winner != null)
+            ChatHandler.toAllPlayer(StringConfig.end(winner));
+        else
+            ChatHandler.toAllPlayer("No winning team this time ... All players dies");
         setGameState(GState.FINISH);
         new BukkitRunnable() {
             @Override
             public void run() {
                 ChatHandler.toAllPlayer(StringConfig.teleport());
-                FightToSurvive.this.cancel();
+                FightToSurvive.this.reset();
             }
         }.runTaskLater(this, 5 * 20);
     }
@@ -207,7 +232,7 @@ public class FightToSurvive extends JavaPlugin {
         // #endregion
 
         // #region command declaration
-        String[] partyCommand = { "start", "cancelStart", "reset", "forceFinal", "endgame" };
+        String[] partyCommand = { "start", "cancelStart", "reset", "forceFinal" };
         enableCommand(partyCommand, new PartyCommand());
 
         String[] debugCommand = { "setPlayer", "getDoors", "deleteDoors", "getKey", "printDebug" };

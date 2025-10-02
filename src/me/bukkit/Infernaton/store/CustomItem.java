@@ -49,6 +49,7 @@ public class CustomItem {
         return new ItemBuilder(Material.COMPASS).setName(StringConfig.compassName()).toItemStack();
     }
 
+    @Deprecated
     public static ItemStack paperKey() {
         return new ItemBuilder(Material.PAPER).setName(StringConfig.keyName()).toItemStack();
     }

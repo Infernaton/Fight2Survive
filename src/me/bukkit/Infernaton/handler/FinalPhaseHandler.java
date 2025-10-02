@@ -1,10 +1,9 @@
 package me.bukkit.Infernaton.handler;
 
-import org.bukkit.Location;
+import me.bukkit.Infernaton.builder.clock.CountDown;
+import me.bukkit.Infernaton.store.Sounds;
 
 import me.bukkit.Infernaton.store.StringConfig;
-
-import java.util.List;
 
 /**
  * Handle the Final Phase, were player can't respawn and mean the end of the
@@ -37,22 +36,27 @@ public class FinalPhaseHandler {
 
     public void activate() {
         active = true;
-        ChatHandler.toAllPlayer(StringConfig.finalPhase());
+        TitleHandler.toAllPlayer("§lThe Final Phase Begins", "§c§oAll remaining doors are now opened");
         DoorHandler.deleteAllDoors();
+        Sounds.finalPhaseSound();
     }
 
-    public void asking(Location currentDoor, List<Location> listDoors) {
-
-        boolean isRed = listDoors.indexOf(currentDoor) % 2 == 0;
-
-        Location lastDoor = listDoors.get(listDoors.size() - 1 - (isRed ? 1 : 0));
-        /*
-         * System.out.print("Derniere porte ? " + lastDoor.hashCode() + " == " +
-         * currentDoor.hashCode() + " = ");
-         * System.out.println(lastDoor.hashCode() == currentDoor.hashCode());
-         */
-        if (lastDoor.hashCode() == currentDoor.hashCode()) {
-            activate();
+    public void asking(boolean needToActivate) {
+        // Will launched a timer before the finalPhase will begins
+        if (needToActivate) {
+            ChatHandler.toAllPlayer(StringConfig.finalPhase());
+            new CountDown(15) {
+                @Override
+                public void newRun() {
+                    if (time == 0) {
+                        FinalPhaseHandler.Instance().activate();
+                    } else if (time % 10 == 0 || time <= 5) {
+                        Sounds.tickTimerSound();
+                        ChatHandler.toAllPlayer(StringConfig.secondLeft((int) time));
+                    }
+                }
+            };
+//            new FinalPhaseCountdown(15);
         }
     }
 }

@@ -20,14 +20,14 @@ public class CustomMerchantRecipe {
         return new MerchantRecipe(CraftItemStack.asNMSCopy(item1), CraftItemStack.asNMSCopy(item2),
                 CraftItemStack.asNMSCopy(out));
     }
-
-    public static MerchantRecipe tradingKey(ItemStack item1, ItemStack item2) {
-        return withBukkitItem(item1, item2, CustomItem.paperKey(), 0, 1);
-    }
-
-    public static MerchantRecipe tradingKey(ItemStack item1) {
-        return withBukkitItem(item1, new ItemStack(Material.AIR), CustomItem.paperKey(), 0, 1);
-    }
+//
+//    public static MerchantRecipe tradingKey(ItemStack item1, ItemStack item2) {
+//        return withBukkitItem(item1, item2, CustomItem.paperKey(), 0, 1);
+//    }
+//
+//    public static MerchantRecipe tradingKey(ItemStack item1) {
+//        return withBukkitItem(item1, new ItemStack(Material.AIR), CustomItem.paperKey(), 0, 1);
+//    }
 
     public static MerchantRecipe defaultTrade() {
         return withBukkitItem(new ItemStack(Material.DIRT), new ItemStack(Material.AIR), new ItemStack(Material.DIRT));

@@ -1,5 +1,6 @@
 package me.bukkit.Infernaton.handler;
 
+import me.bukkit.Infernaton.store.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -22,9 +23,7 @@ public class ChatHandler {
     }
 
     public static void sendMessageListPlayer(List<Player> players, String msg){
-        for (Player player : players) {
-            sendInfoMessage(player, msg);
-        }
+        players.forEach(player -> sendInfoMessage(player, msg));
     }
 
     public static void broadcast(String msg){
@@ -41,6 +40,9 @@ public class ChatHandler {
 
     public static void sendError(CommandSender sender, String msg){
         sender.sendMessage(starter() + "§4" + msg);
+        if (sender instanceof Player) {
+            Sounds.ErrorSound((Player) sender);
+        }
     }
 
     public static void sendCorrectUsage(CommandSender sender, String msg){

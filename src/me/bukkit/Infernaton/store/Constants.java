@@ -50,59 +50,45 @@ public class Constants {
      * define all the cooldown for blocks
      * 
      * @todo define this on config file or option menu
-     * @return Map<Material, Integer> Material-> Break Block, Integer-> Countdown in
-     *         second
+     * @return Integer Countdown in second
      */
-    public static Map<Material, Integer> coolDownBlock() {
-        Map<Material, Integer> cd = new HashMap<>();
-        cd.put(Material.LOG, 10);
-        cd.put(Material.COBBLESTONE, 10);
-        cd.put(Material.COAL_ORE, 10);
-        cd.put(Material.IRON_ORE, 20);
-        cd.put(Material.DIAMOND_ORE, 45);
-        cd.put(Material.LAPIS_ORE, 25);
-        return cd;
+    public static Integer cooldownBlock(Material block) {
+        switch (block) {
+            case IRON_ORE: return 20;
+            case DIAMOND_ORE: return 45;
+            case LAPIS_ORE: return 25;
+
+            case LOG:
+            case COBBLESTONE:
+            case COAL_ORE:
+            default:
+                return 10;
+        }
     }
 
-    /**
-     * @todo merge with getTrade()
-     * @return
-     */
     public static Map<String, MerchantRecipe> getAllTrade() {
         Map<String, MerchantRecipe> trade = new HashMap<>();
-        trade.put(StringConfig.pnjWood(),
-                CustomMerchantRecipe.tradingKey(new ItemStack(Material.LOG, 10),
-                        new ItemStack(Material.COBBLESTONE, 10)));
-        trade.put(StringConfig.pnjCoal(), CustomMerchantRecipe.tradingKey(new ItemStack(Material.COAL_BLOCK, 3)));
+        trade.put(StringConfig.pnjWood(), CustomMerchantRecipe.defaultTrade());
+//                CustomMerchantRecipe.tradingKey(new ItemStack(Material.LOG, 10), new ItemStack(Material.COBBLESTONE, 10)));
+        trade.put(StringConfig.pnjCoal(), CustomMerchantRecipe.defaultTrade());
+//                CustomMerchantRecipe.tradingKey(new ItemStack(Material.COAL_BLOCK, 3)));
         trade.put(StringConfig.pnjGold1(), CustomMerchantRecipe.defaultTrade());
-        trade.put(StringConfig.pnjGold2(), CustomMerchantRecipe.tradingKey(new ItemStack(Material.GOLD_NUGGET, 50)));
-        trade.put(StringConfig.pnjIron(),
-                CustomMerchantRecipe.tradingKey(new ItemStack(Material.IRON_BLOCK, 2),
-                        new ItemStack(Material.IRON_INGOT, 5)));
-        trade.put(StringConfig.pnjDiam(),
-                CustomMerchantRecipe.tradingKey(new ItemStack(Material.DIAMOND, 6), new ItemStack(Material.COAL, 12)));
-        trade.put(StringConfig.pnjLapis(),
-                CustomMerchantRecipe.tradingKey(new ItemStack(Material.LAPIS_BLOCK, 6),
-                        new ItemStack(Material.OBSIDIAN, 6)));
+        trade.put(StringConfig.pnjGold2(), CustomMerchantRecipe.defaultTrade());
+//                CustomMerchantRecipe.tradingKey(new ItemStack(Material.GOLD_NUGGET, 50)));
+        trade.put(StringConfig.pnjIron(), CustomMerchantRecipe.defaultTrade());
+//                CustomMerchantRecipe.tradingKey(new ItemStack(Material.IRON_BLOCK, 2),
+//                        new ItemStack(Material.IRON_INGOT, 5)));
+        trade.put(StringConfig.pnjDiam(), CustomMerchantRecipe.defaultTrade());
+//                CustomMerchantRecipe.tradingKey(new ItemStack(Material.DIAMOND, 6), new ItemStack(Material.COAL, 12)));
+        trade.put(StringConfig.pnjLapis(), CustomMerchantRecipe.defaultTrade());
+//                CustomMerchantRecipe.tradingKey(new ItemStack(Material.LAPIS_BLOCK, 6),
+//                        new ItemStack(Material.OBSIDIAN, 6)));
 
         return trade;
     }
 
     public static MerchantRecipe getTrade(String pnjName) {
         return getAllTrade().get(pnjName);
-    }
-
-    public static List<Location> getAllCopiesDoors() {
-        List<Location> locations = new ArrayList<>();
-        String path = "coordinates.doorCoord.copies";
-        for (String key : FightToSurvive.GetConfig().getConfigurationSection(path).getKeys(false)) {
-            Location door = new Location(Bukkit.getWorld(worldName),
-                    FightToSurvive.GetConfig().getDouble(path + "." + key + ".x"),
-                    FightToSurvive.GetConfig().getDouble(path + "." + key + ".y"),
-                    FightToSurvive.GetConfig().getDouble(path + "." + key + ".z"));
-            locations.add(door);
-        }
-        return locations;
     }
 
     // #region Team related

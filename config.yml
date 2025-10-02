@@ -8,29 +8,29 @@ string:
     diam: "Baruk, the collector"
     lapis: "Fabala, the enchanter"
   clickInventory:
-    launchGame: "&2StartGame"
-    red: "&4Red Team"
-    blue: "&1Blue Team "
-    spectator: "&7Spectator"
-    option: "&fOptions"
-    setup: "&fSetup"
-    return: "&fBack"
-    cancelGame: "&4CancelGame"
+    launchGame: "§2StartGame"
+    red: "§4Red Team"
+    blue: "§1Blue Team "
+    spectator: "§7Spectator"
+    option: "§fOptions"
+    setup: "§fSetup"
+    return: "§fBack"
+    cancelGame: "§4CancelGame"
   inventoryName:
-    team: "&7Team"
-    cancelStart: "&7CancelStart"
-    options: "&7Options"
-    setup: "&7Setup"
+    team: "§7Team"
+    cancelStart: "§7CancelStart"
+    options: "§7Options"
+    setup: "§7Setup"
   sentence:
     secondLeft: "<x> seconds left !"
     needOp: "You need to be an operator to do this action."
-    start: "&eStart the Game!"
-    cancel: "Canceling the game"
-    end: "End"
-    teleport: "Teleporting player"
+    start: "§eStart the Game!"
+    reset: "Reseting the map"
+    end: "<team> team has won !"
+    teleport: "Teleporting player back to lobby ..."
     avoidBreaking: "Can't break this block"
     opDoors: "A door was opened"
-    finalPhase: "A team has open their last door. Starting the final Phase..."
+    finalPhase: "A team has open their last door. The final Phase is about de begin..."
     checkStart:
       launched: "Initialize the countdown..."
       countdownStarted: "CountDown already launch."
@@ -41,12 +41,12 @@ string:
       noGame: "No game are playing right now."
       quitingReset: "Not enough player remaining, resetting the game."
     timescales:
-      nearNight: "The moon appears soon, be careful of monster"
-      nearDay: "The sun is rising, a little rest for you"
+      nearNight: "The moon appears soon, be careful of monster..."
+      nearDay: "The sun is rising, a little rest for you."
       night: "Night Time"
       day: "Day Time"
     debug:
-      setPlayer: "&a<player>&f <be> ready to play"
+      setPlayer: "§a<player>§f <be> ready to play"
       getDoors: "Resetting all doors..."
       delDoors: "Deleting all doors..."
       setVill: "Spawning all villagers..."
@@ -61,73 +61,205 @@ string:
     red: "Red"
     blue: "Blue"
     spec: "Spectators"
-  navCompass: "&aNavigation"
-  keyItem: "&9KEY"
+  navCompass: "§aNavigation"
+  keyItem: "§9KEY"
 coordinates:
   lobby:
     x: 0.5
     y: 57.0
     z: 1.5
-  doorCoord:
-    # default door location
-    constant:
-      x: 8.0
-      y: 57.0
-      z: -25.0
-    copies:
+teamData:
+  red:
+    doors:
       1:
-        x: -26.0
-        y: 57.0
-        z: 94.0
-      2:
-        x: 26.0
-        y: 57.0
-        z: 94.0
-      3:
+        name: "Coal Quarry"
         x: -78.0
         y: 57.0
         z: 94.0
-      4:
-        x: 78.0
-        y: 57.0
-        z: 94.0
-      5:
+        facing: -135.0
+        cost:
+          1:
+            ==: org.bukkit.inventory.ItemStack
+            type: "LOG"
+            amount: 10
+          2:
+            ==: org.bukkit.inventory.ItemStack
+            type: "COBBLESTONE"
+            amount: 10
+      2:
+        name: "Iron Mine"
         x: -104.0
         y: 57.0
         z: 146.0
-      6:
-        x: 104.0
-        y: 57.0
-        z: 146.0
-      7:
+        facing: 180.0
+        cost:
+          1:
+            ==: org.bukkit.inventory.ItemStack
+            type: "COAL_BLOCK"
+            amount: 3
+      3:
+        name: "Golden Valley"
         x: -135.0
         y: 57.0
         z: 120.0
-      8:
-        x: 135.0
-        y: 57.0
-        z: 120.0
-      9:
+        facing: -90.0
+        cost:
+          1:
+            ==: org.bukkit.inventory.ItemStack
+            type: "COAL"
+            amount: 20
+          2:
+            ==: org.bukkit.inventory.ItemStack
+            type: "IRON_INGOT"
+            amount: 2
+      4:
+        name: "Diamond Grotto"
         x: -78.0
         y: 57.0
         z: 172.0
-      10:
-        x: 78.0
-        y: 57.0
-        z: 172.0
-      11:
+        facing: 90.0
+        cost:
+          1:
+            ==: org.bukkit.inventory.ItemStack
+            type: "IRON_BLOCK"
+            amount: 2
+          2:
+            ==: org.bukkit.inventory.ItemStack
+            type: "IRON_INGOT"
+            amount: 5
+      5:
+        name: "Forgotten Temple"
         x: -52.0
         y: 57.0
         z: 195.0
-      12:
-        x: 52.0
-        y: 57.0
-        z: 195.0
-      13:
+        facing: -180.0
+        cost:
+          1:
+            ==: org.bukkit.inventory.ItemStack
+            type: "DIAMOND"
+            amount: 3
+          2:
+            ==: org.bukkit.inventory.ItemStack
+            type: "IRON_INGOT"
+            amount: 6
+      6:
+        name: "§4§lLast Corridor"
         x: -26.0
         y: 57.0
         z: 146.0
-      14:
+        facing: 45.0
+        cost:
+          1:
+            ==: org.bukkit.inventory.ItemStack
+            type: "DIAMOND"
+            amount: 6
+        metadata:
+          isLastDoor: true
+    spawnpoint:
+      x: -36.5
+      y: 56
+      z: 83.5
+      yaw: 135.0
+      pitch: 0.0
+  blue:
+    doors:
+      1:
+        name: "Coal Quarry"
+        x: 78.0
+        y: 57.0
+        z: 94.0
+        facing: 135.0
+        cost:
+          1:
+            ==: org.bukkit.inventory.ItemStack
+            type: "LOG"
+            amount: 10
+          2:
+            ==: org.bukkit.inventory.ItemStack
+            type: "COBBLESTONE"
+            amount: 10
+      2:
+        name: "Iron Mine"
+        x: 104.0
+        y: 57.0
+        z: 146.0
+        facing: 180.0
+        cost:
+          1:
+            ==: org.bukkit.inventory.ItemStack
+            type: "COAL_BLOCK"
+            amount: 3
+      3:
+        name: "Golden Valley"
+        x: 135.0
+        y: 57.0
+        z: 120.0
+        facing: 90.0
+        cost:
+          1:
+            ==: org.bukkit.inventory.ItemStack
+            type: "COAL"
+            amount: 20
+          2:
+            ==: org.bukkit.inventory.ItemStack
+            type: "IRON_INGOT"
+            amount: 2
+      4:
+        name: "Diamond Grotto"
+        x: 78.0
+        y: 57.0
+        z: 172.0
+        facing: -90.0
+        cost:
+          1:
+            ==: org.bukkit.inventory.ItemStack
+            type: "IRON_BLOCK"
+            amount: 2
+          2:
+            ==: org.bukkit.inventory.ItemStack
+            type: "IRON_INGOT"
+            amount: 5
+      5:
+        name: "Forgotten Temple"
+        x: 52.0
+        y: 57.0
+        z: 195.0
+        facing: -180.0
+        cost:
+          1:
+            ==: org.bukkit.inventory.ItemStack
+            type: "DIAMOND"
+            amount: 3
+          2:
+            ==: org.bukkit.inventory.ItemStack
+            type: "IRON_INGOT"
+            amount: 6
+      6:
+        name: "§4§lLast Corridor"
         x: 26.0
         y: 57.0
         z: 146.0
+        facing: -45.0
+        cost:
+          1:
+            ==: org.bukkit.inventory.ItemStack
+            type: "DIAMOND"
+            amount: 6
+        metadata:
+          isLastDoor: true
+    spawnpoint:
+      x: 37.5
+      y: 56
+      z: 83.5
+      yaw: -135.0
+      pitch: 0.0
+
+#copies:
+#      1:
+#        x: -26.0
+#        y: 57.0
+#        z: 94.0
+#      2:
+#        x: 26.0
+#        y: 57.0
+#        z: 94.0

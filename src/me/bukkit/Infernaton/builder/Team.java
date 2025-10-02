@@ -40,7 +40,7 @@ public class Team{
         return teamName;
     }
 
-    public void add(Player player){
+    public void add(Player player) {
         playerTeams.put(player, this);
         scb.getTeam(this.getTeamName()).addEntry(player.getName());
     }

@@ -3,17 +3,16 @@ package me.bukkit.Infernaton.store;
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.builder.CustomVillager;
 
+import net.minecraft.server.v1_8_R3.BlockCactus;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.*;
 
 import static me.bukkit.Infernaton.store.CoordStorage.worldName;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Handle all the mobs that players can encounter
@@ -50,7 +49,7 @@ public class Mobs {
         return list;
     }
 
-    public static List<EntityType> spawnedMobs() {
+    public static List<EntityType> spawnedEntity() {
         List<EntityType> list = new ArrayList<>(Arrays.asList(
                 EntityType.VILLAGER,
                 EntityType.EXPERIENCE_ORB,
@@ -87,6 +86,31 @@ public class Mobs {
         for (Entity e : Bukkit.getWorld(worldName).getEntities()) {
             if (e instanceof Villager) {
                 e.remove();
+            }
+        }
+    }
+
+    public static ArmorStand createHologram(Location location, String text) {
+        String finalText = ChatColor.translateAlternateColorCodes('§', text);
+        ArmorStand as = (ArmorStand) location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
+
+        as.setGravity(false);        // Make sure it doesn't fall
+        as.setCanPickupItems(false); // I'm not sure what happens if you leave this as it is, but you might as
+                                     // well disable it
+        as.setCustomName(finalText); // Set this to the text you want
+        as.setCustomNameVisible(true); // This makes the text appear no matter if your looking at the entity or
+                                       // not
+        as.setVisible(false); // Makes the ArmorStand invisible
+        as.setSmall(true); // To reduce its hitbox
+
+        return as;
+    }
+
+    public static void killNearbyHolograms(Location location) {
+        Collection<Entity> nearbyEntities = location.getWorld().getNearbyEntities(location, 3, 3, 3);
+        for (Entity entity : nearbyEntities) {
+            if (entity.getType() == EntityType.ARMOR_STAND) {
+                entity.remove();
             }
         }
     }
