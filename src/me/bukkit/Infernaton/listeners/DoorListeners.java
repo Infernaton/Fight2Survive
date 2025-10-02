@@ -17,6 +17,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
@@ -49,16 +50,13 @@ public class DoorListeners implements Listener {
 
     /**
      * Whenever a player click on a armor stand that is near a redstone block, it means they try to open its associated door
-     *
-     * @todo make it work -> print doesn't print
-     * @param event
+     * Better to use PlayerInteractEntityEvent, but it doesn't fire while clicking on armor stand
+     * @param event PlayerInteractAtEntityEvent
      */
     @EventHandler
-    public void onInteractDoorEntity(PlayerInteractEntityEvent event) {
+    public void onInteractDoorEntity(PlayerInteractAtEntityEvent event) {
         Player player = event.getPlayer();
         Entity entity = event.getRightClicked();
-
-        System.out.println(event);
 
         if (entity.getType() != EntityType.ARMOR_STAND && !Team.hasTeam(player))
             return;
