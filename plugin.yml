@@ -14,9 +14,6 @@ commands:
   forceFinal:
     description: In game, force the final Phase to begin
     usage: /forceFinal
-  endgame:
-    description: endGame command
-    usage: /<command>
   setPlayer:
     description: Debug when a player is in the wrong gamemode
     usage: /setPlayer <player>

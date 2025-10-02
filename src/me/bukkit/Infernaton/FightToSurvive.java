@@ -174,10 +174,10 @@ public class FightToSurvive extends JavaPlugin {
         ChatHandler.sendMessageListPlayer(Constants.getAllTeamsPlayer(), StringConfig.cancelStart());
     }
 
-    public void cancel() {
+    public void reset() {
         Bukkit.getWorld(worldName).setTime(1000);
         List<Player> players = Constants.getAllPlayers();
-        ChatHandler.sendMessageListPlayer(players, StringConfig.cancel());
+        ChatHandler.sendMessageListPlayer(players, StringConfig.reset());
 
         for (Player player : players) {
             HP.setPlayer(player);
@@ -191,13 +191,23 @@ public class FightToSurvive extends JavaPlugin {
     }
 
     public void finish() {
-        ChatHandler.toAllPlayer(StringConfig.end());
+        Team winner = null;
+        for (Team team : Team.getAllTeams()) {
+            if (!team.getPlayers().isEmpty() && !team.equals(Constants.getSpectators())) {
+                winner = team;
+                break;
+            }
+        }
+        if (winner != null)
+            ChatHandler.toAllPlayer(StringConfig.end(winner));
+        else
+            ChatHandler.toAllPlayer("No winning team this time ... All players dies");
         setGameState(GState.FINISH);
         new BukkitRunnable() {
             @Override
             public void run() {
                 ChatHandler.toAllPlayer(StringConfig.teleport());
-                FightToSurvive.this.cancel();
+                FightToSurvive.this.reset();
             }
         }.runTaskLater(this, 5 * 20);
     }
@@ -222,7 +232,7 @@ public class FightToSurvive extends JavaPlugin {
         // #endregion
 
         // #region command declaration
-        String[] partyCommand = { "start", "cancelStart", "reset", "forceFinal", "endgame" };
+        String[] partyCommand = { "start", "cancelStart", "reset", "forceFinal" };
         enableCommand(partyCommand, new PartyCommand());
 
         String[] debugCommand = { "setPlayer", "getDoors", "deleteDoors", "getKey", "printDebug" };

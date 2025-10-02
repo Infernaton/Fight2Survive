@@ -1,6 +1,7 @@
 package me.bukkit.Infernaton.store;
 
 import me.bukkit.Infernaton.FightToSurvive;
+import me.bukkit.Infernaton.builder.Team;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -162,12 +163,12 @@ public class StringConfig {
         return sentence("start");
     }
 
-    public static final String cancel() {
-        return sentence("cancel");
+    public static final String reset() {
+        return sentence("reset");
     }
 
-    public static final String end() {
-        return sentence("end");
+    public static final String end(Team winner) {
+        return sentence("end").replace("<team>", winner.getTeamName());
     }
 
     public static final String teleport() {
