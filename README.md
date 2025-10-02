@@ -1,22 +1,15 @@
-# Fight2Survive v1.3
+# Fight2Survive v1.4
 
 Minecraft Plugin for 1.8.9
 
 ## To Do
 
-#### Pour 1.3
+#### Pour 1.4
 
-- Faire clé virtuelle :
-    - Stocker toutes les portes de la partie par équipe -> savoir lesquelles sont ouvertes
-    - Pour débloquer une porte -> avoir les ressources nécessaire dans son inventaire
-    - Faire écriteau indiquant les ingrédients pour ouvrir la porte
-    - Supprimer PNJ devenus useless (voir pour les transformer en vrai trader)
-- Améliorer l'arriver en Phase Finale :
-    - Message en full screen
-    - Bruit d'apparition du dragon
-    - Timer avant l'activation de cette phase
-- Afficher l'équipe gagnante de la partie
-- Voir pour que les mobs prennent des dégats instantanés lorsque le jour se lève
+-   All visible text in english
+-   Faire un random de team
+-   Faire un spleef d'attente
+- 
 
 ### Fix
 
@@ -32,23 +25,20 @@ Minecraft Plugin for 1.8.9
     -   Random Event
     -   Auto smelt
     -   Only day / only night
+    -   Activé mode UHC uniquement en phase final
     -   Craft/Items custom prédéfinis :
         -   Oeuf de golem
         -   Pouvoir se téléporter dans le camps ennemis pendant un certain temps (~30s) ?
 -   Ajout d'un inventaire custom au start
 -   Ajouter du gravier + pelle / voir pour les plumes
 -   Voir pour ajouter des barrier\border pour la fin du jeu
--   Afficher l'équipe gagnante
 
 ### Idée
 
 -   Supprimer pnj après trade
--   Activé mode UHC uniquement en phase final
--   Voir pour faire mode peaceful quand le jour se lève
 -   Disparition des mobs quand phase finale commence ?
 -   Amélioration du starter kit au déblocage des salles
 -   Diversité des mobs spawn
--   Faire un random de team
 -   Faire une salle pour les potions
 -   Faire un spleef d'attente
 -   Les cléfs physique serviront à ouvrir n'importe quelle porte en cliquant dessus, en oubliant son prix initial (voir pour ajouter le trader dans la zone de l'or)
