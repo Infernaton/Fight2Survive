@@ -22,19 +22,12 @@ Minecraft Plugin for 1.8.9
 
 -   Clean code : Ajout de commentaire, contexte
 -   ~~Equilibrer spawn des mobs~~ A tester condition réelle
--   ~~Pioche peux casser stone~~ Voir pour remplacer les loots des blocks dérivés
 -   Durabilité des outils bizarre
--   ~~Position de la salle de l'or coince la progression (ne peux pas casser)~~ Ajout de minerai de fer dans la carrière de charbon
--   ~~Indiquer où vont les portes avant de les ouvrir~~ Manque la porte finale
--   ~~Si quelqu'un meurt avec une clé dans la lave -> bloqué~~
-    -   ~~fix possible -> faire qu'elle reste dans l'inventaire du joueur qui l'achete \
-        -> faire des cléfs virtuelle par équipe~~
 -   Voir pour casser le différents bois ?
 
 ### Ajout
 
 -   Random Event
--   ~~Améliorer l'entrée de la phase final (message en pleine ecran + bruit)~~
 -   Options / Config de jeu au start
     -   Random Event
     -   Auto smelt
@@ -59,6 +52,7 @@ Minecraft Plugin for 1.8.9
 -   Faire une salle pour les potions
 -   Faire un spleef d'attente
 -   Les cléfs physique serviront à ouvrir n'importe quelle porte en cliquant dessus, en oubliant son prix initial (voir pour ajouter le trader dans la zone de l'or)
+-   Voir pour remplacer les loots des blocks dérivés
 
 ## Setup Vs Code
 
