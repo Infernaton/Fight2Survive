@@ -168,7 +168,7 @@ public class StringConfig {
     }
 
     public static final String end(Team winner) {
-        return sentence("end").replace("<team>", winner.getTeamName());
+        return sentence("end").replace("<team>", winner.getTeamColor() + winner.getTeamName() + "§r");
     }
 
     public static final String teleport() {
