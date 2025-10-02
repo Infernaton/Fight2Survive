@@ -88,7 +88,7 @@ public class DoorStruct {
     private boolean hasItem2Slot() { return item2 != null; }
 
     // to open the door, we just replace each block of it by air block
-    public void open() {
+    public void open(boolean isSilent) {
         Mobs.killNearbyHolograms(origin);
         for (double x = -1; x <= 1; x++) {
             for (double y = -1; y <= 1; y++) {
@@ -98,7 +98,7 @@ public class DoorStruct {
                 }
             }
         }
-        Sounds.openDoor();
+        if (!isSilent) Sounds.openDoor();
     }
 
     /**
@@ -110,7 +110,7 @@ public class DoorStruct {
         PlayerInventory playerInventory = player.getInventory();
 
         if(playerInventory.contains(item1.getType(), item1.getAmount()) && (!hasItem2Slot() || playerInventory.contains(item2.getType(), item2.getAmount()))) {
-            open();
+            open(false);
             playerInventory.removeItem(item1);
             if (item2 != null) playerInventory.removeItem(item2);
 

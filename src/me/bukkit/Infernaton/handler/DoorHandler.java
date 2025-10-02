@@ -65,11 +65,11 @@ public class DoorHandler {
      */
     public static void deleteAllDoors() {
         for (DoorStruct door : redDoorsList.values()) {
-            door.open();
+            door.open(true);
         }
 
         for (DoorStruct door : blueDoorsList.values()) {
-            door.open();
+            door.open(true);
         }
     }
 
