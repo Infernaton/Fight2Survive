@@ -14,34 +14,15 @@ commands:
   forceFinal:
     description: In game, force the final Phase to begin
     usage: /forceFinal
-  setPlayer:
-    description: Debug when a player is in the wrong gamemode
-    usage: /setPlayer <player>
-    permission: test.use
-  setDoors:
-    description: set all doors at location
-    usage: /setDoors
-  deleteDoors:
-    description: delete all doors at location
-    usage: /deleteDoors
-  getKey:
-    description: get a key to open a door
-    usage: /<command>
-  printDebug:
-    description: to debug some behaviour
-    usage: /<command>
+  debug:
+    description: All debug command available
+    usage: /debug <set|get|remove|print> <player|doors|key|villagers> [<playerName>]
   mob_zombie:
     description: Spawn a zombie near to the player
-    usage: /<command> <level?>
-  set_villagers:
-    description: spawn all villager
-    usage: /<command>
-  kill_pnj:
-    description: kill pnj
-    usage: /<command>
+    usage: /mob_zombie <level?>
   hologram:
     description: create a custom displayed text in the world
-    usage: /<command> <text>
+    usage: /hologram <text>
   killhologram:
-    description: remove the next nearby hollogram
-    usage: /<command>
+    description: remove nearby holograms
+    usage: /killhologram

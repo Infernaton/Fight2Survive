@@ -7,7 +7,7 @@ Minecraft Plugin for 1.8.9
 #### Pour 1.4
 
 -   ~~All visible text in english~~
-    -   remake commands
+    -   ~~remake commands~~
 -   ~~Faire un random de team~~
 -   Faire un spleef d'attente
 -   Améliorer effet de victoire

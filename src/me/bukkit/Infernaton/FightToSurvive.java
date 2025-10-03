@@ -245,10 +245,10 @@ public class FightToSurvive extends JavaPlugin {
         String[] partyCommand = { "start", "cancelStart", "reset", "forceFinal" };
         enableCommand(partyCommand, new PartyCommand());
 
-        String[] debugCommand = { "setPlayer", "setDoors", "deleteDoors", "getKey", "printDebug" };
+        String[] debugCommand = { "debug" };
         enableCommand(debugCommand, new DebugCommand());
 
-        String[] debugMob = { "mob_zombie", "set_villagers", "kill_pnj", "hologram", "killhologram" };
+        String[] debugMob = { "mob_zombie", "hologram", "killhologram" };
         enableCommand(debugMob, new SpawnMobs());
         // #endregion
 
