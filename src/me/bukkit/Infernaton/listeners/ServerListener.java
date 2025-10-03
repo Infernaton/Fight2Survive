@@ -70,7 +70,7 @@ public class ServerListener implements Listener {
      * If the player rejoin the server before the countdown stop, he will still be
      * part of the game
      * 
-     * @param event
+     * @param event PlayerQuitEvent
      */
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {

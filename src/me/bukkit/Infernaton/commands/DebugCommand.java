@@ -33,7 +33,7 @@ public class DebugCommand implements CommandExecutor {
             return true;
         }
 
-        else if (cmd.getName().equalsIgnoreCase("getDoors")) {
+        else if (cmd.getName().equalsIgnoreCase("setDoors")) {
             if (FightToSurvive.isGameState(GState.WAITING)) {
                 ChatHandler.sendInfoMessage(sender, StringConfig.getDoors());
                 DoorHandler.setAllDoors();

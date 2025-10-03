@@ -18,9 +18,9 @@ commands:
     description: Debug when a player is in the wrong gamemode
     usage: /setPlayer <player>
     permission: test.use
-  getDoors:
+  setDoors:
     description: set all doors at location
-    usage: /getDoors
+    usage: /setDoors
   deleteDoors:
     description: delete all doors at location
     usage: /deleteDoors

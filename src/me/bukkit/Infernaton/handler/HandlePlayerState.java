@@ -32,7 +32,7 @@ public class HandlePlayerState {
     public void resetPlayerState(Player player) {
         /**
          * reset potions
-         * reset armure
+         * reset armor
          */
         player.setGameMode(GameMode.ADVENTURE);
         player.setFoodLevel(20);
