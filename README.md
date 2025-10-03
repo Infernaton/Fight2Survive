@@ -9,7 +9,7 @@ Minecraft Plugin for 1.8.9
 -   All visible text in english
 -   Faire un random de team
 -   Faire un spleef d'attente
-- 
+-   Améliorer effet de victoire
 
 ### Fix
 

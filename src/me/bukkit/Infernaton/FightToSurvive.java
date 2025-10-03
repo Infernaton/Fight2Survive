@@ -25,6 +25,7 @@ import org.bukkit.scoreboard.Scoreboard;
 
 import static me.bukkit.Infernaton.store.CoordStorage.worldName;
 
+import java.util.Collections;
 import java.util.List;
 
 public class FightToSurvive extends JavaPlugin {
@@ -103,12 +104,25 @@ public class FightToSurvive extends JavaPlugin {
             return;
         }
 
-        List<Player> redPlayers = Constants.getRedTeam().getPlayers();
-        List<Player> bluePlayers = Constants.getBlueTeam().getPlayers();
+        List<Player> randomPlayers = Constants.getRandomTeam().getPlayers();
+        Team redTeam = Constants.getRedTeam();
+        Team blueTeam = Constants.getBlueTeam();
+
+        //Make random team
+        Collections.shuffle(randomPlayers);
+        for (Player rPlayer: randomPlayers) {
+            Constants.getRandomTeam().remove(rPlayer);
+            if (redTeam.getPlayers().size() < blueTeam.getPlayers().size()) {
+                Constants.getRedTeam().add(rPlayer);
+            } else {
+                Constants.getBlueTeam().add(rPlayer);
+            }
+        }
 
         // Compare if there the same numbers of players in each team
         // Not enough player
-        if (redPlayers.size() != bluePlayers.size() || redPlayers.size() == 0) {
+        if ((redTeam.getPlayers().size() != blueTeam.getPlayers().size() || redTeam.getPlayers().size() == 0)
+                && Constants.getRandomTeam().getPlayers().isEmpty()) {
             ChatHandler.sendError(sender, StringConfig.needPlayers());
             return;
         }
