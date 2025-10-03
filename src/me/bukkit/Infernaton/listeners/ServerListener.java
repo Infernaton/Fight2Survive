@@ -48,12 +48,11 @@ public class ServerListener implements Listener {
         // If it's the first time he join, the player don't have a team yet, so we
         // forced him to join one
         else if (!Team.hasTeam(player)) {
-            Constants.getSpectators().add(player);
+            Constants.addDefaultTeam(player);
         }
 
         // We check if the player is currently in game when he join,
-        // if the game crashed client side, it would be a shame if he can't rejoin the
-        // party
+        // if the game crashed client side, it would be a shame if he can't rejoin the party
         boolean isCurrentlyIG = !FightToSurvive.isGameState(GState.WAITING) &&
                 !Team.getTeam(player).getTeamName().equalsIgnoreCase(StringConfig.spectatorName());
 

@@ -99,6 +99,10 @@ public class PlayerListeners implements Listener {
                 Sounds.selectingMenu(player);
                 Constants.getRedTeam().add(player);
                 player.closeInventory();
+            } else if (CustomItem.comparor(current, CustomItem.randomWool())) {
+                Sounds.selectingMenu(player);
+                Constants.getRandomTeam().add(player);
+                player.closeInventory();
             } else if (CustomItem.comparor(current, CustomItem.spectatorWool())) {
                 Sounds.selectingMenu(player);
                 Constants.getSpectators().add(player);

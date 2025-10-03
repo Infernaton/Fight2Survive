@@ -68,8 +68,14 @@ public class CustomItem {
                 .toItemStack();
     }
 
+    public static ItemStack randomWool() {
+        return new ItemBuilder(Material.WOOL, 1, (byte) 7).setName(StringConfig.randomTeamItem())
+                .setLore(StringConfig.makePlayerList(Constants.getRandomTeam().getPlayers()))
+                .toItemStack();
+    }
+
     public static ItemStack spectatorWool() {
-        return new ItemBuilder(Material.WOOL, 1, (byte) 7).setName(StringConfig.spectatorsItem())
+        return new ItemBuilder(Material.WOOL, 1, (byte) 8).setName(StringConfig.spectatorsItem())
                 .setLore(StringConfig.makePlayerList(Constants.getSpectators().getPlayers()))
                 .toItemStack();
     }

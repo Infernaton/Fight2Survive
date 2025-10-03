@@ -83,6 +83,10 @@ public class StringConfig {
         return clickItem("blue");
     }
 
+    public static final String randomTeamItem() {
+        return clickItem("random");
+    }
+
     public static final String spectatorsItem() {
         return clickItem("spectator");
     }
@@ -139,6 +143,10 @@ public class StringConfig {
 
     public static final String blueTeamName() {
         return teamName("blue");
+    }
+
+    public static final String randomTeamName() {
+        return teamName("random");
     }
 
     public static final String spectatorName() {

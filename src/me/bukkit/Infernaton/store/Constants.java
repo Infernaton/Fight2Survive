@@ -1,6 +1,7 @@
 package me.bukkit.Infernaton.store;
 
 import me.bukkit.Infernaton.FightToSurvive;
+import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.builder.clock.GameRunnable;
 import net.minecraft.server.v1_8_R3.MerchantRecipe;
@@ -100,8 +101,25 @@ public class Constants {
         return Team.getTeamByName(StringConfig.blueTeamName());
     }
 
+    public static Team getRandomTeam() {
+        return Team.getTeamByName(StringConfig.randomTeamName());
+    }
+
     public static Team getSpectators() {
         return Team.getTeamByName(StringConfig.spectatorName());
+    }
+
+    public static void addDefaultTeam(Player player) {
+        Team currentTeam = Team.getTeam(player);
+        if (currentTeam != null)
+            currentTeam.remove(player);
+
+        if (FightToSurvive.isGameState(GState.WAITING))
+            //If the game isn't started yet, we add them in the random team, that way he will play the game
+            getRandomTeam().add(player);
+        else
+            //If not, we can't add them to a playable team, so we add them in the spectator team
+            getSpectators().add(player);
     }
 
     public static List<Player> getAllTeamsPlayer() {

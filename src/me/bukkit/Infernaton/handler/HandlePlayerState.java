@@ -38,9 +38,9 @@ public class HandlePlayerState {
         player.setFoodLevel(20);
         player.setHealth(20);
 
+        Constants.addDefaultTeam(player);
         clear(player);
 
-        Constants.getSpectators().add(player);
         removeAllPotionEffect(player);
         givePotionEffect(player, PotionEffectType.SATURATION);
         givePotionEffect(player, PotionEffectType.DAMAGE_RESISTANCE);

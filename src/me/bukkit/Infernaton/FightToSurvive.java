@@ -103,8 +103,6 @@ public class FightToSurvive extends JavaPlugin {
             return;
         }
 
-        //Sounds.selectingMenu(sender);
-
         List<Player> redPlayers = Constants.getRedTeam().getPlayers();
         List<Player> bluePlayers = Constants.getBlueTeam().getPlayers();
 
@@ -115,8 +113,6 @@ public class FightToSurvive extends JavaPlugin {
             return;
         }
 
-        // Clear all players that attend to play
-        redPlayers.addAll(bluePlayers); // All players in one variable
         setGameState(GState.STARTING);
 
         ChatHandler.sendInfoMessage(sender, StringConfig.launched());
@@ -160,12 +156,12 @@ public class FightToSurvive extends JavaPlugin {
         // entity are set.
         // We have certain problem with entity that don't appear because of not loaded
         // chunk
-        new BukkitRunnable() {
-            @Override
-            public void run() {
+//        new BukkitRunnable() {
+//            @Override
+//            public void run() {
 //                Mobs.setAllPnj();
-            }
-        }.runTaskLater(this, 8);
+//            }
+//        }.runTaskLater(this, 8);
     }
 
     public void cancelStart() {
@@ -247,6 +243,7 @@ public class FightToSurvive extends JavaPlugin {
         new Team(StringConfig.redTeamName(), sb).setTeamColor(ChatColor.RED);
         new Team(StringConfig.blueTeamName(), sb).setTeamColor(ChatColor.BLUE);
         new Team(StringConfig.spectatorName(), sb).setTeamColor(ChatColor.GRAY);
+        new Team(StringConfig.randomTeamName(), sb).setTeamColor(ChatColor.DARK_GRAY);
 
         new CustomRecipe(this);
     }
