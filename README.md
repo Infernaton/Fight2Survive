@@ -1,10 +1,10 @@
-# Fight2Survive v1.4
+# Fight2Survive v1.3.1
 
 Minecraft Plugin for 1.8.9
 
 ## To Do
 
-#### Pour 1.4
+#### Pour 1.3.1
 
 -   ~~All visible text in english~~
     -   ~~remake commands~~
@@ -30,13 +30,11 @@ Minecraft Plugin for 1.8.9
     -   Craft/Items custom prédéfinis :
         -   Oeuf de golem
         -   Pouvoir se téléporter dans le camps ennemis pendant un certain temps (~30s) ?
--   Ajout d'un inventaire custom au start
 -   Ajouter du gravier + pelle / voir pour les plumes
 -   Voir pour ajouter des barrier\border pour la fin du jeu
 
 ### Idée
 
--   Supprimer pnj après trade
 -   Disparition des mobs quand phase finale commence ?
 -   Amélioration du starter kit au déblocage des salles
 -   Diversité des mobs spawn
@@ -44,6 +42,7 @@ Minecraft Plugin for 1.8.9
 -   Faire un spleef d'attente
 -   Les cléfs physique serviront à ouvrir n'importe quelle porte en cliquant dessus, en oubliant son prix initial (voir pour ajouter le trader dans la zone de l'or)
 -   Voir pour remplacer les loots des blocks dérivés
+-   Ajout d'un inventaire custom au start
 
 ## Setup Vs Code
 
