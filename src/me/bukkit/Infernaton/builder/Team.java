@@ -18,6 +18,27 @@ public class Team{
     private final Scoreboard scb;
     private final String teamName;
 
+
+    public static boolean hasTeam(Player player){
+        return playerTeams.containsKey(player);
+    }
+
+    public static Team getTeam(Player player){
+        if (!hasTeam(player)) return null;
+
+        return playerTeams.get(player);
+    }
+    public static Team getTeamByName(String name){
+        for (Team t : allTeams){
+            if (t.teamName.equalsIgnoreCase(name)) return t;
+        }
+        return null;
+    }
+    public static List<Team> getAllTeams(){
+        return allTeams;
+    }
+
+
     public Team(String teamName, Scoreboard scb){
         this.teamName = teamName;
         this.scb = scb;
@@ -40,6 +61,11 @@ public class Team{
         return teamName;
     }
 
+    /**
+     * Add the player to the current Team
+     * if the player was originaly in an other team, it will be replaced
+     * @param player
+     */
     public void add(Player player) {
         playerTeams.put(player, this);
         scb.getTeam(this.getTeamName()).addEntry(player.getName());
@@ -48,25 +74,6 @@ public class Team{
     public void remove(Player player){
         if(hasTeam(player))
             playerTeams.remove(player);
-    }
-
-    public static boolean hasTeam(Player player){
-        return playerTeams.containsKey(player);
-    }
-
-    public static Team getTeam(Player player){
-        if (!hasTeam(player)) return null;
-
-        return playerTeams.get(player);
-    }
-    public static Team getTeamByName(String name){
-        for (Team t : allTeams){
-            if (t.teamName.equalsIgnoreCase(name)) return t;
-        }
-        return null;
-    }
-    public static List<Team> getAllTeams(){
-        return allTeams;
     }
 
     /**

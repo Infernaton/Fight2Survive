@@ -111,7 +111,6 @@ public class FightToSurvive extends JavaPlugin {
         //Make random team
         Collections.shuffle(randomPlayers);
         for (Player rPlayer: randomPlayers) {
-            Constants.getRandomTeam().remove(rPlayer);
             if (redTeam.getPlayers().size() < blueTeam.getPlayers().size()) {
                 Constants.getRedTeam().add(rPlayer);
             } else {
@@ -185,6 +184,7 @@ public class FightToSurvive extends JavaPlugin {
     }
 
     public void reset() {
+        ServerListener.resetAFKList();
         Bukkit.getWorld(worldName).setTime(1000);
         List<Player> players = Constants.getAllPlayers();
         ChatHandler.sendMessageListPlayer(players, StringConfig.reset());
@@ -196,7 +196,6 @@ public class FightToSurvive extends JavaPlugin {
         DoorHandler.deleteAllDoors();
         BH.resetContainers();
         WaveHandler.Instance().resetSpawnedEntity();
-        ServerListener.resetAFKList();
         FinalPhaseHandler.Instance().off();
     }
 
@@ -258,6 +257,7 @@ public class FightToSurvive extends JavaPlugin {
         new Team(StringConfig.blueTeamName(), sb).setTeamColor(ChatColor.BLUE);
         new Team(StringConfig.spectatorName(), sb).setTeamColor(ChatColor.GRAY);
         new Team(StringConfig.randomTeamName(), sb).setTeamColor(ChatColor.DARK_GRAY);
+        new Team("MiniGame", sb).setTeamColor(ChatColor.LIGHT_PURPLE);
 
         new CustomRecipe(this);
     }

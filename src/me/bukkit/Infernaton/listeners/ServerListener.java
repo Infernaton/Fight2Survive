@@ -53,13 +53,12 @@ public class ServerListener implements Listener {
 
         // We check if the player is currently in game when he join,
         // if the game crashed client side, it would be a shame if he can't rejoin the party
-        boolean isCurrentlyIG = !FightToSurvive.isGameState(GState.WAITING) &&
-                !Team.getTeam(player).getTeamName().equalsIgnoreCase(StringConfig.spectatorName());
+        boolean isCurrentlyIG = FightToSurvive.isGameState(GState.PLAYING) &&
+                !Constants.getAllTeamsPlayer().contains(Team.getTeam(player));
 
         // And, if the player is in creative, we don't need to reset his position
         if (!isCurrentlyIG && player.getGameMode() != GameMode.CREATIVE) {
-            main.HP().resetPlayerState(player);
-            player.teleport(CoordStorage.getSpawnCoordinate());
+            main.HP().setPlayer(player);
         }
     }
 
@@ -85,10 +84,8 @@ public class ServerListener implements Listener {
                 Team.getTeam(player).remove(player);
             }
 
-            // its means that the player who disconnect during a party have 10 seconds,
-            // before he will be
-            // declared offline by the plugin: testing afterward if the game has to be
-            // declared finished
+            // If the last player disconnect for the game, it has 5 seconds to reconnects before the plugin
+            // declare that their team forfeit
             BukkitRunnable run = new BukkitRunnable() {
                 @Override
                 public void run() {
@@ -99,7 +96,7 @@ public class ServerListener implements Listener {
                     }
                 }
             };
-            run.runTaskLaterAsynchronously(main, 60);
+            run.runTaskLaterAsynchronously(main, 5 * 20);
         } else if (FightToSurvive.isGameState(GState.WAITING)) {
             Team t = Team.getTeam(player);
             if (t != null)

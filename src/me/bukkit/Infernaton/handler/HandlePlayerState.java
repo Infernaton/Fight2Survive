@@ -1,5 +1,6 @@
 package me.bukkit.Infernaton.handler;
 
+import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.store.Constants;
 import me.bukkit.Infernaton.store.CoordStorage;
 import me.bukkit.Infernaton.store.CustomItem;
@@ -29,7 +30,7 @@ public class HandlePlayerState {
      * 
      * @param player the actual player
      */
-    public void resetPlayerState(Player player) {
+    private void resetPlayerState(Player player) {
         /**
          * reset potions
          * reset armor
@@ -47,9 +48,19 @@ public class HandlePlayerState {
         CustomItem.setItemInInventory(player, CustomItem.magicCompass(), 4);
     }
 
+    /**
+     * Set the current player ready to play the game
+     * If the game is already started, set it in the spectator team
+     * @param player the current player
+     */
     public void setPlayer(Player player) {
         resetPlayerState(player);
         player.teleport(CoordStorage.getSpawnCoordinate());
+    }
+
+    public void setPlayerMiniGame(Player player) {
+        resetPlayerState(player);
+        Team.getTeamByName("MiniGame").add(player);
     }
 
     public void givePotionEffect(Player player, PotionEffectType potion) {

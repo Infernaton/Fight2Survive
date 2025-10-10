@@ -10,9 +10,6 @@ import org.bukkit.Location;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-
-import static me.bukkit.Infernaton.store.CoordStorage.worldName;
 
 import java.util.*;
 
@@ -110,10 +107,6 @@ public class Constants {
     }
 
     public static void addDefaultTeam(Player player) {
-        Team currentTeam = Team.getTeam(player);
-        if (currentTeam != null)
-            currentTeam.remove(player);
-
         if (FightToSurvive.isGameState(GState.WAITING))
             //If the game isn't started yet, we add them in the random team, that way he will play the game
             getRandomTeam().add(player);
