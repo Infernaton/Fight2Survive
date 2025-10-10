@@ -5,8 +5,6 @@ import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.builder.clock.GameRunnable;
 import net.minecraft.server.v1_8_R3.MerchantRecipe;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
