@@ -1,12 +1,12 @@
 package me.bukkit.Infernaton.listeners;
 
-import me.bukkit.Infernaton.*;
+import me.bukkit.Infernaton.FightToSurvive;
+import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.FinalPhaseHandler;
 import me.bukkit.Infernaton.handler.HandlePlayerState;
 import me.bukkit.Infernaton.store.*;
-
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
@@ -16,11 +16,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.*;
+import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.function.Consumer;
 
 public class PlayerListeners implements Listener {
 
@@ -81,8 +82,14 @@ public class PlayerListeners implements Listener {
         }
     }
 
+    @FunctionalInterface
+    interface JoinTeam {
+        void join(Team t, Player p);
+    }
+
     @EventHandler
     public void onClick(InventoryClickEvent event) {
+
         ItemStack current = event.getCurrentItem();
 
         // If the player click outside the inventory or in a slot where there's nothing,
@@ -93,38 +100,26 @@ public class PlayerListeners implements Listener {
         Inventory inv = event.getInventory();
         Player player = (Player) event.getWhoClicked();
 
-        Consumer<Player> errorMessage = (Player p) -> { ChatHandler.sendMessage(p, "Can't select a team while a game is still going"); };
+        JoinTeam joinTeam = (Team t, Player p) -> {
+            if (FightToSurvive.isGameState(GState.PLAYING)) {
+                ChatHandler.sendMessage(p, "Can't select a team while a game is still going");
+                Sounds.ErrorSound(p);
+            } else {
+                Sounds.selectingMenu(p);
+                t.add(p);
+                p.closeInventory();
+            }
+        };
 
         // Action on the inventory of the compass, given when joining the server
         if (inv.getName().equalsIgnoreCase(StringConfig.teamInventory())) {
             event.setCancelled(true);
             if (CustomItem.comparor(current, CustomItem.blueWool())) {
-                if (FightToSurvive.isGameState(GState.PLAYING)) {
-                    errorMessage.accept(player);
-                    Sounds.ErrorSound(player);
-                } else {
-                    Sounds.selectingMenu(player);
-                    Constants.getBlueTeam().add(player);
-                    player.closeInventory();
-                }
+                joinTeam.join(Constants.getBlueTeam(), player);
             } else if (CustomItem.comparor(current, CustomItem.redWool())) {
-                if (FightToSurvive.isGameState(GState.PLAYING)) {
-                    errorMessage.accept(player);
-                    Sounds.ErrorSound(player);
-                } else {
-                    Sounds.selectingMenu(player);
-                    Constants.getRedTeam().add(player);
-                    player.closeInventory();
-                }
+                joinTeam.join(Constants.getBlueTeam(), player);
             } else if (CustomItem.comparor(current, CustomItem.randomWool())) {
-                if (FightToSurvive.isGameState(GState.PLAYING)) {
-                    errorMessage.accept(player);
-                    Sounds.ErrorSound(player);
-                } else {
-                    Sounds.selectingMenu(player);
-                    Constants.getRandomTeam().add(player);
-                    player.closeInventory();
-                }
+                joinTeam.join(Constants.getBlueTeam(), player);
             } else if (CustomItem.comparor(current, CustomItem.spectatorWool())) {
                 Sounds.selectingMenu(player);
                 Constants.getSpectators().add(player);
