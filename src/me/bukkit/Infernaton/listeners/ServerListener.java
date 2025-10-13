@@ -80,7 +80,7 @@ public class ServerListener implements Listener {
 
             // Setting the quitting player in "AFK", to have a memory of who has quit during
             // the game
-            if (Team.hasTeam(player) && Team.getTeam(player) != Constants.getSpectators()) {
+            if (Constants.getAllTeamsPlayer().contains(player)) {
                 afkList.put(player.getUniqueId(), Team.getTeam(player));
                 Team.getTeam(player).remove(player);
             }

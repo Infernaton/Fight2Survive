@@ -74,13 +74,13 @@ public class DoorHandler {
     }
 
     public static DoorStruct getDoor(Location loc, Team team) {
-        if (team.equals(Constants.getSpectators())) return null;
+        if (!Constants.getPlayableTeam().contains(team)) return null;
         Map<String, DoorStruct> doorList = team.equals(Constants.getRedTeam()) ? redDoorsList : blueDoorsList;
         return doorList.get(loc.toString());
     }
 
     public static DoorStruct getNearbyDoor(Location loc, Team team) {
-        if (team.equals(Constants.getSpectators())) return null;
+        if (!Constants.getPlayableTeam().contains(team)) return null;
         Map<String, DoorStruct> doorList = team.equals(Constants.getRedTeam()) ? redDoorsList : blueDoorsList;
         for (DoorStruct door : doorList.values()) {
             if (door.origin.distance(loc) <= 3) {

@@ -20,6 +20,8 @@ import org.bukkit.event.player.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.function.Consumer;
+
 public class PlayerListeners implements Listener {
 
     private final FightToSurvive main;
@@ -91,21 +93,38 @@ public class PlayerListeners implements Listener {
         Inventory inv = event.getInventory();
         Player player = (Player) event.getWhoClicked();
 
+        Consumer<Player> errorMessage = (Player p) -> { ChatHandler.sendMessage(p, "Can't select a team while a game is still going"); };
+
         // Action on the inventory of the compass, given when joining the server
         if (inv.getName().equalsIgnoreCase(StringConfig.teamInventory())) {
             event.setCancelled(true);
             if (CustomItem.comparor(current, CustomItem.blueWool())) {
-                Sounds.selectingMenu(player);
-                Constants.getBlueTeam().add(player);
-                player.closeInventory();
+                if (FightToSurvive.isGameState(GState.PLAYING)) {
+                    errorMessage.accept(player);
+                    Sounds.ErrorSound(player);
+                } else {
+                    Sounds.selectingMenu(player);
+                    Constants.getBlueTeam().add(player);
+                    player.closeInventory();
+                }
             } else if (CustomItem.comparor(current, CustomItem.redWool())) {
-                Sounds.selectingMenu(player);
-                Constants.getRedTeam().add(player);
-                player.closeInventory();
+                if (FightToSurvive.isGameState(GState.PLAYING)) {
+                    errorMessage.accept(player);
+                    Sounds.ErrorSound(player);
+                } else {
+                    Sounds.selectingMenu(player);
+                    Constants.getRedTeam().add(player);
+                    player.closeInventory();
+                }
             } else if (CustomItem.comparor(current, CustomItem.randomWool())) {
-                Sounds.selectingMenu(player);
-                Constants.getRandomTeam().add(player);
-                player.closeInventory();
+                if (FightToSurvive.isGameState(GState.PLAYING)) {
+                    errorMessage.accept(player);
+                    Sounds.ErrorSound(player);
+                } else {
+                    Sounds.selectingMenu(player);
+                    Constants.getRandomTeam().add(player);
+                    player.closeInventory();
+                }
             } else if (CustomItem.comparor(current, CustomItem.spectatorWool())) {
                 Sounds.selectingMenu(player);
                 Constants.getSpectators().add(player);
