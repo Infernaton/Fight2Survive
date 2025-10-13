@@ -11,13 +11,13 @@ Minecraft Plugin for 1.8.9
 -   ~~Faire un random de team~~
 -   Faire un spleef d'attente
 -   Améliorer effet de victoire
+-   ~~Casse uniquement le chêne peut importe sa direction~~
 
 ### Fix
 
 -   Clean code : Ajout de commentaire, contexte
 -   ~~Equilibrer spawn des mobs~~ A tester condition réelle
 -   Durabilité des outils bizarre
--   Voir pour casser le différents bois ?
 
 ### Ajout
 
