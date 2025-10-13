@@ -127,6 +127,13 @@ public class Constants {
         }
         return allPlayers;
     }
+
+    public static List<Team> getPlayableTeam() {
+        List<Team> teams = new ArrayList<>();
+        teams.add(getBlueTeam());
+        teams.add(getRedTeam());
+        return teams;
+    }
     // #endregion
 
     /**

@@ -47,18 +47,20 @@ public class PlayerListeners implements Listener {
     @EventHandler
     public void onRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
-        Team team = Team.getTeam(player);
 
         // Check if the player is in a team to respawn him to the right place
-        if (FightToSurvive.isGameState(GState.PLAYING) &&
-                (team != null || !team.equals(Constants.getSpectators()))) {
-            event.setRespawnLocation(CoordStorage.getBaseLocation(team));
-            main.HP().giveStarterPack(player);
+        if (FightToSurvive.isGameState(GState.PLAYING) && HandlePlayerState.isPlayerInPlayableTeam(player)) {
+            event.setRespawnLocation(CoordStorage.getBaseLocation(Team.getTeam(player)));
+            HandlePlayerState.giveStarterPack(player);
         } else {
-            FightToSurvive.Instance().HP().setPlayer(player);
+            HandlePlayerState.setPlayer(player);
         }
     }
 
+    /**
+     * Open Custom Menu when player click on Special Item
+     * @param event
+     */
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
         ItemStack item = event.getItem();
@@ -148,7 +150,6 @@ public class PlayerListeners implements Listener {
 
     /**
      * Prevent the player from throwing away the magic compass in the main lobby
-     * 
      * @param event
      */
     @EventHandler
@@ -181,7 +182,7 @@ public class PlayerListeners implements Listener {
     }
 
     /**
-     * Prevent the player from placing boat when clicking on a block
+     * Prevent the player from placing boat when clicking on a block if he is in a playable team and the game is launched
      * Because of that, player can bypass Door
      * 
      * @param event
@@ -192,7 +193,8 @@ public class PlayerListeners implements Listener {
             return;
 
         Player p = event.getPlayer();
-        if (p.getItemInHand().getType() == Material.BOAT) {
+        if (p.getItemInHand().getType() == Material.BOAT && FightToSurvive.isGameState(GState.PLAYING)
+                && HandlePlayerState.isPlayerInPlayableTeam(p)) {
             event.setCancelled(true);
             ChatHandler.sendError(p, StringConfig.cantWhilePlaying());
         }

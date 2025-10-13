@@ -145,12 +145,13 @@ public class FightToSurvive extends JavaPlugin {
     }
 
     public void start() {
-        ChatHandler.sendMessageListPlayer(Constants.getAllTeamsPlayer(), StringConfig.start());
+        List<Player> allPlayers = Constants.getAllTeamsPlayer();
+
+        ChatHandler.sendMessageListPlayer(allPlayers, StringConfig.start());
         gameTimer = GameRunnable.newCountDown(this);
 
         ServerListener.resetAFKList();
 
-        List<Player> allPlayers = Constants.getAllTeamsPlayer();
         for (Player player : allPlayers) {
             HandlePlayerState.clear(player);
             player.teleport(CoordStorage.getBaseLocation(Team.getTeam(player)));
@@ -196,8 +197,8 @@ public class FightToSurvive extends JavaPlugin {
 
     public void finish() {
         Team winner = null;
-        for (Team team : Team.getAllTeams()) {
-            if (!team.getPlayers().isEmpty() && !team.equals(Constants.getSpectators())) {
+        for (Team team : Constants.getPlayableTeam()) {
+            if (!team.getPlayers().isEmpty()) {
                 winner = team;
                 break;
             }
@@ -252,7 +253,6 @@ public class FightToSurvive extends JavaPlugin {
         new Team(StringConfig.blueTeamName(), sb).setTeamColor(ChatColor.BLUE);
         new Team(StringConfig.spectatorName(), sb).setTeamColor(ChatColor.GRAY);
         new Team(StringConfig.randomTeamName(), sb).setTeamColor(ChatColor.DARK_GRAY);
-        new Team("MiniGame", sb).setTeamColor(ChatColor.LIGHT_PURPLE);
 
         new CustomRecipe(this);
     }
