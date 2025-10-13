@@ -4,6 +4,7 @@ import me.bukkit.Infernaton.*;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.FinalPhaseHandler;
+import me.bukkit.Infernaton.handler.HandlePlayerState;
 import me.bukkit.Infernaton.store.*;
 
 import org.bukkit.GameMode;

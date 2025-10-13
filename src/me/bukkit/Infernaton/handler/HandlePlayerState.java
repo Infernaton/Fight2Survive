@@ -1,11 +1,11 @@
 package me.bukkit.Infernaton.handler;
 
-import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.store.Constants;
 import me.bukkit.Infernaton.store.CoordStorage;
 import me.bukkit.Infernaton.store.CustomItem;
 
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -14,7 +14,7 @@ import org.bukkit.potion.PotionEffectType;
 
 public class HandlePlayerState {
 
-    public void clear(Player player) {
+    public static void clear(Player player) {
         player.getInventory().clear();
         player.setExp(0f);
         player.setLevel(0);
@@ -30,7 +30,7 @@ public class HandlePlayerState {
      * 
      * @param player the actual player
      */
-    private void resetPlayerState(Player player) {
+    private static void resetPlayerState(Player player) {
         /**
          * reset potions
          * reset armor
@@ -53,26 +53,29 @@ public class HandlePlayerState {
      * If the game is already started, set it in the spectator team
      * @param player the current player
      */
-    public void setPlayer(Player player) {
-        resetPlayerState(player);
-        player.teleport(CoordStorage.getSpawnCoordinate());
+    public static void setPlayer(Player player) {
+        changeZone(player, CoordStorage.getSpawnCoordinate(), true);
     }
 
-    public void setPlayerMiniGame(Player player) {
-        resetPlayerState(player);
-        Team.getTeamByName("MiniGame").add(player);
+    public static void changeZone(Player player, Location location, boolean resetState) {
+        if (resetState) resetPlayerState(player);
+        player.teleport(location);
     }
 
-    public void givePotionEffect(Player player, PotionEffectType potion) {
+    public static void givePotionEffect(Player player, PotionEffectType potion) {
         player.addPotionEffect(new PotionEffect(potion, 999999, 5));
     }
 
-    public void removeAllPotionEffect(Player player) {
+    public static void removeAllPotionEffect(Player player) {
         for (PotionEffect effect : player.getActivePotionEffects())
             player.removePotionEffect(effect.getType());
     }
 
-    public void giveStarterPack(Player player) {
+    public static void giveStarterPack(Player player) {
         player.getInventory().addItem(CustomItem.woodAxe(), new ItemStack(Material.COOKED_BEEF, 10));
+    }
+
+    public static boolean isPlayerInPlayableTeam(Player player) {
+        return Constants.getAllTeamsPlayer().contains(player);
     }
 }

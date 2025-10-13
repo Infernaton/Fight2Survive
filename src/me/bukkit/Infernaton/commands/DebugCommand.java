@@ -5,6 +5,7 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.DoorHandler;
+import me.bukkit.Infernaton.handler.HandlePlayerState;
 import me.bukkit.Infernaton.store.CustomItem;
 import me.bukkit.Infernaton.store.Mobs;
 import me.bukkit.Infernaton.store.StringConfig;
@@ -102,7 +103,7 @@ public class DebugCommand implements CommandExecutor, TabCompleter {
 
     private void setPlayer(CommandSender sender) {
         Player player = (Player) sender;
-        main.HP().setPlayer(player);
+        HandlePlayerState.setPlayer(player);
         ChatHandler.sendMessage(sender, StringConfig.setPlayer("You", "are"));
     }
     private void setPlayer(CommandSender sender, String playerName) {
@@ -110,7 +111,7 @@ public class DebugCommand implements CommandExecutor, TabCompleter {
         if (targetPlayer == null) {
             ChatHandler.sendError(sender, StringConfig.notPlayer());
         } else {
-            main.HP().setPlayer(targetPlayer);
+            HandlePlayerState.setPlayer(targetPlayer);
             ChatHandler.sendMessage(sender, StringConfig.setPlayer(playerName, "is"));
         }
     }

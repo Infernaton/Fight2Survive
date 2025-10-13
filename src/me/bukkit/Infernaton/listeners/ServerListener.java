@@ -4,6 +4,7 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
+import me.bukkit.Infernaton.handler.HandlePlayerState;
 import me.bukkit.Infernaton.handler.scoreboard.ScoreboardManager;
 import me.bukkit.Infernaton.store.Constants;
 import me.bukkit.Infernaton.store.CoordStorage;
@@ -58,7 +59,7 @@ public class ServerListener implements Listener {
 
         // And, if the player is in creative, we don't need to reset his position
         if (!isCurrentlyIG && player.getGameMode() != GameMode.CREATIVE) {
-            main.HP().setPlayer(player);
+            HandlePlayerState.setPlayer(player);
         }
     }
 

@@ -61,12 +61,7 @@ public class FightToSurvive extends JavaPlugin {
     // #endregion
 
     // #region HANDLER
-    private final HandlePlayerState HP = new HandlePlayerState();
     private final BlockHandler BH = new BlockHandler();
-
-    public HandlePlayerState HP() {
-        return HP;
-    }
 
     public BlockHandler BH() {
         return BH;
@@ -157,9 +152,9 @@ public class FightToSurvive extends JavaPlugin {
 
         List<Player> allPlayers = Constants.getAllTeamsPlayer();
         for (Player player : allPlayers) {
-            HP.clear(player);
+            HandlePlayerState.clear(player);
             player.teleport(CoordStorage.getBaseLocation(Team.getTeam(player)));
-            HP.giveStarterPack(player);
+            HandlePlayerState.giveStarterPack(player);
             for (PotionEffect effect : player.getActivePotionEffects())
                 player.removePotionEffect(effect.getType());
         }
@@ -190,7 +185,7 @@ public class FightToSurvive extends JavaPlugin {
         ChatHandler.sendMessageListPlayer(players, StringConfig.reset());
 
         for (Player player : players) {
-            HP.setPlayer(player);
+            HandlePlayerState.setPlayer(player);
         }
         setGameState(GState.WAITING);
         DoorHandler.deleteAllDoors();
