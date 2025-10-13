@@ -120,9 +120,11 @@ public class Constants {
     }
 
     public static List<Player> getAllPlayers() {
-        List<Player> allPlayers = getBlueTeam().getPlayers();
-        allPlayers.addAll(getRedTeam().getPlayers());
-        allPlayers.addAll(getSpectators().getPlayers());
+        List<Team> teamList = Team.getAllTeams();
+        List<Player> allPlayers = new ArrayList<>();
+        for (Team team : teamList) {
+            allPlayers.addAll(team.getPlayers());
+        }
         return allPlayers;
     }
     // #endregion
