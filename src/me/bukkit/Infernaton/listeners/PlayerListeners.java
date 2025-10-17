@@ -73,7 +73,7 @@ public class PlayerListeners implements Listener {
         Player player = event.getPlayer();
 
         // If the player clicked on a specified Compass, which is given when he spawn
-        if (CustomItem.comparor(item, CustomItem.magicCompass())) {
+        if (CustomItem.comparator(item, CustomItem.magicCompass())) {
             if (FightToSurvive.isGameState(GState.STARTING)) {
                 player.openInventory(InterfaceMenu.cancelStart());
             } else {
@@ -82,9 +82,15 @@ public class PlayerListeners implements Listener {
         }
     }
 
-    @FunctionalInterface
-    interface JoinTeam {
-        void join(Team t, Player p);
+    private void joinTeam(Team t, Player p) {
+        if (FightToSurvive.isGameState(GState.PLAYING)) {
+            ChatHandler.sendMessage(p, "Can't select a team while a game is still going");
+            Sounds.ErrorSound(p);
+        } else {
+            Sounds.selectingMenu(p);
+            t.add(p);
+            p.closeInventory();
+        }
     }
 
     @EventHandler
@@ -100,37 +106,26 @@ public class PlayerListeners implements Listener {
         Inventory inv = event.getInventory();
         Player player = (Player) event.getWhoClicked();
 
-        JoinTeam joinTeam = (Team t, Player p) -> {
-            if (FightToSurvive.isGameState(GState.PLAYING)) {
-                ChatHandler.sendMessage(p, "Can't select a team while a game is still going");
-                Sounds.ErrorSound(p);
-            } else {
-                Sounds.selectingMenu(p);
-                t.add(p);
-                p.closeInventory();
-            }
-        };
-
         // Action on the inventory of the compass, given when joining the server
         if (inv.getName().equalsIgnoreCase(StringConfig.teamInventory())) {
             event.setCancelled(true);
-            if (CustomItem.comparor(current, CustomItem.blueWool())) {
-                joinTeam.join(Constants.getBlueTeam(), player);
-            } else if (CustomItem.comparor(current, CustomItem.redWool())) {
-                joinTeam.join(Constants.getBlueTeam(), player);
-            } else if (CustomItem.comparor(current, CustomItem.randomWool())) {
-                joinTeam.join(Constants.getBlueTeam(), player);
-            } else if (CustomItem.comparor(current, CustomItem.spectatorWool())) {
+            if (CustomItem.comparator(current, CustomItem.blueWool())) {
+                joinTeam(Constants.getBlueTeam(), player);
+            } else if (CustomItem.comparator(current, CustomItem.redWool())) {
+                joinTeam(Constants.getRedTeam(), player);
+            } else if (CustomItem.comparator(current, CustomItem.randomWool())) {
+                joinTeam(Constants.getRandomTeam(), player);
+            } else if (CustomItem.comparator(current, CustomItem.spectatorWool())) {
                 Sounds.selectingMenu(player);
                 Constants.getSpectators().add(player);
                 player.closeInventory();
-            } else if (CustomItem.comparor(current, CustomItem.gameStartWool())) {
+            } else if (CustomItem.comparator(current, CustomItem.gameStartWool())) {
                 main.onStarting(player);
                 player.closeInventory();
-            } else if (CustomItem.comparor(current, CustomItem.options())) {
+            } else if (CustomItem.comparator(current, CustomItem.options())) {
                 Sounds.selectingOptions(player);
                 player.openInventory(InterfaceMenu.optionsInventory());
-            } else if (CustomItem.comparor(current, CustomItem.setup())) {
+            } else if (CustomItem.comparator(current, CustomItem.setup())) {
                 Sounds.selectingOptions(player);
                 player.openInventory(InterfaceMenu.setupInventory());
             }
@@ -138,7 +133,7 @@ public class PlayerListeners implements Listener {
 
         if (inv.getName().equalsIgnoreCase(StringConfig.optionInventory())) {
             event.setCancelled(true);
-            if (CustomItem.comparor(current, CustomItem.returnArrow())) {
+            if (CustomItem.comparator(current, CustomItem.returnArrow())) {
                 Sounds.selectingOptions(player);
                 player.openInventory(InterfaceMenu.selectTeam());
             }
@@ -146,7 +141,7 @@ public class PlayerListeners implements Listener {
 
         if (inv.getName().equalsIgnoreCase(StringConfig.setupInventory())) {
             event.setCancelled(true);
-            if (CustomItem.comparor(current, CustomItem.returnArrow())) {
+            if (CustomItem.comparator(current, CustomItem.returnArrow())) {
                 Sounds.selectingOptions(player);
                 player.openInventory(InterfaceMenu.selectTeam());
             }
@@ -154,7 +149,7 @@ public class PlayerListeners implements Listener {
 
         if (inv.getName().equalsIgnoreCase(StringConfig.cancelInventory())) {
             event.setCancelled(true);
-            if (CustomItem.comparor(current, CustomItem.gameCancelWool())) {
+            if (CustomItem.comparator(current, CustomItem.gameCancelWool())) {
                 Sounds.selectingOptions(player);
                 main.cancelStart();
                 player.closeInventory();
@@ -172,7 +167,7 @@ public class PlayerListeners implements Listener {
         Player p = event.getPlayer();
 
         if (p.getGameMode() != GameMode.ADVENTURE
-                || !CustomItem.comparor(droppedItem.getItemStack(), CustomItem.magicCompass()))
+                || !CustomItem.comparator(droppedItem.getItemStack(), CustomItem.magicCompass()))
             return;
 
         if (!FightToSurvive.isGameState(GState.WAITING) && !FightToSurvive.isGameState(GState.STARTING))
