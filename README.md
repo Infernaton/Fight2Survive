@@ -9,8 +9,8 @@ Minecraft Plugin for 1.8.9
 -   ~~All visible text in english~~
     -   ~~remake commands~~
 -   ~~Faire un random de team~~
--   Faire un spleef d'attente
--   Améliorer effet de victoire
+-   ~~Faire un spleef d'attente~~ Fix old spleef, dunno if multiple mini games inside this plugin is necessary
+-   ~~Améliorer effet de victoire~~
 -   ~~Casse uniquement le chêne peut importe sa direction~~
 
 ### Fix

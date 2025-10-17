@@ -13,14 +13,19 @@ import me.bukkit.Infernaton.commands.SpawnMobs;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
+import org.bukkit.FireworkEffect;
+import org.bukkit.Location;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 
 import static me.bukkit.Infernaton.store.CoordStorage.worldName;
@@ -180,16 +185,18 @@ public class FightToSurvive extends JavaPlugin {
     }
 
     public void reset() {
-        ServerListener.resetAFKList();
-        Bukkit.getWorld(worldName).setTime(1000);
         List<Player> players = Constants.getAllPlayers();
         ChatHandler.sendMessageListPlayer(players, StringConfig.reset());
+        ServerListener.resetAFKList();
+        Bukkit.getWorld(worldName).setTime(1000);
+
+        setGameState(GState.WAITING);
+        DoorHandler.deleteAllDoors();
 
         for (Player player : players) {
             HandlePlayerState.setPlayer(player);
         }
-        setGameState(GState.WAITING);
-        DoorHandler.deleteAllDoors();
+
         BH.resetContainers();
         WaveHandler.Instance().resetSpawnedEntity();
         FinalPhaseHandler.Instance().off();
@@ -203,18 +210,42 @@ public class FightToSurvive extends JavaPlugin {
                 break;
             }
         }
-        if (winner != null)
-            ChatHandler.toAllPlayer(StringConfig.end(winner));
-        else
-            ChatHandler.toAllPlayer("No winning team this time ... All players dies");
         setGameState(GState.FINISH);
-        new BukkitRunnable() {
+
+        if (winner != null) {
+            ChatHandler.toAllPlayer(StringConfig.end(winner));
+            TitleHandler.toAllPlayer(StringConfig.end(winner), "");
+        }
+        else {
+            ChatHandler.toAllPlayer("No winning team this time ... All players dies");
+            ChatHandler.toAllPlayer(StringConfig.teleport());
+            FightToSurvive.this.reset();
+            return;
+        }
+
+        Team finalWinner = winner;
+        FireworkEffect.Builder fwB = FireworkEffect.builder();
+        FireworkEffect fwe = fwB.trail(true).withColor(Color.WHITE).build();
+
+        new CountDown(15) {
             @Override
-            public void run() {
-                ChatHandler.toAllPlayer(StringConfig.teleport());
-                FightToSurvive.this.reset();
+            public void newRun() {
+                if (time == 0) {
+                    ChatHandler.toAllPlayer(StringConfig.teleport());
+                    FightToSurvive.this.reset();
+                }
+                for (Player p : finalWinner.getPlayers()) {
+                    Location highest = CoordStorage.getRandomHighestAround(p.getLocation(), 5, 5);
+                    if (highest == null)
+                        highest = p.getLocation();
+
+                    Firework fw = (Firework) highest.getWorld().spawnEntity(highest, EntityType.FIREWORK);
+                    FireworkMeta fwm = fw.getFireworkMeta();
+                    fwm.addEffect(fwe);
+                    fw.setFireworkMeta(fwm);
+                }
             }
-        }.runTaskLater(this, 5 * 20);
+        };
     }
 
     @Override

@@ -7,6 +7,7 @@ import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.FinalPhaseHandler;
 import me.bukkit.Infernaton.handler.HandlePlayerState;
 import me.bukkit.Infernaton.store.*;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
@@ -181,12 +182,8 @@ public class PlayerListeners implements Listener {
         e.setCancelled(true);
         Player p = e.getPlayer();
         Team playerTeam = Team.getTeam(p);
-        String colorName;
-        if (playerTeam != null) {
-            colorName = playerTeam.getTeamColor();
-        } else {
-            colorName = "§r";
-        }
+        String colorName = playerTeam != null ? playerTeam.getTeamColor() : "§r";
+
         ChatHandler.broadcast(colorName + p.getDisplayName() + "§r: " + e.getMessage());
     }
 
