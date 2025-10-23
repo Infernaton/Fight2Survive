@@ -12,8 +12,10 @@ import me.bukkit.Infernaton.store.StringConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import static me.bukkit.Infernaton.store.CoordStorage.worldName;
 
@@ -125,8 +127,8 @@ public class GameRunnable implements Runnable {
         // In the methods, there a test if a player is in range
         for (Location loc : appleLocations) {
             if (!coolDownLoc.containsKey(loc.toString())) {
-                boolean isSpawn = CustomItem.spawningApple(loc);
-                if (isSpawn)
+                boolean isSpawned = CustomItem.spawnItem(loc, new ItemStack(Material.APPLE), Player.class);
+                if (isSpawned)
                     coolDownLoc.put(loc.toString(), Constants.appleSpawningCooldown);
             }
         }

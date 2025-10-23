@@ -201,24 +201,25 @@ public class CustomItem {
     }
 
     //#region spawn item
-    private static void spawnItem(Location loc, ItemStack it) {
+    public static boolean spawnItem(Location loc, ItemStack it) {
         Bukkit.getWorld(worldName).dropItem(loc, it).setVelocity(new Vector(0.0, 0.0, 0.0));
+        return true;
     }
 
+
     /**
-     * Try to spawn an apple if there is a player nearby
-     * 
-     * @todo see if this function can go somewhere else
+     * Try to spawn an item if there is a selected entity nearby in a grid of 25x25
+     *
      * @param loc where the item will spawn
+     * @param it itemStack to spawn
+     * @param nearbyEntity selected entity that trigger the spawn
      * @return the success of the operation
      */
-    public static boolean spawningApple(Location loc) {
+    public static boolean spawnItem(Location loc, ItemStack it, Class<? extends Entity> nearbyEntity) {
         Collection<Entity> entities = Bukkit.getWorld(worldName).getNearbyEntities(loc, 25, 6, 25);
         for (Entity e : entities) {
-            if (e instanceof Player) {
-                spawnItem(loc, new ItemStack(Material.APPLE));
-                return true;
-            }
+            if (e.getClass().isInstance(nearbyEntity))
+                return spawnItem(loc, it);
         }
         return false;
     }
