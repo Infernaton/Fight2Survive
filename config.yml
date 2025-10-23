@@ -10,7 +10,8 @@ string:
   clickInventory:
     launchGame: "§2StartGame"
     red: "§4Red Team"
-    blue: "§1Blue Team "
+    blue: "§1Blue Team"
+    random: "§8Random"
     spectator: "§7Spectator"
     option: "§fOptions"
     setup: "§fSetup"
@@ -60,6 +61,7 @@ string:
   team:
     red: "Red"
     blue: "Blue"
+    random: "Random"
     spec: "Spectators"
   navCompass: "§aNavigation"
   keyItem: "§9KEY"

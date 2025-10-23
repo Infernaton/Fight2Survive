@@ -5,12 +5,14 @@ import me.bukkit.Infernaton.builder.Team;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @todo need to define it with setup parameters (setup spawn point). This way the map can be configarable much easier
@@ -134,6 +136,28 @@ public class CoordStorage {
             }
         }
         return disk;
+    }
+
+    public static Location getRandomHighestAround(Location center, int minRadius, int maxRadius) {
+        List<Block> test = CoordStorage.highestCircleAround(center, minRadius, maxRadius);
+
+        Block spawnBlockPosition;
+        Block newBlock;
+        int count = 75;
+        do {
+            int randomNum = ThreadLocalRandom.current().nextInt(0, test.size());
+            // ChatHandler.sendInfoMessage(player, randomNum + "");
+            newBlock = test.get(randomNum);
+            spawnBlockPosition = newBlock.getRelative(0, 1, 0);
+            count--;
+        } while (spawnBlockPosition.getType() != Material.AIR && count > 0);
+
+
+        if (spawnBlockPosition.getType() != Material.AIR) {
+            return null;
+        }
+
+        return spawnBlockPosition.getLocation();
     }
 
     public static Block getHighestBlock(World world, int x, int z) {

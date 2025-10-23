@@ -7,16 +7,10 @@ import me.bukkit.Infernaton.handler.WaveHandler;
 import me.bukkit.Infernaton.store.Mobs;
 import me.bukkit.Infernaton.store.StringConfig;
 
-import java.util.Collection;
-
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
 public class SpawnMobs implements CommandExecutor {

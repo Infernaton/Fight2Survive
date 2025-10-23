@@ -13,18 +13,24 @@ import me.bukkit.Infernaton.commands.SpawnMobs;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
+import org.bukkit.FireworkEffect;
+import org.bukkit.Location;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 
 import static me.bukkit.Infernaton.store.CoordStorage.worldName;
 
+import java.util.Collections;
 import java.util.List;
 
 public class FightToSurvive extends JavaPlugin {
@@ -60,12 +66,7 @@ public class FightToSurvive extends JavaPlugin {
     // #endregion
 
     // #region HANDLER
-    private final HandlePlayerState HP = new HandlePlayerState();
     private final BlockHandler BH = new BlockHandler();
-
-    public HandlePlayerState HP() {
-        return HP;
-    }
 
     public BlockHandler BH() {
         return BH;
@@ -103,20 +104,28 @@ public class FightToSurvive extends JavaPlugin {
             return;
         }
 
-        //Sounds.selectingMenu(sender);
+        List<Player> randomPlayers = Constants.getRandomTeam().getPlayers();
+        Team redTeam = Constants.getRedTeam();
+        Team blueTeam = Constants.getBlueTeam();
 
-        List<Player> redPlayers = Constants.getRedTeam().getPlayers();
-        List<Player> bluePlayers = Constants.getBlueTeam().getPlayers();
+        //Make random team
+        Collections.shuffle(randomPlayers);
+        for (Player rPlayer: randomPlayers) {
+            if (redTeam.getPlayers().size() < blueTeam.getPlayers().size()) {
+                Constants.getRedTeam().add(rPlayer);
+            } else {
+                Constants.getBlueTeam().add(rPlayer);
+            }
+        }
 
         // Compare if there the same numbers of players in each team
         // Not enough player
-        if (redPlayers.size() != bluePlayers.size() || redPlayers.size() == 0) {
+        if ((redTeam.getPlayers().size() != blueTeam.getPlayers().size() || redTeam.getPlayers().size() == 0)
+                && Constants.getRandomTeam().getPlayers().isEmpty()) {
             ChatHandler.sendError(sender, StringConfig.needPlayers());
             return;
         }
 
-        // Clear all players that attend to play
-        redPlayers.addAll(bluePlayers); // All players in one variable
         setGameState(GState.STARTING);
 
         ChatHandler.sendInfoMessage(sender, StringConfig.launched());
@@ -141,16 +150,17 @@ public class FightToSurvive extends JavaPlugin {
     }
 
     public void start() {
-        ChatHandler.sendMessageListPlayer(Constants.getAllTeamsPlayer(), StringConfig.start());
+        List<Player> allPlayers = Constants.getAllTeamsPlayer();
+
+        ChatHandler.sendMessageListPlayer(allPlayers, StringConfig.start());
         gameTimer = GameRunnable.newCountDown(this);
 
         ServerListener.resetAFKList();
 
-        List<Player> allPlayers = Constants.getAllTeamsPlayer();
         for (Player player : allPlayers) {
-            HP.clear(player);
+            HandlePlayerState.clear(player);
             player.teleport(CoordStorage.getBaseLocation(Team.getTeam(player)));
-            HP.giveStarterPack(player);
+            HandlePlayerState.giveStarterPack(player);
             for (PotionEffect effect : player.getActivePotionEffects())
                 player.removePotionEffect(effect.getType());
         }
@@ -160,12 +170,12 @@ public class FightToSurvive extends JavaPlugin {
         // entity are set.
         // We have certain problem with entity that don't appear because of not loaded
         // chunk
-        new BukkitRunnable() {
-            @Override
-            public void run() {
+//        new BukkitRunnable() {
+//            @Override
+//            public void run() {
 //                Mobs.setAllPnj();
-            }
-        }.runTaskLater(this, 8);
+//            }
+//        }.runTaskLater(this, 8);
     }
 
     public void cancelStart() {
@@ -175,41 +185,67 @@ public class FightToSurvive extends JavaPlugin {
     }
 
     public void reset() {
-        Bukkit.getWorld(worldName).setTime(1000);
         List<Player> players = Constants.getAllPlayers();
         ChatHandler.sendMessageListPlayer(players, StringConfig.reset());
+        ServerListener.resetAFKList();
+        Bukkit.getWorld(worldName).setTime(1000);
 
-        for (Player player : players) {
-            HP.setPlayer(player);
-        }
         setGameState(GState.WAITING);
         DoorHandler.deleteAllDoors();
+
+        for (Player player : players) {
+            HandlePlayerState.setPlayer(player);
+        }
+
         BH.resetContainers();
         WaveHandler.Instance().resetSpawnedEntity();
-        ServerListener.resetAFKList();
         FinalPhaseHandler.Instance().off();
     }
 
     public void finish() {
         Team winner = null;
-        for (Team team : Team.getAllTeams()) {
-            if (!team.getPlayers().isEmpty() && !team.equals(Constants.getSpectators())) {
+        for (Team team : Constants.getPlayableTeam()) {
+            if (!team.getPlayers().isEmpty()) {
                 winner = team;
                 break;
             }
         }
-        if (winner != null)
-            ChatHandler.toAllPlayer(StringConfig.end(winner));
-        else
-            ChatHandler.toAllPlayer("No winning team this time ... All players dies");
         setGameState(GState.FINISH);
-        new BukkitRunnable() {
+
+        if (winner != null) {
+            ChatHandler.toAllPlayer(StringConfig.end(winner));
+            TitleHandler.toAllPlayer(StringConfig.end(winner), "");
+        }
+        else {
+            ChatHandler.toAllPlayer("No winning team this time ... All players dies");
+            ChatHandler.toAllPlayer(StringConfig.teleport());
+            FightToSurvive.this.reset();
+            return;
+        }
+
+        Team finalWinner = winner;
+        FireworkEffect.Builder fwB = FireworkEffect.builder();
+        FireworkEffect fwe = fwB.trail(true).withColor(Color.WHITE).build();
+
+        new CountDown(15) {
             @Override
-            public void run() {
-                ChatHandler.toAllPlayer(StringConfig.teleport());
-                FightToSurvive.this.reset();
+            public void newRun() {
+                if (time == 0) {
+                    ChatHandler.toAllPlayer(StringConfig.teleport());
+                    FightToSurvive.this.reset();
+                }
+                for (Player p : finalWinner.getPlayers()) {
+                    Location highest = CoordStorage.getRandomHighestAround(p.getLocation(), 5, 5);
+                    if (highest == null)
+                        highest = p.getLocation();
+
+                    Firework fw = (Firework) highest.getWorld().spawnEntity(highest, EntityType.FIREWORK);
+                    FireworkMeta fwm = fw.getFireworkMeta();
+                    fwm.addEffect(fwe);
+                    fw.setFireworkMeta(fwm);
+                }
             }
-        }.runTaskLater(this, 5 * 20);
+        };
     }
 
     @Override
@@ -235,10 +271,10 @@ public class FightToSurvive extends JavaPlugin {
         String[] partyCommand = { "start", "cancelStart", "reset", "forceFinal" };
         enableCommand(partyCommand, new PartyCommand());
 
-        String[] debugCommand = { "setPlayer", "getDoors", "deleteDoors", "getKey", "printDebug" };
+        String[] debugCommand = { "debug" };
         enableCommand(debugCommand, new DebugCommand());
 
-        String[] debugMob = { "mob_zombie", "set_villagers", "kill_pnj", "hologram", "killhologram" };
+        String[] debugMob = { "mob_zombie", "hologram", "killhologram" };
         enableCommand(debugMob, new SpawnMobs());
         // #endregion
 
@@ -247,6 +283,7 @@ public class FightToSurvive extends JavaPlugin {
         new Team(StringConfig.redTeamName(), sb).setTeamColor(ChatColor.RED);
         new Team(StringConfig.blueTeamName(), sb).setTeamColor(ChatColor.BLUE);
         new Team(StringConfig.spectatorName(), sb).setTeamColor(ChatColor.GRAY);
+        new Team(StringConfig.randomTeamName(), sb).setTeamColor(ChatColor.DARK_GRAY);
 
         new CustomRecipe(this);
     }

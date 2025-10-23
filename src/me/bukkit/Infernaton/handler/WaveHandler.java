@@ -4,12 +4,9 @@ import static me.bukkit.Infernaton.store.CoordStorage.worldName;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -60,25 +57,13 @@ public class WaveHandler {
     }
 
     public void spawnMob(Player player, int mobLevel) {
-        Location playerLocation = player.getLocation();
-        List<Block> test = CoordStorage.highestCircleAround(playerLocation, 8, 12);
+        Location highest = CoordStorage.getRandomHighestAround(player.getLocation(), 8, 12);
 
-        Block spawnBlockPosition;
-        Block newBlock;
-        int count = 50;
-        do {
-            int randomNum = ThreadLocalRandom.current().nextInt(0, test.size());
-            // ChatHandler.sendInfoMessage(player, randomNum + "");
-            newBlock = test.get(randomNum);
-            spawnBlockPosition = newBlock.getRelative(0, 1, 0);
-            count--;
-        } while (spawnBlockPosition.getType() != Material.AIR && count > 0);
-
-        if (spawnBlockPosition.getType() != Material.AIR) {
+        if (highest == null) {
             ChatHandler.sendError(player, "Wasn't able to spawn a mob");
             return;
         }
-        Mobs.createRandomAggressiveMob(spawnBlockPosition.getLocation(), mobLevel);
+        Mobs.createRandomAggressiveMob(highest, mobLevel);
     }
 
     public List<LivingEntity> getAllMobs() {

@@ -4,6 +4,7 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
+import me.bukkit.Infernaton.handler.HandlePlayerState;
 import me.bukkit.Infernaton.handler.scoreboard.ScoreboardManager;
 import me.bukkit.Infernaton.store.Constants;
 import me.bukkit.Infernaton.store.CoordStorage;
@@ -48,19 +49,17 @@ public class ServerListener implements Listener {
         // If it's the first time he join, the player don't have a team yet, so we
         // forced him to join one
         else if (!Team.hasTeam(player)) {
-            Constants.getSpectators().add(player);
+            Constants.addDefaultTeam(player);
         }
 
         // We check if the player is currently in game when he join,
-        // if the game crashed client side, it would be a shame if he can't rejoin the
-        // party
-        boolean isCurrentlyIG = !FightToSurvive.isGameState(GState.WAITING) &&
-                !Team.getTeam(player).getTeamName().equalsIgnoreCase(StringConfig.spectatorName());
+        // if the game crashed client side, it would be a shame if he can't rejoin the party
+        boolean isCurrentlyIG = FightToSurvive.isGameState(GState.PLAYING) &&
+                !Constants.getAllTeamsPlayer().contains(Team.getTeam(player));
 
         // And, if the player is in creative, we don't need to reset his position
         if (!isCurrentlyIG && player.getGameMode() != GameMode.CREATIVE) {
-            main.HP().resetPlayerState(player);
-            player.teleport(CoordStorage.getSpawnCoordinate());
+            HandlePlayerState.setPlayer(player);
         }
     }
 
@@ -71,7 +70,7 @@ public class ServerListener implements Listener {
      * If the player rejoin the server before the countdown stop, he will still be
      * part of the game
      * 
-     * @param event
+     * @param event PlayerQuitEvent
      */
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
@@ -81,15 +80,13 @@ public class ServerListener implements Listener {
 
             // Setting the quitting player in "AFK", to have a memory of who has quit during
             // the game
-            if (Team.hasTeam(player) && Team.getTeam(player) != Constants.getSpectators()) {
+            if (Constants.getAllTeamsPlayer().contains(player)) {
                 afkList.put(player.getUniqueId(), Team.getTeam(player));
                 Team.getTeam(player).remove(player);
             }
 
-            // its means that the player who disconnect during a party have 10 seconds,
-            // before he will be
-            // declared offline by the plugin: testing afterward if the game has to be
-            // declared finished
+            // If the last player disconnect for the game, it has 5 seconds to reconnects before the plugin
+            // declare that their team forfeit
             BukkitRunnable run = new BukkitRunnable() {
                 @Override
                 public void run() {
@@ -100,7 +97,7 @@ public class ServerListener implements Listener {
                     }
                 }
             };
-            run.runTaskLaterAsynchronously(main, 60);
+            run.runTaskLaterAsynchronously(main, 5 * 20);
         } else if (FightToSurvive.isGameState(GState.WAITING)) {
             Team t = Team.getTeam(player);
             if (t != null)

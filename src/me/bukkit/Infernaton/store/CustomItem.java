@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -35,16 +36,12 @@ public class CustomItem {
         player.getInventory().setItem(slot, item);
     }
 
-    public static void removeItemHand(Player player) {
-        player.setItemInHand(new ItemStack(Material.AIR));
-    }
-
-    public static boolean comparor(ItemStack check, ItemStack reference) {
+    public static boolean comparator(ItemStack check, ItemStack reference) {
         return check.getType() == reference.getType() && check.hasItemMeta() && check.getItemMeta().hasDisplayName()
                 && check.getItemMeta().getDisplayName().equalsIgnoreCase(reference.getItemMeta().getDisplayName());
     }
 
-    // #region Custom Item
+    //#region Custom Item
     public static ItemStack magicCompass() {
         return new ItemBuilder(Material.COMPASS).setName(StringConfig.compassName()).toItemStack();
     }
@@ -53,9 +50,9 @@ public class CustomItem {
     public static ItemStack paperKey() {
         return new ItemBuilder(Material.PAPER).setName(StringConfig.keyName()).toItemStack();
     }
-    // #endregion
+    //#endregion
 
-    // #region Menu Item
+    //#region Menu Item
     public static ItemStack blueWool() {
         return new ItemBuilder(Material.WOOL, 1, (byte) 11).setName(StringConfig.blueTeamItem()).setLore()
                 .setLore(StringConfig.makePlayerList(Constants.getBlueTeam().getPlayers()))
@@ -68,8 +65,14 @@ public class CustomItem {
                 .toItemStack();
     }
 
+    public static ItemStack randomWool() {
+        return new ItemBuilder(Material.WOOL, 1, (byte) 7).setName(StringConfig.randomTeamItem())
+                .setLore(StringConfig.makePlayerList(Constants.getRandomTeam().getPlayers()))
+                .toItemStack();
+    }
+
     public static ItemStack spectatorWool() {
-        return new ItemBuilder(Material.WOOL, 1, (byte) 7).setName(StringConfig.spectatorsItem())
+        return new ItemBuilder(Material.WOOL, 1, (byte) 8).setName(StringConfig.spectatorsItem())
                 .setLore(StringConfig.makePlayerList(Constants.getSpectators().getPlayers()))
                 .toItemStack();
     }
@@ -97,9 +100,10 @@ public class CustomItem {
     public static ItemStack separator() {
         return new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (byte) 15).setName(" ").toItemStack();
     }
-    // #endregion
+    //#endregion
 
-    // #region TOOLS
+    //#region TOOLS
+    //#region axe
     private static ItemStack transformAxe(ItemStack axe) {
         net.minecraft.server.v1_8_R3.ItemStack AXE = CraftItemStack.asNMSCopy(axe);
         NBTTagList idsTag2 = new NBTTagList();
@@ -112,6 +116,28 @@ public class CustomItem {
         return CraftItemStack.asBukkitCopy(AXE);
     }
 
+    public static ItemStack woodAxe() {
+        return transformAxe(new ItemStack(Material.WOOD_AXE));
+    }
+
+    public static ItemStack stoneAxe() {
+        return transformAxe(new ItemStack(Material.STONE_AXE));
+    }
+
+    public static ItemStack goldAxe() {
+        return new ItemBuilder(transformAxe(new ItemStack(Material.GOLD_AXE))).setInfinityDurability().toItemStack();
+    }
+
+    public static ItemStack ironAxe() {
+        return transformAxe(new ItemStack(Material.IRON_AXE));
+    }
+
+    public static ItemStack diamondAxe() {
+        return transformAxe(new ItemStack(Material.DIAMOND_AXE));
+    }
+    //#endregion
+
+    //#region pickaxe
     private static ItemStack transformPickaxe(ItemStack pick, int level) {
         net.minecraft.server.v1_8_R3.ItemStack PICK = CraftItemStack.asNMSCopy(pick);
         NBTTagList idsTag = new NBTTagList();
@@ -140,26 +166,6 @@ public class CustomItem {
         return CraftItemStack.asBukkitCopy(PICK);
     }
 
-    public static ItemStack woodAxe() {
-        return transformAxe(new ItemStack(Material.WOOD_AXE));
-    }
-
-    public static ItemStack stoneAxe() {
-        return transformAxe(new ItemStack(Material.STONE_AXE));
-    }
-
-    public static ItemStack goldAxe() {
-        return new ItemBuilder(transformAxe(new ItemStack(Material.GOLD_AXE))).setInfinityDurability().toItemStack();
-    }
-
-    public static ItemStack ironAxe() {
-        return transformAxe(new ItemStack(Material.IRON_AXE));
-    }
-
-    public static ItemStack diamondAxe() {
-        return transformAxe(new ItemStack(Material.DIAMOND_AXE));
-    }
-
     public static ItemStack woodPickaxe() {
         return transformPickaxe(new ItemStack(Material.WOOD_PICKAXE), 1);
     }
@@ -180,6 +186,7 @@ public class CustomItem {
     public static ItemStack diamondPickaxe() {
         return transformPickaxe(new ItemStack(Material.DIAMOND_PICKAXE), 4);
     }
+    //#endregion
 
     public static ItemStack goldSword() {
         return new ItemBuilder(Material.GOLD_SWORD).setInfinityDurability().toItemStack();
@@ -192,7 +199,6 @@ public class CustomItem {
     public static ItemStack goldHoe() {
         return new ItemBuilder(Material.GOLD_HOE).setInfinityDurability().toItemStack();
     }
-    // #endregion
 
     // #region spawn item
     private static void spawnItem(Location loc, ItemStack it) {
@@ -216,5 +222,5 @@ public class CustomItem {
         }
         return false;
     }
-    // #endregion
+    //#endregion
 }

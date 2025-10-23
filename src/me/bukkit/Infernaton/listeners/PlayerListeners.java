@@ -1,11 +1,13 @@
 package me.bukkit.Infernaton.listeners;
 
-import me.bukkit.Infernaton.*;
+import me.bukkit.Infernaton.FightToSurvive;
+import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.Team;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.FinalPhaseHandler;
+import me.bukkit.Infernaton.handler.HandlePlayerState;
 import me.bukkit.Infernaton.store.*;
-
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
@@ -15,7 +17,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.*;
+import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -46,18 +51,20 @@ public class PlayerListeners implements Listener {
     @EventHandler
     public void onRespawn(PlayerRespawnEvent event) {
         Player player = event.getPlayer();
-        Team team = Team.getTeam(player);
 
         // Check if the player is in a team to respawn him to the right place
-        if (FightToSurvive.isGameState(GState.PLAYING) &&
-                (team != null || !team.equals(Constants.getSpectators()))) {
-            event.setRespawnLocation(CoordStorage.getBaseLocation(team));
-            main.HP().giveStarterPack(player);
+        if (FightToSurvive.isGameState(GState.PLAYING) && HandlePlayerState.isPlayerInPlayableTeam(player)) {
+            event.setRespawnLocation(CoordStorage.getBaseLocation(Team.getTeam(player)));
+            HandlePlayerState.giveStarterPack(player);
         } else {
-            FightToSurvive.Instance().HP().setPlayer(player);
+            HandlePlayerState.setPlayer(player);
         }
     }
 
+    /**
+     * Open Custom Menu when player click on Special Item
+     * @param event
+     */
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
         ItemStack item = event.getItem();
@@ -67,7 +74,7 @@ public class PlayerListeners implements Listener {
         Player player = event.getPlayer();
 
         // If the player clicked on a specified Compass, which is given when he spawn
-        if (CustomItem.comparor(item, CustomItem.magicCompass())) {
+        if (CustomItem.comparator(item, CustomItem.magicCompass())) {
             if (FightToSurvive.isGameState(GState.STARTING)) {
                 player.openInventory(InterfaceMenu.cancelStart());
             } else {
@@ -76,8 +83,20 @@ public class PlayerListeners implements Listener {
         }
     }
 
+    private void joinTeam(Team t, Player p) {
+        if (FightToSurvive.isGameState(GState.PLAYING)) {
+            ChatHandler.sendMessage(p, "Can't select a team while a game is still going");
+            Sounds.ErrorSound(p);
+        } else {
+            Sounds.selectingMenu(p);
+            t.add(p);
+            p.closeInventory();
+        }
+    }
+
     @EventHandler
     public void onClick(InventoryClickEvent event) {
+
         ItemStack current = event.getCurrentItem();
 
         // If the player click outside the inventory or in a slot where there's nothing,
@@ -91,25 +110,23 @@ public class PlayerListeners implements Listener {
         // Action on the inventory of the compass, given when joining the server
         if (inv.getName().equalsIgnoreCase(StringConfig.teamInventory())) {
             event.setCancelled(true);
-            if (CustomItem.comparor(current, CustomItem.blueWool())) {
-                Sounds.selectingMenu(player);
-                Constants.getBlueTeam().add(player);
-                player.closeInventory();
-            } else if (CustomItem.comparor(current, CustomItem.redWool())) {
-                Sounds.selectingMenu(player);
-                Constants.getRedTeam().add(player);
-                player.closeInventory();
-            } else if (CustomItem.comparor(current, CustomItem.spectatorWool())) {
+            if (CustomItem.comparator(current, CustomItem.blueWool())) {
+                joinTeam(Constants.getBlueTeam(), player);
+            } else if (CustomItem.comparator(current, CustomItem.redWool())) {
+                joinTeam(Constants.getRedTeam(), player);
+            } else if (CustomItem.comparator(current, CustomItem.randomWool())) {
+                joinTeam(Constants.getRandomTeam(), player);
+            } else if (CustomItem.comparator(current, CustomItem.spectatorWool())) {
                 Sounds.selectingMenu(player);
                 Constants.getSpectators().add(player);
                 player.closeInventory();
-            } else if (CustomItem.comparor(current, CustomItem.gameStartWool())) {
+            } else if (CustomItem.comparator(current, CustomItem.gameStartWool())) {
                 main.onStarting(player);
                 player.closeInventory();
-            } else if (CustomItem.comparor(current, CustomItem.options())) {
+            } else if (CustomItem.comparator(current, CustomItem.options())) {
                 Sounds.selectingOptions(player);
                 player.openInventory(InterfaceMenu.optionsInventory());
-            } else if (CustomItem.comparor(current, CustomItem.setup())) {
+            } else if (CustomItem.comparator(current, CustomItem.setup())) {
                 Sounds.selectingOptions(player);
                 player.openInventory(InterfaceMenu.setupInventory());
             }
@@ -117,7 +134,7 @@ public class PlayerListeners implements Listener {
 
         if (inv.getName().equalsIgnoreCase(StringConfig.optionInventory())) {
             event.setCancelled(true);
-            if (CustomItem.comparor(current, CustomItem.returnArrow())) {
+            if (CustomItem.comparator(current, CustomItem.returnArrow())) {
                 Sounds.selectingOptions(player);
                 player.openInventory(InterfaceMenu.selectTeam());
             }
@@ -125,7 +142,7 @@ public class PlayerListeners implements Listener {
 
         if (inv.getName().equalsIgnoreCase(StringConfig.setupInventory())) {
             event.setCancelled(true);
-            if (CustomItem.comparor(current, CustomItem.returnArrow())) {
+            if (CustomItem.comparator(current, CustomItem.returnArrow())) {
                 Sounds.selectingOptions(player);
                 player.openInventory(InterfaceMenu.selectTeam());
             }
@@ -133,7 +150,7 @@ public class PlayerListeners implements Listener {
 
         if (inv.getName().equalsIgnoreCase(StringConfig.cancelInventory())) {
             event.setCancelled(true);
-            if (CustomItem.comparor(current, CustomItem.gameCancelWool())) {
+            if (CustomItem.comparator(current, CustomItem.gameCancelWool())) {
                 Sounds.selectingOptions(player);
                 main.cancelStart();
                 player.closeInventory();
@@ -143,7 +160,6 @@ public class PlayerListeners implements Listener {
 
     /**
      * Prevent the player from throwing away the magic compass in the main lobby
-     * 
      * @param event
      */
     @EventHandler
@@ -152,7 +168,7 @@ public class PlayerListeners implements Listener {
         Player p = event.getPlayer();
 
         if (p.getGameMode() != GameMode.ADVENTURE
-                || !CustomItem.comparor(droppedItem.getItemStack(), CustomItem.magicCompass()))
+                || !CustomItem.comparator(droppedItem.getItemStack(), CustomItem.magicCompass()))
             return;
 
         if (!FightToSurvive.isGameState(GState.WAITING) && !FightToSurvive.isGameState(GState.STARTING))
@@ -166,17 +182,13 @@ public class PlayerListeners implements Listener {
         e.setCancelled(true);
         Player p = e.getPlayer();
         Team playerTeam = Team.getTeam(p);
-        String colorName;
-        if (playerTeam != null) {
-            colorName = playerTeam.getTeamColor();
-        } else {
-            colorName = "§r";
-        }
+        String colorName = playerTeam != null ? playerTeam.getTeamColor() : "§r";
+
         ChatHandler.broadcast(colorName + p.getDisplayName() + "§r: " + e.getMessage());
     }
 
     /**
-     * Prevent the player from placing boat when clicking on a block
+     * Prevent the player from placing boat when clicking on a block if he is in a playable team and the game is launched
      * Because of that, player can bypass Door
      * 
      * @param event
@@ -187,7 +199,8 @@ public class PlayerListeners implements Listener {
             return;
 
         Player p = event.getPlayer();
-        if (p.getItemInHand().getType() == Material.BOAT) {
+        if (p.getItemInHand().getType() == Material.BOAT && FightToSurvive.isGameState(GState.PLAYING)
+                && HandlePlayerState.isPlayerInPlayableTeam(p)) {
             event.setCancelled(true);
             ChatHandler.sendError(p, StringConfig.cantWhilePlaying());
         }

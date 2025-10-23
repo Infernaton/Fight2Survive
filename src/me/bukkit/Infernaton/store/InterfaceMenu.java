@@ -25,6 +25,7 @@ public class InterfaceMenu {
     public static Inventory selectTeam() {
         Inventory inv = Bukkit.createInventory(null, 45, StringConfig.teamInventory());
         inv.setItem(20, CustomItem.blueWool());
+        inv.setItem(22, CustomItem.randomWool());
         inv.setItem(24, CustomItem.redWool());
         inv.setItem(13, CustomItem.spectatorWool());
 
