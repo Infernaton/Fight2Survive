@@ -2,17 +2,6 @@
 
 Minecraft Plugin for 1.8.9
 
-## To Do
-
-#### Pour 1.3.1
-
--   ~~All visible text in english~~
-    -   ~~remake commands~~
--   ~~Faire un random de team~~
--   ~~Faire un spleef d'attente~~ Fix old spleef, dunno if multiple mini games inside this plugin is necessary
--   ~~Améliorer effet de victoire~~
--   ~~Casse uniquement le chêne peut importe sa direction~~
-
 ### Fix
 
 -   Clean code : Ajout de commentaire, contexte
