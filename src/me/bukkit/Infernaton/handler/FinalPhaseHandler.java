@@ -41,22 +41,19 @@ public class FinalPhaseHandler {
         Sounds.finalPhaseSound();
     }
 
-    public void asking(boolean needToActivate) {
+    public void activateAnimation() {
         // Will launched a timer before the finalPhase will begins
-        if (needToActivate) {
-            ChatHandler.toAllPlayer(StringConfig.finalPhase());
-            new CountDown(15) {
-                @Override
-                public void newRun() {
-                    if (time == 0) {
-                        FinalPhaseHandler.Instance().activate();
-                    } else if (time % 10 == 0 || time <= 5) {
-                        Sounds.tickTimerSound();
-                        ChatHandler.toAllPlayer(StringConfig.secondLeft((int) time));
-                    }
+        ChatHandler.toAllPlayer(StringConfig.finalPhase());
+        new CountDown(15) {
+            @Override
+            public void newRun() {
+                if (time == 0) {
+                    FinalPhaseHandler.Instance().activate();
+                } else if (time % 10 == 0 || time <= 5) {
+                    Sounds.tickTimerSound();
+                    ChatHandler.toAllPlayer(StringConfig.secondLeft((int) time));
                 }
-            };
-//            new FinalPhaseCountdown(15);
-        }
+            }
+        };
     }
 }

@@ -87,7 +87,7 @@ public class Constants {
         return getAllTrade().get(pnjName);
     }
 
-    // #region Team related
+    //#region Team related
     public static Team getRedTeam() {
         return Team.getTeamByName(StringConfig.redTeamName());
     }
@@ -134,7 +134,7 @@ public class Constants {
         teams.add(getRedTeam());
         return teams;
     }
-    // #endregion
+    //#endregion
 
     /**
      * Each line of our scoreboard are stored here

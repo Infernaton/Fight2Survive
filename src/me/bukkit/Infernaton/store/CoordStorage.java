@@ -21,7 +21,7 @@ public class CoordStorage {
 
     public final static String worldName = Bukkit.getWorlds().get(0).getName();
 
-    // #region Coordinate
+    //#region Coordinate
     public static Location[] getSpawnApplePoint() {
         return new Location[] {
                 new Location(Bukkit.getWorld(worldName), 168.5, 61.5, 130.5),
@@ -93,7 +93,7 @@ public class CoordStorage {
                 (float) config.getDouble("teamData."+ teamkey +".spawnpoint.pitch")
         );
     }
-    // #endregion
+    //#endregion
 
     // Get all block around target location (mostly use around players) by radius
     public static List<Block> sphereAround(Location location, int radius) {

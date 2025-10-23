@@ -24,20 +24,22 @@ public class DoorHandler {
     private static Map<String, DoorStruct> redDoorsList;
     private static Map<String, DoorStruct> blueDoorsList;
 
+    /**
+     * Instantiate all door on the map
+     */
     public static void setAllDoors() {
-        redDoorsList = new HashMap<>();
         String redPath = "teamData.red.doors";
-        redDoorsList = setAllTeamDoors(redPath, redDoorsList);
+        redDoorsList = setAllTeamDoors(redPath);
 
-        blueDoorsList = new HashMap<>();
         String bluePath = "teamData.blue.doors";
-        blueDoorsList = setAllTeamDoors(bluePath, blueDoorsList);
+        blueDoorsList = setAllTeamDoors(bluePath);
     }
 
     /**
      * Get All doors coordinates by team and generate a door
      */
-    private static Map<String, DoorStruct> setAllTeamDoors(String teamkey, Map<String, DoorStruct> doorsList) {
+    private static Map<String, DoorStruct> setAllTeamDoors(String teamkey) {
+        Map<String, DoorStruct> doorsList = new HashMap<>();
         FileConfiguration conf =  FightToSurvive.GetConfig();
         for (String key : conf.getConfigurationSection(teamkey).getKeys(false)) {
             String currentPath = teamkey + "." + key;

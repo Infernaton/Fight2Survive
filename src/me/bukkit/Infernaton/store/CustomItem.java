@@ -200,7 +200,7 @@ public class CustomItem {
         return new ItemBuilder(Material.GOLD_HOE).setInfinityDurability().toItemStack();
     }
 
-    // #region spawn item
+    //#region spawn item
     private static void spawnItem(Location loc, ItemStack it) {
         Bukkit.getWorld(worldName).dropItem(loc, it).setVelocity(new Vector(0.0, 0.0, 0.0));
     }

@@ -5,10 +5,18 @@ import org.bukkit.entity.Player;
 
 public class TitleHandler {
 
-    public static  void toAllPlayer(String title, String subtitle) {
+    public static void toAllPlayer(String title) {
+        Bukkit.getOnlinePlayers().forEach(player -> sendTitle(player, title));
+    }
+
+    public static void toAllPlayer(String title, String subtitle) {
         Bukkit.getOnlinePlayers().forEach(player -> sendTitle(player, title, subtitle));
     }
 
+
+    public static void sendTitle(Player player, String title) {
+        player.sendTitle(title, "");
+    }
     public static void sendTitle(Player player, String title, String subtitle) {
         player.sendTitle(title, subtitle);
     }

@@ -17,13 +17,13 @@ public class StringConfig {
         return str;
     }
 
-    // #region get Data from config
+    //#region get Data from config
     private static String getDataString(String key) {
         return ChatColor.translateAlternateColorCodes('§',
                 FightToSurvive.GetConfig().getString("string." + key));
     }
 
-    // #region PNJ Name
+    //#region PNJ Name
     private static String pnjName(String zone) {
         return getDataString("pnjName." + zone);
     }
@@ -55,9 +55,9 @@ public class StringConfig {
     public static final String pnjLapis() {
         return pnjName("lapis");
     }
-    // #endregion
+    //#endregion
 
-    // #region item name
+    //#region item name
     public static final String compassName() {
         return getDataString("navCompass");
     }
@@ -66,7 +66,7 @@ public class StringConfig {
         return getDataString("keyItem");
     }
 
-    // #region menu item
+    //#region menu item
     private static String clickItem(String itemName) {
         return getDataString("clickInventory." + itemName);
     }
@@ -106,11 +106,11 @@ public class StringConfig {
     public static final String cancelItem() {
         return clickItem("cancelGame");
     }
-    // #endregion
+    //#endregion
 
-    // #endregion
+    //#endregion
 
-    // #region Inventory name
+    //#region Inventory name
     private static String inventoryName(String invType) {
         return getDataString("inventoryName." + invType);
     }
@@ -130,9 +130,9 @@ public class StringConfig {
     public static final String setupInventory() {
         return inventoryName("setup");
     }
-    // #endregion
+    //#endregion
 
-    // #region team name
+    //#region team name
     private static String teamName(String team) {
         return getDataString("team." + team);
     }
@@ -152,9 +152,9 @@ public class StringConfig {
     public static final String spectatorName() {
         return teamName("spec");
     }
-    // #endregion
+    //#endregion
 
-    // #region sentence
+    //#region sentence
     private static String sentence(String type) {
         return getDataString("sentence." + type);
     }
@@ -195,7 +195,7 @@ public class StringConfig {
         return sentence("finalPhase");
     }
 
-    // #region Start response
+    //#region Start response
     private static String checkStart(String action) {
         return sentence("checkStart." + action);
     }
@@ -231,9 +231,9 @@ public class StringConfig {
     public static final String quitingReset() {
         return checkStart("quitingReset");
     }
-    // #endregion
+    //#endregion
 
-    // #region time passing by
+    //#region time passing by
     private static String timescales(String moment) {
         return sentence("timescales." + moment);
     }
@@ -253,9 +253,9 @@ public class StringConfig {
     public static final String night() {
         return timescales("night");
     }
-    // #endregion
+    //#endregion
 
-    // #region debug command
+    //#region debug command
     private static String debugCommand(String command) {
         return sentence("debug." + command);
     }
@@ -307,7 +307,7 @@ public class StringConfig {
     public static final String cantFromConsole() {
         return debugCommand("cantFromConsole");
     }
-    // #endregion
-    // #endregion
-    // #endregion
+    //#endregion
+    //#endregion
+    //#endregion
 }

@@ -45,15 +45,15 @@ public class FightToSurvive extends JavaPlugin {
         return Instance().getConfig();
     }
 
-    // #region Game Timer
+    //#region Game Timer
     private GameRunnable gameTimer;
 
     public static GameRunnable getTimer() {
         return Instance().gameTimer;
     }
-    // #endregion
+    //#endregion
 
-    // #region Game State
+    //#region Game State
     private GState state;
 
     private void setGameState(GState newState) {
@@ -63,15 +63,7 @@ public class FightToSurvive extends JavaPlugin {
     public static boolean isGameState(GState state) {
         return Instance().state == state;
     }
-    // #endregion
-
-    // #region HANDLER
-    private final BlockHandler BH = new BlockHandler();
-
-    public BlockHandler BH() {
-        return BH;
-    }
-    // #endregion
+    //#endregion
 
     private ScoreboardManager scoreboardManager;
 
@@ -197,7 +189,7 @@ public class FightToSurvive extends JavaPlugin {
             HandlePlayerState.setPlayer(player);
         }
 
-        BH.resetContainers();
+        BlockHandler.resetContainers();
         WaveHandler.Instance().resetSpawnedEntity();
         FinalPhaseHandler.Instance().off();
     }
@@ -214,7 +206,7 @@ public class FightToSurvive extends JavaPlugin {
 
         if (winner != null) {
             ChatHandler.toAllPlayer(StringConfig.end(winner));
-            TitleHandler.toAllPlayer(StringConfig.end(winner), "");
+            TitleHandler.toAllPlayer(StringConfig.end(winner));
         }
         else {
             ChatHandler.toAllPlayer("No winning team this time ... All players dies");
@@ -256,7 +248,7 @@ public class FightToSurvive extends JavaPlugin {
 
         setGameState(GState.WAITING);
 
-        // #region set all listeners
+        //#region set all listeners
         Listener[] listeners = {
                 new PlayerListeners(this),
                 new DoorListeners(this),
@@ -265,9 +257,9 @@ public class FightToSurvive extends JavaPlugin {
                 new ServerListener(this)
         };
         registerEvent(listeners);
-        // #endregion
+        //#endregion
 
-        // #region command declaration
+        //#region command declaration
         String[] partyCommand = { "start", "cancelStart", "reset", "forceFinal" };
         enableCommand(partyCommand, new PartyCommand());
 
@@ -276,7 +268,7 @@ public class FightToSurvive extends JavaPlugin {
 
         String[] debugMob = { "mob_zombie", "hologram", "killhologram" };
         enableCommand(debugMob, new SpawnMobs());
-        // #endregion
+        //#endregion
 
         Scoreboard sb = getServer().getScoreboardManager().getMainScoreboard();
 

@@ -3,6 +3,7 @@ package me.bukkit.Infernaton.listeners;
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.builder.clock.BreakBlockClock;
+import me.bukkit.Infernaton.handler.BlockHandler;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.HandlePlayerState;
 import me.bukkit.Infernaton.store.Constants;
@@ -93,7 +94,7 @@ public class BlockListener implements Listener {
 
         if (player.getGameMode() == GameMode.ADVENTURE && FightToSurvive.isGameState(GState.PLAYING) && b != null
                 && containers.contains(b.getType())) {
-            main.BH().addContainers(b);
+            BlockHandler.addContainers(b);
         }
     }
 }

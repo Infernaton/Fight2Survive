@@ -12,20 +12,29 @@ public class BlockHandler {
 
     private List<Block> containers = new ArrayList<>();
 
+    private static BlockHandler self;
+
+    public static BlockHandler Instance() {
+        if (self == null) {
+            self = new BlockHandler();
+        }
+        return self;
+    }
+
     /**
      * Add block Containers to a list (Chest, furnace ...)
      * 
      * @param block the container
      */
-    public void addContainers(Block block) {
-        containers.add(block);
+    public static void addContainers(Block block) {
+        self.containers.add(block);
     }
 
     /**
      * Reset the content of the container list
      */
-    public void resetContainers() {
-        for (Block b : containers) {
+    public static void resetContainers() {
+        for (Block b : self.containers) {
             MaterialData md = b.getState().getData();
             byte blockByte = b.getData();
             Material temp = b.getType();
@@ -34,7 +43,7 @@ public class BlockHandler {
             b.setData(blockByte);
             b.getState().setData(md);
         }
-        containers = new ArrayList<>();
+        self.containers = new ArrayList<>();
     }
 
     public static void setMaterial(Block block, MaterialData mat) {

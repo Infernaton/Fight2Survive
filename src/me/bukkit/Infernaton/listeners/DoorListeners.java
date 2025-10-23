@@ -72,7 +72,8 @@ public class DoorListeners implements Listener {
 
         if (door.tryToOpen(player)) {
             ChatHandler.toAllPlayer(StringConfig.openDoors());
-            FinalPhaseHandler.Instance().asking(door.isLastDoor());
+            if (door.isLastDoor())
+                FinalPhaseHandler.Instance().activateAnimation();
         } else {
             ChatHandler.sendError(player, "You don't have enough resources to pay.");
         }
