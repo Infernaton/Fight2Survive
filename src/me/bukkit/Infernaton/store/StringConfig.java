@@ -1,14 +1,12 @@
 package me.bukkit.Infernaton.store;
 
-import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.builder.Team;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StringConfig {
+public class StringConfig extends Config {
     public static List<String> makePlayerList(List<Player> playerList) {
         List<String> str = new ArrayList<>();
         for (Player p : playerList) {
@@ -18,14 +16,10 @@ public class StringConfig {
     }
 
     //#region get Data from config
-    private static String getDataString(String key) {
-        return ChatColor.translateAlternateColorCodes('§',
-                FightToSurvive.GetConfig().getString("string." + key));
-    }
 
     //#region PNJ Name
     private static String pnjName(String zone) {
-        return getDataString("pnjName." + zone);
+        return getString("pnjName." + zone);
     }
 
     public static final String pnjWood() {
@@ -59,16 +53,16 @@ public class StringConfig {
 
     //#region item name
     public static final String compassName() {
-        return getDataString("navCompass");
+        return getString("navCompass");
     }
 
     public static final String keyName() {
-        return getDataString("keyItem");
+        return getString("keyItem");
     }
 
     //#region menu item
     private static String clickItem(String itemName) {
-        return getDataString("clickInventory." + itemName);
+        return getString("clickInventory." + itemName);
     }
 
     public static final String launch() {
@@ -112,7 +106,7 @@ public class StringConfig {
 
     //#region Inventory name
     private static String inventoryName(String invType) {
-        return getDataString("inventoryName." + invType);
+        return getString("inventoryName." + invType);
     }
 
     public static final String teamInventory() {
@@ -134,7 +128,7 @@ public class StringConfig {
 
     //#region team name
     private static String teamName(String team) {
-        return getDataString("team." + team);
+        return getString("team." + team);
     }
 
     public static final String redTeamName() {
@@ -156,7 +150,7 @@ public class StringConfig {
 
     //#region sentence
     private static String sentence(String type) {
-        return getDataString("sentence." + type);
+        return getString("sentence." + type);
     }
 
     public static final String secondLeft(int second) {
@@ -309,5 +303,6 @@ public class StringConfig {
     }
     //#endregion
     //#endregion
+
     //#endregion
 }

@@ -4,10 +4,7 @@ import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.WaveHandler;
-import me.bukkit.Infernaton.store.Constants;
-import me.bukkit.Infernaton.store.CoordStorage;
-import me.bukkit.Infernaton.store.CustomItem;
-import me.bukkit.Infernaton.store.StringConfig;
+import me.bukkit.Infernaton.store.*;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -129,7 +126,7 @@ public class GameRunnable implements Runnable {
             if (!coolDownLoc.containsKey(loc.toString())) {
                 boolean isSpawned = CustomItem.spawnItem(loc, new ItemStack(Material.APPLE), Player.class);
                 if (isSpawned)
-                    coolDownLoc.put(loc.toString(), Constants.appleSpawningCooldown);
+                    coolDownLoc.put(loc.toString(), Config.getAppleSpawnCoolDown());
             }
         }
 

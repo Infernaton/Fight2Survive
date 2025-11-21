@@ -1,70 +1,3 @@
-string:
-  pnjName:
-    wood: "Bob"
-    coal: "Didier"
-    gold1: "Rodrigues de Pomero"
-    gold2: "André de Pomero"
-    iron: "Jean-Pierre Fanguin"
-    diam: "Baruk, the collector"
-    lapis: "Fabala, the enchanter"
-  clickInventory:
-    launchGame: "§2StartGame"
-    red: "§4Red Team"
-    blue: "§1Blue Team"
-    random: "§8Random"
-    spectator: "§7Spectator"
-    option: "§fOptions"
-    setup: "§fSetup"
-    return: "§fBack"
-    cancelGame: "§4CancelGame"
-  inventoryName:
-    team: "§7Team"
-    cancelStart: "§7CancelStart"
-    options: "§7Options"
-    setup: "§7Setup"
-  sentence:
-    secondLeft: "<x> seconds left !"
-    needOp: "You need to be an operator to do this action."
-    start: "§eStart the Game!"
-    reset: "Reseting the map"
-    end: "<team> team has won !"
-    teleport: "Teleporting player back to lobby ..."
-    avoidBreaking: "Can't break this block"
-    opDoors: "A door was opened"
-    finalPhase: "A team has open their last door. The final Phase is about de begin..."
-    checkStart:
-      launched: "Initialize the countdown..."
-      countdownStarted: "CountDown already launch."
-      needPlayers: "Not enough players."
-      alreadyLaunched: "Party already started!"
-      cancelStart: "Launch canceled."
-      noCountdown: "Any countdown aren't set right now."
-      noGame: "No game are playing right now."
-      quitingReset: "Not enough player remaining, resetting the game."
-    timescales:
-      nearNight: "The moon appears soon, be careful of monster..."
-      nearDay: "The sun is rising, a little rest for you."
-      night: "Night Time"
-      day: "Day Time"
-    debug:
-      setPlayer: "§a<player>§f <be> ready to play"
-      getDoors: "Resetting all doors..."
-      delDoors: "Deleting all doors..."
-      setVill: "Spawning all villagers..."
-      killVill: "Killing all villagers..."
-      giveKey: "Giving the Key !"
-      notPlayer: "Player not found"
-      tooManyArgument: "Too many argument."
-      correctUsage: "Usage: /<command> <args>"
-      cantWhilePlaying: "Can't perform this command while the game is pending."
-      cantFromConsole: "Can't perform this action from the console"
-  team:
-    red: "Red"
-    blue: "Blue"
-    random: "Random"
-    spec: "Spectators"
-  navCompass: "§aNavigation"
-  keyItem: "§9KEY"
 coordinates:
   lobby:
     x: 0.5
@@ -255,13 +188,81 @@ teamData:
       z: 83.5
       yaw: -135.0
       pitch: 0.0
-
-#copies:
-#      1:
-#        x: -26.0
-#        y: 57.0
-#        z: 94.0
-#      2:
-#        x: 26.0
-#        y: 57.0
-#        z: 94.0
+string:
+  pnjName:
+    wood: "Bob"
+    coal: "Didier"
+    gold1: "Rodrigues de Pomero"
+    gold2: "André de Pomero"
+    iron: "Jean-Pierre Fanguin"
+    diam: "Baruk, the collector"
+    lapis: "Fabala, the enchanter"
+  clickInventory:
+    launchGame: "§2StartGame"
+    red: "§4Red Team"
+    blue: "§1Blue Team"
+    random: "§8Random"
+    spectator: "§7Spectator"
+    option: "§fOptions"
+    setup: "§fSetup"
+    return: "§fBack"
+    cancelGame: "§4CancelGame"
+  inventoryName:
+    team: "§7Team"
+    cancelStart: "§7CancelStart"
+    options: "§7Options"
+    setup: "§7Setup"
+  sentence:
+    secondLeft: "<x> seconds left !"
+    needOp: "You need to be an operator to do this action."
+    start: "§eStart the Game!"
+    reset: "Reseting the map"
+    end: "<team> team has won !"
+    teleport: "Teleporting player back to lobby ..."
+    avoidBreaking: "Can't break this block"
+    opDoors: "A door was opened"
+    finalPhase: "A team has open their last door. The final Phase is about de begin..."
+    checkStart:
+      launched: "Initialize the countdown..."
+      countdownStarted: "CountDown already launch."
+      needPlayers: "Not enough players."
+      alreadyLaunched: "Party already started!"
+      cancelStart: "Launch canceled."
+      noCountdown: "Any countdown aren't set right now."
+      noGame: "No game are playing right now."
+      quitingReset: "Not enough player remaining, resetting the game."
+    timescales:
+      nearNight: "The moon appears soon, be careful of monster..."
+      nearDay: "The sun is rising, a little rest for you."
+      night: "Night Time"
+      day: "Day Time"
+    debug:
+      setPlayer: "§a<player>§f <be> ready to play"
+      getDoors: "Resetting all doors..."
+      delDoors: "Deleting all doors..."
+      setVill: "Spawning all villagers..."
+      killVill: "Killing all villagers..."
+      giveKey: "Giving the Key !"
+      notPlayer: "Player not found"
+      tooManyArgument: "Too many argument."
+      correctUsage: "Usage: /<command> <args>"
+      cantWhilePlaying: "Can't perform this command while the game is pending."
+      cantFromConsole: "Can't perform this action from the console"
+  team:
+    red: "Red"
+    blue: "Blue"
+    random: "Random"
+    spec: "Spectators"
+  navCompass: "§aNavigation"
+  keyItem: "§9KEY"
+cooldown:
+  # CoolDown in seconds
+  default: 10
+  ironOre: 20
+  diamondOre: 45
+  lapisOre: 25
+  apple: 15
+options:
+  autoSmelt: false
+  uhc: true
+  deathMatch: false

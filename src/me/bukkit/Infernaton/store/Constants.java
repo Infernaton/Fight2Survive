@@ -16,7 +16,6 @@ import java.util.*;
  */
 public class Constants {
 
-    public final static int appleSpawningCooldown = 15;
     public final static float mobSpawnChance = 1; // Base % to spawn each second
     public final static float mobSpawnChanceMultiplier = 0.1f; // pts to add to upgrade the percentage of mob spawning
 
@@ -40,26 +39,6 @@ public class Constants {
                 StringConfig.pnjDiam(),
                 StringConfig.pnjLapis()
         };
-    }
-
-    /**
-     * define all the cooldown for blocks
-     * 
-     * @todo define this on config file or option menu
-     * @return Integer Countdown in second
-     */
-    public static Integer cooldownBlock(Material block) {
-        switch (block) {
-            case IRON_ORE: return 20;
-            case DIAMOND_ORE: return 45;
-            case LAPIS_ORE: return 25;
-
-            case LOG:
-            case COBBLESTONE:
-            case COAL_ORE:
-            default:
-                return 10;
-        }
     }
 
     public static Map<String, MerchantRecipe> getAllTrade() {

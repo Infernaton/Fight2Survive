@@ -6,7 +6,7 @@ import me.bukkit.Infernaton.builder.clock.BreakBlockClock;
 import me.bukkit.Infernaton.handler.BlockHandler;
 import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.HandlePlayerState;
-import me.bukkit.Infernaton.store.Constants;
+import me.bukkit.Infernaton.store.Config;
 import me.bukkit.Infernaton.store.CustomItem;
 import me.bukkit.Infernaton.store.StringConfig;
 
@@ -57,7 +57,7 @@ public class BlockListener implements Listener {
             return;
         }
 
-        Integer cd = Constants.cooldownBlock(block.getType());
+        Integer cd = Config.getCoolDownBlock(block.getType());
         new BreakBlockClock(cd, block);
         // Give the player the given block to its inventory (replacing the block will
         // not drop the item)
