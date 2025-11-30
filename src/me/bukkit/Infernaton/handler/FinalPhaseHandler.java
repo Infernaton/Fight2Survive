@@ -51,7 +51,7 @@ public class FinalPhaseHandler {
         }
 
         // Will remove every spawned mobs if this options is activated
-        if (Config.getDeathMatchState()) {
+        if (!Config.getDeathMatchState()) {
             WaveHandler.Instance().resetSpawnedEntity();
             ChatHandler.toAllPlayer("All spawned mobs has been removed.");
         }

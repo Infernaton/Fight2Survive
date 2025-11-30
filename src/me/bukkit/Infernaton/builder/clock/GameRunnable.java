@@ -35,6 +35,9 @@ public class GameRunnable implements Runnable {
         this.coolDownLoc = new HashMap<>();
         if (Config.getGameTimeState() == GameTime.Night) {
             isDay = false;
+            changeDay(16000, "Activate eternal night... Mobs will come endlessly.");
+        } else if (Config.getGameTimeState() == GameTime.Day) {
+            ChatHandler.toAllPlayer("Eternal day activated ! A peaceful game is coming.");
         }
     }
 

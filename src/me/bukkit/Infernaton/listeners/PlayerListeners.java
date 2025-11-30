@@ -7,7 +7,6 @@ import me.bukkit.Infernaton.handler.ChatHandler;
 import me.bukkit.Infernaton.handler.FinalPhaseHandler;
 import me.bukkit.Infernaton.handler.HandlePlayerState;
 import me.bukkit.Infernaton.store.*;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
