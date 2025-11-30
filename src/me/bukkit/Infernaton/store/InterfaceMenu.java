@@ -52,6 +52,7 @@ public class InterfaceMenu {
         inv.setItem(9, CustomItem.autoSmelt());
         inv.setItem(10, CustomItem.UHC());
         inv.setItem(11, CustomItem.deathMatch());
+        inv.setItem(12, CustomItem.gameTime());
         return inv;
     }
 

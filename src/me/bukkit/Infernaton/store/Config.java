@@ -1,7 +1,7 @@
 package me.bukkit.Infernaton.store;
 
 import me.bukkit.Infernaton.FightToSurvive;
-import me.bukkit.Infernaton.handler.FinalPhaseHandler;
+import me.bukkit.Infernaton.store.options.GameTime;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -28,6 +28,10 @@ public class Config {
 
     protected static boolean getBool(String key) {
         return config().getBoolean(key, false);
+    }
+
+    protected static byte getByte(String key) {
+        return (byte) config().getInt(key, 0);
     }
     //#endregion
 
@@ -80,6 +84,16 @@ public class Config {
         return getOptionsState("deathMatch");
     }
 
+    public static GameTime getGameTimeState() {
+        byte option = getByte("options.gameTime");
+        switch (option) {
+            case 2: return GameTime.Night;
+            case 1: return GameTime.Day;
+            default:
+            case 0: return GameTime.Off;
+        }
+    }
+
     public static void toggleAutoSmelt() {
         toggleOption("autoSmelt");
     }
@@ -88,5 +102,13 @@ public class Config {
     }
     public static void toggleDeathMatch() {
         toggleOption("deathMatch");
+    }
+
+    public static void toggleGameTime() {
+        byte option = getByte("options.gameTime");
+        option++;
+        if (option > 2) option = 0;
+        System.out.println(option);
+        setValue("options.gameTime", option);
     }
 }

@@ -1,6 +1,7 @@
 package me.bukkit.Infernaton.store;
 
 import me.bukkit.Infernaton.builder.ItemBuilder;
+import me.bukkit.Infernaton.store.options.GameTime;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.NBTTagList;
 import net.minecraft.server.v1_8_R3.NBTTagString;
@@ -119,6 +120,16 @@ public class CustomItem {
         boolean state = Config.getDeathMatchState();
         return optionsWool(state).setName("§fFinal Phase with Mobs")
                 .setLore("During Final phase, mobs" + (state ? " §awill" : " §1won't") + " appear.")
+                .toItemStack();
+    }
+
+    public static ItemStack gameTime() {
+        GameTime state = Config.getGameTimeState();
+        return optionsWool(state != GameTime.Off).setName("§fOnly Day/Night")
+                .setLore("Only a certain time of the day.",
+                        (state == GameTime.Off ? "§a" : "§1") + ">> Off",
+                        (state == GameTime.Day ? "§a" : "§1") + ">> Only Day",
+                        (state == GameTime.Night ? "§a" : "§1") + ">> Only Night")
                 .toItemStack();
     }
 

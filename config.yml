@@ -266,3 +266,4 @@ options:
   autoSmelt: false
   uhc: true
   deathMatch: false
+  gameTime: 0

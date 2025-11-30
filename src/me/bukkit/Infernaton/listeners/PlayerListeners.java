@@ -137,6 +137,8 @@ public class PlayerListeners implements Listener {
             if (CustomItem.comparator(current, CustomItem.returnArrow())) {
                 Sounds.selectingOptions(player);
                 player.openInventory(InterfaceMenu.selectTeam());
+            } else if (!player.isOp() && !CustomItem.comparator(current, CustomItem.separator())) {
+                ChatHandler.sendError(player, StringConfig.needOp());
             } else if (CustomItem.comparator(current, CustomItem.autoSmelt())) {
                 Config.toggleAutoSmelt();
                 inv.setItem(9, CustomItem.autoSmelt());
@@ -148,6 +150,10 @@ public class PlayerListeners implements Listener {
             } else if (CustomItem.comparator(current, CustomItem.deathMatch())) {
                 Config.toggleDeathMatch();
                 inv.setItem(11, CustomItem.deathMatch());
+                Sounds.selectingOptions(player);
+            } else if (CustomItem.comparator(current, CustomItem.gameTime())) {
+                Config.toggleGameTime();
+                inv.setItem(12, CustomItem.gameTime());
                 Sounds.selectingOptions(player);
             }
         }

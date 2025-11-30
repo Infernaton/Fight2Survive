@@ -5,9 +5,10 @@ Minecraft Plugin for 1.8.9
 ### To Do 1.4
 -   Marchand Custom :
 -   Options menu :
-    -   Auto smelt
-    -   Activé mode UHC uniquement en phase final
-    -   Disparition des mobs quand phase finale commence
+    -   ~~Auto smelt~~
+    -   ~~Activé mode UHC uniquement en phase final~~
+    -   ~~Disparition des mobs quand phase finale commence~~
+    -   Only day / only night
 
 ### Fix
 
@@ -20,9 +21,9 @@ Minecraft Plugin for 1.8.9
 -   Random Event
 -   Options / Config de jeu au start
     -   Random Event
-    -   Only day / only night
     -   Craft/Items custom prédéfinis :
         -   Oeuf de golem
+        -   Les cléfs physique serviront à ouvrir n'importe quelle porte en cliquant dessus, en oubliant son prix initial (voir pour ajouter le trader dans la zone de l'or)
         -   Pouvoir se téléporter dans le camps ennemis pendant un certain temps (~30s) ?
 -   Ajouter du gravier + pelle / voir pour les plumes
 -   Voir pour ajouter des barrier\border pour la fin du jeu
@@ -32,7 +33,6 @@ Minecraft Plugin for 1.8.9
 -   Amélioration du starter kit au déblocage des salles
 -   Diversité des mobs spawn
 -   Faire une salle pour les potions
--   Les cléfs physique serviront à ouvrir n'importe quelle porte en cliquant dessus, en oubliant son prix initial (voir pour ajouter le trader dans la zone de l'or)
 -   Voir pour remplacer les loots des blocks dérivés
 -   Ajout d'un inventaire custom au start
 
