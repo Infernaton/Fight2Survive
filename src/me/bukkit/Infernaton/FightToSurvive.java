@@ -226,6 +226,8 @@ public class FightToSurvive extends JavaPlugin {
                 if (time == 0) {
                     ChatHandler.toAllPlayer(StringConfig.teleport());
                     FightToSurvive.this.reset();
+                    stopCountdown(id);
+                    return;
                 }
                 for (Player p : finalWinner.getPlayers()) {
                     Location highest = CoordStorage.getRandomHighestAround(p.getLocation(), 5, 5);

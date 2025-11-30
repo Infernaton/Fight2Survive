@@ -36,7 +36,7 @@ public class BlockHandler {
      * Reset the content of the container list
      */
     public static void resetContainers() {
-        for (Block b : self.containers) {
+        for (Block b : Instance().containers) {
             MaterialData md = b.getState().getData();
             byte blockByte = b.getData();
             Material temp = b.getType();
@@ -45,7 +45,7 @@ public class BlockHandler {
             b.setData(blockByte);
             b.getState().setData(md);
         }
-        self.containers = new ArrayList<>();
+        Instance().containers = new ArrayList<>();
     }
 
     public static void setMaterial(Block block, MaterialData mat) {

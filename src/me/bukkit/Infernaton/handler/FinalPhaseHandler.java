@@ -45,8 +45,8 @@ public class FinalPhaseHandler {
         Sounds.finalPhaseSound();
 
         // In case the options to deactivate naturalRegeneration has been activate
-        if (!Config.getUHCState()) {
-            Bukkit.getWorld(worldName).setGameRuleValue("naturalRegeneration", "true");
+        if (Config.getUHCState()) {
+            Bukkit.getWorld(worldName).setGameRuleValue("naturalRegeneration", "false");
             ChatHandler.toAllPlayer("Natural Regeneration has been deactivated.");
         }
 
