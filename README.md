@@ -3,12 +3,16 @@
 Minecraft Plugin for 1.8.9
 
 ### To Do 1.4
--   Marchand Custom :
+-   Setup menu :
+    -   Cooldown
+    -   Day/Night duration
+    -   Mobs Spawning chance
+    -   mobSpawnChanceMultiplier
 -   Options menu :
     -   ~~Auto smelt~~
     -   ~~Activé mode UHC uniquement en phase final~~
     -   ~~Disparition des mobs quand phase finale commence~~
-    -   Only day / only night
+    -   ~~Only day / only night~~
 
 ### Fix
 
