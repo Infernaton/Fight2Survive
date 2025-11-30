@@ -10,6 +10,7 @@ import me.bukkit.Infernaton.store.Config;
 import me.bukkit.Infernaton.store.CustomItem;
 import me.bukkit.Infernaton.store.StringConfig;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -62,6 +63,7 @@ public class BlockListener implements Listener {
         // Give the player the given block to its inventory (replacing the block will
         // not drop the item)
         for (ItemStack itemStack : block.getDrops()) {
+            if (Config.getAutoSmeltState()) itemStack = BlockHandler.getSmeltingResult(itemStack);
             CustomItem.giveItem(player, itemStack);
         }
 
@@ -74,6 +76,7 @@ public class BlockListener implements Listener {
         // Replace the broken block with bedrock, to prevent that player to dig through
         // the ground and getting stuck
         event.getBlock().setType(Material.BEDROCK);
+        
     }
 
     /**

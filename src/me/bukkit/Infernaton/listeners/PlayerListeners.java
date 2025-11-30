@@ -137,6 +137,18 @@ public class PlayerListeners implements Listener {
             if (CustomItem.comparator(current, CustomItem.returnArrow())) {
                 Sounds.selectingOptions(player);
                 player.openInventory(InterfaceMenu.selectTeam());
+            } else if (CustomItem.comparator(current, CustomItem.autoSmelt())) {
+                Config.toggleAutoSmelt();
+                inv.setItem(9, CustomItem.autoSmelt());
+                Sounds.selectingOptions(player);
+            } else if (CustomItem.comparator(current, CustomItem.UHC())) {
+                Config.toggleUHC();
+                inv.setItem(10, CustomItem.UHC());
+                Sounds.selectingOptions(player);
+            } else if (CustomItem.comparator(current, CustomItem.deathMatch())) {
+                Config.toggleDeathMatch();
+                inv.setItem(11, CustomItem.deathMatch());
+                Sounds.selectingOptions(player);
             }
         }
 

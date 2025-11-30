@@ -49,6 +49,9 @@ public class InterfaceMenu {
         Inventory inv = Bukkit.createInventory(null, 45, StringConfig.optionInventory());
 
         separatorLine(inv, 0, createException(0, CustomItem.returnArrow()));
+        inv.setItem(9, CustomItem.autoSmelt());
+        inv.setItem(10, CustomItem.UHC());
+        inv.setItem(11, CustomItem.deathMatch());
         return inv;
     }
 

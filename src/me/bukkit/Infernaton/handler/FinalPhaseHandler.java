@@ -1,9 +1,13 @@
 package me.bukkit.Infernaton.handler;
 
 import me.bukkit.Infernaton.builder.clock.CountDown;
+import me.bukkit.Infernaton.store.Config;
 import me.bukkit.Infernaton.store.Sounds;
 
 import me.bukkit.Infernaton.store.StringConfig;
+import org.bukkit.Bukkit;
+
+import static me.bukkit.Infernaton.store.CoordStorage.worldName;
 
 /**
  * Handle the Final Phase, were player can't respawn and mean the end of the
@@ -39,6 +43,18 @@ public class FinalPhaseHandler {
         TitleHandler.toAllPlayer("§lThe Final Phase Begins", "§c§oAll remaining doors are now opened");
         DoorHandler.deleteAllDoors();
         Sounds.finalPhaseSound();
+
+        // In case the options to deactivate naturalRegeneration has been activate
+        if (!Config.getUHCState()) {
+            Bukkit.getWorld(worldName).setGameRuleValue("naturalRegeneration", "true");
+            ChatHandler.toAllPlayer("Natural Regeneration has been deactivated.");
+        }
+
+        // Will remove every spawned mobs if this options is activated
+        if (Config.getDeathMatchState()) {
+            WaveHandler.Instance().resetSpawnedEntity();
+            ChatHandler.toAllPlayer("All spawned mobs has been removed.");
+        }
     }
 
     public void activateAnimation() {

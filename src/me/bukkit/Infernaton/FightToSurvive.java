@@ -157,6 +157,7 @@ public class FightToSurvive extends JavaPlugin {
                 player.removePotionEffect(effect.getType());
         }
         setGameState(GState.PLAYING);
+        Bukkit.getWorld(worldName).setGameRuleValue("naturalRegeneration", String.valueOf(Config.getUHCState()));
 
         // Spawning the villager after the player begin the party. Its to make sure all
         // entity are set.

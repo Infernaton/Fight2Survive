@@ -16,7 +16,10 @@ import org.bukkit.util.Vector;
 
 import static me.bukkit.Infernaton.store.CoordStorage.worldName;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Store all the specific item of the game
@@ -88,6 +91,38 @@ public class CustomItem {
     public static ItemStack options() {
         return new ItemBuilder(Material.WATCH, 1).setName(StringConfig.optionItem()).toItemStack();
     }
+
+    //#region Options item
+
+    private static ItemBuilder optionsWool(boolean optionState) {
+        return new ItemBuilder(Material.WOOL, 1, (byte) (optionState ? 5 : 7));
+    }
+
+    public static ItemStack autoSmelt() {
+        boolean state = Config.getAutoSmeltState();
+        return optionsWool(state).setName("§fAuto Smelting")
+                .setLore("Mining a block that can be smelt in a furnace",
+                        "will automatically drops the smelt result.")
+                .toItemStack();
+    }
+
+    public static ItemStack UHC() {
+        boolean state = Config.getUHCState();
+        return optionsWool(state).setName("§fNatural Regeneration")
+                .setLore("Natural regeneration during preparation",
+                        "phase will be" + (state ? " §aactivate." : " §1deactivate."),
+                        "During the final phase, it will always be off.")
+                .toItemStack();
+    }
+
+    public static ItemStack deathMatch() {
+        boolean state = Config.getDeathMatchState();
+        return optionsWool(state).setName("§fFinal Phase with Mobs")
+                .setLore("During Final phase, mobs" + (state ? " §awill" : " §1won't") + " appear.")
+                .toItemStack();
+    }
+
+    //#endregion
 
     public static ItemStack setup() {
         return new ItemBuilder(Material.IRON_PICKAXE, 1).setName(StringConfig.setupItem()).toItemStack();
@@ -199,6 +234,7 @@ public class CustomItem {
     public static ItemStack goldHoe() {
         return new ItemBuilder(Material.GOLD_HOE).setInfinityDurability().toItemStack();
     }
+    //#endregion
 
     //#region spawn item
     public static boolean spawnItem(Location loc, ItemStack it) {

@@ -3,6 +3,7 @@ package me.bukkit.Infernaton.builder.clock;
 import me.bukkit.Infernaton.FightToSurvive;
 import me.bukkit.Infernaton.GState;
 import me.bukkit.Infernaton.handler.ChatHandler;
+import me.bukkit.Infernaton.handler.FinalPhaseHandler;
 import me.bukkit.Infernaton.handler.WaveHandler;
 import me.bukkit.Infernaton.store.*;
 
@@ -83,7 +84,10 @@ public class GameRunnable implements Runnable {
         // If it's night, each tick => percentage of chance that a mobs will spawn for
         // each
         // => Percentage go up each round/level
-        if (!isDay) {
+        // ----
+        // If Death Match options + FinalPhase is enabled, no mobs can spawn
+        if (!isDay &&
+                (!FinalPhaseHandler.Instance().isActive() || FinalPhaseHandler.Instance().isActive() && !Config.getDeathMatchState())) {
             WaveHandler wh = WaveHandler.Instance();
             List<Player> playerList = Constants.getAllTeamsPlayer();
             for (Player player : playerList) {

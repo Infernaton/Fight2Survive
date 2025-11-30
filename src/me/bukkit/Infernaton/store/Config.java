@@ -1,6 +1,7 @@
 package me.bukkit.Infernaton.store;
 
 import me.bukkit.Infernaton.FightToSurvive;
+import me.bukkit.Infernaton.handler.FinalPhaseHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -32,6 +33,7 @@ public class Config {
 
     protected static void setValue(String key, Object newValue) {
         config().set(key, newValue);
+        FightToSurvive.Instance().saveConfig();
     }
 
     //#region cooldown related

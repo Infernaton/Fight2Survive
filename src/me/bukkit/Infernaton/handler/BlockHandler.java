@@ -1,8 +1,10 @@
 package me.bukkit.Infernaton.handler;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 
 import java.util.ArrayList;
@@ -58,5 +60,16 @@ public class BlockHandler {
 
     public static void remove(Location loc) {
         setMaterial(loc, new MaterialData(Material.AIR));
+    }
+
+    public static ItemStack getSmeltingResult(ItemStack it) {
+        switch (it.getType()) {
+            case IRON_ORE:
+                return new ItemStack(Material.IRON_INGOT, it.getAmount());
+            case GOLD_ORE:
+                return new ItemStack(Material.GOLD_INGOT, it.getAmount());
+            default:
+                return it;
+        }
     }
 }
