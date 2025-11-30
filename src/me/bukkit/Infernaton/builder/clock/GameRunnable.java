@@ -7,6 +7,7 @@ import me.bukkit.Infernaton.handler.FinalPhaseHandler;
 import me.bukkit.Infernaton.handler.WaveHandler;
 import me.bukkit.Infernaton.store.*;
 
+import me.bukkit.Infernaton.store.options.GameTime;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -32,6 +33,9 @@ public class GameRunnable implements Runnable {
 
     private GameRunnable() {
         this.coolDownLoc = new HashMap<>();
+        if (Config.getGameTimeState() == GameTime.Night) {
+            isDay = false;
+        }
     }
 
     public static GameRunnable newCountDown(FightToSurvive main) {
@@ -110,17 +114,20 @@ public class GameRunnable implements Runnable {
             }
         }
 
-        // Warning all player of the change of the time
-        if ((countdownStarter + 5) % dayTime == 0) {
-            ChatHandler.toAllPlayer(isDay ? StringConfig.nearNight() : StringConfig.nearDay());
-        }
-        // Changing the current time
-        if (countdownStarter % dayTime == 0) {
-            isDay = !isDay;
-            if (isDay) {
-                changeDay(1000, StringConfig.day());
-            } else {
-                changeDay(16000, StringConfig.night());
+        // If the options is active, there is no switch between time of the day
+        if (Config.getGameTimeState() == GameTime.Off) {
+            // Warning all player of the change of the time
+            if ((countdownStarter + 5) % dayTime == 0) {
+                ChatHandler.toAllPlayer(isDay ? StringConfig.nearNight() : StringConfig.nearDay());
+            }
+            // Changing the current time
+            if (countdownStarter % dayTime == 0) {
+                isDay = !isDay;
+                if (isDay) {
+                    changeDay(1000, StringConfig.day());
+                } else {
+                    changeDay(16000, StringConfig.night());
+                }
             }
         }
 
