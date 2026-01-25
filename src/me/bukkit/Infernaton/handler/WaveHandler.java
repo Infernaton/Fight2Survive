@@ -5,6 +5,7 @@ import static me.bukkit.Infernaton.store.CoordStorage.worldName;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.bukkit.Infernaton.store.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -47,8 +48,8 @@ public class WaveHandler {
         // Because the time need to be only for the night, the simpliest way to
         // represent that is to divide current time by 2
         // (day and night last the same time)
-        return Constants.mobSpawnChance
-                + (Constants.mobSpawnChanceMultiplier * (FightToSurvive.getTimer().getTime() / 2) / 3);
+        return Config.getMobSpawnChance()
+                + (Config.getMobSpawnChanceMultiplier() * (FightToSurvive.getTimer().getTime() / 2) / 3);
         // + 1 min => + 1%
     }
 

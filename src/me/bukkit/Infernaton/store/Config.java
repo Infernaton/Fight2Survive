@@ -26,6 +26,14 @@ public class Config {
         return getInt(key, 0);
     }
 
+    protected static float getFloat(String key, float _default) {
+        return (float)config().getDouble(key, _default);
+    }
+
+    protected static float getFloat(String key) {
+        return  getFloat(key, 0);
+    }
+
     protected static boolean getBool(String key) {
         return config().getBoolean(key, false);
     }
@@ -40,9 +48,11 @@ public class Config {
         FightToSurvive.Instance().saveConfig();
     }
 
+    //#region setup
+
     //#region cooldown related
     private static int getCoolDown(String key) {
-        return getInt("cooldown." + key, getInt("cooldown.default"));
+        return getInt("setup.cooldown." + key, getInt("cooldown.default"));
     }
     /**
      * define all the cooldown for blocks
@@ -67,6 +77,26 @@ public class Config {
     }
     //#endregion
 
+    //#region mob spawning
+
+    /**
+     * Base % to spawn each second
+     */
+    public static float getMobSpawnChance() {
+        return getFloat("setup.mobSpawn.spawnChance");
+    }
+
+    /**
+     * pts to add to increase the percentage of mob spawning
+     */
+    public static float getMobSpawnChanceMultiplier() {
+        return getFloat("setup.mobSpawn.chanceMultiplier");
+    }
+
+    //endregion
+
+    //#endregion
+
     private static boolean getOptionsState(String option) {
         return getBool("options." + option);
     }
@@ -74,16 +104,30 @@ public class Config {
         setValue("options." + option, !getOptionsState(option));
     }
 
+    /**
+     * No need to use Furnace anymore, Ore will directly be smelt when mine
+     */
     public static boolean getAutoSmeltState() {
         return getOptionsState("autoSmelt");
     }
+
+    /**
+     * Deactivate the passive regeneration in minecraft before the final phase (will always be true during that time)
+     */
     public static boolean getUHCState() {
         return getOptionsState("uhc");
     }
+
+    /**
+     * Define if mob will spawn during the final phase (and kill all the remaining upon activation)
+     */
     public static boolean getDeathMatchState() {
         return getOptionsState("deathMatch");
     }
 
+    /**
+     *  Define the time of day during the game
+     */
     public static GameTime getGameTimeState() {
         byte option = getByte("options.gameTime");
         switch (option) {
@@ -108,7 +152,6 @@ public class Config {
         byte option = getByte("options.gameTime");
         option++;
         if (option > 2) option = 0;
-        System.out.println(option);
         setValue("options.gameTime", option);
     }
 }

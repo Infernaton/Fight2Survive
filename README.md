@@ -4,7 +4,7 @@ Minecraft Plugin for 1.8.9
 
 ### To Do 1.4
 -   Setup menu :
-    -   Cooldown
+    -   Cooldown break block
     -   Day/Night duration
     -   Mobs Spawning chance
     -   mobSpawnChanceMultiplier
@@ -29,7 +29,8 @@ Minecraft Plugin for 1.8.9
         -   Oeuf de golem
         -   Les cléfs physique serviront à ouvrir n'importe quelle porte en cliquant dessus, en oubliant son prix initial (voir pour ajouter le trader dans la zone de l'or)
         -   Pouvoir se téléporter dans le camps ennemis pendant un certain temps (~30s) ?
--   Ajouter du gravier + pelle / voir pour les plumes
+    - Upgrade starter inventory
+-   Ajouter du gravier + pelle / voir pour les plumes -> achats de fleche
 -   Voir pour ajouter des barrier\border pour la fin du jeu
 
 ### Idée

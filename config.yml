@@ -255,13 +255,19 @@ string:
     spec: "Spectators"
   navCompass: "§aNavigation"
   keyItem: "§9KEY"
-cooldown:
-  # CoolDown in seconds
-  default: 10
-  ironOre: 20
-  diamondOre: 45
-  lapisOre: 25
-  apple: 15
+setup:
+  cooldown:
+    # CoolDown in seconds
+    default: 10
+    ironOre: 20
+    diamondOre: 45
+    lapisOre: 25
+    apple: 15
+  mobSpawn:
+    # Base % to spawn each second
+    spawnChance: 1.0
+    # pts to add to increase the percentage of mob spawning
+    chanceMultiplier: 0.1
 options:
   autoSmelt: false
   uhc: true

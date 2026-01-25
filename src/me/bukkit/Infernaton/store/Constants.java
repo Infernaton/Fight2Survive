@@ -16,9 +16,6 @@ import java.util.*;
  */
 public class Constants {
 
-    public final static float mobSpawnChance = 1; // Base % to spawn each second
-    public final static float mobSpawnChanceMultiplier = 0.1f; // pts to add to upgrade the percentage of mob spawning
-
     public static String[] pnjName() {
         return new String[] {
                 // Team Blue
